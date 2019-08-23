@@ -1,32 +1,50 @@
 import React from 'react'
 import firebase from 'firebase/app'
+import { Form, Field } from 'react-final-form'
 import Layout from 'components/Layout'
 
 import styles from './styles.scss'
+import authContainer from '../../containers/authContainer';
+
+const LoginForm = ({ onSubmit }) => (
+  <Form
+    onSubmit={onSubmit}
+    render={({ handleSubmit }) => (
+      <form onSubmit={handleSubmit}>
+        <Field
+          name="email"
+          render={({ input, meta }) => (
+            <div>
+              <input type="email" {...input} />
+              {meta.touched && meta.error && <span>{meta.error}</span>}
+            </div>
+          )}
+        />
+
+        <Field
+          name="password"
+          render={({ input, meta }) => (
+            <div>
+              <input type="password" {...input} />
+              {meta.touched && meta.error && <span>{meta.error}</span>}
+            </div>
+          )}
+        />
+
+        <button type="submit">Submit</button>
+      </form>
+    )}
+  />
+)
 
 class PodSchedule extends React.Component {
   constructor(props) {
     super(props)
   }
 
-  onSubmit = (e) => {
-    e.preventDefault();
-    console.log('eyyy')
-
-    const email = 'christine@pingpod.nyc'
-    const password = 'password'
-
-    firebase.auth()
-    .signInWithEmailAndPassword(email, password)
-    .then((res) => {
-      console.log(res.user)
-    })
-    .catch((error) => {
-      // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      // ...
-    })
+  login = (data = {}) => {
+    const { email, password } = data
+    authContainer.login({ email, password })
   }
 
   render() {
@@ -34,11 +52,7 @@ class PodSchedule extends React.Component {
       <Layout className={styles.transactionFeed}>
         <h1>Login</h1>
 
-        <form onSubmit={this.onSubmit}>
-          <input type="email" />
-          <input type="password" />
-          <button>Log In</button>
-        </form>
+        <LoginForm onSubmit={this.login} />
       </Layout>
     )
   }

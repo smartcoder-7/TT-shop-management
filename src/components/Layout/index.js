@@ -14,7 +14,7 @@ const Layout = ({
     <div className={classnames(styles.layout, className)}>
       <header>
         <h1>
-          PINGPOD
+          <Link to="/">PINGPOD</Link>
         </h1>
 
         <h4>Logged in as: {authContainer.state.user.email}</h4>

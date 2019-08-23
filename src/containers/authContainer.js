@@ -38,7 +38,22 @@ class AuthContainer extends Container {
           user: {},
         })
       }
-    });
+    })
+  }
+
+  login = ({ email = "", password = ""}) => {
+    return firebase.auth()
+    .signInWithEmailAndPassword(email, password)
+    .then((res) => {
+      console.log(res.user)
+    })
+    .catch((error) => {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      console.log('LOGIN ERROR', error)
+      // ...
+    })
   }
 }
 
