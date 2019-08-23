@@ -1,0 +1,38 @@
+@import 'styles/_variables.scss';
+
+@mixin h3() {
+  font-size: 3rem;
+  text-transform: uppercase;
+  font-family: 'Roboto', sans-serif;
+  font-style: italic;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1em;
+}
+
+@mixin p2() {
+  font-size: 3rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+@mixin row() {
+  display: flex;
+  width: $content-width;
+  margin-left: auto;
+  margin-right: auto;
+
+  &.justify-end {
+    justify-content: flex-end;
+    text-align: right;
+  }
+}
+
+@mixin col($n) {
+  width: $n * $col-width;
+
+  &.align-center {
+    display: flex;
+    align-items: center;
+  }
+}

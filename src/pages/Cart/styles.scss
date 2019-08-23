@@ -1,5 +1,6 @@
-.transactionFeed {
-  background: black;
-  color: white;
+@import 'styles/_variables.scss';
+
+.cart {
+  background: $light-gray;
   min-height: 100vh;
 }

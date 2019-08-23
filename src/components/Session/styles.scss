@@ -1,0 +1,34 @@
+@import 'styles/_variables.scss';
+
+.session {
+  padding: 5rem;
+  background: $white;
+  margin-bottom: 1rem;
+  height: 12rem;
+  display: flex;
+  align-items: center;
+
+  &[data-available="false"] {
+    opacity: 0.3;
+    pointer-events: none;
+    cursor: not-allowed;
+  }
+
+  &[data-selected="true"] {
+    background: yellow;
+  }
+}
+
+.cartSession {
+  position: relative;
+
+  .remove {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    cursor: pointer;
+    padding: 2rem;
+  }
+}

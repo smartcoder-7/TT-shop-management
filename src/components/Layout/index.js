@@ -9,17 +9,25 @@ const Layout = ({
   className,
   children
 }) => {
-  console.log(authContainer.state.user)
   return (
     <div className={classnames(styles.layout, className)}>
       <header>
-        <h1>
-          <Link to="/">PINGPOD</Link>
-        </h1>
+        <ul>
+          <li data-link>
+            <Link to="/">PINGPOD</Link>
+          </li>
 
-        <h4>Logged in as: {authContainer.state.user.email}</h4>
+          <li data-link>
+            <Link to={`/login?redirect=${window.location}`}>Log In</Link>
+          </li>
 
-        <Link to="/login">Log In</Link>
+          <li data-link>
+            <button data-plain onClick={authContainer.logout}>Log Out</button>
+          </li>
+        </ul>
+        <h4>Logged in as: {authContainer.user.email}</h4>
+
+
       </header>
 
       <main className={styles.content}>

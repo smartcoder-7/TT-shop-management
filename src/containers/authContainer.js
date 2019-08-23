@@ -18,8 +18,17 @@ firebase.initializeApp(firebaseConfig)
 
 class AuthContainer extends Container {
   state = {
+    loading: true,
     userId: null,
     user: {}
+  }
+
+  get userId() {
+    return this.state.userId
+  }
+
+  get user() {
+    return this.state.user
   }
 
   constructor() {
@@ -31,11 +40,13 @@ class AuthContainer extends Container {
         this.setState({ 
           userId: user.uid,
           user,
+          loading: false,
         })
       } else {
         this.setState({ 
           userId: null,
           user: {},
+          loading: false,
         })
       }
     })
@@ -49,10 +60,31 @@ class AuthContainer extends Container {
     })
     .catch((error) => {
       // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
+      var errorCode = error.code
+      var errorMessage = error.message
       console.log('LOGIN ERROR', error)
+      throw error
       // ...
+    })
+  }
+
+  signupWithEmail = ({ email = "", password = ""}) => {
+    return firebase.auth()
+    .createUserWithEmailAndPassword(email, password)
+    .catch(function(error) {
+      // Handle Errors here.
+      var errorCode = error.code
+      var errorMessage = error.message
+      // ...
+      throw error
+    })
+  }
+
+  logout = () => {
+    return firebase.auth()
+    .signOut()
+    .then(() => {
+      console.log('logged out!')
     })
   }
 }

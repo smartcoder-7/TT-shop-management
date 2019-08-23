@@ -1,0 +1,110 @@
+@import 'styles/_variables.scss';
+@import 'styles/_mixins.scss';
+
+html {
+  font-size: $unit-portrait;
+
+  @media (min-width: 600px) {
+    font-size: $unit-portrait-lg;
+  }
+
+  @media (min-width: 1024px) {
+    font-size: $unit-landscape;
+  }
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 4rem;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+}
+
+h1 {
+  font-size: 7rem;
+}
+
+h2 {
+  font-size: 8rem;
+}
+
+h3 {
+  font-size: 7rem;
+}
+
+p {
+  font-size: 4rem;
+}
+
+[data-p2] {
+  @include p2();
+}
+
+input {
+  display: block;
+  padding: 10px 15px;
+  border: 1px solid black;
+  background: transparent;
+  color: inherit;
+  width: 100%;
+}
+
+button {
+  display: block;
+  padding: 10px 15px;
+  background: white;
+  color: black;
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  width: 100%;
+  font-size: inherit;
+
+  &[data-plain] {
+    width: auto;
+    padding: 0;
+  }
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+li {
+  padding: 0;
+  margin: 0;
+}
+
+[data-link] {
+  border: none;
+  padding: 0;
+  margin: 0;
+  width: auto;
+  height: auto;
+  border-bottom: 1px solid currentColor;
+}
+
+[data-row] {
+  @include row();
+}
+
+@for $n from 1 through 12 {
+  [data-col="#{$n}"] {
+    @include col($n);
+  }
+}

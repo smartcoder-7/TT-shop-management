@@ -6,6 +6,7 @@
 header {
   padding-top: 15px;
   padding-left: 15px;
+  margin-bottom: 5rem;
 
   h1 {
     font-size: 36px;
@@ -14,6 +15,14 @@ header {
     @media (min-width: 768px) {
       font-size: 62px;
     }
+  }
+
+  ul {
+    display: flex;
+  }
+
+  li {
+    margin-right: 10rem !important;
   }
 }
 

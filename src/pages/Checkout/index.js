@@ -14,9 +14,6 @@ class Checkout extends React.Component {
   }
 
   render() {
-    const { locations } = this.state
-    const locationIds = Object.keys(locations)
-
     return (
       <CartSubscriber>{() => (
         <Layout className={styles.transactionFeed}>

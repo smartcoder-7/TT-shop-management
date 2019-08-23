@@ -12,6 +12,18 @@ class Sessions extends React.Component {
   }
 
   componentDidMount() {
+    this.setSessions()
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.date === prevProps.date) {
+      return
+    }
+
+    this.setSessions()
+  }
+
+  setSessions = () => {
     const { date, locationId } = this.props
 
     return db.collection('pods')

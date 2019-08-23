@@ -9,7 +9,7 @@ const CART_KEY = `${ROOT_KEY}/cart`
 class CartContainer extends Container {
   state = {
     items: {},
-    watchedPods: []
+    watchedPods: [],
   }
 
   get items() {
@@ -18,6 +18,20 @@ class CartContainer extends Container {
 
   get locationIds() {
     return Object.keys(this.items || {})
+  }
+
+  get sessionIds() {
+    const dates = this.getDates()
+    const sessionIds = []
+
+    dates.forEach(({ locationId, date, times }) => {
+      times.forEach(time => {
+        const sessionId = `${locationId}-${date}-${time}`
+        sessionIds.push(sessionId)
+      })
+    })
+
+    return sessionIds
   }
 
   constructor() {
@@ -54,6 +68,23 @@ class CartContainer extends Container {
     return dates
   }
 
+  getItemIds = () => {
+    const dates = this.getDates()
+    const ids = []
+    dates.forEach(({ times, locationId, date }) => {
+      times.forEach(time => {
+        ids.push(`${locationId}-${date}-${time}`)
+      })
+    })
+
+    return ids
+  }
+
+  isInCart = (sessionId) => {
+    const ids = this.getItemIds()
+    return ids.indexOf(sessionId) > -1
+  }
+
   addItem = (item) => {
     const {
       locationId,
@@ -75,6 +106,32 @@ class CartContainer extends Container {
 
     items[locationId][date].push(time)
 
+    localStorage.setItem(CART_KEY, JSON.stringify(items))
+    this.setState({ items })
+  }
+
+  removeItem = (item) => {
+    const {
+      locationId,
+      year,
+      month,
+      day,
+      time
+    } = parseSession(item)
+
+    const date = `${year}-${month}-${day}`
+
+    const items = { ...this.state.items }
+    items[locationId] = items[locationId] || {}
+    items[locationId][date] = items[locationId][date] || []
+
+    const index = items[locationId][date].indexOf(time)
+    
+    if (index < 0) {
+      return
+    }
+
+    items[locationId][date].splice(index, 1)
     localStorage.setItem(CART_KEY, JSON.stringify(items))
     this.setState({ items })
   }
