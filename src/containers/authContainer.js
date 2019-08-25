@@ -16,6 +16,8 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig)
 
+const db = firebase.firestore()
+
 class AuthContainer extends Container {
   state = {
     loading: true,
@@ -37,18 +39,39 @@ class AuthContainer extends Container {
     firebase.auth()
     .onAuthStateChanged(user => {
       if (user) {
-        this.setState({ 
-          userId: user.uid,
-          user,
-          loading: false,
+        const userRef = db.collection('users').doc(user.uid)
+
+        userRef.get()
+        .then(doc => {
+          if (!doc.exists) {
+            userRef.set({ 
+              email: user.email,
+              uid: user.uid,
+            })
+
+            return
+          }
+
+          const userData = doc.data()
+
+          this.setState({ 
+            userId: user.uid,
+            user: userData,
+            loading: false,
+          })
         })
-      } else {
-        this.setState({ 
-          userId: null,
-          user: {},
-          loading: false,
+        .catch(err => {
+          console.log('Unable to complete login.', err)
         })
-      }
+
+        return
+      } 
+
+      this.setState({ 
+        userId: null,
+        user: {},
+        loading: false,
+      })
     })
   }
 

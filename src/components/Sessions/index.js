@@ -23,12 +23,25 @@ class Sessions extends React.Component {
     this.setSessions()
   }
 
+  componentWillUnmount() {
+    this.isUnmounted = true
+  }
+
   setSessions = () => {
     const { date, locationId } = this.props
 
     return db.collection('pods')
     .doc(locationId || DEFAULT_POD_ID)
     .onSnapshot(doc => {
+      if (!doc.exists) {
+        console.log('Location does not exist at id:', locationId)
+        return
+      }
+
+      if (this.isUnmounted) {
+        return
+      }
+      
       const sessions = getSessions(doc, date, locationId)
       this.setState({ sessions })
     })

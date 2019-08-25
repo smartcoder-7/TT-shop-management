@@ -5,7 +5,11 @@ import { parseSession } from 'util/getPodSessions'
 
 const db = firebase.firestore()
 
-const makeReservations = ({ sessionIds = [], userId, onUnavailable = () => {} }) => {
+const makeReservations = ({ 
+  sessionIds = [], 
+  userId, 
+  onUnavailable = () => {} 
+}) => {
   const batch = db.batch()
 
   const promises = sessionIds.map(sessionId => {
@@ -17,17 +21,32 @@ const makeReservations = ({ sessionIds = [], userId, onUnavailable = () => {} })
   
     const reservationId = uuid()
 
-    const ref = db.collection('pods').doc(locationId)
+    const locationRef = db.collection('pods').doc(locationId)
+    const userRef = db.collection('users').doc(userId)
+    const reservationRef = db.collection('reservations').doc(reservationId)
 
-    return ref
-    .get()
-    .then(doc => {
-      if (!doc.exists) {
-        onUnavailable(sessionId)
-        throw "Hmm, some of your reservations have invalid locations."
+    const getLocationAndUser = () => Promise.all([
+      locationRef.get(),
+      userRef.get(),
+    ]).then(([ locationDoc, userDoc ]) => {
+      if (!locationDoc.exists) {
+        throw `Invalid location id: [${locationId}]`
       }
 
-      const { reservations, numTables, timezone } = doc.data()
+      if (!userDoc.exists) {
+        throw `Invalid user id: [${userId}]`
+      }
+
+      return { 
+        location: locationDoc.data(),
+        user: userDoc.data(),
+      }
+    })
+
+    return getLocationAndUser()
+    .then(({ location, user })=> {
+      const { reservations, numTables, timezone } = location
+      console.log(reservations)
       const reservationTimes = reservations[date] || {}
       const reservationsPerTime = reservationTimes[time] || {}
 
@@ -43,19 +62,35 @@ const makeReservations = ({ sessionIds = [], userId, onUnavailable = () => {} })
         throw "Darn! Looks like some of your selections got booked up. Try again?"
       }
 
-      const key = `reservations.${date}.${time}.${reservationId}`
+      // Create reservation object
+      batch.set(reservationRef, {
+        userId,
+        time,
+        date,
+        locationId,
+      })
 
-      batch.update(ref, {
-        [key]: {
-          userId
-        }
+      // Add reservation id to a location
+      const locationKey = `reservations.${date}.${time}`
+      batch.update(locationRef, {
+        [locationKey]: firebase.firestore.FieldValue.arrayUnion(reservationRef)
+      })
+
+      // Add reservation id to a user
+      const userKey = `reservations.${date}.${time}`
+      batch.update(userRef, {
+        [userKey]: firebase.firestore.FieldValue.arrayUnion(reservationRef)
       })
     })
   })
   
-  return Promise.all(promises)
-  .then(() => {
-    batch.commit()
+  return new Promise((resolve, reject) => {
+    Promise.all(promises)
+    .then(() => {
+      batch.commit()
+      .then(resolve)
+      .catch(reject)
+    })
   })
 }
 

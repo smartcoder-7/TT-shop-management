@@ -1,12 +1,21 @@
 const with0 = n => n < 10 ? `0${n}` : `${n}`
 
-const getAllTimes = () => {
-  const times = []
+const getAllTimes = (date) => {
+  date.setHours(0)
+  date.setMinutes(0)
 
-  for (let i = 0; i < 24; i++) {
-    const hour = with0(i)
-    times.push(`${hour}:00`)
-    times.push(`${hour}:30`)
+  const times = []
+  const INTERVAL_MS = 1000 * 60 * 30
+  const beginningOfDay = date.getTime()
+
+  date.setDate(date.getDate() + 1) 
+  const endOfDay = date.getTime()
+
+  let lastTime = beginningOfDay
+
+  while (lastTime < endOfDay) {
+    times.push(lastTime)
+    lastTime += INTERVAL_MS
   }
 
   return times
@@ -24,24 +33,21 @@ export const getSessions = (doc, date, locationId) => {
   
   const dateObj = new Date(`${date} 00:00 ${timezone}`)
   const dateId = formatDate(dateObj)
-  const allTimes = getAllTimes()
+  const allTimes = getAllTimes(dateObj)
   const reservationsOnDate = reservations[dateId] || {}
 
   return allTimes
   .map(time => {
     const now = new Date()
-    const exactTime = new Date(`${date} ${time} ${timezone}`)
-
-    const reservationsAtTime = reservationsOnDate[time] || {}
-    const bookedTables = Object.keys(reservationsAtTime) || []
+    const reservationsAtTime = reservationsOnDate[time] || []
 
     const isAvailable = (
-      exactTime.getTime() > now.getTime() &&
-      bookedTables.length < numTables
+      time > now.getTime() &&
+      reservationsAtTime.length < numTables
     )
 
     return { 
-      id: `${locationId}-${dateId}-${time}`,
+      id: `${locationId}-${time}`,
       time,
       isAvailable,
     }
@@ -50,18 +56,13 @@ export const getSessions = (doc, date, locationId) => {
 
 export const parseSession = (str = '') => {
   const parts = str.split('-')
-  const year = parts[1]
-  const month = parts[2]
-  const day = parts[3]
+  const time = parts[1]
 
-  const date = `${year}-${month}-${day}`
+  const date = new Date(parseInt(time))
 
   return {
     locationId: parts[0],
-    year,
-    month,
-    day,
-    date,
-    time: parts[4]
+    date: formatDate(date),
+    time,
   }
 }

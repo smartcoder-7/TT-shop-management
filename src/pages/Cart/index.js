@@ -27,7 +27,7 @@ class Cart extends React.Component {
 
   checkout = () => {
     const { userId } = authContainer.state
-    const { sessionIds } = cartContainer
+    const sessionIds = cartContainer.items
 
     if (!sessionIds || !sessionIds.length) {
       this.setState({
@@ -75,6 +75,7 @@ class Cart extends React.Component {
             <div data-col="12">
               {locationIds.map(id => {
                 const dates = cartContainer.getDates()
+                console.log(dates)
 
                 return dates.map(date => (
                   <Sessions 
@@ -83,7 +84,7 @@ class Cart extends React.Component {
                     locationId={id}
                   >{(sessions) => {
                     return sessions
-                    .filter(({ time }) => date.times.indexOf(time) > -1)
+                    .filter(({ id }) => date.sessions.indexOf(id) > -1)
                     .map(({ id, isAvailable }) => (
                       <CartSession 
                         id={id}
