@@ -70,7 +70,7 @@ class AuthContainer extends Container {
 
     firebase.auth()
     .onAuthStateChanged(user => {
-      const newAuth = user.uid !== this.userId
+      const lastUid = this.userId
 
       if (user) {
         this.setState({ 
@@ -78,7 +78,7 @@ class AuthContainer extends Container {
           user: user,
           loading: false,
         }).then(() => {
-          if (newAuth) {
+          if (user.uid !== lastUid) {
             this.watchUser()
           }
         })

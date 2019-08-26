@@ -4,6 +4,7 @@ import Layout from 'components/Layout'
 
 import styles from './styles.scss'
 import authContainer, { AuthSubscriber } from '../../containers/authContainer'
+import { AccountSession } from '../../components/Session';
 
 
 const Reservation = ({ docRef }) => {
@@ -17,9 +18,9 @@ const Reservation = ({ docRef }) => {
 
   const { date, time, locationId } = doc.data()
   return (
-    <div>
-      {date} {time}
-    </div>
+    <AccountSession
+      id={`${locationId}-${time}`}
+    />
   )
 }
 

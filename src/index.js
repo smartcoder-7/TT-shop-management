@@ -21,7 +21,7 @@ const AuthenticatedRoute = ({ component: Component, path, ...rest }) => (
         return null
       }
 
-      if (authContainer.userId) {
+      if (authContainer.userId && authContainer.user) {
         return <Component {...props} />
       }
 
