@@ -49,6 +49,7 @@ class Cart extends React.Component {
     makeReservations({ sessionIds, userId, onUnavailable })
     .then(() => {
       console.log('SUCCESS!')
+      cartContainer.empty()
       // TODO: Replace with Checkout payment flow.
       window.location = '/account'
     })

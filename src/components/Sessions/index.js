@@ -28,7 +28,7 @@ class Sessions extends React.Component {
   }
 
   setSessions = () => {
-    const { date, locationId } = this.props
+    const { date, locationId, onFirstLoad } = this.props
 
     return db.collection('pods')
     .doc(locationId || DEFAULT_POD_ID)
@@ -44,6 +44,11 @@ class Sessions extends React.Component {
       
       const sessions = getSessions(doc, date, locationId)
       this.setState({ sessions })
+
+
+      if (!this.isLoaded && onFirstLoad) onFirstLoad()
+
+      this.isLoaded = true
     })
   }
 

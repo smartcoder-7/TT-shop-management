@@ -33,39 +33,61 @@ class AuthContainer extends Container {
     return this.state.user
   }
 
+  watchUser() {
+    if (this.unwatchUser) {
+      this.unwatchUser()
+    }
+
+    if (!this.userId) {
+      return
+    }
+
+    const userRef = db.collection('users').doc(this.userId)
+
+    this.unwatchUser = userRef
+    .onSnapshot(doc => {
+      if (!doc.exists) {
+        userRef.set({ 
+          email: this.user.email,
+          uid: this.user.uid,
+        })
+
+        return
+      }
+
+      const userData = doc.data()
+
+      this.setState({ 
+        userId: this.user.uid,
+        user: userData,
+        loading: false,
+      })
+    })
+  }
+
   constructor() {
     super()
 
     firebase.auth()
     .onAuthStateChanged(user => {
+      const newAuth = user.uid !== this.userId
+
       if (user) {
-        const userRef = db.collection('users').doc(user.uid)
-
-        userRef.get()
-        .then(doc => {
-          if (!doc.exists) {
-            userRef.set({ 
-              email: user.email,
-              uid: user.uid,
-            })
-
-            return
+        this.setState({ 
+          userId: user.uid,
+          user: user,
+          loading: false,
+        }).then(() => {
+          if (newAuth) {
+            this.watchUser()
           }
-
-          const userData = doc.data()
-
-          this.setState({ 
-            userId: user.uid,
-            user: userData,
-            loading: false,
-          })
         })
-        .catch(err => {
-          console.log('Unable to complete login.', err)
-        })
-
         return
       } 
+
+      if (this.unwatchUser) {
+        this.unwatchUser()
+      }
 
       this.setState({ 
         userId: null,
@@ -82,9 +104,6 @@ class AuthContainer extends Container {
       console.log(res.user)
     })
     .catch((error) => {
-      // Handle Errors here.
-      var errorCode = error.code
-      var errorMessage = error.message
       console.log('LOGIN ERROR', error)
       throw error
       // ...
@@ -95,10 +114,7 @@ class AuthContainer extends Container {
     return firebase.auth()
     .createUserWithEmailAndPassword(email, password)
     .catch(function(error) {
-      // Handle Errors here.
-      var errorCode = error.code
-      var errorMessage = error.message
-      // ...
+      console.log('SIGNUP ERROR', error)
       throw error
     })
   }

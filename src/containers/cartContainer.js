@@ -9,7 +9,6 @@ const CART_KEY = `${ROOT_KEY}/cart`
 class CartContainer extends Container {
   state = {
     items: [],
-    watchedPods: [],
   }
 
   get items() {
@@ -47,6 +46,11 @@ class CartContainer extends Container {
     }
 
     this.state.items = storedItems
+  }
+
+  empty = () => {
+    this.setState({ items: [] })
+    localStorage.setItem(CART_KEY, '')
   }
 
   getDates = () => {

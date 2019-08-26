@@ -1,3 +1,5 @@
+const INTERVAL_MS = 1000 * 60 * 30
+
 const with0 = n => n < 10 ? `0${n}` : `${n}`
 
 const getAllTimes = (date) => {
@@ -5,7 +7,6 @@ const getAllTimes = (date) => {
   date.setMinutes(0)
 
   const times = []
-  const INTERVAL_MS = 1000 * 60 * 30
   const beginningOfDay = date.getTime()
 
   date.setDate(date.getDate() + 1) 
@@ -56,13 +57,14 @@ export const getSessions = (doc, date, locationId) => {
 
 export const parseSession = (str = '') => {
   const parts = str.split('-')
-  const time = parts[1]
+  const time = parseInt(parts[1])
 
-  const date = new Date(parseInt(time))
+  const date = new Date(time)
 
   return {
     locationId: parts[0],
     date: formatDate(date),
     time,
+    timeEnd: time + INTERVAL_MS
   }
 }

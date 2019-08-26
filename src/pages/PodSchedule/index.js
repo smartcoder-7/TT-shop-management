@@ -38,11 +38,21 @@ const MONTHS = [
 class PodSchedule extends React.Component {
   state = {
     date: new Date(),
-    sessions: []
+    sessions: [],
   }
+
+  sessionsRef = React.createRef()
+  scrollToRef = React.createRef()
 
   constructor(props) {
     super(props)
+  }
+
+  scrollToSession = () => {
+    const sessionsEl = this.sessionsRef.current
+    const scrollToEl = this.scrollToRef.current
+
+    sessionsEl.scrollTop = scrollToEl.offsetTop
   }
 
   prevDay = () => {
@@ -67,7 +77,13 @@ class PodSchedule extends React.Component {
     const dayOfTheWeek = DAYS_OF_THE_WEEK[date.getDay()]
     const month = MONTHS[date.getMonth()]
     const day = date.getDate()
-    
+
+    const dateToScroll = new Date(date)
+    dateToScroll.setMinutes(0)
+    dateToScroll.setSeconds(0)
+    dateToScroll.setMilliseconds(0)
+    const timeToScroll = dateToScroll.getTime()
+
     return (
       <Layout className={styles.podSchedule}>
         <div data-row>
@@ -79,10 +95,14 @@ class PodSchedule extends React.Component {
           <div data-col="3" onClick={this.nextDay}>NEXT</div>
         </div>
 
-        <div className={styles.sessions} data-row>
+        <div className={styles.sessions} data-row ref={this.sessionsRef}>
           <CartSubscriber>{() => (
-            <Sessions date={formatDate(date)} locationId={locationId}>{(sessions) => (
-              sessions.map(({ id, isAvailable }) => {
+            <Sessions 
+              date={formatDate(date)} 
+              locationId={locationId}
+              onFirstLoad={this.scrollToSession}
+            >{(sessions) => (
+              sessions.map(({ id, time, isAvailable }) => {
                 const isSelected = cartContainer.isInCart(id)
 
                 const toggleSelect = () => {
@@ -90,14 +110,18 @@ class PodSchedule extends React.Component {
                   else cartContainer.addItem(id)
                 }
 
+                const scrollToRef = timeToScroll === time ? this.scrollToRef : null
+
                 return (
-                  <ScheduleSession
-                    id={id}
-                    isAvailable={isAvailable}
-                    isSelected={isSelected}
-                    key={id} 
-                    onClick={toggleSelect}
-                  />
+                  <div key={id} ref={scrollToRef}>
+                    <ScheduleSession
+                      id={id}
+                      isAvailable={isAvailable}
+                      isSelected={isSelected}
+                      key={id} 
+                      onClick={toggleSelect}
+                    />
+                  </div>
                 )
               })
             )}</Sessions>

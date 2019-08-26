@@ -13,16 +13,20 @@ const Layout = ({
     <div className={classnames(styles.layout, className)}>
       <header>
         <ul>
-          <li data-link>
-            <Link to="/">PINGPOD</Link>
+          <li>
+            <Link to="/" data-link>PINGPOD</Link>
           </li>
 
-          <li data-link>
-            <Link to={`/login?redirect=${window.location}`}>Log In</Link>
+          <li>
+            <Link to={`/login?redirect=${window.location}`} data-link>Log In</Link>
           </li>
 
-          <li data-link>
-            <button data-plain onClick={authContainer.logout}>Log Out</button>
+          <li>
+            <Link to={'/account'} data-link>Account</Link>
+          </li>
+
+          <li>
+            <button onClick={authContainer.logout} data-link>Log Out</button>
           </li>
         </ul>
         <h4>Logged in as: {authContainer.user.email}</h4>
