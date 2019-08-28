@@ -9,7 +9,7 @@ import PhoneField from 'components/fields/PhoneField'
 const functions = firebase.functions()
 const requestAccessCode = functions.httpsCallable('requestAccessCode')
 
-functions.useFunctionsEmulator('http://localhost:5000') 
+// functions.useFunctionsEmulator('http://localhost:5000') 
 
 
 const RequestAccess = ({ id }) => {
