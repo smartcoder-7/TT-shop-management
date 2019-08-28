@@ -30,10 +30,12 @@ const makeReservations = ({
       userRef.get(),
     ]).then(([ locationDoc, userDoc ]) => {
       if (!locationDoc.exists) {
+        onUnavailable(sessionId)
         throw `Invalid location id: [${locationId}]`
       }
 
       if (!userDoc.exists) {
+        onUnavailable(sessionId)
         throw `Invalid user id: [${userId}]`
       }
 

@@ -89,7 +89,7 @@ class PodSchedule extends React.Component {
         <div data-row>
           <div data-col="3" onClick={this.prevDay}>PREV</div>
           <div data-col="6" className={styles.today}>
-            <p data-p2>{dayOfTheWeek}</p>
+            <p data-label>{dayOfTheWeek}</p>
             <h1>{month} {day}</h1>
           </div>
           <div data-col="3" onClick={this.nextDay}>NEXT</div>

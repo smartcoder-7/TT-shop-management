@@ -21,6 +21,10 @@ class Cart extends React.Component {
     super(props)
   }
 
+  componentDidMount() {
+    // TODO: Validate cart items.
+  }
+
   componentWillUnmount() {
     this.isUnmounted = true
   }

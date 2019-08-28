@@ -13,12 +13,14 @@
   height: 70rem;
   overflow: scroll;
   flex-direction: column;
+  position: relative;
+  margin-top: 2rem;
 }
 
 .checkout {
   margin-top: 1rem;
 
   button {
-    height: 10rem;
+    height: 12rem;
   }
 }

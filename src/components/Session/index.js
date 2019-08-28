@@ -34,8 +34,8 @@ export const ScheduleSession = ({
       onClick={onClick}
     >
       <div>
+        {!isAvailable && <div data-label>UNAVAILABLE</div>} 
         {formatTime(time)} - {formatTime(timeEnd)}
-        {!isAvailable && <h4>UNAVAILABLE</h4>} 
       </div>
     </div>
   )
@@ -56,8 +56,8 @@ export const CartSession = ({
       className={classNames(styles.session, styles.cartSession)} 
     >
       <div>
+        {!isAvailable && <div data-label>UNAVAILABLE</div>} 
         {formatTime(time)} - {formatTime(timeEnd)}
-        {!isAvailable && <h4>UNAVAILABLE</h4>} 
       </div>
       
       <div className={styles.remove} onClick={onXClick}>X</div>
@@ -69,13 +69,14 @@ export const AccountSession = ({
   id, 
   isAvailable,
 }) => {
-  const { time, timeEnd } = parseSession(id)
+  const { time, timeEnd, locationId } = parseSession(id)
 
   return (
     <div 
       className={classNames(styles.session, styles.accountSession)} 
     >
       <div>
+        <p>Location: {locationId}</p>
         {formatTime(time)} - {formatTime(timeEnd)}
       </div>
     </div>

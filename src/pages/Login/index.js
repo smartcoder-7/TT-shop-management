@@ -88,7 +88,7 @@ class Login extends React.Component {
 
           <LoginForm onSubmit={this.login} />
 
-          <p data-p2>First time visitor?</p>
+          <p data-label>First time visitor?</p>
           <button onClick={() => this.setState({ newUser: true })} data-link>
             Create a new account
           </button>
@@ -105,7 +105,7 @@ class Login extends React.Component {
 
           <SignupForm onSubmit={this.signup} />
 
-          <p data-p2>Already have an account?</p>
+          <p data-label>Already have an account?</p>
           <button onClick={() => this.setState({ newUser: false })} data-link>
             Log In
           </button>

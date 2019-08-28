@@ -4,40 +4,31 @@ import Layout from 'components/Layout'
 
 import styles from './styles.scss'
 import authContainer, { AuthSubscriber } from '../../containers/authContainer'
-import { AccountSession } from '../../components/Session';
-
-
-const Reservation = ({ docRef }) => {
-  const [doc, setDoc] = useState()
-
-  useEffect(() => {
-    docRef.get().then(setDoc)
-  }, [])
-
-  if (!doc || !doc.exists) return null
-
-  const { date, time, locationId } = doc.data()
-  return (
-    <AccountSession
-      id={`${locationId}-${time}`}
-    />
-  )
-}
+import Reservation from 'components/Reservation'
 
 const UserReservations = () => {
   const reservations = authContainer.user.reservations || {}
   const reservationDates = Object.keys(reservations)
 
-  return reservationDates.map(date => {
-    const times = Object.keys(reservations[date] || {})
-    return times.map(time => {
-      const tables = reservations[date][time]
+  return (
+    <div className="user-reservations">
+      {reservationDates.map(date => {
+        const times = Object.keys(reservations[date] || {})
+        return (
+          <div key={date}>
+            <div>Date: {date}</div>
+            {times.map(time => {
+              const tables = reservations[date][time]
 
-      return tables.map(tableRef => {
-        return <Reservation key={tableRef.id} docRef={tableRef} />
-      })
-    })
-  })
+              return tables.map(tableRef => {
+                return <Reservation key={tableRef.id} docRef={tableRef} />
+              })
+            })}
+          </div>
+        )
+      })}
+    </div>
+  )
 }
 
 
@@ -56,7 +47,11 @@ class Account extends React.Component {
 
               <div>
                 <h2>My Reservations</h2>
-                <UserReservations />
+                <div data-row>
+                  <div data-col="12">
+                    <UserReservations />
+                  </div>
+                </div>
               </div>
 
               <Link to="/reserve/0">
