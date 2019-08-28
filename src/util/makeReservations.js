@@ -79,7 +79,7 @@ const makeReservations = ({
       })
 
       // Add reservation id to a user
-      const userKey = `reservations.${date}.${time}`
+      const userKey = `reservations.${locationId}.${date}.${time}`
       batch.update(userRef, {
         [userKey]: firebase.firestore.FieldValue.arrayUnion(reservationRef)
       })

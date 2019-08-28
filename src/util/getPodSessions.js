@@ -1,6 +1,18 @@
-const INTERVAL_MS = 1000 * 60 * 30
+export const INTERVAL_MS = 1000 * 60 * 30
 
 const with0 = n => n < 10 ? `0${n}` : `${n}`
+
+// TODO: Deal with timezones!!
+export const formatTime = (time) => {
+  const date = new Date(time)
+  const hour = date.getHours()
+  const minutes = date.getMinutes()
+
+  let hour12 = hour % 12
+  hour12 = hour12 === 0 ? 12 : hour12
+  const ampm = hour < 12 ? 'AM' : 'PM'
+  return `${with0(hour12)}:${with0(minutes)} ${ampm}`
+}
 
 const getAllTimes = (date) => {
   date.setHours(0)
@@ -60,11 +72,14 @@ export const parseSession = (str = '') => {
   const time = parseInt(parts[1])
 
   const date = new Date(time)
+  const timeEnd = time + INTERVAL_MS
 
   return {
     locationId: parts[0],
     date: formatDate(date),
     time,
-    timeEnd: time + INTERVAL_MS
+    timeEnd,
+    timeFormatted: formatTime(time),
+    timeEndFormatted: formatTime(timeEnd),
   }
 }
