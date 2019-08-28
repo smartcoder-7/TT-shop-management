@@ -5,35 +5,10 @@ import cartContainer from 'containers/cartContainer'
 import Layout from 'components/Layout'
 import Sessions from 'components/Sessions'
 import { ScheduleSession } from 'components/Session'
-import { formatDate } from 'util/getPodSessions'
+import { formatDate, getDateParts } from 'util/getPodSessions'
 
 import styles from './styles.scss'
 import { CartSubscriber } from '../../containers/cartContainer';
-
-const DAYS_OF_THE_WEEK = [
-  'Sunday',
-  'Monday',
-  'Tuesday',
-  'Wednesday',
-  'Thursday',
-  'Friday',
-  'Saturday'
-]
-
-const MONTHS = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December'
-]
 
 class PodSchedule extends React.Component {
   state = {
@@ -74,9 +49,11 @@ class PodSchedule extends React.Component {
     const { params } = this.props.match
     const locationId = params.locationId
 
-    const dayOfTheWeek = DAYS_OF_THE_WEEK[date.getDay()]
-    const month = MONTHS[date.getMonth()]
-    const day = date.getDate()
+    const {
+      dayOfTheWeek,
+      month,
+      day
+    } = getDateParts(date)
 
     const dateToScroll = new Date(date)
     dateToScroll.setMinutes(0)

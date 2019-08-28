@@ -48,6 +48,8 @@ export const ReservationRange = ({ start, end, tables }) => {
   return (
     <>
       <div className={styles.reservation} onClick={() => setShowModal(true)}>
+        <button data-link>Get Access Code</button>
+        <br />
         <p>{formatTime(start)} - {formatTime(end)}</p>
 
         <div className={styles.tableDetails}>

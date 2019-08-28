@@ -5,7 +5,7 @@ import Layout from 'components/Layout'
 import styles from './styles.scss'
 import authContainer, { AuthSubscriber } from '../../containers/authContainer'
 import { ReservationRange } from 'components/Reservation'
-import { INTERVAL_MS } from 'util/getPodSessions'
+import { INTERVAL_MS, getDateParts } from 'util/getPodSessions'
 
 const ReservationsPerDate = ({ date, times, locationId, reservations }) => {
   const ranges = []
@@ -29,11 +29,20 @@ const ReservationsPerDate = ({ date, times, locationId, reservations }) => {
     })
   })
 
-  console.log(ranges)
+  const {
+    dayOfTheWeek,
+    month,
+    day,
+    year
+  } = getDateParts(new Date(date))
   
   return (
-    <div key={date}>
-      <div>Date: {date}</div>
+    <div className={styles.reservationDate} key={date}>
+
+      <p className={styles.date} data-label>
+        {dayOfTheWeek}, {month} {day}, {year}
+      </p>
+
       {ranges.map(({ start, end, times }) => {
         const allReservations = times.map(time => {
           return {
@@ -65,7 +74,10 @@ const UserReservations = () => {
         const location = reservations[locationId] || {}
         const reservationDates = Object.keys(location)
 
-        return reservationDates.map(date => {
+        return reservationDates
+        .sort()
+        .reverse()
+        .map(date => {
           const times = Object.keys(location[date] || {})
 
           return (
@@ -98,6 +110,7 @@ class Account extends React.Component {
 
               <div>
                 <h2>My Reservations</h2>
+                <br />
                 <div data-row>
                   <div data-col="12">
                     <UserReservations />
