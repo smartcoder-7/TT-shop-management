@@ -2,6 +2,8 @@ import firebase from 'firebase/app'
 import uuid from 'uuid'
 
 import { parseSession } from 'util/getPodSessions'
+import { generateNumericCode } from './generateCode'
+import { getAccessCode, getPod, getUser } from 'util/db'
 
 const db = firebase.firestore()
 
@@ -24,33 +26,33 @@ const makeReservations = ({
     const locationRef = db.collection('pods').doc(locationId)
     const userRef = db.collection('users').doc(userId)
     const reservationRef = db.collection('reservations').doc(reservationId)
+    const accessCodeRef = db.collection('accessCodes').doc(sessionId)
 
-    const getLocationAndUser = () => Promise.all([
-      locationRef.get(),
-      userRef.get(),
-    ]).then(([ locationDoc, userDoc ]) => {
-      if (!locationDoc.exists) {
+    return Promise.all([
+      getPod(locationId),
+      getUser(userId),
+      getAccessCode(sessionId)
+    ])
+    .catch(err => {
+      onUnavailable(sessionId)
+      throw err
+    })
+    .then(([ location, user, accessCode ])=> {
+      if (!location) {
         onUnavailable(sessionId)
-        throw `Invalid location id: [${locationId}]`
+        throw `Invalid pod id: [${locationId}]`
       }
 
-      if (!userDoc.exists) {
+      if (!user) {
         onUnavailable(sessionId)
         throw `Invalid user id: [${userId}]`
       }
 
-      return { 
-        location: locationDoc.data(),
-        user: userDoc.data(),
-      }
-    })
-
-    return getLocationAndUser()
-    .then(({ location, user })=> {
-      const { reservations, numTables, timezone } = location
-      console.log(reservations)
-      const reservationTimes = reservations[date] || {}
-      const reservationsPerTime = reservationTimes[time] || {}
+      const { numTables, timezone } = location
+      const reservations = location.reservations || {}
+      const accessCodes = location.accessCodes || {}
+      const reservationsAtDate = reservations[date] || {}
+      const reservationsAtTime = reservationsAtDate[time] || {}
 
       const now = new Date()
       const sessionTime = new Date(`${date} ${time} ${timezone}`)
@@ -59,7 +61,7 @@ const makeReservations = ({
         throw "Looks like some of your selections are out of date. Try again?"
       }
 
-      if (Object.keys(reservationsPerTime).length >= numTables) {
+      if (Object.keys(reservationsAtTime).length >= numTables) {
         onUnavailable(sessionId)
         throw "Darn! Looks like some of your selections got booked up. Try again?"
       }
@@ -72,10 +74,16 @@ const makeReservations = ({
         locationId,
       })
 
+      // If this is the first reservation for this time, generate an access key.
+      const newAccessCode = accessCode || { code: generateNumericCode(6), users: [] }
+      newAccessCode.users.push(userId)
+      batch.set(accessCodeRef, newAccessCode)
+
       // Add reservation id to a location
-      const locationKey = `reservations.${date}.${time}`
+      const reservationKey = `reservations.${date}.${time}`
+
       batch.update(locationRef, {
-        [locationKey]: firebase.firestore.FieldValue.arrayUnion(reservationRef)
+        [reservationKey]: firebase.firestore.FieldValue.arrayUnion(reservationRef)
       })
 
       // Add reservation id to a user

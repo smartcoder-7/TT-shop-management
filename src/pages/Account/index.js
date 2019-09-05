@@ -104,12 +104,30 @@ class Account extends React.Component {
     return (
       <Layout className={styles.account}>
         <AuthSubscriber>{() => {
+          const { user } = authContainer
+
           return (
             <>
               <h1>Account</h1>
+              
+              <div className={styles.info}>
+                <div className={styles.infoItem}>
+                  <label>First Name</label>
+                  <p>{user.firstName || 'Ping'}</p>
+                </div>
+                <div className={styles.infoItem}>
+                  <label>Last Name</label>
+                  <p>{user.lastName || 'Ponger'}</p>
+                </div>
+
+                <div className={styles.infoItem}>
+                  <label>Email</label>
+                  <p>{user.email}</p>
+                </div>
+              </div>
 
               <div>
-                <h2>My Reservations</h2>
+                <h1>Reservations</h1>
                 <br />
                 <div data-row>
                   <div data-col="12">

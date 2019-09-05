@@ -5,8 +5,8 @@ import styles from './styles.scss'
 const Modal = ({ children, isActive, onClose = () => {} }) => {
   return (
     <>
-      <div className={styles.modal} data-active={isActive}>
-        <div className={styles.modalContent} data-row>
+      <div className={styles.modal} data-active={isActive} onClick={onClose}>
+        <div className={styles.modalContent} data-row onClick={(e) => e.stopPropagation()}>
           <div data-col="1" />
           <div data-col="12">
             {children}

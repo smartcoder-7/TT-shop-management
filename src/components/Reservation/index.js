@@ -5,6 +5,7 @@ import { AccountSession } from 'components/Session'
 import Modal from 'components/Modal'
 import RequestAccess from './RequestAccess'
 import { formatTime } from 'util/getPodSessions'
+import { getAccessCode, getPod, getUser } from 'util/db'
 
 const Reservation = ({ docRef }) => {
   const [doc, setDoc] = useState()
@@ -35,7 +36,9 @@ const Reservation = ({ docRef }) => {
 export const ReservationRange = ({ start, end, tables }) => {
   const docRef = tables[0].reservations[0]
   const [doc, setDoc] = useState()
+  const [error, setError] = useState()
   const [showModal, setShowModal] = useState(false)
+  const [accessCode, setAccessCode] = useState()
 
   useEffect(() => {
     docRef.get().then(setDoc)
@@ -45,9 +48,29 @@ export const ReservationRange = ({ start, end, tables }) => {
 
   const { date, time, locationId } = doc.data()
 
+  const requestAccess = () => {
+    const sessionId = `${locationId}-${time}`
+    return getAccessCode(sessionId)
+    .then((access) => {
+      if (!access) {
+        throw 'Not authenticated to access this session.'
+      }
+
+      setAccessCode(access.code)
+    })
+  } 
+
+  const onClick = () => {
+    requestAccess()
+    .then(() => {
+      setShowModal(true)
+    })
+    .catch(setError)
+  }
+
   return (
     <>
-      <div className={styles.reservation} onClick={() => setShowModal(true)}>
+      <div className={styles.reservation} onClick={onClick}>
         <button data-link>Get Access Code</button>
         <br />
         <p>{formatTime(start)} - {formatTime(end)}</p>
@@ -59,14 +82,22 @@ export const ReservationRange = ({ start, end, tables }) => {
             </div>
           ))}
         </div>
+
+        {error && <div>{error}</div>}
       </div>
       
       <Modal isActive={showModal} onClose={() => setShowModal(false)}>
-        <RequestAccess
+        <div>
+          <h1>You're booked!</h1>
+          <h4>{formatTime(start)} - {formatTime(end)}</h4>
+          <br />
+          Access Code: {accessCode}
+        </div>
+        {/* <RequestAccess
           start={start}
           end={end}
           reservation={doc.data()}
-        />
+        /> */}
       </Modal>
     </>
   )

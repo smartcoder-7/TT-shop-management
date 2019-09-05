@@ -22,6 +22,10 @@
   margin-left: auto;
   margin-right: auto;
 
+  @media (min-width: 1024px) {
+    width: $content-width-landscape;
+  }
+
   &.justify-end {
     justify-content: flex-end;
     text-align: right;
@@ -30,6 +34,10 @@
 
 @mixin col($n) {
   width: $n * $col-width;
+
+  @media (min-width: 1024px) {
+    width: $n * $col-width-landscape;
+  }
 
   &.align-center {
     display: flex;

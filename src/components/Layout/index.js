@@ -13,7 +13,7 @@ const Layout = ({
 }) => {  
   return (
     <div className={classnames(styles.layout, className)}>
-      <header>
+      <header data-row>
         <ul>
           <li>
             <Link to="/">
@@ -25,8 +25,10 @@ const Layout = ({
       </header>
 
       <main>
-        <div className={styles.content}>
-          {children}
+        <div className={styles.content} data-row>
+          <div data-col="12">
+            {children}
+          </div>
         </div>
       </main>
     </div>

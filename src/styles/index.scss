@@ -71,7 +71,8 @@ a {
   text-decoration: none;
 }
 
-[data-label] {
+[data-label],
+label {
   @include p2();
 }
 
