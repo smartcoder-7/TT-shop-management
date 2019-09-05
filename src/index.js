@@ -13,6 +13,7 @@ import Checkout from 'pages/Checkout'
 
 import 'styles/index.scss'
 
+
 const AuthenticatedRoute = ({ component: Component, path, ...rest }) => (
   <Route
     {...rest}

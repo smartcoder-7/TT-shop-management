@@ -59,10 +59,13 @@ export const getSessions = (doc, date, locationId) => {
       reservationsAtTime.length < numTables
     )
 
+    const isPast = time < now.getTime()
+
     return { 
       id: `${locationId}-${time}`,
       time,
       isAvailable,
+      isPast
     }
   })
 }

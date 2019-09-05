@@ -25,7 +25,6 @@ const LoginForm = ({ onSubmit }) => (
   />
 )
 
-
 const SignupForm = ({ onSubmit }) => (
   <Form
     onSubmit={onSubmit}

@@ -91,14 +91,16 @@ const makeReservations = ({
       batch.update(userRef, {
         [userKey]: firebase.firestore.FieldValue.arrayUnion(reservationRef)
       })
+
+      return reservationId
     })
   })
   
   return new Promise((resolve, reject) => {
     Promise.all(promises)
-    .then(() => {
+    .then((reservationIds) => {
       batch.commit()
-      .then(resolve)
+      .then(() => resolve(reservationIds))
       .catch(reject)
     })
   })

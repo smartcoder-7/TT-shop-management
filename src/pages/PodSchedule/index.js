@@ -27,7 +27,9 @@ class PodSchedule extends React.Component {
     const sessionsEl = this.sessionsRef.current
     const scrollToEl = this.scrollToRef.current
 
-    sessionsEl.scrollTop = scrollToEl.offsetTop
+    if (scrollToEl) {
+      sessionsEl.scrollTop = scrollToEl.offsetTop
+    }
   }
 
   prevDay = () => {
@@ -79,7 +81,7 @@ class PodSchedule extends React.Component {
               locationId={locationId}
               onFirstLoad={this.scrollToSession}
             >{(sessions) => (
-              sessions.map(({ id, time, isAvailable }) => {
+              sessions.map(({ id, time, isAvailable, isPast }) => {
                 const isSelected = cartContainer.isInCart(id)
 
                 const toggleSelect = () => {
@@ -89,11 +91,14 @@ class PodSchedule extends React.Component {
 
                 const scrollToRef = timeToScroll === time ? this.scrollToRef : null
 
+                if (isPast) return null
+
                 return (
                   <div key={id} ref={scrollToRef}>
                     <ScheduleSession
                       id={id}
                       isAvailable={isAvailable}
+                      isPast={isPast}
                       isSelected={isSelected}
                       key={id} 
                       onClick={toggleSelect}

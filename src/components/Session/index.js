@@ -21,6 +21,7 @@ const formatTime = (time) => {
 export const ScheduleSession = ({ 
   id, 
   isAvailable,
+  isPast,
   isSelected,
   onClick
 }) => {
@@ -29,12 +30,13 @@ export const ScheduleSession = ({
   return (
     <div 
       data-available={isAvailable}
+      data-past={isPast}
       data-selected={isSelected}
       className={classNames(styles.session, styles.scheduleSession)} 
       onClick={onClick}
     >
       <div>
-        {!isAvailable && <div data-label>UNAVAILABLE</div>} 
+        {!isAvailable && !isPast && <div data-label>UNAVAILABLE</div>} 
         {formatTime(time)} - {formatTime(timeEnd)}
       </div>
     </div>

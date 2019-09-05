@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import firebase from 'firebase/app'
 
 import cartContainer, { CartSubscriber } from 'containers/cartContainer'
@@ -32,6 +32,7 @@ class Cart extends React.Component {
   checkout = () => {
     const { userId } = authContainer.state
     const sessionIds = cartContainer.items
+    const { history } = this.props
 
     if (!sessionIds || !sessionIds.length) {
       this.setState({
@@ -51,11 +52,21 @@ class Cart extends React.Component {
 
     console.log('TRYING TO RESERVE', userId, sessionIds)
     makeReservations({ sessionIds, userId, onUnavailable })
-    .then(() => {
+    .then((reservationIds = []) => {
       console.log('SUCCESS!')
-      cartContainer.empty()
+      // cartContainer.empty()
       // TODO: Replace with Checkout payment flow.
-      window.location = '/account'
+
+      // grab reservation ids. On offline, timeout, or unload, RELEASE reservations
+
+      const cancel = () => {
+        console.log('CANCEL')
+      }
+
+      setTimeout(cancel, 1000 * 60 * 20)
+
+      history.push('/checkout', { reservationIds })
+      // window.location = '/checkout'
     })
     .catch((err) => {
       if (this.isUnmounted) return
@@ -117,4 +128,4 @@ class Cart extends React.Component {
   }
 }
 
-export default Cart
+export default withRouter(Cart)
