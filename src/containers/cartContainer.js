@@ -97,7 +97,7 @@ class CartContainer extends Container {
     }
 
     items.splice(index, 1)
-    localStorage.setItem(CART_KEY, JSON.stringify(items))
+    localStorage.setItem(CART_KEY, items.join(','))
     this.setState({ items })
   }
 }

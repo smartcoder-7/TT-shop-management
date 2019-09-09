@@ -28,6 +28,13 @@ class Cart extends React.Component {
     const sessionIds = cartContainer.items
 
     validateReservations({ sessionIds, userId, onUnavailable: this.onUnavailable })
+    .catch((err) => {
+      if (this.isUnmounted) return
+
+      this.setState({
+        submissionError: err
+      })
+    })
   }
 
   componentWillUnmount() {
@@ -108,6 +115,7 @@ class Cart extends React.Component {
 
             <div data-row>
               <div data-col="12">
+                {!locationIds.length && 'No sessions selected.'}
                 {locationIds.map(id => {
                   const dates = cartContainer.getDates()
 
@@ -135,7 +143,15 @@ class Cart extends React.Component {
             </div>
           </div>
 
-          {step < 1 && (
+          <div>
+            <Link to="/reserve/0" data-link>
+              + Add sessions
+            </Link>
+          </div>
+
+          <br />
+
+          {step < 1 && !!locationIds.length && (
             <button 
               data-size="small" 
               onClick={() => this.setState({ step: 1 })}
@@ -157,7 +173,7 @@ class Cart extends React.Component {
 
 
           {submissionError && (
-            <span>{submissionError}</span>
+            <div>{submissionError}</div>
           )}
         </Layout>
       )}</CartSubscriber>

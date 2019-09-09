@@ -19,23 +19,15 @@ export const validateReservations = ({
       locationId,
     } = parseSession(sessionId)
   
-    return Promise.all([
-      getPod(locationId),
-      getUser(userId),
-    ])
+    return getPod(locationId)
     .catch(err => {
       onUnavailable(sessionId)
       throw err
     })
-    .then(([ location, user ])=> {
+    .then((location) => {
       if (!location) {
         onUnavailable(sessionId)
         throw `Invalid pod id: [${locationId}]`
-      }
-
-      if (!user) {
-        onUnavailable(sessionId)
-        throw `Invalid user id: [${userId}]`
       }
 
       const { numTables, timezone } = location
@@ -44,8 +36,9 @@ export const validateReservations = ({
       const reservationsAtTime = reservationsAtDate[time] || {}
 
       const now = new Date()
-      const sessionTime = new Date(`${date} ${time} ${timezone}`)
-      
+      const sessionTime = new Date(`${date} 00:00 ${timezone}`)
+      sessionTime.setTime(time)
+
       if (sessionTime.getTime() < now.getTime()) {
         onUnavailable(sessionId)
         throw "Looks like some of your selections are out of date. Try again?"
