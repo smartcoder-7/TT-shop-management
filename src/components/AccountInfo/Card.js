@@ -65,7 +65,7 @@ class NewCard extends React.Component {
           
           addCard({ card_nonce, customerId })
           .then(({ data = {} }) => {
-            this.setState({ submitting: false })
+            this.setState({ submitting: false, expanded: false })
             authContainer.triggerChange()
             onAdd(data.card)
           })
@@ -73,7 +73,7 @@ class NewCard extends React.Component {
       }
     });
 
-    this.paymentForm.build();
+    this.paymentForm.build()
   }
 
   onSubmit = (event) => {
