@@ -40,3 +40,13 @@ export const getUser = (id) => {
     return doc.data()
   })
 }
+
+export const updateUser = (id, data = {}) => {
+  const ref = db.collection('users').doc(id)
+
+  return ref.update({
+    ...(data.firstName && { firstName: data.firstName }),
+    ...(data.lastName && { lastName: data.lastName }),
+    ...(data.activeCard && { activeCard: data.activeCard }),
+  })
+}

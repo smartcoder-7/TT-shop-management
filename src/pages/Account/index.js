@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom'
 import Layout from 'components/Layout'
 
 import styles from './styles.scss'
-import authContainer, { AuthSubscriber } from '../../containers/authContainer'
+import authContainer, { AuthSubscriber } from 'containers/authContainer'
 import { ReservationRange } from 'components/Reservation'
 import { INTERVAL_MS, getDateParts } from 'util/getPodSessions'
+import AccountInfo from 'components/AccountInfo'
 
 const ReservationsPerDate = ({ date, times, locationId, reservations }) => {
   const ranges = []
@@ -110,21 +111,7 @@ class Account extends React.Component {
             <>
               <h1>Account</h1>
               
-              <div className={styles.info}>
-                <div className={styles.infoItem}>
-                  <label>First Name</label>
-                  <p>{user.firstName || 'Ping'}</p>
-                </div>
-                <div className={styles.infoItem}>
-                  <label>Last Name</label>
-                  <p>{user.lastName || 'Ponger'}</p>
-                </div>
-
-                <div className={styles.infoItem}>
-                  <label>Email</label>
-                  <p>{user.email}</p>
-                </div>
-              </div>
+              <AccountInfo />
 
               <div>
                 <h1>Reservations</h1>

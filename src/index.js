@@ -10,9 +10,12 @@ import Login from 'pages/Login'
 import Cart from 'pages/Cart'
 import Account from 'pages/Account'
 import Checkout from 'pages/Checkout'
+import firebase from 'util/firebase'
 
 import 'styles/index.scss'
 
+const functions = firebase.functions()
+functions.useFunctionsEmulator('http://localhost:5000') 
 
 const AuthenticatedRoute = ({ component: Component, path, ...rest }) => (
   <Route

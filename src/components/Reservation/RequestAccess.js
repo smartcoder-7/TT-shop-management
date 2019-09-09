@@ -31,7 +31,6 @@ ${formatTime(start)} - ${formatTime(end)}`
     .then(result => {
       // Read result of the Cloud Function.
       var sanitizedMessage = result
-      console.log('res', result)
       // ...
       setError('Success! Sent to your phone.')
     })

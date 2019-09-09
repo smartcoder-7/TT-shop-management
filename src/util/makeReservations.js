@@ -7,6 +7,60 @@ import { getAccessCode, getPod, getUser } from 'util/db'
 
 const db = firebase.firestore()
 
+export const validateReservations = ({ 
+  sessionIds = [], 
+  userId, 
+  onUnavailable = () => {} 
+}) => {
+  const promises = sessionIds.map(sessionId => {
+    const {
+      date,
+      time,
+      locationId,
+    } = parseSession(sessionId)
+  
+    return Promise.all([
+      getPod(locationId),
+      getUser(userId),
+    ])
+    .catch(err => {
+      onUnavailable(sessionId)
+      throw err
+    })
+    .then(([ location, user ])=> {
+      if (!location) {
+        onUnavailable(sessionId)
+        throw `Invalid pod id: [${locationId}]`
+      }
+
+      if (!user) {
+        onUnavailable(sessionId)
+        throw `Invalid user id: [${userId}]`
+      }
+
+      const { numTables, timezone } = location
+      const reservations = location.reservations || {}
+      const reservationsAtDate = reservations[date] || {}
+      const reservationsAtTime = reservationsAtDate[time] || {}
+
+      const now = new Date()
+      const sessionTime = new Date(`${date} ${time} ${timezone}`)
+      
+      if (sessionTime.getTime() < now.getTime()) {
+        onUnavailable(sessionId)
+        throw "Looks like some of your selections are out of date. Try again?"
+      }
+
+      if (Object.keys(reservationsAtTime).length >= numTables) {
+        onUnavailable(sessionId)
+        throw "Darn! Looks like some of your selections got booked up. Try again?"
+      }
+    })
+  })
+  
+  return Promise.all(promises)
+}
+
 const makeReservations = ({ 
   sessionIds = [], 
   userId, 
@@ -50,7 +104,6 @@ const makeReservations = ({
 
       const { numTables, timezone } = location
       const reservations = location.reservations || {}
-      const accessCodes = location.accessCodes || {}
       const reservationsAtDate = reservations[date] || {}
       const reservationsAtTime = reservationsAtDate[time] || {}
 

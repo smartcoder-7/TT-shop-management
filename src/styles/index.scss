@@ -58,7 +58,7 @@ h2 {
 }
 
 h3 {
-  font-size: 7rem;
+  font-size: 5rem;
 }
 
 p {
@@ -103,11 +103,22 @@ button {
     text-decoration: none;
     background: $blue;
     color: $white;
+
+    &[disabled] {
+      background-color: $gray;
+    }
   }
 
   &[data-plain] {
     width: auto;
     padding: 0;
+  }
+
+  &[data-size="small"] {
+    display: inline-block;
+    width: auto;
+    font-size: 2.5rem;
+    padding: 1.5rem 3rem;
   }
 }
 

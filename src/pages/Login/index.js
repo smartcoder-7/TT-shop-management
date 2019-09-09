@@ -120,7 +120,7 @@ class Login extends React.Component {
       <Layout className={styles.transactionFeed}>
         {submissionError && (
           <span>
-            {submissionError}
+            {submissionError.toString()}
           </span>
         )}
         {this.state.newUser && this.renderSignup()}

@@ -60,37 +60,6 @@
     gtag('js', new Date());
     gtag('config', 'ANALYTICS_ID');
   </script>
-
-  <script>
-    const paymentForm = new SqPaymentForm({
-      // Initialize the payment form elements
-      
-      //TODO: Replace with your sandbox application ID
-      applicationId: "sandbox-sq0idb-A9ivLdMr9IZyZ7QMfz8WbA",
-      card: {
-        elementId: 'sq-card',
-      },
-
-      callbacks: {
-        cardNonceResponseReceived: function(errors, nonce, paymentData, contacts) {
-          if (errors) {
-        //   Log errors from nonce generation to the browser developer console.
-            console.error('Encountered errors on card nonce received:');
-            errors.forEach(function (error) {
-              console.error('  ' + error.message);
-            });
-            alert('Encountered errors, check console for more details');
-            return;
-          } else {
-            alert(`The generated nonce is:\n${nonce}`);
-            //TODO: Replace alert with code in step 2.1
-          }
-        }
-      }
-    });
-
-    paymentForm.build();
-  </script>
 </body>
 
 </html>

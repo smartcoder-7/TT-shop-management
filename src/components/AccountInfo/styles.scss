@@ -1,0 +1,54 @@
+.account {
+  min-height: 100vh;
+}
+
+.reservationDate {
+  margin-bottom: 5rem;
+
+  .date {
+    margin-bottom: 1rem;
+  }
+}
+
+.info {
+  margin-top: 6rem;
+  margin-bottom: 10rem;
+}
+
+.infoItem {
+  margin-bottom: 3rem;
+}
+
+.billingInfo {
+  margin-bottom: 5rem;
+}
+
+.card {
+  border: 1px solid gray;
+  margin: 1rem 0;
+
+  &[data-is-active="true"] {
+    background: yellow
+  }
+}
+
+.newCard {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.newCardForm {
+  visibility: hidden;
+  height: 0;
+
+  &[data-expanded="true"] {
+    height: auto;
+    visibility: visible;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  :global(.sq-card-details) {
+    display: none;
+  }
+}

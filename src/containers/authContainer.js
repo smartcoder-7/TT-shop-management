@@ -1,21 +1,8 @@
 import React from 'react'
-import firebase from 'firebase/app'
-import 'firebase/auth'
-import 'firebase/firestore'
-import 'firebase/functions'
+import firebase from 'util/firebase'
+
 import { Container, Subscribe, Provider } from 'unstated'
-
-const firebaseConfig = {
-  apiKey: "AIzaSyB6hVfDS4tKY6R6oD7Z8l1uAejQEulSsVs",
-  authDomain: "pingpod-web.firebaseapp.com",
-  databaseURL: "https://pingpod-web.firebaseio.com",
-  projectId: "pingpod-web",
-  storageBucket: "pingpod-web.appspot.com",
-  messagingSenderId: "442129655840",
-  appId: "1:442129655840:web:e987b22d01f1fa10"
-}
-
-firebase.initializeApp(firebaseConfig)
+import { createCustomer } from 'util/square'
 
 const db = firebase.firestore()
 
@@ -57,6 +44,16 @@ class AuthContainer extends Container {
       }
 
       const userData = doc.data()
+
+      if (!userData.squareId) {
+        createCustomer(userData)
+        .then(customer => {
+          const squareId = customer.id
+          userRef.update({ squareId })
+        })
+
+        return
+      }
 
       this.setState({ 
         userId: this.user.uid,
@@ -102,7 +99,7 @@ class AuthContainer extends Container {
     return firebase.auth()
     .signInWithEmailAndPassword(email, password)
     .then((res) => {
-      console.log(res.user)
+      console.log('LOGIN', res.user)
     })
     .catch((error) => {
       console.log('LOGIN ERROR', error)
@@ -126,6 +123,10 @@ class AuthContainer extends Container {
     .then(() => {
       console.log('logged out!')
     })
+  }
+
+  triggerChange = () => {
+    this.setState({})
   }
 }
 

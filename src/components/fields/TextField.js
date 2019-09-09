@@ -1,13 +1,14 @@
 import React from 'react'
 import { Field } from 'react-final-form'
 
-const EmailField = ({ name = 'email', label, ...rest }) => {
+const TextField = ({ name = 'text', label, initialValue, ...rest }) => {
   return (
     <Field
       name={name}
+      initialValue={initialValue}
       render={({ input, meta }) => (
         <div>
-          <input {...input} type="email" placeholder={label} {...rest} />
+          <input {...input} type="text" placeholder={label} {...rest} />
           {meta.touched && meta.error && <span>{meta.error}</span>}
         </div>
       )}
@@ -15,4 +16,4 @@ const EmailField = ({ name = 'email', label, ...rest }) => {
   )
 }
 
-export default EmailField
+export default TextField
