@@ -50,11 +50,16 @@ class BillingInfo extends React.Component {
   }
 
   onCardUpdate = () => {
+    const { user, userId } = authContainer
     const { squareId } = this.state
-
+    
     getCustomer({ customer_id: squareId })
     .then(({ data })=> {
       const cards = data.customer.cards || []
+
+      if (!user.activeCard && cards.length > 0) {
+        updateUser(userId, { activeCard: cards[0].id })
+      }
 
       this.setState({ cards, loading: false })
     })
@@ -77,12 +82,14 @@ class BillingInfo extends React.Component {
           {loading && 'Loading...'}
           {!loading && !cards.length && 'No cards saved.'}
           {cards.map(card => {
-            return <Card 
-              {...card} 
-              key={card.id} 
-              onClick={() => this.setActiveCard(card.id)} 
-              isActive={card.id === user.activeCard}
-            />
+            return (
+              <Card 
+                {...card} 
+                key={card.id} 
+                onClick={() => this.setActiveCard(card.id)} 
+                isActive={card.id === user.activeCard}
+              />
+            )
           })}
 
           <NewCard onAdd={this.onCardUpdate} />

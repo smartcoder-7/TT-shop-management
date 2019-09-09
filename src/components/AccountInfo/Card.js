@@ -64,10 +64,10 @@ class NewCard extends React.Component {
           }
           
           addCard({ card_nonce, customerId })
-          .then(() => {
+          .then(({ data = {} }) => {
             this.setState({ submitting: false })
             authContainer.triggerChange()
-            onAdd()
+            onAdd(data.card)
           })
         }
       }

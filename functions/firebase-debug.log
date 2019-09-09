@@ -9903,3 +9903,491 @@
 [debug] [2019-09-09T02:49:09.495Z] DEBUG: [runtime-status] Ephemeral server used! {}
 [debug] [2019-09-09T02:49:09.539Z] DEBUG: [runtime-status] Ephemeral server survived. {}
 [debug] [2019-09-09T02:49:10.237Z] [functions] Finished "getCustomer" in ~1s
+[debug] [2019-09-09T03:03:28.801Z] Accepted request OPTIONS /pingpod-web/us-central1/getCustomer --> getCustomer
+[debug] [2019-09-09T03:03:29.400Z] DEBUG: [runtime-status] Functions runtime initialized. {"cwd":"/Users/cha/repos/pingpod-web/functions","node_version":"10.16.0"}
+[debug] [2019-09-09T03:03:29.403Z] [functions] Beginning execution of "getCustomer"
+[debug] [2019-09-09T03:03:29.409Z] DEBUG: [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-09-09T03:03:29.409Z] DEBUG: [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.4.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-09-09T03:03:29.409Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-09-09T03:03:29.409Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-09-09T03:03:30.374Z] DEBUG: [runtime-status] Trigger "getCustomer" has been found, beginning invocation! {}
+[debug] [2019-09-09T03:03:30.374Z] DEBUG: [runtime-status]  {"httpsTrigger":{},"labels":{"deployment-callable":"true"},"name":"getCustomer","entryPoint":"getCustomer"}
+[debug] [2019-09-09T03:03:30.374Z] DEBUG: [runtime-status] Running getCustomer in mode HTTPS {}
+[debug] [2019-09-09T03:03:30.374Z] {"socketPath":"/var/folders/jm/hjj7k72j3w9gxqz_6k27pdjm0000gn/T/firebase_emulator_invocation_20940.sock"}
+[debug] [2019-09-09T03:03:30.377Z] DEBUG: [functions] Runtime ready! Sending request! {"socketPath":"/var/folders/jm/hjj7k72j3w9gxqz_6k27pdjm0000gn/T/firebase_emulator_invocation_20940.sock"}
+[debug] [2019-09-09T03:03:30.390Z] DEBUG: [runtime-status] Ephemeral server used! {}
+[debug] [2019-09-09T03:03:30.396Z] Accepted request POST /pingpod-web/us-central1/getCustomer --> getCustomer
+[debug] [2019-09-09T03:03:30.401Z] DEBUG: [runtime-status] Ephemeral server survived. {}
+[debug] [2019-09-09T03:03:30.401Z] [functions] Finished "getCustomer" in ~1s
+[debug] [2019-09-09T03:03:30.692Z] DEBUG: [runtime-status] Functions runtime initialized. {"cwd":"/Users/cha/repos/pingpod-web/functions","node_version":"10.16.0"}
+[debug] [2019-09-09T03:03:30.693Z] [functions] Beginning execution of "getCustomer"
+[debug] [2019-09-09T03:03:30.697Z] DEBUG: [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-09-09T03:03:30.699Z] DEBUG: [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.4.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-09-09T03:03:30.700Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-09-09T03:03:30.701Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-09-09T03:03:31.439Z] DEBUG: [runtime-status] Trigger "getCustomer" has been found, beginning invocation! {}
+[debug] [2019-09-09T03:03:31.440Z] DEBUG: [runtime-status]  {"httpsTrigger":{},"labels":{"deployment-callable":"true"},"name":"getCustomer","entryPoint":"getCustomer"}
+[debug] [2019-09-09T03:03:31.440Z] DEBUG: [runtime-status] Running getCustomer in mode HTTPS {}
+[debug] [2019-09-09T03:03:31.450Z] {"socketPath":"/var/folders/jm/hjj7k72j3w9gxqz_6k27pdjm0000gn/T/firebase_emulator_invocation_20942.sock"}
+[debug] [2019-09-09T03:03:31.450Z] DEBUG: [functions] Runtime ready! Sending request! {"socketPath":"/var/folders/jm/hjj7k72j3w9gxqz_6k27pdjm0000gn/T/firebase_emulator_invocation_20942.sock"}
+[debug] [2019-09-09T03:03:31.473Z] DEBUG: [runtime-status] Ephemeral server used! {}
+[debug] [2019-09-09T03:03:31.521Z] DEBUG: [runtime-status] Ephemeral server survived. {}
+[debug] [2019-09-09T03:03:32.279Z] [functions] Finished "getCustomer" in ~1s
+[debug] [2019-09-09T03:03:42.606Z] Accepted request OPTIONS /pingpod-web/us-central1/getCustomer --> getCustomer
+[debug] [2019-09-09T03:03:42.907Z] DEBUG: [runtime-status] Functions runtime initialized. {"cwd":"/Users/cha/repos/pingpod-web/functions","node_version":"10.16.0"}
+[debug] [2019-09-09T03:03:42.909Z] [functions] Beginning execution of "getCustomer"
+[debug] [2019-09-09T03:03:42.910Z] DEBUG: [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-09-09T03:03:42.911Z] DEBUG: [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.4.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-09-09T03:03:42.911Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-09-09T03:03:42.911Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-09-09T03:03:43.668Z] DEBUG: [runtime-status] Trigger "getCustomer" has been found, beginning invocation! {}
+[debug] [2019-09-09T03:03:43.669Z] DEBUG: [runtime-status]  {"httpsTrigger":{},"labels":{"deployment-callable":"true"},"name":"getCustomer","entryPoint":"getCustomer"}
+[debug] [2019-09-09T03:03:43.669Z] DEBUG: [runtime-status] Running getCustomer in mode HTTPS {}
+[debug] [2019-09-09T03:03:43.673Z] {"socketPath":"/var/folders/jm/hjj7k72j3w9gxqz_6k27pdjm0000gn/T/firebase_emulator_invocation_20949.sock"}
+[debug] [2019-09-09T03:03:43.673Z] DEBUG: [functions] Runtime ready! Sending request! {"socketPath":"/var/folders/jm/hjj7k72j3w9gxqz_6k27pdjm0000gn/T/firebase_emulator_invocation_20949.sock"}
+[debug] [2019-09-09T03:03:43.680Z] DEBUG: [runtime-status] Ephemeral server used! {}
+[debug] [2019-09-09T03:03:43.687Z] DEBUG: [runtime-status] Ephemeral server survived. {}
+[debug] [2019-09-09T03:03:43.689Z] [functions] Finished "getCustomer" in ~1s
+[debug] [2019-09-09T03:03:43.690Z] Accepted request POST /pingpod-web/us-central1/getCustomer --> getCustomer
+[debug] [2019-09-09T03:03:43.984Z] DEBUG: [runtime-status] Functions runtime initialized. {"cwd":"/Users/cha/repos/pingpod-web/functions","node_version":"10.16.0"}
+[debug] [2019-09-09T03:03:43.985Z] [functions] Beginning execution of "getCustomer"
+[debug] [2019-09-09T03:03:43.986Z] DEBUG: [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-09-09T03:03:43.986Z] DEBUG: [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.4.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-09-09T03:03:43.987Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-09-09T03:03:43.988Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-09-09T03:03:44.681Z] DEBUG: [runtime-status] Trigger "getCustomer" has been found, beginning invocation! {}
+[debug] [2019-09-09T03:03:44.681Z] DEBUG: [runtime-status]  {"httpsTrigger":{},"labels":{"deployment-callable":"true"},"name":"getCustomer","entryPoint":"getCustomer"}
+[debug] [2019-09-09T03:03:44.682Z] DEBUG: [runtime-status] Running getCustomer in mode HTTPS {}
+[debug] [2019-09-09T03:03:44.686Z] {"socketPath":"/var/folders/jm/hjj7k72j3w9gxqz_6k27pdjm0000gn/T/firebase_emulator_invocation_20950.sock"}
+[debug] [2019-09-09T03:03:44.688Z] DEBUG: [functions] Runtime ready! Sending request! {"socketPath":"/var/folders/jm/hjj7k72j3w9gxqz_6k27pdjm0000gn/T/firebase_emulator_invocation_20950.sock"}
+[debug] [2019-09-09T03:03:44.704Z] DEBUG: [runtime-status] Ephemeral server used! {}
+[debug] [2019-09-09T03:03:44.746Z] DEBUG: [runtime-status] Ephemeral server survived. {}
+[debug] [2019-09-09T03:03:45.442Z] [functions] Finished "getCustomer" in ~1s
+[debug] [2019-09-09T03:04:01.639Z] Accepted request OPTIONS /pingpod-web/us-central1/getCustomer --> getCustomer
+[debug] [2019-09-09T03:04:01.977Z] DEBUG: [runtime-status] Functions runtime initialized. {"cwd":"/Users/cha/repos/pingpod-web/functions","node_version":"10.16.0"}
+[debug] [2019-09-09T03:04:01.978Z] [functions] Beginning execution of "getCustomer"
+[debug] [2019-09-09T03:04:01.979Z] DEBUG: [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-09-09T03:04:01.983Z] DEBUG: [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.4.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-09-09T03:04:01.983Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-09-09T03:04:01.985Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-09-09T03:04:02.773Z] DEBUG: [runtime-status] Trigger "getCustomer" has been found, beginning invocation! {}
+[debug] [2019-09-09T03:04:02.773Z] DEBUG: [runtime-status]  {"httpsTrigger":{},"labels":{"deployment-callable":"true"},"name":"getCustomer","entryPoint":"getCustomer"}
+[debug] [2019-09-09T03:04:02.773Z] DEBUG: [runtime-status] Running getCustomer in mode HTTPS {}
+[debug] [2019-09-09T03:04:02.779Z] {"socketPath":"/var/folders/jm/hjj7k72j3w9gxqz_6k27pdjm0000gn/T/firebase_emulator_invocation_20956.sock"}
+[debug] [2019-09-09T03:04:02.779Z] DEBUG: [functions] Runtime ready! Sending request! {"socketPath":"/var/folders/jm/hjj7k72j3w9gxqz_6k27pdjm0000gn/T/firebase_emulator_invocation_20956.sock"}
+[debug] [2019-09-09T03:04:02.786Z] DEBUG: [runtime-status] Ephemeral server used! {}
+[debug] [2019-09-09T03:04:02.806Z] Accepted request POST /pingpod-web/us-central1/getCustomer --> getCustomer
+[debug] [2019-09-09T03:04:02.814Z] DEBUG: [runtime-status] Ephemeral server survived. {}
+[debug] [2019-09-09T03:04:02.814Z] [functions] Finished "getCustomer" in ~1s
+[debug] [2019-09-09T03:04:03.094Z] DEBUG: [runtime-status] Functions runtime initialized. {"cwd":"/Users/cha/repos/pingpod-web/functions","node_version":"10.16.0"}
+[debug] [2019-09-09T03:04:03.095Z] [functions] Beginning execution of "getCustomer"
+[debug] [2019-09-09T03:04:03.095Z] DEBUG: [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-09-09T03:04:03.097Z] DEBUG: [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.4.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-09-09T03:04:03.100Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-09-09T03:04:03.102Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-09-09T03:04:03.777Z] DEBUG: [runtime-status] Trigger "getCustomer" has been found, beginning invocation! {}
+[debug] [2019-09-09T03:04:03.777Z] DEBUG: [runtime-status]  {"httpsTrigger":{},"labels":{"deployment-callable":"true"},"name":"getCustomer","entryPoint":"getCustomer"}
+[debug] [2019-09-09T03:04:03.777Z] DEBUG: [runtime-status] Running getCustomer in mode HTTPS {}
+[debug] [2019-09-09T03:04:03.786Z] {"socketPath":"/var/folders/jm/hjj7k72j3w9gxqz_6k27pdjm0000gn/T/firebase_emulator_invocation_20957.sock"}
+[debug] [2019-09-09T03:04:03.786Z] DEBUG: [functions] Runtime ready! Sending request! {"socketPath":"/var/folders/jm/hjj7k72j3w9gxqz_6k27pdjm0000gn/T/firebase_emulator_invocation_20957.sock"}
+[debug] [2019-09-09T03:04:03.802Z] DEBUG: [runtime-status] Ephemeral server used! {}
+[debug] [2019-09-09T03:04:03.844Z] DEBUG: [runtime-status] Ephemeral server survived. {}
+[debug] [2019-09-09T03:04:04.577Z] [functions] Finished "getCustomer" in ~1s
+[debug] [2019-09-09T03:04:34.568Z] DEBUG: File /Users/cha/repos/pingpod-web/functions/package.json changed, reloading triggers
+[debug] [2019-09-09T03:04:34.647Z] DEBUG: File /Users/cha/repos/pingpod-web/functions/package-lock.json changed, reloading triggers
+[debug] [2019-09-09T03:04:35.935Z] DEBUG: [runtime-status] Functions runtime initialized. {"cwd":"/Users/cha/repos/pingpod-web/functions","node_version":"10.16.0"}
+[debug] [2019-09-09T03:04:35.937Z] DEBUG: [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-09-09T03:04:35.937Z] DEBUG: [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.4.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-09-09T03:04:35.938Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-09-09T03:04:35.939Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-09-09T03:08:39.439Z] Accepted request OPTIONS /pingpod-web/us-central1/newCustomer --> newCustomer
+[debug] [2019-09-09T03:08:39.831Z] DEBUG: [runtime-status] Functions runtime initialized. {"cwd":"/Users/cha/repos/pingpod-web/functions","node_version":"10.16.0"}
+[debug] [2019-09-09T03:08:39.832Z] [functions] Beginning execution of "newCustomer"
+[debug] [2019-09-09T03:08:39.832Z] DEBUG: [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-09-09T03:08:39.836Z] DEBUG: [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.4.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-09-09T03:08:39.838Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-09-09T03:08:39.838Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-09-09T03:08:40.254Z] Accepted request OPTIONS /pingpod-web/us-central1/newCustomer --> newCustomer
+[debug] [2019-09-09T03:08:40.590Z] DEBUG: [runtime-status] Functions runtime initialized. {"cwd":"/Users/cha/repos/pingpod-web/functions","node_version":"10.16.0"}
+[debug] [2019-09-09T03:08:40.591Z] [functions] Beginning execution of "newCustomer"
+[debug] [2019-09-09T03:08:40.591Z] DEBUG: [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-09-09T03:08:40.591Z] DEBUG: [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.4.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-09-09T03:08:40.591Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-09-09T03:08:40.592Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-09-09T03:08:40.993Z] DEBUG: [runtime-status] Trigger "newCustomer" has been found, beginning invocation! {}
+[debug] [2019-09-09T03:08:40.993Z] DEBUG: [runtime-status]  {"httpsTrigger":{},"labels":{"deployment-callable":"true"},"name":"newCustomer","entryPoint":"newCustomer"}
+[debug] [2019-09-09T03:08:40.993Z] DEBUG: [runtime-status] Running newCustomer in mode HTTPS {}
+[debug] [2019-09-09T03:08:41.001Z] {"socketPath":"/var/folders/jm/hjj7k72j3w9gxqz_6k27pdjm0000gn/T/firebase_emulator_invocation_21084.sock"}
+[debug] [2019-09-09T03:08:41.002Z] DEBUG: [functions] Runtime ready! Sending request! {"socketPath":"/var/folders/jm/hjj7k72j3w9gxqz_6k27pdjm0000gn/T/firebase_emulator_invocation_21084.sock"}
+[debug] [2019-09-09T03:08:41.008Z] DEBUG: [runtime-status] Ephemeral server used! {}
+[debug] [2019-09-09T03:08:41.014Z] DEBUG: [runtime-status] Ephemeral server survived. {}
+[debug] [2019-09-09T03:08:41.015Z] [functions] Finished "newCustomer" in ~1s
+[debug] [2019-09-09T03:08:41.326Z] DEBUG: [runtime-status] Trigger "newCustomer" has been found, beginning invocation! {}
+[debug] [2019-09-09T03:08:41.326Z] DEBUG: [runtime-status]  {"httpsTrigger":{},"labels":{"deployment-callable":"true"},"name":"newCustomer","entryPoint":"newCustomer"}
+[debug] [2019-09-09T03:08:41.326Z] DEBUG: [runtime-status] Running newCustomer in mode HTTPS {}
+[debug] [2019-09-09T03:08:41.331Z] {"socketPath":"/var/folders/jm/hjj7k72j3w9gxqz_6k27pdjm0000gn/T/firebase_emulator_invocation_21085.sock"}
+[debug] [2019-09-09T03:08:41.332Z] DEBUG: [functions] Runtime ready! Sending request! {"socketPath":"/var/folders/jm/hjj7k72j3w9gxqz_6k27pdjm0000gn/T/firebase_emulator_invocation_21085.sock"}
+[debug] [2019-09-09T03:08:41.337Z] DEBUG: [runtime-status] Ephemeral server used! {}
+[debug] [2019-09-09T03:08:41.347Z] Accepted request POST /pingpod-web/us-central1/newCustomer --> newCustomer
+[debug] [2019-09-09T03:08:41.351Z] DEBUG: [runtime-status] Ephemeral server survived. {}
+[debug] [2019-09-09T03:08:41.351Z] [functions] Finished "newCustomer" in ~1s
+[debug] [2019-09-09T03:08:41.646Z] DEBUG: [runtime-status] Functions runtime initialized. {"cwd":"/Users/cha/repos/pingpod-web/functions","node_version":"10.16.0"}
+[debug] [2019-09-09T03:08:41.647Z] [functions] Beginning execution of "newCustomer"
+[debug] [2019-09-09T03:08:41.647Z] DEBUG: [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-09-09T03:08:41.649Z] DEBUG: [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.4.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-09-09T03:08:41.650Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-09-09T03:08:41.651Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-09-09T03:08:42.342Z] DEBUG: [runtime-status] Trigger "newCustomer" has been found, beginning invocation! {}
+[debug] [2019-09-09T03:08:42.342Z] DEBUG: [runtime-status]  {"httpsTrigger":{},"labels":{"deployment-callable":"true"},"name":"newCustomer","entryPoint":"newCustomer"}
+[debug] [2019-09-09T03:08:42.342Z] DEBUG: [runtime-status] Running newCustomer in mode HTTPS {}
+[debug] [2019-09-09T03:08:42.349Z] {"socketPath":"/var/folders/jm/hjj7k72j3w9gxqz_6k27pdjm0000gn/T/firebase_emulator_invocation_21086.sock"}
+[debug] [2019-09-09T03:08:42.350Z] DEBUG: [functions] Runtime ready! Sending request! {"socketPath":"/var/folders/jm/hjj7k72j3w9gxqz_6k27pdjm0000gn/T/firebase_emulator_invocation_21086.sock"}
+[debug] [2019-09-09T03:08:42.372Z] DEBUG: [runtime-status] Ephemeral server used! {}
+[debug] [2019-09-09T03:08:42.428Z] DEBUG: [runtime-status] Ephemeral server survived. {}
+[debug] [2019-09-09T03:08:43.216Z] [functions] Finished "newCustomer" in ~1s
+[debug] [2019-09-09T03:08:43.964Z] Accepted request OPTIONS /pingpod-web/us-central1/getCustomer --> getCustomer
+[debug] [2019-09-09T03:08:44.230Z] DEBUG: [runtime-status] Functions runtime initialized. {"cwd":"/Users/cha/repos/pingpod-web/functions","node_version":"10.16.0"}
+[debug] [2019-09-09T03:08:44.231Z] [functions] Beginning execution of "getCustomer"
+[debug] [2019-09-09T03:08:44.232Z] DEBUG: [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-09-09T03:08:44.234Z] DEBUG: [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.4.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-09-09T03:08:44.235Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-09-09T03:08:44.235Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-09-09T03:08:44.917Z] DEBUG: [runtime-status] Trigger "getCustomer" has been found, beginning invocation! {}
+[debug] [2019-09-09T03:08:44.917Z] DEBUG: [runtime-status]  {"httpsTrigger":{},"labels":{"deployment-callable":"true"},"name":"getCustomer","entryPoint":"getCustomer"}
+[debug] [2019-09-09T03:08:44.917Z] DEBUG: [runtime-status] Running getCustomer in mode HTTPS {}
+[debug] [2019-09-09T03:08:44.923Z] {"socketPath":"/var/folders/jm/hjj7k72j3w9gxqz_6k27pdjm0000gn/T/firebase_emulator_invocation_21087.sock"}
+[debug] [2019-09-09T03:08:44.924Z] DEBUG: [functions] Runtime ready! Sending request! {"socketPath":"/var/folders/jm/hjj7k72j3w9gxqz_6k27pdjm0000gn/T/firebase_emulator_invocation_21087.sock"}
+[debug] [2019-09-09T03:08:44.929Z] DEBUG: [runtime-status] Ephemeral server used! {}
+[debug] [2019-09-09T03:08:44.935Z] DEBUG: [runtime-status] Ephemeral server survived. {}
+[debug] [2019-09-09T03:08:44.936Z] Accepted request POST /pingpod-web/us-central1/getCustomer --> getCustomer
+[debug] [2019-09-09T03:08:44.940Z] [functions] Finished "getCustomer" in ~1s
+[debug] [2019-09-09T03:08:45.195Z] DEBUG: [runtime-status] Functions runtime initialized. {"cwd":"/Users/cha/repos/pingpod-web/functions","node_version":"10.16.0"}
+[debug] [2019-09-09T03:08:45.196Z] [functions] Beginning execution of "getCustomer"
+[debug] [2019-09-09T03:08:45.196Z] DEBUG: [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-09-09T03:08:45.198Z] DEBUG: [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.4.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-09-09T03:08:45.199Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-09-09T03:08:45.200Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-09-09T03:08:45.861Z] DEBUG: [runtime-status] Trigger "getCustomer" has been found, beginning invocation! {}
+[debug] [2019-09-09T03:08:45.864Z] DEBUG: [runtime-status]  {"httpsTrigger":{},"labels":{"deployment-callable":"true"},"name":"getCustomer","entryPoint":"getCustomer"}
+[debug] [2019-09-09T03:08:45.864Z] DEBUG: [runtime-status] Running getCustomer in mode HTTPS {}
+[debug] [2019-09-09T03:08:45.865Z] {"socketPath":"/var/folders/jm/hjj7k72j3w9gxqz_6k27pdjm0000gn/T/firebase_emulator_invocation_21088.sock"}
+[debug] [2019-09-09T03:08:45.866Z] DEBUG: [functions] Runtime ready! Sending request! {"socketPath":"/var/folders/jm/hjj7k72j3w9gxqz_6k27pdjm0000gn/T/firebase_emulator_invocation_21088.sock"}
+[debug] [2019-09-09T03:08:45.880Z] DEBUG: [runtime-status] Ephemeral server used! {}
+[debug] [2019-09-09T03:08:45.920Z] DEBUG: [runtime-status] Ephemeral server survived. {}
+[debug] [2019-09-09T03:08:46.729Z] [functions] Finished "getCustomer" in ~1s
+[debug] [2019-09-09T03:12:54.804Z] Accepted request OPTIONS /pingpod-web/us-central1/addCustomerCard --> addCustomerCard
+[debug] [2019-09-09T03:12:55.274Z] DEBUG: [runtime-status] Functions runtime initialized. {"cwd":"/Users/cha/repos/pingpod-web/functions","node_version":"10.16.0"}
+[debug] [2019-09-09T03:12:55.276Z] [functions] Beginning execution of "addCustomerCard"
+[debug] [2019-09-09T03:12:55.276Z] DEBUG: [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-09-09T03:12:55.279Z] DEBUG: [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.4.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-09-09T03:12:55.280Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-09-09T03:12:55.281Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-09-09T03:12:56.599Z] DEBUG: [runtime-status] Trigger "addCustomerCard" has been found, beginning invocation! {}
+[debug] [2019-09-09T03:12:56.599Z] DEBUG: [runtime-status]  {"httpsTrigger":{},"labels":{"deployment-callable":"true"},"name":"addCustomerCard","entryPoint":"addCustomerCard"}
+[debug] [2019-09-09T03:12:56.599Z] DEBUG: [runtime-status] Running addCustomerCard in mode HTTPS {}
+[debug] [2019-09-09T03:12:56.606Z] {"socketPath":"/var/folders/jm/hjj7k72j3w9gxqz_6k27pdjm0000gn/T/firebase_emulator_invocation_21148.sock"}
+[debug] [2019-09-09T03:12:56.607Z] DEBUG: [functions] Runtime ready! Sending request! {"socketPath":"/var/folders/jm/hjj7k72j3w9gxqz_6k27pdjm0000gn/T/firebase_emulator_invocation_21148.sock"}
+[debug] [2019-09-09T03:12:56.616Z] DEBUG: [runtime-status] Ephemeral server used! {}
+[debug] [2019-09-09T03:12:56.622Z] Accepted request POST /pingpod-web/us-central1/addCustomerCard --> addCustomerCard
+[debug] [2019-09-09T03:12:56.628Z] DEBUG: [runtime-status] Ephemeral server survived. {}
+[debug] [2019-09-09T03:12:56.628Z] [functions] Finished "addCustomerCard" in ~1s
+[debug] [2019-09-09T03:12:56.885Z] DEBUG: [runtime-status] Functions runtime initialized. {"cwd":"/Users/cha/repos/pingpod-web/functions","node_version":"10.16.0"}
+[debug] [2019-09-09T03:12:56.886Z] [functions] Beginning execution of "addCustomerCard"
+[debug] [2019-09-09T03:12:56.886Z] DEBUG: [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-09-09T03:12:56.888Z] DEBUG: [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.4.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-09-09T03:12:56.889Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-09-09T03:12:56.889Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-09-09T03:12:57.551Z] DEBUG: [runtime-status] Trigger "addCustomerCard" has been found, beginning invocation! {}
+[debug] [2019-09-09T03:12:57.551Z] DEBUG: [runtime-status]  {"httpsTrigger":{},"labels":{"deployment-callable":"true"},"name":"addCustomerCard","entryPoint":"addCustomerCard"}
+[debug] [2019-09-09T03:12:57.552Z] DEBUG: [runtime-status] Running addCustomerCard in mode HTTPS {}
+[debug] [2019-09-09T03:12:57.557Z] {"socketPath":"/var/folders/jm/hjj7k72j3w9gxqz_6k27pdjm0000gn/T/firebase_emulator_invocation_21149.sock"}
+[debug] [2019-09-09T03:12:57.558Z] DEBUG: [functions] Runtime ready! Sending request! {"socketPath":"/var/folders/jm/hjj7k72j3w9gxqz_6k27pdjm0000gn/T/firebase_emulator_invocation_21149.sock"}
+[debug] [2019-09-09T03:12:57.577Z] DEBUG: [runtime-status] Ephemeral server used! {}
+[debug] [2019-09-09T03:12:57.629Z] DEBUG: [runtime-status] Ephemeral server survived. {}
+[info] >  Created a customer card! exports {
+[info] >    card:
+[info] >     exports {
+[info] >       id: 'ccof:g0Af7jsGiRBrnTm23GB',
+[info] >       card_brand: 'MASTERCARD',
+[info] >       last_4: '5100',
+[info] >       exp_month: 11,
+[info] >       exp_year: 2022 } }
+[debug] [2019-09-09T03:12:58.510Z] [functions] Finished "addCustomerCard" in ~1s
+[debug] [2019-09-09T03:12:58.553Z] Accepted request OPTIONS /pingpod-web/us-central1/getCustomer --> getCustomer
+[debug] [2019-09-09T03:12:58.811Z] DEBUG: [runtime-status] Functions runtime initialized. {"cwd":"/Users/cha/repos/pingpod-web/functions","node_version":"10.16.0"}
+[debug] [2019-09-09T03:12:58.811Z] [functions] Beginning execution of "getCustomer"
+[debug] [2019-09-09T03:12:58.812Z] DEBUG: [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-09-09T03:12:58.814Z] DEBUG: [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.4.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-09-09T03:12:58.815Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-09-09T03:12:58.816Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-09-09T03:12:59.476Z] DEBUG: [runtime-status] Trigger "getCustomer" has been found, beginning invocation! {}
+[debug] [2019-09-09T03:12:59.477Z] DEBUG: [runtime-status]  {"httpsTrigger":{},"labels":{"deployment-callable":"true"},"name":"getCustomer","entryPoint":"getCustomer"}
+[debug] [2019-09-09T03:12:59.477Z] DEBUG: [runtime-status] Running getCustomer in mode HTTPS {}
+[debug] [2019-09-09T03:12:59.483Z] {"socketPath":"/var/folders/jm/hjj7k72j3w9gxqz_6k27pdjm0000gn/T/firebase_emulator_invocation_21152.sock"}
+[debug] [2019-09-09T03:12:59.484Z] DEBUG: [functions] Runtime ready! Sending request! {"socketPath":"/var/folders/jm/hjj7k72j3w9gxqz_6k27pdjm0000gn/T/firebase_emulator_invocation_21152.sock"}
+[debug] [2019-09-09T03:12:59.490Z] DEBUG: [runtime-status] Ephemeral server used! {}
+[debug] [2019-09-09T03:12:59.495Z] Accepted request POST /pingpod-web/us-central1/getCustomer --> getCustomer
+[debug] [2019-09-09T03:12:59.499Z] DEBUG: [runtime-status] Ephemeral server survived. {}
+[debug] [2019-09-09T03:12:59.499Z] [functions] Finished "getCustomer" in ~1s
+[debug] [2019-09-09T03:12:59.757Z] DEBUG: [runtime-status] Functions runtime initialized. {"cwd":"/Users/cha/repos/pingpod-web/functions","node_version":"10.16.0"}
+[debug] [2019-09-09T03:12:59.758Z] [functions] Beginning execution of "getCustomer"
+[debug] [2019-09-09T03:12:59.759Z] DEBUG: [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-09-09T03:12:59.761Z] DEBUG: [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.4.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-09-09T03:12:59.762Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-09-09T03:12:59.762Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-09-09T03:13:00.420Z] DEBUG: [runtime-status] Trigger "getCustomer" has been found, beginning invocation! {}
+[debug] [2019-09-09T03:13:00.420Z] DEBUG: [runtime-status]  {"httpsTrigger":{},"labels":{"deployment-callable":"true"},"name":"getCustomer","entryPoint":"getCustomer"}
+[debug] [2019-09-09T03:13:00.420Z] DEBUG: [runtime-status] Running getCustomer in mode HTTPS {}
+[debug] [2019-09-09T03:13:00.428Z] {"socketPath":"/var/folders/jm/hjj7k72j3w9gxqz_6k27pdjm0000gn/T/firebase_emulator_invocation_21153.sock"}
+[debug] [2019-09-09T03:13:00.429Z] DEBUG: [functions] Runtime ready! Sending request! {"socketPath":"/var/folders/jm/hjj7k72j3w9gxqz_6k27pdjm0000gn/T/firebase_emulator_invocation_21153.sock"}
+[debug] [2019-09-09T03:13:00.444Z] DEBUG: [runtime-status] Ephemeral server used! {}
+[debug] [2019-09-09T03:13:00.486Z] DEBUG: [runtime-status] Ephemeral server survived. {}
+[debug] [2019-09-09T03:13:01.239Z] [functions] Finished "getCustomer" in ~1s
+[debug] [2019-09-09T03:14:07.073Z] Accepted request OPTIONS /pingpod-web/us-central1/getCustomer --> getCustomer
+[debug] [2019-09-09T03:14:07.578Z] DEBUG: [runtime-status] Functions runtime initialized. {"cwd":"/Users/cha/repos/pingpod-web/functions","node_version":"10.16.0"}
+[debug] [2019-09-09T03:14:07.579Z] [functions] Beginning execution of "getCustomer"
+[debug] [2019-09-09T03:14:07.579Z] DEBUG: [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-09-09T03:14:07.583Z] DEBUG: [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.4.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-09-09T03:14:07.584Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-09-09T03:14:07.585Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-09-09T03:14:08.851Z] DEBUG: [runtime-status] Trigger "getCustomer" has been found, beginning invocation! {}
+[debug] [2019-09-09T03:14:08.851Z] DEBUG: [runtime-status]  {"httpsTrigger":{},"labels":{"deployment-callable":"true"},"name":"getCustomer","entryPoint":"getCustomer"}
+[debug] [2019-09-09T03:14:08.857Z] DEBUG: [runtime-status] Running getCustomer in mode HTTPS {}
+[debug] [2019-09-09T03:14:08.858Z] {"socketPath":"/var/folders/jm/hjj7k72j3w9gxqz_6k27pdjm0000gn/T/firebase_emulator_invocation_21192.sock"}
+[debug] [2019-09-09T03:14:08.861Z] DEBUG: [functions] Runtime ready! Sending request! {"socketPath":"/var/folders/jm/hjj7k72j3w9gxqz_6k27pdjm0000gn/T/firebase_emulator_invocation_21192.sock"}
+[debug] [2019-09-09T03:14:08.867Z] DEBUG: [runtime-status] Ephemeral server used! {}
+[debug] [2019-09-09T03:14:08.872Z] DEBUG: [runtime-status] Ephemeral server survived. {}
+[debug] [2019-09-09T03:14:08.873Z] Accepted request POST /pingpod-web/us-central1/getCustomer --> getCustomer
+[debug] [2019-09-09T03:14:08.877Z] [functions] Finished "getCustomer" in ~1s
+[debug] [2019-09-09T03:14:09.153Z] DEBUG: [runtime-status] Functions runtime initialized. {"cwd":"/Users/cha/repos/pingpod-web/functions","node_version":"10.16.0"}
+[debug] [2019-09-09T03:14:09.153Z] [functions] Beginning execution of "getCustomer"
+[debug] [2019-09-09T03:14:09.153Z] DEBUG: [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-09-09T03:14:09.157Z] DEBUG: [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.4.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-09-09T03:14:09.158Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-09-09T03:14:09.159Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-09-09T03:14:09.872Z] DEBUG: [runtime-status] Trigger "getCustomer" has been found, beginning invocation! {}
+[debug] [2019-09-09T03:14:09.872Z] DEBUG: [runtime-status]  {"httpsTrigger":{},"labels":{"deployment-callable":"true"},"name":"getCustomer","entryPoint":"getCustomer"}
+[debug] [2019-09-09T03:14:09.872Z] DEBUG: [runtime-status] Running getCustomer in mode HTTPS {}
+[debug] [2019-09-09T03:14:09.878Z] {"socketPath":"/var/folders/jm/hjj7k72j3w9gxqz_6k27pdjm0000gn/T/firebase_emulator_invocation_21195.sock"}
+[debug] [2019-09-09T03:14:09.879Z] DEBUG: [functions] Runtime ready! Sending request! {"socketPath":"/var/folders/jm/hjj7k72j3w9gxqz_6k27pdjm0000gn/T/firebase_emulator_invocation_21195.sock"}
+[debug] [2019-09-09T03:14:09.898Z] DEBUG: [runtime-status] Ephemeral server used! {}
+[debug] [2019-09-09T03:14:09.950Z] DEBUG: [runtime-status] Ephemeral server survived. {}
+[debug] [2019-09-09T03:14:10.648Z] [functions] Finished "getCustomer" in ~1s
+[debug] [2019-09-09T03:14:24.278Z] Accepted request OPTIONS /pingpod-web/us-central1/getCustomer --> getCustomer
+[debug] [2019-09-09T03:14:24.554Z] DEBUG: [runtime-status] Functions runtime initialized. {"cwd":"/Users/cha/repos/pingpod-web/functions","node_version":"10.16.0"}
+[debug] [2019-09-09T03:14:24.555Z] [functions] Beginning execution of "getCustomer"
+[debug] [2019-09-09T03:14:24.555Z] DEBUG: [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-09-09T03:14:24.557Z] DEBUG: [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.4.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-09-09T03:14:24.559Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-09-09T03:14:24.559Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-09-09T03:14:25.243Z] DEBUG: [runtime-status] Trigger "getCustomer" has been found, beginning invocation! {}
+[debug] [2019-09-09T03:14:25.244Z] DEBUG: [runtime-status]  {"httpsTrigger":{},"labels":{"deployment-callable":"true"},"name":"getCustomer","entryPoint":"getCustomer"}
+[debug] [2019-09-09T03:14:25.244Z] DEBUG: [runtime-status] Running getCustomer in mode HTTPS {}
+[debug] [2019-09-09T03:14:25.250Z] {"socketPath":"/var/folders/jm/hjj7k72j3w9gxqz_6k27pdjm0000gn/T/firebase_emulator_invocation_21208.sock"}
+[debug] [2019-09-09T03:14:25.251Z] DEBUG: [functions] Runtime ready! Sending request! {"socketPath":"/var/folders/jm/hjj7k72j3w9gxqz_6k27pdjm0000gn/T/firebase_emulator_invocation_21208.sock"}
+[debug] [2019-09-09T03:14:25.257Z] DEBUG: [runtime-status] Ephemeral server used! {}
+[debug] [2019-09-09T03:14:25.262Z] DEBUG: [runtime-status] Ephemeral server survived. {}
+[debug] [2019-09-09T03:14:25.264Z] Accepted request POST /pingpod-web/us-central1/getCustomer --> getCustomer
+[debug] [2019-09-09T03:14:25.278Z] [functions] Finished "getCustomer" in ~1s
+[debug] [2019-09-09T03:14:25.548Z] DEBUG: [runtime-status] Functions runtime initialized. {"cwd":"/Users/cha/repos/pingpod-web/functions","node_version":"10.16.0"}
+[debug] [2019-09-09T03:14:25.550Z] [functions] Beginning execution of "getCustomer"
+[debug] [2019-09-09T03:14:25.550Z] DEBUG: [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-09-09T03:14:25.552Z] DEBUG: [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.4.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-09-09T03:14:25.552Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-09-09T03:14:25.553Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-09-09T03:14:26.242Z] DEBUG: [runtime-status] Trigger "getCustomer" has been found, beginning invocation! {}
+[debug] [2019-09-09T03:14:26.242Z] DEBUG: [runtime-status]  {"httpsTrigger":{},"labels":{"deployment-callable":"true"},"name":"getCustomer","entryPoint":"getCustomer"}
+[debug] [2019-09-09T03:14:26.242Z] DEBUG: [runtime-status] Running getCustomer in mode HTTPS {}
+[debug] [2019-09-09T03:14:26.245Z] {"socketPath":"/var/folders/jm/hjj7k72j3w9gxqz_6k27pdjm0000gn/T/firebase_emulator_invocation_21209.sock"}
+[debug] [2019-09-09T03:14:26.246Z] DEBUG: [functions] Runtime ready! Sending request! {"socketPath":"/var/folders/jm/hjj7k72j3w9gxqz_6k27pdjm0000gn/T/firebase_emulator_invocation_21209.sock"}
+[debug] [2019-09-09T03:14:26.261Z] DEBUG: [runtime-status] Ephemeral server used! {}
+[debug] [2019-09-09T03:14:26.303Z] DEBUG: [runtime-status] Ephemeral server survived. {}
+[debug] [2019-09-09T03:14:27.032Z] [functions] Finished "getCustomer" in ~1s
+[debug] [2019-09-09T03:17:42.074Z] Accepted request OPTIONS /pingpod-web/us-central1/getCustomer --> getCustomer
+[debug] [2019-09-09T03:17:42.427Z] DEBUG: [runtime-status] Functions runtime initialized. {"cwd":"/Users/cha/repos/pingpod-web/functions","node_version":"10.16.0"}
+[debug] [2019-09-09T03:17:42.429Z] [functions] Beginning execution of "getCustomer"
+[debug] [2019-09-09T03:17:42.431Z] DEBUG: [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-09-09T03:17:42.431Z] DEBUG: [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.4.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-09-09T03:17:42.433Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-09-09T03:17:42.433Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-09-09T03:17:43.165Z] DEBUG: [runtime-status] Trigger "getCustomer" has been found, beginning invocation! {}
+[debug] [2019-09-09T03:17:43.166Z] DEBUG: [runtime-status]  {"httpsTrigger":{},"labels":{"deployment-callable":"true"},"name":"getCustomer","entryPoint":"getCustomer"}
+[debug] [2019-09-09T03:17:43.166Z] DEBUG: [runtime-status] Running getCustomer in mode HTTPS {}
+[debug] [2019-09-09T03:17:43.170Z] {"socketPath":"/var/folders/jm/hjj7k72j3w9gxqz_6k27pdjm0000gn/T/firebase_emulator_invocation_21269.sock"}
+[debug] [2019-09-09T03:17:43.170Z] DEBUG: [functions] Runtime ready! Sending request! {"socketPath":"/var/folders/jm/hjj7k72j3w9gxqz_6k27pdjm0000gn/T/firebase_emulator_invocation_21269.sock"}
+[debug] [2019-09-09T03:17:43.176Z] DEBUG: [runtime-status] Ephemeral server used! {}
+[debug] [2019-09-09T03:17:43.182Z] Accepted request POST /pingpod-web/us-central1/getCustomer --> getCustomer
+[debug] [2019-09-09T03:17:43.198Z] DEBUG: [runtime-status] Ephemeral server survived. {}
+[debug] [2019-09-09T03:17:43.198Z] [functions] Finished "getCustomer" in ~1s
+[debug] [2019-09-09T03:17:43.463Z] DEBUG: [runtime-status] Functions runtime initialized. {"cwd":"/Users/cha/repos/pingpod-web/functions","node_version":"10.16.0"}
+[debug] [2019-09-09T03:17:43.464Z] [functions] Beginning execution of "getCustomer"
+[debug] [2019-09-09T03:17:43.464Z] DEBUG: [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-09-09T03:17:43.467Z] DEBUG: [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.4.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-09-09T03:17:43.468Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-09-09T03:17:43.468Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-09-09T03:17:44.185Z] DEBUG: [runtime-status] Trigger "getCustomer" has been found, beginning invocation! {}
+[debug] [2019-09-09T03:17:44.185Z] DEBUG: [runtime-status]  {"httpsTrigger":{},"labels":{"deployment-callable":"true"},"name":"getCustomer","entryPoint":"getCustomer"}
+[debug] [2019-09-09T03:17:44.191Z] DEBUG: [runtime-status] Running getCustomer in mode HTTPS {}
+[debug] [2019-09-09T03:17:44.191Z] {"socketPath":"/var/folders/jm/hjj7k72j3w9gxqz_6k27pdjm0000gn/T/firebase_emulator_invocation_21271.sock"}
+[debug] [2019-09-09T03:17:44.208Z] DEBUG: [functions] Runtime ready! Sending request! {"socketPath":"/var/folders/jm/hjj7k72j3w9gxqz_6k27pdjm0000gn/T/firebase_emulator_invocation_21271.sock"}
+[debug] [2019-09-09T03:17:44.227Z] DEBUG: [runtime-status] Ephemeral server used! {}
+[debug] [2019-09-09T03:17:44.269Z] DEBUG: [runtime-status] Ephemeral server survived. {}
+[debug] [2019-09-09T03:17:45.095Z] [functions] Finished "getCustomer" in ~1s
+[debug] [2019-09-09T03:17:48.768Z] Accepted request OPTIONS /pingpod-web/us-central1/getCustomer --> getCustomer
+[debug] [2019-09-09T03:17:49.175Z] DEBUG: [runtime-status] Functions runtime initialized. {"cwd":"/Users/cha/repos/pingpod-web/functions","node_version":"10.16.0"}
+[debug] [2019-09-09T03:17:49.176Z] [functions] Beginning execution of "getCustomer"
+[debug] [2019-09-09T03:17:49.178Z] DEBUG: [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-09-09T03:17:49.179Z] DEBUG: [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.4.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-09-09T03:17:49.180Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-09-09T03:17:49.181Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-09-09T03:17:49.985Z] DEBUG: [runtime-status] Trigger "getCustomer" has been found, beginning invocation! {}
+[debug] [2019-09-09T03:17:49.985Z] DEBUG: [runtime-status]  {"httpsTrigger":{},"labels":{"deployment-callable":"true"},"name":"getCustomer","entryPoint":"getCustomer"}
+[debug] [2019-09-09T03:17:49.985Z] DEBUG: [runtime-status] Running getCustomer in mode HTTPS {}
+[debug] [2019-09-09T03:17:49.995Z] {"socketPath":"/var/folders/jm/hjj7k72j3w9gxqz_6k27pdjm0000gn/T/firebase_emulator_invocation_21275.sock"}
+[debug] [2019-09-09T03:17:49.996Z] DEBUG: [functions] Runtime ready! Sending request! {"socketPath":"/var/folders/jm/hjj7k72j3w9gxqz_6k27pdjm0000gn/T/firebase_emulator_invocation_21275.sock"}
+[debug] [2019-09-09T03:17:50.002Z] DEBUG: [runtime-status] Ephemeral server used! {}
+[debug] [2019-09-09T03:17:50.008Z] DEBUG: [runtime-status] Ephemeral server survived. {}
+[debug] [2019-09-09T03:17:50.010Z] Accepted request POST /pingpod-web/us-central1/getCustomer --> getCustomer
+[debug] [2019-09-09T03:17:50.016Z] [functions] Finished "getCustomer" in ~1s
+[debug] [2019-09-09T03:17:50.293Z] DEBUG: [runtime-status] Functions runtime initialized. {"cwd":"/Users/cha/repos/pingpod-web/functions","node_version":"10.16.0"}
+[debug] [2019-09-09T03:17:50.293Z] [functions] Beginning execution of "getCustomer"
+[debug] [2019-09-09T03:17:50.294Z] DEBUG: [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-09-09T03:17:50.295Z] DEBUG: [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.4.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-09-09T03:17:50.296Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-09-09T03:17:50.297Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-09-09T03:17:51.036Z] DEBUG: [runtime-status] Trigger "getCustomer" has been found, beginning invocation! {}
+[debug] [2019-09-09T03:17:51.036Z] DEBUG: [runtime-status]  {"httpsTrigger":{},"labels":{"deployment-callable":"true"},"name":"getCustomer","entryPoint":"getCustomer"}
+[debug] [2019-09-09T03:17:51.036Z] DEBUG: [runtime-status] Running getCustomer in mode HTTPS {}
+[debug] [2019-09-09T03:17:51.044Z] {"socketPath":"/var/folders/jm/hjj7k72j3w9gxqz_6k27pdjm0000gn/T/firebase_emulator_invocation_21276.sock"}
+[debug] [2019-09-09T03:17:51.045Z] DEBUG: [functions] Runtime ready! Sending request! {"socketPath":"/var/folders/jm/hjj7k72j3w9gxqz_6k27pdjm0000gn/T/firebase_emulator_invocation_21276.sock"}
+[debug] [2019-09-09T03:17:51.061Z] DEBUG: [runtime-status] Ephemeral server used! {}
+[debug] [2019-09-09T03:17:51.104Z] DEBUG: [runtime-status] Ephemeral server survived. {}
+[debug] [2019-09-09T03:17:51.938Z] [functions] Finished "getCustomer" in ~1s
+[debug] [2019-09-09T03:18:52.845Z] Accepted request OPTIONS /pingpod-web/us-central1/getCustomer --> getCustomer
+[debug] [2019-09-09T03:18:53.203Z] DEBUG: [runtime-status] Functions runtime initialized. {"cwd":"/Users/cha/repos/pingpod-web/functions","node_version":"10.16.0"}
+[debug] [2019-09-09T03:18:53.203Z] [functions] Beginning execution of "getCustomer"
+[debug] [2019-09-09T03:18:53.204Z] DEBUG: [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-09-09T03:18:53.206Z] DEBUG: [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.4.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-09-09T03:18:53.208Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-09-09T03:18:53.208Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-09-09T03:18:54.015Z] DEBUG: [runtime-status] Trigger "getCustomer" has been found, beginning invocation! {}
+[debug] [2019-09-09T03:18:54.015Z] DEBUG: [runtime-status]  {"httpsTrigger":{},"labels":{"deployment-callable":"true"},"name":"getCustomer","entryPoint":"getCustomer"}
+[debug] [2019-09-09T03:18:54.015Z] DEBUG: [runtime-status] Running getCustomer in mode HTTPS {}
+[debug] [2019-09-09T03:18:54.020Z] {"socketPath":"/var/folders/jm/hjj7k72j3w9gxqz_6k27pdjm0000gn/T/firebase_emulator_invocation_21291.sock"}
+[debug] [2019-09-09T03:18:54.021Z] DEBUG: [functions] Runtime ready! Sending request! {"socketPath":"/var/folders/jm/hjj7k72j3w9gxqz_6k27pdjm0000gn/T/firebase_emulator_invocation_21291.sock"}
+[debug] [2019-09-09T03:18:54.030Z] DEBUG: [runtime-status] Ephemeral server used! {}
+[debug] [2019-09-09T03:18:54.036Z] DEBUG: [runtime-status] Ephemeral server survived. {}
+[debug] [2019-09-09T03:18:54.036Z] Accepted request POST /pingpod-web/us-central1/getCustomer --> getCustomer
+[debug] [2019-09-09T03:18:54.041Z] [functions] Finished "getCustomer" in ~1s
+[debug] [2019-09-09T03:18:54.310Z] DEBUG: [runtime-status] Functions runtime initialized. {"cwd":"/Users/cha/repos/pingpod-web/functions","node_version":"10.16.0"}
+[debug] [2019-09-09T03:18:54.312Z] [functions] Beginning execution of "getCustomer"
+[debug] [2019-09-09T03:18:54.312Z] DEBUG: [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-09-09T03:18:54.315Z] DEBUG: [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.4.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-09-09T03:18:54.315Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-09-09T03:18:54.316Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-09-09T03:18:55.019Z] DEBUG: [runtime-status] Trigger "getCustomer" has been found, beginning invocation! {}
+[debug] [2019-09-09T03:18:55.019Z] DEBUG: [runtime-status]  {"httpsTrigger":{},"labels":{"deployment-callable":"true"},"name":"getCustomer","entryPoint":"getCustomer"}
+[debug] [2019-09-09T03:18:55.019Z] DEBUG: [runtime-status] Running getCustomer in mode HTTPS {}
+[debug] [2019-09-09T03:18:55.028Z] {"socketPath":"/var/folders/jm/hjj7k72j3w9gxqz_6k27pdjm0000gn/T/firebase_emulator_invocation_21292.sock"}
+[debug] [2019-09-09T03:18:55.029Z] DEBUG: [functions] Runtime ready! Sending request! {"socketPath":"/var/folders/jm/hjj7k72j3w9gxqz_6k27pdjm0000gn/T/firebase_emulator_invocation_21292.sock"}
+[debug] [2019-09-09T03:18:55.043Z] DEBUG: [runtime-status] Ephemeral server used! {}
+[debug] [2019-09-09T03:18:55.083Z] DEBUG: [runtime-status] Ephemeral server survived. {}
+[debug] [2019-09-09T03:18:55.850Z] [functions] Finished "getCustomer" in ~1s
+[debug] [2019-09-09T03:22:18.838Z] Accepted request OPTIONS /pingpod-web/us-central1/getCustomer --> getCustomer
+[debug] [2019-09-09T03:22:19.311Z] DEBUG: [runtime-status] Functions runtime initialized. {"cwd":"/Users/cha/repos/pingpod-web/functions","node_version":"10.16.0"}
+[debug] [2019-09-09T03:22:19.312Z] [functions] Beginning execution of "getCustomer"
+[debug] [2019-09-09T03:22:19.312Z] DEBUG: [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-09-09T03:22:19.314Z] DEBUG: [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.4.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-09-09T03:22:19.316Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-09-09T03:22:19.316Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-09-09T03:22:20.574Z] DEBUG: [runtime-status] Trigger "getCustomer" has been found, beginning invocation! {}
+[debug] [2019-09-09T03:22:20.574Z] DEBUG: [runtime-status]  {"httpsTrigger":{},"labels":{"deployment-callable":"true"},"name":"getCustomer","entryPoint":"getCustomer"}
+[debug] [2019-09-09T03:22:20.574Z] DEBUG: [runtime-status] Running getCustomer in mode HTTPS {}
+[debug] [2019-09-09T03:22:20.582Z] {"socketPath":"/var/folders/jm/hjj7k72j3w9gxqz_6k27pdjm0000gn/T/firebase_emulator_invocation_21340.sock"}
+[debug] [2019-09-09T03:22:20.582Z] DEBUG: [functions] Runtime ready! Sending request! {"socketPath":"/var/folders/jm/hjj7k72j3w9gxqz_6k27pdjm0000gn/T/firebase_emulator_invocation_21340.sock"}
+[debug] [2019-09-09T03:22:20.594Z] DEBUG: [runtime-status] Ephemeral server used! {}
+[debug] [2019-09-09T03:22:20.600Z] DEBUG: [runtime-status] Ephemeral server survived. {}
+[debug] [2019-09-09T03:22:20.600Z] Accepted request POST /pingpod-web/us-central1/getCustomer --> getCustomer
+[debug] [2019-09-09T03:22:20.605Z] [functions] Finished "getCustomer" in ~1s
+[debug] [2019-09-09T03:22:20.861Z] DEBUG: [runtime-status] Functions runtime initialized. {"cwd":"/Users/cha/repos/pingpod-web/functions","node_version":"10.16.0"}
+[debug] [2019-09-09T03:22:20.862Z] [functions] Beginning execution of "getCustomer"
+[debug] [2019-09-09T03:22:20.862Z] DEBUG: [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-09-09T03:22:20.864Z] DEBUG: [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.4.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-09-09T03:22:20.865Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-09-09T03:22:20.867Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-09-09T03:22:21.527Z] DEBUG: [runtime-status] Trigger "getCustomer" has been found, beginning invocation! {}
+[debug] [2019-09-09T03:22:21.527Z] DEBUG: [runtime-status]  {"httpsTrigger":{},"labels":{"deployment-callable":"true"},"name":"getCustomer","entryPoint":"getCustomer"}
+[debug] [2019-09-09T03:22:21.527Z] DEBUG: [runtime-status] Running getCustomer in mode HTTPS {}
+[debug] [2019-09-09T03:22:21.533Z] {"socketPath":"/var/folders/jm/hjj7k72j3w9gxqz_6k27pdjm0000gn/T/firebase_emulator_invocation_21343.sock"}
+[debug] [2019-09-09T03:22:21.534Z] DEBUG: [functions] Runtime ready! Sending request! {"socketPath":"/var/folders/jm/hjj7k72j3w9gxqz_6k27pdjm0000gn/T/firebase_emulator_invocation_21343.sock"}
+[debug] [2019-09-09T03:22:21.556Z] DEBUG: [runtime-status] Ephemeral server used! {}
+[debug] [2019-09-09T03:22:21.608Z] DEBUG: [runtime-status] Ephemeral server survived. {}
+[debug] [2019-09-09T03:22:22.432Z] [functions] Finished "getCustomer" in ~1s
+[debug] [2019-09-09T03:22:34.904Z] Accepted request OPTIONS /pingpod-web/us-central1/addCustomerCard --> addCustomerCard
+[debug] [2019-09-09T03:22:35.166Z] DEBUG: [runtime-status] Functions runtime initialized. {"cwd":"/Users/cha/repos/pingpod-web/functions","node_version":"10.16.0"}
+[debug] [2019-09-09T03:22:35.167Z] [functions] Beginning execution of "addCustomerCard"
+[debug] [2019-09-09T03:22:35.167Z] DEBUG: [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-09-09T03:22:35.168Z] DEBUG: [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.4.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-09-09T03:22:35.169Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-09-09T03:22:35.170Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-09-09T03:22:35.825Z] DEBUG: [runtime-status] Trigger "addCustomerCard" has been found, beginning invocation! {}
+[debug] [2019-09-09T03:22:35.825Z] DEBUG: [runtime-status]  {"httpsTrigger":{},"labels":{"deployment-callable":"true"},"name":"addCustomerCard","entryPoint":"addCustomerCard"}
+[debug] [2019-09-09T03:22:35.825Z] DEBUG: [runtime-status] Running addCustomerCard in mode HTTPS {}
+[debug] [2019-09-09T03:22:35.833Z] {"socketPath":"/var/folders/jm/hjj7k72j3w9gxqz_6k27pdjm0000gn/T/firebase_emulator_invocation_21346.sock"}
+[debug] [2019-09-09T03:22:35.834Z] DEBUG: [functions] Runtime ready! Sending request! {"socketPath":"/var/folders/jm/hjj7k72j3w9gxqz_6k27pdjm0000gn/T/firebase_emulator_invocation_21346.sock"}
+[debug] [2019-09-09T03:22:35.840Z] DEBUG: [runtime-status] Ephemeral server used! {}
+[debug] [2019-09-09T03:22:35.846Z] Accepted request POST /pingpod-web/us-central1/addCustomerCard --> addCustomerCard
+[debug] [2019-09-09T03:22:35.850Z] DEBUG: [runtime-status] Ephemeral server survived. {}
+[debug] [2019-09-09T03:22:35.850Z] [functions] Finished "addCustomerCard" in ~1s
+[debug] [2019-09-09T03:22:36.103Z] DEBUG: [runtime-status] Functions runtime initialized. {"cwd":"/Users/cha/repos/pingpod-web/functions","node_version":"10.16.0"}
+[debug] [2019-09-09T03:22:36.103Z] [functions] Beginning execution of "addCustomerCard"
+[debug] [2019-09-09T03:22:36.103Z] DEBUG: [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-09-09T03:22:36.105Z] DEBUG: [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.4.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-09-09T03:22:36.106Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-09-09T03:22:36.106Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-09-09T03:22:36.754Z] DEBUG: [runtime-status] Trigger "addCustomerCard" has been found, beginning invocation! {}
+[debug] [2019-09-09T03:22:36.754Z] DEBUG: [runtime-status]  {"httpsTrigger":{},"labels":{"deployment-callable":"true"},"name":"addCustomerCard","entryPoint":"addCustomerCard"}
+[debug] [2019-09-09T03:22:36.754Z] DEBUG: [runtime-status] Running addCustomerCard in mode HTTPS {}
+[debug] [2019-09-09T03:22:36.760Z] {"socketPath":"/var/folders/jm/hjj7k72j3w9gxqz_6k27pdjm0000gn/T/firebase_emulator_invocation_21347.sock"}
+[debug] [2019-09-09T03:22:36.761Z] DEBUG: [functions] Runtime ready! Sending request! {"socketPath":"/var/folders/jm/hjj7k72j3w9gxqz_6k27pdjm0000gn/T/firebase_emulator_invocation_21347.sock"}
+[debug] [2019-09-09T03:22:36.776Z] DEBUG: [runtime-status] Ephemeral server used! {}
+[debug] [2019-09-09T03:22:36.816Z] DEBUG: [runtime-status] Ephemeral server survived. {}
+[info] >  Created a customer card! exports {
+[info] >    card:
+[info] >     exports {
+[info] >       id: 'ccof:GJbuIBQXR76QP9Lh4GB',
+[info] >       card_brand: 'MASTERCARD',
+[info] >       last_4: '5100',
+[info] >       exp_month: 11,
+[info] >       exp_year: 2022 } }
+[debug] [2019-09-09T03:22:37.612Z] [functions] Finished "addCustomerCard" in ~1s
+[debug] [2019-09-09T03:22:37.629Z] Accepted request OPTIONS /pingpod-web/us-central1/getCustomer --> getCustomer
+[debug] [2019-09-09T03:22:37.887Z] DEBUG: [runtime-status] Functions runtime initialized. {"cwd":"/Users/cha/repos/pingpod-web/functions","node_version":"10.16.0"}
+[debug] [2019-09-09T03:22:37.889Z] [functions] Beginning execution of "getCustomer"
+[debug] [2019-09-09T03:22:37.889Z] DEBUG: [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-09-09T03:22:37.891Z] DEBUG: [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.4.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-09-09T03:22:37.892Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-09-09T03:22:37.892Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-09-09T03:22:38.545Z] DEBUG: [runtime-status] Trigger "getCustomer" has been found, beginning invocation! {}
+[debug] [2019-09-09T03:22:38.545Z] DEBUG: [runtime-status]  {"httpsTrigger":{},"labels":{"deployment-callable":"true"},"name":"getCustomer","entryPoint":"getCustomer"}
+[debug] [2019-09-09T03:22:38.545Z] DEBUG: [runtime-status] Running getCustomer in mode HTTPS {}
+[debug] [2019-09-09T03:22:38.553Z] {"socketPath":"/var/folders/jm/hjj7k72j3w9gxqz_6k27pdjm0000gn/T/firebase_emulator_invocation_21348.sock"}
+[debug] [2019-09-09T03:22:38.553Z] DEBUG: [functions] Runtime ready! Sending request! {"socketPath":"/var/folders/jm/hjj7k72j3w9gxqz_6k27pdjm0000gn/T/firebase_emulator_invocation_21348.sock"}
+[debug] [2019-09-09T03:22:38.559Z] DEBUG: [runtime-status] Ephemeral server used! {}
+[debug] [2019-09-09T03:22:38.565Z] Accepted request POST /pingpod-web/us-central1/getCustomer --> getCustomer
+[debug] [2019-09-09T03:22:38.569Z] DEBUG: [runtime-status] Ephemeral server survived. {}
+[debug] [2019-09-09T03:22:38.569Z] [functions] Finished "getCustomer" in ~1s
+[debug] [2019-09-09T03:22:38.827Z] DEBUG: [runtime-status] Functions runtime initialized. {"cwd":"/Users/cha/repos/pingpod-web/functions","node_version":"10.16.0"}
+[debug] [2019-09-09T03:22:38.827Z] [functions] Beginning execution of "getCustomer"
+[debug] [2019-09-09T03:22:38.827Z] DEBUG: [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-09-09T03:22:38.830Z] DEBUG: [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.4.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-09-09T03:22:38.831Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-09-09T03:22:38.831Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-09-09T03:22:39.484Z] DEBUG: [runtime-status] Trigger "getCustomer" has been found, beginning invocation! {}
+[debug] [2019-09-09T03:22:39.485Z] DEBUG: [runtime-status]  {"httpsTrigger":{},"labels":{"deployment-callable":"true"},"name":"getCustomer","entryPoint":"getCustomer"}
+[debug] [2019-09-09T03:22:39.485Z] DEBUG: [runtime-status] Running getCustomer in mode HTTPS {}
+[debug] [2019-09-09T03:22:39.489Z] {"socketPath":"/var/folders/jm/hjj7k72j3w9gxqz_6k27pdjm0000gn/T/firebase_emulator_invocation_21349.sock"}
+[debug] [2019-09-09T03:22:39.491Z] DEBUG: [functions] Runtime ready! Sending request! {"socketPath":"/var/folders/jm/hjj7k72j3w9gxqz_6k27pdjm0000gn/T/firebase_emulator_invocation_21349.sock"}
+[debug] [2019-09-09T03:22:39.508Z] DEBUG: [runtime-status] Ephemeral server used! {}
+[debug] [2019-09-09T03:22:39.548Z] DEBUG: [runtime-status] Ephemeral server survived. {}
+[debug] [2019-09-09T03:22:40.280Z] [functions] Finished "getCustomer" in ~1s
