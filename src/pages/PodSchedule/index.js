@@ -100,49 +100,52 @@ class PodSchedule extends React.Component {
           </div>
         </div>
 
-        <div className={styles.sessions} data-row ref={this.sessionsRef}>
-          <CartSubscriber>{() => (
-            <Sessions 
-              date={formatDate(date)} 
-              locationId={locationId}
-              onFirstLoad={this.scrollToSession}
-            >{(sessions) => (
-              sessions.map(({ id, time, isAvailable, isPast }) => {
-                const isSelected = cartContainer.isInCart(id)
+        <CartSubscriber>{() => (
+          <>
+            <div className={styles.sessions} data-row ref={this.sessionsRef}>
+              <Sessions 
+                date={formatDate(date)} 
+                locationId={locationId}
+                onFirstLoad={this.scrollToSession}
+              >{(sessions) => (
+                sessions.map(({ id, time, isAvailable, isPast }) => {
+                  const isSelected = cartContainer.isInCart(id)
 
-                const toggleSelect = () => {
-                  if (isSelected) cartContainer.removeItem(id)
-                  else cartContainer.addItem(id)
-                }
+                  const toggleSelect = () => {
+                    if (isSelected) cartContainer.removeItem(id)
+                    else cartContainer.addItem(id)
+                  }
 
-                const scrollToRef = timeToScroll === time ? this.scrollToRef : null
+                  const scrollToRef = timeToScroll === time ? this.scrollToRef : null
 
-                if (isPast) return null
+                  if (isPast) return null
 
-                return (
-                  <div key={id} ref={scrollToRef}>
-                    <ScheduleSession
-                      id={id}
-                      isAvailable={isAvailable}
-                      isPast={isPast}
-                      isSelected={isSelected}
-                      key={id} 
-                      onClick={toggleSelect}
-                    />
-                  </div>
-                )
-              })
-            )}</Sessions>
-          )}</CartSubscriber>
-        </div>
+                  return (
+                    <div key={id} ref={scrollToRef}>
+                      <ScheduleSession
+                        id={id}
+                        isAvailable={isAvailable}
+                        isPast={isPast}
+                        isSelected={isSelected}
+                        key={id} 
+                        onClick={toggleSelect}
+                      />
+                    </div>
+                  )
+                })
+              )}</Sessions>
+            </div>
+            <div data-row className={styles.checkout}>
+              <Link to="/cart" data-col="12">
+                <button disabled={!cartContainer.items.length}>
+                  Reserve Selected Times ({cartContainer.items.length})
+                </button>
+              </Link>
+            </div>
+          </>
+        )}</CartSubscriber>
 
-        <div data-row className={styles.checkout}>
-          <Link to="/cart" data-col="12">
-            <button>
-              Checkout
-            </button>
-          </Link>
-        </div>
+
       </Layout>
     )
   }
