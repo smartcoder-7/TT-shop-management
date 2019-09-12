@@ -1,0 +1,30 @@
+[debug] [2019-09-12T03:37:57.822Z] ----------------------------------------------------------------------
+[debug] [2019-09-12T03:37:57.824Z] Command:       /Users/cha/.nvm/versions/node/v10.16.0/bin/node /Users/cha/.nvm/versions/node/v10.16.0/bin/firebase functions:shell
+[debug] [2019-09-12T03:37:57.824Z] CLI Version:   7.2.4
+[debug] [2019-09-12T03:37:57.824Z] Platform:      darwin
+[debug] [2019-09-12T03:37:57.825Z] Node Version:  v10.16.0
+[debug] [2019-09-12T03:37:57.827Z] Time:          Wed Sep 11 2019 23:37:57 GMT-0400 (Eastern Daylight Time)
+[debug] [2019-09-12T03:37:57.827Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-09-12T03:37:57.842Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-09-12T03:37:57.843Z] > authorizing via signed-in user
+[debug] [2019-09-12T03:37:57.843Z] [iam] checking project pingpod-web for permissions ["firebase.projects.get"]
+[debug] [2019-09-12T03:37:57.844Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2019-09-12T03:37:57.844Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2019-09-12T03:37:58.090Z] <<< HTTP RESPONSE 200
+[debug] [2019-09-12T03:37:58.123Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/pingpod-web:testIamPermissions  
+
+[debug] [2019-09-12T03:37:58.401Z] <<< HTTP RESPONSE 200
+[warn] ⚠  Your requested "node" version "8" doesn't match your global version "10"
+[info] ✔  functions: Emulator started at http://localhost:5000
+[debug] [2019-09-12T03:37:58.685Z] [functions] Watching "/Users/cha/repos/pingpod-web/functions" for Cloud Functions...
+[debug] [2019-09-12T03:37:59.030Z] DEBUG: [runtime-status] Functions runtime initialized. {"cwd":"/Users/cha/repos/pingpod-web/functions","node_version":"10.16.0"}
+[debug] [2019-09-12T03:37:59.031Z] DEBUG: [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-09-12T03:37:59.034Z] DEBUG: [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.4.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-09-12T03:37:59.036Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-09-12T03:37:59.037Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-09-12T03:38:00.564Z] [functions[newCustomer]] http function initialized (http://localhost:5000/pingpod-web/us-central1/newCustomer).
+[debug] [2019-09-12T03:38:00.564Z] [functions[addCustomerCard]] http function initialized (http://localhost:5000/pingpod-web/us-central1/addCustomerCard).
+[debug] [2019-09-12T03:38:00.564Z] [functions[getCustomer]] http function initialized (http://localhost:5000/pingpod-web/us-central1/getCustomer).
+[info] i  functions: Loaded functions: newCustomer, addCustomerCard, getCustomer

@@ -9,6 +9,8 @@ import { formatDate, getDateParts } from 'util/getPodSessions'
 
 import styles from './styles.scss'
 import { CartSubscriber } from '../../containers/cartContainer';
+import ArrowLeft from 'components/svg/ArrowLeft';
+import ArrowRight from 'components/svg/ArrowRight';
 
 class PodSchedule extends React.Component {
   state = {
@@ -36,13 +38,26 @@ class PodSchedule extends React.Component {
     const current = this.state.date
     const date = new Date(current)
     date.setDate(date.getDate() - 1)
-    this.setState({ date })
+    this.setDate(date)
   }
 
   nextDay = () => {
     const current = this.state.date
     const date = new Date(current)
     date.setDate(date.getDate() + 1)
+    this.setDate(date)
+  }
+
+  setDate = (date) => {
+    const today = new Date()
+    today.setMinutes(0)
+    today.setSeconds(0)
+    today.setMilliseconds(0)
+
+    if (date.getTime() < today.getTime()) {
+      return
+    }
+
     this.setState({ date })
   }
 
@@ -63,15 +78,26 @@ class PodSchedule extends React.Component {
     dateToScroll.setMilliseconds(0)
     const timeToScroll = dateToScroll.getTime()
 
+    const today = new Date()
+    today.setMinutes(0)
+    today.setSeconds(0)
+    today.setMilliseconds(0)
+
+    const isToday = today.getTime() === dateToScroll.getTime()
+
     return (
       <Layout className={styles.podSchedule}>
         <div data-row>
-          <div data-col="3" onClick={this.prevDay}>PREV</div>
-          <div data-col="6" className={styles.today}>
+          <div data-col="2" className={styles.prevDay} onClick={this.prevDay} data-active={!isToday}>
+            <ArrowLeft />
+          </div>
+          <div data-col="8" className={styles.today}>
             <p data-label>{dayOfTheWeek}</p>
             <h1>{month} {day}</h1>
           </div>
-          <div data-col="3" onClick={this.nextDay}>NEXT</div>
+          <div data-col="2" className={styles.nextDay} onClick={this.nextDay}>
+            <ArrowRight />
+          </div>
         </div>
 
         <div className={styles.sessions} data-row ref={this.sessionsRef}>

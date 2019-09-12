@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "webpack",
+    "build": "NODE_ENV=production webpack",
     "dev": "NODE_ENV=development webpack-dev-server",
     "deploy": "npm run build && firebase deploy"
   },

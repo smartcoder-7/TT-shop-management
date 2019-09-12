@@ -37,7 +37,7 @@ export const ScheduleSession = ({
     >
       <div>
         {!isAvailable && !isPast && <div data-label>UNAVAILABLE</div>} 
-        {formatTime(time)} - {formatTime(timeEnd)}
+        <label>{formatTime(time)} - {formatTime(timeEnd)}</label>
       </div>
     </div>
   )
