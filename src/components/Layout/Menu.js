@@ -18,28 +18,32 @@ const Menu = ({
         <div className={styles.dot}/>
       </div>
 
-      <div className={styles.menu} data-expanded={expanded}>
-        <ul data-row>
-          <li>
-            <Link to="/" data-link>PINGPOD</Link>
-          </li>
+      <div className={styles.menuWrapper} data-expanded={expanded}>
+        <div className={styles.overlay} />
+        <div className={styles.menu} data-expanded={expanded}>
+          <ul data-row>
+            <li>
+              <Link to="/reserve/0" data-link>Reserve a Table</Link>
+            </li>
 
-          <li>
-            <Link to={`/login?redirect=${window.location}`} data-link>Log In</Link>
-          </li>
+            <li>
+              <Link to={'/account'} data-link>My Account</Link>
+            </li>
 
-          <li>
-            <Link to={'/account'} data-link>Account</Link>
-          </li>
+            {authContainer.userId ? (
+              <li>
+                <button onClick={authContainer.logout} data-link>Log Out</button>
+              </li>
+            ) : (
+              <li>
+                <Link to={`/login?redirect=${window.location}`} data-link>Log In</Link>
+              </li>
+            )}
+          </ul>
 
-          <li>
-            <button onClick={authContainer.logout} data-link>Log Out</button>
-          </li>
-        </ul>
-        <h4>Logged in as: {authContainer.user.email}</h4>
-
-        <div className={styles.close} onClick={() => setExpanded(false)}>
-          X
+          <div className={styles.close} onClick={() => setExpanded(false)}>
+            ✕
+          </div>
         </div>
       </div>
     </>

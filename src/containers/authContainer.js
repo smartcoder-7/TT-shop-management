@@ -122,6 +122,7 @@ class AuthContainer extends Container {
     .signOut()
     .then(() => {
       console.log('logged out!')
+      window.location = '/login'
     })
   }
 
