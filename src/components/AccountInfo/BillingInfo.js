@@ -4,11 +4,12 @@ import Layout from 'components/Layout'
 import firebase from 'util/firebase'
 
 import styles from './styles.scss'
-import authContainer, { AuthSubscriber } from '../../containers/authContainer'
-import { ReservationRange } from 'components/Reservation'
+import authContainer, { AuthSubscriber } from 'containers/authContainer'
+import Loading from 'components/Loading'
 import { INTERVAL_MS, getDateParts } from 'util/getPodSessions'
 import { NewCard, Card } from './Card'
-import { updateUser } from '../../util/db';
+import { updateUser } from 'util/db'
+import FieldWrapper from 'components/fields/FieldWrapper'
 
 const functions = firebase.functions()
 const getCustomer = functions.httpsCallable('getCustomer')
@@ -31,6 +32,7 @@ class BillingInfo extends React.Component {
   }
 
   componentWillUnmount() {
+    this.isUnmounted = true
     authContainer.unsubscribe(this.onAuthChange)
   }
 
@@ -55,6 +57,8 @@ class BillingInfo extends React.Component {
     
     getCustomer({ customer_id: squareId })
     .then(({ data })=> {
+      if (this.isUnmounted) return
+
       const cards = data.customer.cards || []
 
       if (!user.activeCard && cards.length > 0) {
@@ -76,24 +80,25 @@ class BillingInfo extends React.Component {
 
     return (
       <div className={styles.billingInfo}>
-        <label>Billing Info</label>
+        <FieldWrapper label="Billing Info">
+          <div className={styles.cards}>
+            <Loading loading={loading} />
+            {!loading && !cards.length && 'No cards saved.'}
 
-        <div className={styles.cards}>
-          {loading && 'Loading...'}
-          {!loading && !cards.length && 'No cards saved.'}
-          {cards.map(card => {
-            return (
-              <Card 
-                {...card} 
-                key={card.id} 
-                onClick={() => this.setActiveCard(card.id)} 
-                isActive={card.id === user.activeCard}
-              />
-            )
-          })}
-
-          <NewCard onAdd={this.onCardUpdate} />
-        </div>
+            {cards.map(card => {
+              return (
+                <Card 
+                  {...card} 
+                  key={card.id} 
+                  onClick={() => this.setActiveCard(card.id)} 
+                  isActive={card.id === user.activeCard}
+                />
+              )
+            })}
+            
+            {!loading && <NewCard onAdd={this.onCardUpdate} />}
+          </div>
+        </FieldWrapper>
       </div>
     )
   }

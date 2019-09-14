@@ -4,6 +4,10 @@
   min-height: 100vh;
   background: $blue;
   color: $white;
+
+  [data-bg-color] {
+    background: $blue;
+  }
 }
 
 .intro {

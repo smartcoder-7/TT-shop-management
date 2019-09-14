@@ -19,7 +19,7 @@ const Menu = ({
       </div>
 
       <div className={styles.menuWrapper} data-expanded={expanded}>
-        <div className={styles.overlay} />
+        <div className={styles.overlay} onClick={() => setExpanded(false)} />
         <div className={styles.menu} data-expanded={expanded}>
           <ul data-row>
             <li>

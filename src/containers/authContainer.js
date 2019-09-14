@@ -21,23 +21,23 @@ class AuthContainer extends Container {
     return this.state.user
   }
 
-  watchUser() {
+  watchUser(user) {
     if (this.unwatchUser) {
       this.unwatchUser()
     }
 
-    if (!this.userId) {
+    if (!user) {
       return
     }
 
-    const userRef = db.collection('users').doc(this.userId)
+    const userRef = db.collection('users').doc(user.uid)
 
     this.unwatchUser = userRef
     .onSnapshot(doc => {
       if (!doc.exists) {
         userRef.set({ 
-          email: this.user.email,
-          uid: this.user.uid,
+          email: user.email,
+          uid: user.uid,
         })
 
         return
@@ -56,7 +56,7 @@ class AuthContainer extends Container {
       }
 
       this.setState({ 
-        userId: this.user.uid,
+        userId: user.uid,
         user: userData,
         loading: false,
       })
@@ -71,15 +71,9 @@ class AuthContainer extends Container {
       const lastUid = this.userId
 
       if (user) {
-        this.setState({ 
-          userId: user.uid,
-          user: user,
-          loading: false,
-        }).then(() => {
-          if (user.uid !== lastUid) {
-            this.watchUser()
-          }
-        })
+        if (user.uid !== lastUid) {
+          this.watchUser(user)
+        }
         return
       } 
 

@@ -28,6 +28,9 @@
   flex-direction: column;
   position: relative;
   margin-top: 5rem;
+
+  background: $medium-gray;
+  border: 2px solid $medium-gray;
 }
 
 .checkout {

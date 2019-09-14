@@ -2,6 +2,10 @@ import React from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import firebase from 'firebase/app'
 import { Form, Field } from 'react-final-form'
+import visaSvg from 'payment-icons/min/flat/visa.svg'
+import mastercardSvg from 'payment-icons/min/flat/mastercard.svg'
+
+
 import CreditCardField from 'components/fields/CreditCardField'
 
 const functions = firebase.functions()
@@ -21,6 +25,11 @@ const SQUARE_PAYMENT_CONFIG = {
   },
 }
 
+const ICONS = {
+  VISA: visaSvg,
+  MASTERCARD: mastercardSvg,
+}
+
 export const Card = ({
   card_brand,
   last_4,
@@ -28,7 +37,16 @@ export const Card = ({
   onClick
 }) => (
   <div className={styles.card} onClick={onClick} data-is-active={isActive}>
-    {card_brand} {last_4} {isActive && 'Active Card'}
+    {ICONS[card_brand] && (
+      <span className={styles.cardBrand} dangerouslySetInnerHTML={{__html: ICONS[card_brand]}} />
+    )}
+    <span data-label>
+      {last_4}
+    </span>
+
+    <span style={{marginLeft: 'auto'}} data-label>
+      {isActive && 'Active Card'}
+    </span>
   </div>
 )
 
@@ -44,6 +62,11 @@ class NewCard extends React.Component {
 
   componentDidMount() {
     const { onAdd } = this.props
+
+    if (!window.SqPaymentForm) {
+      console.log('Error loading Square.')
+      return
+    }
 
     this.paymentForm = new window.SqPaymentForm({
       ...SQUARE_PAYMENT_CONFIG,
@@ -91,7 +114,7 @@ class NewCard extends React.Component {
       <div className={styles.newCard}>
         {!expanded && (
           <button data-plain data-link onClick={() => this.setState({ expanded: true })}>
-            + Add Card
+            + Add a new card
           </button>
         )}
 

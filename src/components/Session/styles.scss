@@ -3,7 +3,7 @@
 .session {
   padding: 5rem;
   background: $white;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2px;
   height: 12rem;
   display: flex;
   align-items: center;
@@ -35,7 +35,10 @@
     bottom: 0;
     margin: auto;
     cursor: pointer;
-    padding: 2rem;
+    padding: 0 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 }
 

@@ -1,7 +1,9 @@
 import React from 'react'
 import { Container, Subscribe, Provider } from 'unstated'
+import makeReservations, { validateReservations } from 'util/makeReservations'
 
 import { parseSession } from 'util/getPodSessions'
+import authContainer from './authContainer';
 
 const ROOT_KEY = 'pingpod'
 const CART_KEY = `${ROOT_KEY}/cart`
@@ -46,6 +48,12 @@ class CartContainer extends Container {
     }
 
     this.state.items = storedItems
+
+    validateReservations({ 
+      sessionIds: this.state.items, 
+      userId: authContainer.userId, 
+      onUnavailable: this.removeItem 
+    })
   }
 
   empty = () => {

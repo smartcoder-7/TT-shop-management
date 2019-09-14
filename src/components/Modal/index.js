@@ -13,7 +13,7 @@ const Modal = ({ children, isActive, onClose = () => {} }) => {
           </div>
           <div data-col="1" />
 
-          <div className={styles.close} onClick={onClose}>X</div>
+          <div className={styles.close} onClick={onClose}>✕</div>
         </div>
       </div>
     </>

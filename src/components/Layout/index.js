@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import classnames from 'classnames'
 import authContainer from '../../containers/authContainer'
@@ -11,18 +11,33 @@ const Layout = ({
   className,
   children
 }) => {  
+  const [scrolled, setScrolled ] = useState(!!window.pageYOffset)
+  useEffect(() => {
+    const onScroll = () => {
+      setScrolled(!!window.pageYOffset)
+    }
+
+    window.addEventListener('scroll', onScroll)
+
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+    }
+  })
+
   return (
     <div className={classnames(styles.layout, className)}>
-      <header data-row>
-        <ul>
-          <li>
-            <Link to="/">
-              <Logo className={styles.logo} />
-            </Link>
-          </li>
-        </ul>
-        <Menu />
-      </header>
+      <div className={styles.headerWrapper} data-bg-color data-scrolled={scrolled}>
+        <header data-row>
+          <ul>
+            <li>
+              <Link to="/">
+                <Logo className={styles.logo} />
+              </Link>
+            </li>
+          </ul>
+          <Menu />
+        </header>
+      </div>
 
       <main>
         <div className={styles.content} data-row>

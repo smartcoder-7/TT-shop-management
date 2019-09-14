@@ -111,7 +111,7 @@ class Cart extends React.Component {
           <h1>Cart</h1>
 
           <div className={styles.step}>
-            <h3>1. Confirm Selection</h3>
+            <h3 className={styles.header}>1. Confirm Selection</h3>
 
             <div data-row>
               <div data-col="12">
@@ -145,7 +145,7 @@ class Cart extends React.Component {
 
           <div>
             <Link to="/reserve/0" data-link>
-              + Add sessions
+              + Add more sessions
             </Link>
           </div>
 
@@ -162,7 +162,7 @@ class Cart extends React.Component {
 
           {step > 0 && (
             <div className={styles.step}>
-              <h3>2. Add/Update Account Info</h3>
+              <h3 className={styles.header}>2. Add/Update Account Info</h3>
               <AccountInfo />
 
               <button onClick={this.checkout} disabled={!canCheckout}>

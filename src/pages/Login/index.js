@@ -16,8 +16,12 @@ const LoginForm = ({ onSubmit }) => (
     render={({ handleSubmit }) => (
       <div data-row>
         <form onSubmit={handleSubmit} data-col="12">
-          <EmailField name="email" label="Email" autoComplete="email" />
-          <PasswordField name="password" label="Password" autoComplete="current-password" />
+          <div className={styles.fieldRow}>
+            <EmailField name="email" label="Email" autoComplete="email" />
+          </div>
+          <div className={styles.fieldRow}>
+            <PasswordField name="password" label="Password" autoComplete="current-password" />
+          </div>
           <button type="submit">Submit</button>
         </form>
       </div>
@@ -31,9 +35,15 @@ const SignupForm = ({ onSubmit }) => (
     render={({ handleSubmit }) => (
       <div data-row>
         <form onSubmit={handleSubmit} data-col="12">
-          <EmailField name="email" label="Email" autocomplete="email" />
-          <EmailField name="email-confirm" label="Confirm Email" />
-          <PasswordField name="password" label="Password" autoComplete="new-password" />
+          <div className={styles.fieldRow}>
+            <EmailField name="email" label="Email" autoComplete="email" />
+          </div>
+          <div className={styles.fieldRow}>
+            <EmailField name="email-confirm" label="Confirm Email" autoComplete="off" />
+          </div>
+          <div className={styles.fieldRow}>
+            <PasswordField name="password" label="Password" autoComplete="new-password" />
+          </div>
           <button type="submit">Submit</button>
         </form>
       </div>

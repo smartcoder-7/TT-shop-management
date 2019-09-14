@@ -54,22 +54,32 @@ class AccountInfo extends React.Component {
             <div>
               <Form
                 onSubmit={onSubmit}
-                render={({ handleSubmit }) => (
-                  <div data-row>
-                    <form onSubmit={handleSubmit} data-col="12">
-                      <label>Account Info</label>
-                      <div data-row>
-                        <div data-col="6">
-                          <TextField name="firstName" initialValue={user.firstName} placeholder="First Name" />
-                        </div>
-                        <div data-col="6">
-                          <TextField name="lastName" initialValue={user.lastName} placeholder="Last Name" />
-                        </div>
-                      </div>
-                      <button data-size="small">Save</button>
-                    </form>
-                  </div>
-                )}
+                render={({ 
+                  handleSubmit, 
+                  dirty,
+                  submitSucceeded,
+                  dirtySinceLastSubmit, 
+                }) => {
+                  const shouldSave = submitSucceeded ? dirtySinceLastSubmit : dirty
+                  
+                  return (
+                    <div data-row>
+                      <form onSubmit={handleSubmit} data-col="12">
+                        <section className={styles.accountInfo}>
+                          <div data-row className={styles.fieldRow}>
+                            <div data-col="6" className={styles.field}>
+                              <TextField name="firstName" initialValue={user.firstName} label="First Name" />
+                            </div>
+                            <div data-col="6" className={styles.field}>
+                              <TextField name="lastName" initialValue={user.lastName} label="Last Name" />
+                            </div>
+                          </div>
+                          {shouldSave && <button data-size="small" data-plain className={styles.save}>Save Changes</button>}
+                        </section>
+                      </form>
+                    </div>
+                  )
+                }}
               />
 
               <BillingInfo />

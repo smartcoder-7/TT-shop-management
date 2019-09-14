@@ -2,7 +2,7 @@ import React from 'react'
 import classNames from 'classnames'
 
 import styles from './styles.scss'
-import { parseSession } from '../../util/getPodSessions';
+import { parseSession, getDateParts } from '../../util/getPodSessions';
 
 const with0 = n => n < 10 ? `0${n}` : n
 
@@ -49,7 +49,9 @@ export const CartSession = ({
   isSelected,
   onXClick
 }) => {
-  const { time, timeEnd } = parseSession(id)
+  const { date, time, timeEnd } = parseSession(id)
+
+  const { month, dayOfTheWeek, day, year } = getDateParts(new Date(time))
 
   return (
     <div 
@@ -58,11 +60,12 @@ export const CartSession = ({
       className={classNames(styles.session, styles.cartSession)} 
     >
       <div>
-        {!isAvailable && <div data-label>UNAVAILABLE</div>} 
-        {formatTime(time)} - {formatTime(timeEnd)}
+        <label>{dayOfTheWeek}, {month} {day}, {year}</label>
+        <br />
+        <label>{formatTime(time)} - {formatTime(timeEnd)}</label>
       </div>
       
-      <div className={styles.remove} onClick={onXClick}>X</div>
+      <div className={styles.remove} onClick={onXClick}>✕</div>
     </div>
   )
 }

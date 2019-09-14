@@ -107,33 +107,40 @@ class PodSchedule extends React.Component {
                 date={formatDate(date)} 
                 locationId={locationId}
                 onFirstLoad={this.scrollToSession}
-              >{(sessions) => (
-                sessions.map(({ id, time, isAvailable, isPast }) => {
-                  const isSelected = cartContainer.isInCart(id)
+              >{(sessions) => {
+                const availableSessions = sessions.filter(({ isAvailable }) => isAvailable) 
+                if (sessions.length && !availableSessions.length) {
+                  return 'No sessions available for this day.'
+                }
+                
+                return (
+                  availableSessions.map(({ id, time, isAvailable, isPast }) => {
+                    const isSelected = cartContainer.isInCart(id)
 
-                  const toggleSelect = () => {
-                    if (isSelected) cartContainer.removeItem(id)
-                    else cartContainer.addItem(id)
-                  }
+                    const toggleSelect = () => {
+                      if (isSelected) cartContainer.removeItem(id)
+                      else cartContainer.addItem(id)
+                    }
 
-                  const scrollToRef = timeToScroll === time ? this.scrollToRef : null
+                    const scrollToRef = timeToScroll === time ? this.scrollToRef : null
 
-                  if (isPast) return null
+                    if (isPast) return null
 
-                  return (
-                    <div key={id} ref={scrollToRef}>
-                      <ScheduleSession
-                        id={id}
-                        isAvailable={isAvailable}
-                        isPast={isPast}
-                        isSelected={isSelected}
-                        key={id} 
-                        onClick={toggleSelect}
-                      />
-                    </div>
-                  )
-                })
-              )}</Sessions>
+                    return (
+                      <div key={id} ref={scrollToRef}>
+                        <ScheduleSession
+                          id={id}
+                          isAvailable={isAvailable}
+                          isPast={isPast}
+                          isSelected={isSelected}
+                          key={id} 
+                          onClick={toggleSelect}
+                        />
+                      </div>
+                    )
+                  })
+                )
+              }}</Sessions>
             </div>
             <div data-row className={styles.checkout}>
               <Link to="/cart" data-col="12">

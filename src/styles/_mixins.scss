@@ -10,6 +10,10 @@
   line-height: 1em;
 }
 
+@mixin p1() {
+  font-size: 4rem;
+}
+
 @mixin p2() {
   font-size: 3rem;
   text-transform: uppercase;
