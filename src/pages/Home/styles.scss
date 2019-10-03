@@ -2,11 +2,11 @@
 
 .home {
   min-height: 100vh;
-  background: $blue;
-  color: $white;
+  background: $light-gray;
+  color: $black;
 
   [data-bg-color] {
-    background: $blue;
+    background: $light-gray;
   }
 }
 
@@ -22,6 +22,7 @@
   }
 
   h1 {
+    font-size: 10.7rem;
     font-weight: bold;
     text-transform: uppercase;
     letter-spacing: 0.1em;

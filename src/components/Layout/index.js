@@ -7,6 +7,8 @@ import styles from './styles.scss'
 import Menu from './Menu'
 import Logo from '../Logo'
 
+const IS_DEV = process.env.NODE_ENV === 'development'
+
 const Layout = ({
   className,
   children
@@ -35,7 +37,8 @@ const Layout = ({
               </Link>
             </li>
           </ul>
-          <Menu />
+
+          {IS_DEV && <Menu />}
         </header>
       </div>
 
@@ -46,6 +49,23 @@ const Layout = ({
           </div>
         </div>
       </main>
+
+      <br />
+      <br />
+      <br />
+      <br />
+
+      <footer>
+        <br />
+        <br />
+        <div className={styles.content} data-row>
+          <div data-col="12">
+            Questions or comments? Get in touch at <a data-link href="mailto:info@pingpod.com">info@pingpod.com</a>.
+          </div>
+        </div>
+        <br />
+        <br />
+      </footer>
     </div>
   )
 }
