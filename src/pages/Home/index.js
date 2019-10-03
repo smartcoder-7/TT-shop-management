@@ -6,7 +6,12 @@ import EmailSubscribe from 'components/EmailSubscribe'
 
 import styles from './styles.scss'
 
+// const IS_DEV = process.env.NODE_ENV === 'development'
+const IS_DEV = false
+
 class Home extends React.Component {
+  scrollRef = React.createRef()
+
   constructor(props) {
     super(props)
   }
@@ -24,9 +29,22 @@ class Home extends React.Component {
               The world’s first fully autonomous table tennis court system.
             </p>
 
-            <Link to="/reserve/0" data-link>
-              Reserve a Table
-            </Link>
+            {IS_DEV && (
+              <Link to="/reserve/0" data-link>
+                Reserve a Table
+              </Link>
+            )}
+
+            {!IS_DEV && (
+              <button data-link onClick={() => {
+                if (this.scrollRef.current) {
+                  const { top } = this.scrollRef.current.getBoundingClientRect()
+                  scrollTo(0, window.pageYOffset + top)
+                }
+              }}>
+                Get Early Access
+              </button>
+            )}
           </div>
         </div>
 
@@ -55,7 +73,7 @@ class Home extends React.Component {
         <br />
         <br />
         <br />
-        <br />
+        <br ref={this.scrollRef} />
         <br />
 
         <div data-row>
