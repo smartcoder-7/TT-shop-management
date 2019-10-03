@@ -176,6 +176,12 @@ li {
   text-align: center;
 }
 
+[data-landscape-only] {
+  @media (max-width: 1023px) {
+    display: none;
+  }
+}
+
 [data-row] {
   @include row();
 }

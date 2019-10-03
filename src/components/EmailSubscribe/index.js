@@ -30,7 +30,7 @@ const EmailSubscribe = () => {
           />
         </div>
         <br />
-        <div className="clear" style={{ 'display': 'flex', 'justifyContent': 'center' }}>
+        <div className="clear">
         <input data-link type="submit" value="Sign Up" name="subscribe" id="mc-embedded-subscribe" className="button" /></div>
         </div>
       </form>
