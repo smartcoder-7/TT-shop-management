@@ -26,6 +26,7 @@
   height: calc(100vh - 60rem);
   overflow: scroll;
   flex-direction: column;
+  flex-wrap: nowrap !important;
   position: relative;
   margin-top: 5rem;
 

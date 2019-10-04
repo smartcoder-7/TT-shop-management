@@ -6,8 +6,7 @@ import EmailSubscribe from 'components/EmailSubscribe'
 
 import styles from './styles.scss'
 
-// const IS_DEV = process.env.NODE_ENV === 'development'
-const IS_DEV = false
+const IS_DEV = process.env.NODE_ENV === 'development'
 
 class Home extends React.Component {
   scrollRef = React.createRef()
