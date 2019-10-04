@@ -1,3 +1,5 @@
+import getSessionPrice from "./getSessionPrice";
+
 export const INTERVAL_MS = 1000 * 60 * 30
 
 const with0 = n => n < 10 ? `0${n}` : `${n}`
@@ -60,9 +62,11 @@ export const getSessions = (doc, date, locationId) => {
     )
 
     const isPast = time < now.getTime()
+    const rate = getSessionPrice({ time, timezone })
 
     return { 
       id: `${locationId}-${time}`,
+      rate,
       time,
       isAvailable,
       isPast
@@ -117,11 +121,15 @@ export const getDateParts = (date) => {
   const month = MONTHS[date.getMonth()]
   const day = date.getDate()
   const year = date.getFullYear()
+  const hours = date.getHours()
+  const minutes = date.getMinutes()
 
   return {
     dayOfTheWeek,
     month,
     day,
-    year
+    year,
+    hours,
+    minutes
   }
 }

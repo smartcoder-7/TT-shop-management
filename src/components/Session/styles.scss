@@ -45,3 +45,24 @@
 .accountSession {
   margin: 5px 0;
 }
+
+.sessionInfo {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.rateName {
+  padding: 2px 4px;
+  font-size: 9px;
+  font-weight: bold;
+  background-color: #ffdf6b;
+
+  &[data-rate="Peak"] {
+    background-color: #00ffe7;
+  }
+
+  &[data-rate="Off Peak"] {
+    background-color: #c6e2e2;
+  }
+}

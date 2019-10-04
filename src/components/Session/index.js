@@ -18,12 +18,26 @@ const formatTime = (time) => {
   return `${with0(hour12)}:${with0(minutes)} ${ampm}`
 }
 
+export const RateLabel = ({ rate, showEmpty }) => {
+  if (!showEmpty && !rate.name) return null
+
+  return (
+    <label 
+      className={styles.rateName || 'Normal'}
+      data-rate={rate.name}
+    >
+      {rate.name || 'Normal'}
+    </label>
+  )
+}
+
 export const ScheduleSession = ({ 
   id, 
   isAvailable,
   isPast,
   isSelected,
-  onClick
+  onClick,
+  rate
 }) => {
   const { time, timeEnd } = parseSession(id)
 
@@ -35,9 +49,10 @@ export const ScheduleSession = ({
       className={classNames(styles.session, styles.scheduleSession)} 
       onClick={onClick}
     >
-      <div>
+      <div className={styles.sessionInfo}>
         {!isAvailable && !isPast && <div data-label>UNAVAILABLE</div>} 
         <label>{formatTime(time)} - {formatTime(timeEnd)}</label>
+        <RateLabel rate={rate} />
       </div>
     </div>
   )

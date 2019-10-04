@@ -23,7 +23,7 @@
 }
 
 .sessions {
-  height: calc(100vh - 60rem);
+  height: calc(100vh - 70rem);
   overflow: scroll;
   flex-direction: column;
   flex-wrap: nowrap !important;
@@ -40,4 +40,12 @@
   button {
     height: 12rem;
   }
+}
+
+.tableRate {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 5rem;
 }

@@ -1,16 +1,54 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { withRouter, Link } from 'react-router-dom'
 
 import cartContainer from 'containers/cartContainer'
 import Layout from 'components/Layout'
 import Sessions from 'components/Sessions'
 import { ScheduleSession } from 'components/Session'
+import Modal from 'components/Modal'
 import { formatDate, getDateParts } from 'util/getPodSessions'
 
 import styles from './styles.scss'
-import { CartSubscriber } from '../../containers/cartContainer';
+import { CartSubscriber } from 'containers/cartContainer';
 import ArrowLeft from 'components/svg/ArrowLeft';
 import ArrowRight from 'components/svg/ArrowRight';
+
+import { RATES } from 'util/getSessionPrice'
+import { RateLabel } from 'components/Session';
+
+const TableRates = () => {
+  const [showModal, setShowModal] = useState(false)
+
+  return (
+    <>
+      <Modal isActive={showModal} onClose={() => setShowModal(false)}>
+        <div data-row>
+          <div data-col="1"/>
+          <div data-col="10">
+            <h3>Table Rates</h3>
+            <br />
+            <p data-p2>Each rate below is per 30-minute&nbsp;session.</p>
+            <br />
+            <br />
+
+            {Object.values(RATES).map(rate => {
+              return (
+                <div className={styles.tableRate}>
+                  <RateLabel rate={rate} showEmpty />
+                  <div>${rate.price.NON_MEMBER / 2}</div>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+        <div data-col="1"/>
+      </Modal>
+      <button data-link onClick={() => setShowModal(true)}>
+        Table Rates
+      </button>
+    </>
+  )
+}
 
 class PodSchedule extends React.Component {
   state = {
@@ -114,7 +152,7 @@ class PodSchedule extends React.Component {
                 }
                 
                 return (
-                  availableSessions.map(({ id, time, isAvailable, isPast }) => {
+                  availableSessions.map(({ id, time, isAvailable, isPast, rate }) => {
                     const isSelected = cartContainer.isInCart(id)
 
                     const toggleSelect = () => {
@@ -135,6 +173,7 @@ class PodSchedule extends React.Component {
                           isSelected={isSelected}
                           key={id} 
                           onClick={toggleSelect}
+                          rate={rate}
                         />
                       </div>
                     )
@@ -149,9 +188,10 @@ class PodSchedule extends React.Component {
                 </button>
               </Link>
             </div>
+            <br />
+            <TableRates />
           </>
         )}</CartSubscriber>
-
 
       </Layout>
     )
