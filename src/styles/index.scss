@@ -201,7 +201,7 @@ li {
 @for $n from 1 through 12 {
   [data-col-landscape="#{$n}"] {
     @media (min-width: 1024px) {
-      @include col($n);
+      @include col-landscape($n);
     }
   }
 }

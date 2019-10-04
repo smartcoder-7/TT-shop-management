@@ -40,9 +40,14 @@
 @mixin col($n) {
   width: $n * $col-width;
 
-  @media (min-width: 1024px) {
-    width: $n * $col-width-landscape;
+  &.align-center {
+    display: flex;
+    align-items: center;
   }
+}
+
+@mixin col-landscape($n) {
+  width: $n * $col-width-landscape;
 
   &.align-center {
     display: flex;
