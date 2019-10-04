@@ -26,14 +26,13 @@ const TableRates = () => {
           <div data-col="1"/>
           <div data-col="10">
             <h3>Table Rates</h3>
-            <br />
-            <p data-p2>Each rate below is per 30-minute&nbsp;session.</p>
+            <p data-p2>(price per 30-minute session)</p>
             <br />
             <br />
 
-            {Object.values(RATES).map(rate => {
+            {Object.values(RATES).map((rate, i) => {
               return (
-                <div className={styles.tableRate}>
+                <div key={i} className={styles.tableRate}>
                   <RateLabel rate={rate} showEmpty />
                   <div>${rate.price.NON_MEMBER / 2}</div>
                 </div>
@@ -43,7 +42,7 @@ const TableRates = () => {
         </div>
         <div data-col="1"/>
       </Modal>
-      <button data-link onClick={() => setShowModal(true)}>
+      <button className={styles.tableRates} data-link onClick={() => setShowModal(true)}>
         Table Rates
       </button>
     </>

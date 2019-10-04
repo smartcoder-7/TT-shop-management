@@ -87,11 +87,15 @@ export const ReservationRange = ({ start, end, tables }) => {
       </div>
       
       <Modal isActive={showModal} onClose={() => setShowModal(false)}>
-        <div>
-          <h1>You're booked!</h1>
-          <h4>{formatTime(start)} - {formatTime(end)}</h4>
-          <br />
-          Access Code: {accessCode}
+        <div data-row>
+          <div data-col="1"/>
+          <div data-col="10">
+            <h1>You're booked!</h1>
+            <h4>{formatTime(start)} - {formatTime(end)}</h4>
+            <br />
+            Access Code: {accessCode}
+          </div>
+          <div data-col="1"/>
         </div>
         {/* <RequestAccess
           start={start}
