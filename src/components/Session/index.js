@@ -49,6 +49,7 @@ export const ScheduleSession = ({
       className={classNames(styles.session, styles.scheduleSession)} 
       onClick={onClick}
     >
+      <div className={styles.check}>✔</div>
       <div className={styles.sessionInfo}>
         {!isAvailable && !isPast && <div data-label>UNAVAILABLE</div>} 
         <label>{formatTime(time)} - {formatTime(timeEnd)}</label>
