@@ -25,6 +25,13 @@ class Account extends React.Component {
               
               <AccountInfo />
 
+              <Link to="/reserve/0">
+                <button>Reserve another Table</button>
+              </Link>
+
+              <br />
+              <br />
+
               <div>
                 <h1>Reservations</h1>
                 <br />
@@ -34,10 +41,6 @@ class Account extends React.Component {
                   </div>
                 </div>
               </div>
-
-              <Link to="/reserve/0">
-                <button>Reserve another Table</button>
-              </Link>
             </>
           )
         }}</AuthSubscriber>
