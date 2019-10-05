@@ -12,6 +12,7 @@ import makeReservations, { validateReservations } from 'util/makeReservations'
 
 import styles from './styles.scss'
 import AccountInfo from 'components/AccountInfo';
+import GroupedSessions from '../../components/Sessions/GroupedSessions';
 
 class Cart extends React.Component {
   state = {
@@ -95,7 +96,6 @@ class Cart extends React.Component {
 
   render() {
     const { submissionError, step } = this.state
-    const { locationIds, items } = cartContainer
     const { user } = authContainer
 
     const canCheckout = (
@@ -106,77 +106,69 @@ class Cart extends React.Component {
     )
 
     return (
-      <CartSubscriber>{() => (
-        <Layout className={styles.cart}>
-          <h1>Cart</h1>
+      <CartSubscriber>{() => {
+        console.log('rerender')
+        const { locationIds, items } = cartContainer
+        const canContinue = (
+          step < 1 && 
+          !!locationIds.length &&
+          items.length > 0
+        )
 
-          <div className={styles.step}>
-            <h3 className={styles.header}>1. Confirm Selection</h3>
+        console.log(cartContainer.sessions)
+    
+        console.log(canContinue)
+    
+        return (
+          <Layout className={styles.cart}>
+            <h1>Cart</h1>
 
-            <div data-row>
-              <div data-col="12">
-                {!locationIds.length && 'No sessions selected.'}
-                {locationIds.map(id => {
-                  const dates = cartContainer.getDates()
+            <div className={styles.step}>
+              <h3 className={styles.header}>1. Confirm Selection</h3>
 
-                  return dates.map(date => (
-                    <Sessions 
-                      key={date.date} 
-                      date={date.date} 
-                      locationId={id}
-                    >{(sessions) => {
-                      return sessions
-                      .filter(({ id }) => date.sessions.indexOf(id) > -1)
-                      .map(({ id, isAvailable }) => (
-                        <CartSession 
-                          id={id}
-                          isAvailable={isAvailable}
-                          className={styles.session} 
-                          key={id} 
-                          onXClick={() => cartContainer.removeItem(id)}
-                        />
-                      ))
-                    }}</Sessions>
-                  ))
-                })}
+              <div data-row>
+                <div data-col="12">
+                  {!items.length && 'No sessions selected.'}
+                  <GroupedSessions sessions={cartContainer.sessions} inCart={true} />
+                </div>
               </div>
             </div>
-          </div>
 
-          <div>
-            <Link to="/reserve/0" data-link>
-              + Add more sessions
-            </Link>
-          </div>
-
-          <br />
-
-          {step < 1 && !!locationIds.length && (
-            <button 
-              data-size="small" 
-              onClick={() => this.setState({ step: 1 })}
-            >
-              Continue
-            </button>
-          )}
-
-          {step > 0 && (
-            <div className={styles.step}>
-              <h3 className={styles.header}>2. Add/Update Account Info</h3>
-              <AccountInfo />
-
-              <button onClick={this.checkout} disabled={!canCheckout}>
-                Checkout
-              </button>
+            <div>
+              <Link to="/reserve/0" data-link>
+                + Add more sessions
+              </Link>
             </div>
-          )}
+
+            <br />
+
+            {canContinue && (
+              <button 
+                data-size="small" 
+                onClick={() => this.setState({ step: 1 })}
+              >
+                Continue
+              </button>
+            )}
+
+            {step > 0 && (
+              <div className={styles.step}>
+                <h3 className={styles.header}>2. Add/Update Account Info</h3>
+                <AccountInfo />
+
+                <button onClick={this.checkout} disabled={!canCheckout}>
+                  Checkout
+                </button>
+              </div>
+            )}
 
 
-          {submissionError && (
-            <div>{submissionError}</div>
-          )}
-        </Layout>
-      )}</CartSubscriber>
+            {submissionError && (
+              <div>{submissionError}</div>
+            )}
+          </Layout>
+        )
+      }}</CartSubscriber>
     )
   }
 }

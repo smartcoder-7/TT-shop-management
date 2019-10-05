@@ -25,7 +25,7 @@ export const RATES = {
 
 const getSessionPrice = ({
   time,
-  timezone,
+  timezone = 'GMT-0500',
   isMember = false
 }) => {
   const dateObj = new Date(`00:00 ${timezone}`)

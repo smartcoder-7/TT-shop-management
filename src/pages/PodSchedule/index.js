@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { withRouter, Link } from 'react-router-dom'
+import qs from 'qs'
 
 import cartContainer from 'containers/cartContainer'
 import Layout from 'components/Layout'
@@ -60,6 +61,15 @@ class PodSchedule extends React.Component {
 
   constructor(props) {
     super(props)
+  }
+
+  componentDidMount() {
+    const { location } = this.props
+    const queryParams = qs.parse(location.search, { ignoreQueryPrefix: true })
+    if (queryParams.time) {
+      const time = parseInt(queryParams.time)
+      this.setState({ date: new Date(time) })
+    }
   }
 
   scrollToSession = () => {

@@ -1,0 +1,23 @@
+@import 'styles/_variables.scss';
+
+.reservationDate {
+  &:not(:last-of-type) {
+    margin-bottom: 5rem;
+  }
+
+  .date {
+    margin-bottom: 1rem;
+  }
+}
+
+.session {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: $white;
+}
+
+.edit {
+  display: inline-block;
+}

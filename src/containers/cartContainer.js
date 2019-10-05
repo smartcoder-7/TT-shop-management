@@ -33,6 +33,24 @@ class CartContainer extends Container {
     return locations
   }
 
+  get sessions() {
+    const sessions = {}
+
+    this.items.forEach(item => {
+      const {
+        locationId,
+        date,
+        time
+      } = parseSession(item)
+
+      sessions[locationId] = sessions[locationId] || {}
+      sessions[locationId][date] = sessions[locationId][date] || {}
+      sessions[locationId][date][time] = [ 'in-cart' ]
+    })
+
+    return sessions
+  }
+
   constructor() {
     super()
 
@@ -60,24 +78,6 @@ class CartContainer extends Container {
     this.setState({ items: [] })
     localStorage.setItem(CART_KEY, '')
   }
-
-  getDates = () => {
-    const dates = {}
-
-    this.items.forEach(item => {
-      const {
-        locationId,
-        date,
-      } = parseSession(item)
-
-      dates[date] = dates[date] || { date, locationId }
-      dates[date].sessions = dates[date].sessions || []
-      dates[date].sessions.push(item)
-    })
-
-    return Object.values(dates)
-  }
-
 
   isInCart = (sessionId) => {
     return this.items.indexOf(sessionId) > -1
