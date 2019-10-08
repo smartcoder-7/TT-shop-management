@@ -57,7 +57,8 @@ class CartContainer extends Container {
     let storedItems = []
     
     try {
-      const storedString = localStorage.getItem(CART_KEY).trim()
+      const cookie = localStorage.getItem(CART_KEY) || ''
+      const storedString = cookie.trim()
       if (storedString) {
         storedItems = storedString.split(',')
       }
