@@ -2,7 +2,8 @@ import React from 'react'
 import classNames from 'classnames'
 
 import styles from './styles.scss'
-import { parseSession, getDateParts } from '../../util/getPodSessions';
+import { parseSession } from 'util/getPodSessions';
+import getDateParts from 'shared/getDateParts'
 
 const with0 = n => n < 10 ? `0${n}` : n
 

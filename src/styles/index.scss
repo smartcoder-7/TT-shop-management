@@ -189,6 +189,10 @@ li {
 @for $n from 1 through 12 {
   [data-col="#{$n}"]:not([data-col-landscape]) {
     @include col($n);
+
+    @media (min-width: 1024px) {
+      @include col-landscape($n);
+    }
   }
 
   [data-col="#{$n}"] {

@@ -7,14 +7,15 @@ import Layout from 'components/Layout'
 import Sessions from 'components/Sessions'
 import { ScheduleSession } from 'components/Session'
 import Modal from 'components/Modal'
-import { formatDate, getDateParts } from 'util/getPodSessions'
+import { formatDate } from 'util/getPodSessions'
+import getDateParts from 'shared/getDateParts'
 
 import styles from './styles.scss'
 import { CartSubscriber } from 'containers/cartContainer';
 import ArrowLeft from 'components/svg/ArrowLeft';
 import ArrowRight from 'components/svg/ArrowRight';
 
-import { RATES } from 'util/getSessionPrice'
+import RATES from 'shared/sessionRates'
 import { RateLabel } from 'components/Session';
 
 const TableRates = () => {

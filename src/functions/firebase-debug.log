@@ -1,0 +1,301 @@
+[debug] [2019-10-08T23:28:11.666Z] ----------------------------------------------------------------------
+[debug] [2019-10-08T23:28:11.668Z] Command:       /Users/cha/.nvm/versions/node/v10.16.0/bin/node /Users/cha/.nvm/versions/node/v10.16.0/bin/firebase functions:shell
+[debug] [2019-10-08T23:28:11.669Z] CLI Version:   7.2.4
+[debug] [2019-10-08T23:28:11.669Z] Platform:      darwin
+[debug] [2019-10-08T23:28:11.669Z] Node Version:  v10.16.0
+[debug] [2019-10-08T23:28:11.670Z] Time:          Tue Oct 08 2019 19:28:11 GMT-0400 (Eastern Daylight Time)
+[debug] [2019-10-08T23:28:11.670Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-10-08T23:28:11.678Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-10-08T23:28:11.679Z] > authorizing via signed-in user
+[debug] [2019-10-08T23:28:11.679Z] [iam] checking project pingpod-web for permissions ["firebase.projects.get"]
+[debug] [2019-10-08T23:28:11.681Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/pingpod-web:testIamPermissions  
+
+[debug] [2019-10-08T23:28:11.951Z] <<< HTTP RESPONSE 200
+[warn] ⚠  Your requested "node" version "8" doesn't match your global version "10"
+[info] ✔  functions: Emulator started at http://localhost:5000
+[debug] [2019-10-08T23:28:12.230Z] [functions] Watching "/Users/cha/repos/pingpod-web/src/functions" for Cloud Functions...
+[debug] [2019-10-08T23:28:12.529Z] DEBUG: [runtime-status] Functions runtime initialized. {"cwd":"/Users/cha/repos/pingpod-web/src/functions","node_version":"10.16.0"}
+[debug] [2019-10-08T23:28:12.529Z] DEBUG: [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-10-08T23:28:12.532Z] DEBUG: [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.6.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-10-08T23:28:12.533Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-10-08T23:28:12.534Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-10-08T23:28:13.335Z] DEBUG: Unsupported trigger: {"schedule":{"schedule":"every 5 minutes"},"eventTrigger":{"resource":"projects/pingpod-web/topics","eventType":"google.pubsub.topic.publish","service":"pubsub.googleapis.com"},"labels":{"deployment-scheduled":"true"},"name":"customerCharger","entryPoint":"customerCharger"}
+[debug] [2019-10-08T23:28:13.335Z] [functions[newCustomer]] http function initialized (http://localhost:5000/pingpod-web/us-central1/newCustomer).
+[debug] [2019-10-08T23:28:13.335Z] [functions[addCustomerCard]] http function initialized (http://localhost:5000/pingpod-web/us-central1/addCustomerCard).
+[debug] [2019-10-08T23:28:13.336Z] [functions[getCustomer]] http function initialized (http://localhost:5000/pingpod-web/us-central1/getCustomer).
+[debug] [2019-10-08T23:28:13.336Z] [functions[chargeCustomers]] http function initialized (http://localhost:5000/pingpod-web/us-central1/chargeCustomers).
+[debug] [2019-10-08T23:28:13.336Z] [functions[customerCharger]] function ignored because the pubsub.googleapis.com emulator does not exist or is not running.
+[info] i  functions: Loaded functions: newCustomer, addCustomerCard, getCustomer, chargeCustomers, customerCharger
+[debug] [2019-10-08T23:28:17.230Z] shell:customerCharger: trigger={"schedule":{"schedule":"every 5 minutes"},"eventTrigger":{"resource":"projects/pingpod-web/topics","eventType":"google.pubsub.topic.publish","service":"pubsub.googleapis.com"},"labels":{"deployment-scheduled":"true"},"name":"customerCharger","entryPoint":"customerCharger"}
+[debug] [2019-10-08T23:28:17.230Z] shell:customerCharger: opts={}, data={}
+[debug] [2019-10-08T23:28:17.505Z] DEBUG: [runtime-status] Functions runtime initialized. {"cwd":"/Users/cha/repos/pingpod-web/src/functions","node_version":"10.16.0"}
+[debug] [2019-10-08T23:28:17.506Z] [functions] Beginning execution of "customerCharger"
+[debug] [2019-10-08T23:28:17.506Z] DEBUG: [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-10-08T23:28:17.509Z] DEBUG: [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.6.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-10-08T23:28:17.509Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-10-08T23:28:17.510Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-10-08T23:28:18.226Z] DEBUG: [runtime-status] Trigger "customerCharger" has been found, beginning invocation! {}
+[debug] [2019-10-08T23:28:18.226Z] DEBUG: [runtime-status]  {"schedule":{"schedule":"every 5 minutes"},"eventTrigger":{"resource":"projects/pingpod-web/topics","eventType":"google.pubsub.topic.publish","service":"pubsub.googleapis.com"},"labels":{"deployment-scheduled":"true"},"name":"customerCharger","entryPoint":"customerCharger"}
+[debug] [2019-10-08T23:28:18.226Z] DEBUG: [runtime-status] Running customerCharger in mode BACKGROUND {}
+[debug] [2019-10-08T23:28:18.226Z] DEBUG: [runtime-status] ProcessBackground {"eventId":"bc31b6d0-ccbf-45e8-8b36-d83a9376f6a5","timestamp":"2019-10-08T23:28:17.230Z","eventType":"google.pubsub.topic.publish","data":{}}
+[debug] [2019-10-08T23:28:18.227Z] DEBUG: [runtime-status] RunBackground {"data":{},"context":{"eventId":"bc31b6d0-ccbf-45e8-8b36-d83a9376f6a5","timestamp":"2019-10-08T23:28:17.230Z","eventType":"google.pubsub.topic.publish"}}
+[info] >  Initializing bulk customer charge.
+[info] >  (node:38565) UnhandledPromiseRejectionWarning: TypeError: Promise.allSettled is not a function
+[info] >      at db.collection.where.orderBy.get.then.snapshot (/Users/cha/repos/pingpod-web/src/functions/chargeCustomers.js:118:17)
+[info] >      at process._tickCallback (internal/process/next_tick.js:68:7)
+[info] >  (node:38565) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). (rejection id: 1)
+[info] >  (node:38565) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
+[info] >  Could not charge reservation. Error: Cannot charge user: YbapmZ8dhjOvrLK7ema0IukNsIb2
+[info] >  (node:38565) UnhandledPromiseRejectionWarning: Error: Cannot charge user: YbapmZ8dhjOvrLK7ema0IukNsIb2
+[info] >      at userRef.get.then.doc (/Users/cha/repos/pingpod-web/src/functions/chargeCustomers.js:34:23)
+[info] >      at process._tickCallback (internal/process/next_tick.js:68:7)
+[info] >  (node:38565) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). (rejection id: 2)
+[info] >  Could not charge reservation. Error: Cannot charge user: YbapmZ8dhjOvrLK7ema0IukNsIb2
+[info] >  (node:38565) UnhandledPromiseRejectionWarning: Error: Cannot charge user: YbapmZ8dhjOvrLK7ema0IukNsIb2
+[info] >      at userRef.get.then.doc (/Users/cha/repos/pingpod-web/src/functions/chargeCustomers.js:34:23)
+[info] >      at process._tickCallback (internal/process/next_tick.js:68:7)
+[info] >  (node:38565) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). (rejection id: 3)
+[debug] [2019-10-08T23:34:58.415Z] DEBUG: File /Users/cha/repos/pingpod-web/src/functions/chargeCustomers.js changed, reloading triggers
+[debug] [2019-10-08T23:34:59.862Z] DEBUG: [runtime-status] Functions runtime initialized. {"cwd":"/Users/cha/repos/pingpod-web/src/functions","node_version":"10.16.0"}
+[debug] [2019-10-08T23:34:59.862Z] DEBUG: [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-10-08T23:34:59.866Z] DEBUG: [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.6.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-10-08T23:34:59.868Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-10-08T23:34:59.869Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-10-08T23:35:36.785Z] DEBUG: File /Users/cha/repos/pingpod-web/src/functions/chargeCustomers.js changed, reloading triggers
+[debug] [2019-10-08T23:35:38.174Z] DEBUG: [runtime-status] Functions runtime initialized. {"cwd":"/Users/cha/repos/pingpod-web/src/functions","node_version":"10.16.0"}
+[debug] [2019-10-08T23:35:38.175Z] DEBUG: [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-10-08T23:35:38.178Z] DEBUG: [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.6.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-10-08T23:35:38.179Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-10-08T23:35:38.179Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-10-08T23:35:43.798Z] DEBUG: File /Users/cha/repos/pingpod-web/src/functions/chargeCustomers.js changed, reloading triggers
+[debug] [2019-10-08T23:35:43.899Z] DEBUG: File /Users/cha/repos/pingpod-web/src/functions/chargeCustomers.js changed, reloading triggers
+[debug] [2019-10-08T23:35:45.343Z] DEBUG: [runtime-status] Functions runtime initialized. {"cwd":"/Users/cha/repos/pingpod-web/src/functions","node_version":"10.16.0"}
+[debug] [2019-10-08T23:35:45.343Z] DEBUG: [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-10-08T23:35:45.346Z] DEBUG: [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.6.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-10-08T23:35:45.347Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-10-08T23:35:45.349Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-10-08T23:35:47.977Z] shell:customerCharger: trigger={"schedule":{"schedule":"every 5 minutes"},"eventTrigger":{"resource":"projects/pingpod-web/topics","eventType":"google.pubsub.topic.publish","service":"pubsub.googleapis.com"},"labels":{"deployment-scheduled":"true"},"name":"customerCharger","entryPoint":"customerCharger"}
+[debug] [2019-10-08T23:35:47.977Z] shell:customerCharger: opts={}, data={}
+[debug] [2019-10-08T23:35:48.255Z] DEBUG: [runtime-status] Functions runtime initialized. {"cwd":"/Users/cha/repos/pingpod-web/src/functions","node_version":"10.16.0"}
+[debug] [2019-10-08T23:35:48.256Z] [functions] Beginning execution of "customerCharger"
+[debug] [2019-10-08T23:35:48.256Z] DEBUG: [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-10-08T23:35:48.258Z] DEBUG: [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.6.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-10-08T23:35:48.259Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-10-08T23:35:48.260Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-10-08T23:35:48.975Z] DEBUG: [runtime-status] Trigger "customerCharger" has been found, beginning invocation! {}
+[debug] [2019-10-08T23:35:48.976Z] DEBUG: [runtime-status]  {"schedule":{"schedule":"every 5 minutes"},"eventTrigger":{"resource":"projects/pingpod-web/topics","eventType":"google.pubsub.topic.publish","service":"pubsub.googleapis.com"},"labels":{"deployment-scheduled":"true"},"name":"customerCharger","entryPoint":"customerCharger"}
+[debug] [2019-10-08T23:35:48.976Z] DEBUG: [runtime-status] Running customerCharger in mode BACKGROUND {}
+[debug] [2019-10-08T23:35:48.976Z] DEBUG: [runtime-status] ProcessBackground {"eventId":"d6bc7236-f528-4ab6-9f24-f00431f0de6a","timestamp":"2019-10-08T23:35:47.977Z","eventType":"google.pubsub.topic.publish","data":{}}
+[debug] [2019-10-08T23:35:48.977Z] DEBUG: [runtime-status] RunBackground {"data":{},"context":{"eventId":"d6bc7236-f528-4ab6-9f24-f00431f0de6a","timestamp":"2019-10-08T23:35:47.977Z","eventType":"google.pubsub.topic.publish"}}
+[info] >  Initializing bulk customer charge.
+[info] >  Could not charge reservation. Error: Cannot charge user: YbapmZ8dhjOvrLK7ema0IukNsIb2
+[info] >  Could not charge reservation. Error: Cannot charge user: YbapmZ8dhjOvrLK7ema0IukNsIb2
+[info] >  
+[debug] [2019-10-08T23:35:49.907Z] DEBUG: [runtime-status] Ephemeral server survived. {}
+[debug] [2019-10-08T23:35:49.907Z] [functions] Finished "customerCharger" in ~1s
+[debug] [2019-10-08T23:36:15.739Z] DEBUG: File /Users/cha/repos/pingpod-web/src/functions/chargeCustomers.js changed, reloading triggers
+[debug] [2019-10-08T23:36:17.037Z] DEBUG: [runtime-status] Functions runtime initialized. {"cwd":"/Users/cha/repos/pingpod-web/src/functions","node_version":"10.16.0"}
+[debug] [2019-10-08T23:36:17.037Z] DEBUG: [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-10-08T23:36:17.041Z] DEBUG: [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.6.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-10-08T23:36:17.042Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-10-08T23:36:17.043Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-10-08T23:36:18.944Z] shell:customerCharger: trigger={"schedule":{"schedule":"every 5 minutes"},"eventTrigger":{"resource":"projects/pingpod-web/topics","eventType":"google.pubsub.topic.publish","service":"pubsub.googleapis.com"},"labels":{"deployment-scheduled":"true"},"name":"customerCharger","entryPoint":"customerCharger"}
+[debug] [2019-10-08T23:36:18.945Z] shell:customerCharger: opts={}, data={}
+[debug] [2019-10-08T23:36:19.222Z] DEBUG: [runtime-status] Functions runtime initialized. {"cwd":"/Users/cha/repos/pingpod-web/src/functions","node_version":"10.16.0"}
+[debug] [2019-10-08T23:36:19.222Z] [functions] Beginning execution of "customerCharger"
+[debug] [2019-10-08T23:36:19.223Z] DEBUG: [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-10-08T23:36:19.226Z] DEBUG: [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.6.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-10-08T23:36:19.226Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-10-08T23:36:19.227Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-10-08T23:36:19.954Z] DEBUG: [runtime-status] Trigger "customerCharger" has been found, beginning invocation! {}
+[debug] [2019-10-08T23:36:19.955Z] DEBUG: [runtime-status]  {"schedule":{"schedule":"every 5 minutes"},"eventTrigger":{"resource":"projects/pingpod-web/topics","eventType":"google.pubsub.topic.publish","service":"pubsub.googleapis.com"},"labels":{"deployment-scheduled":"true"},"name":"customerCharger","entryPoint":"customerCharger"}
+[debug] [2019-10-08T23:36:19.955Z] DEBUG: [runtime-status] Running customerCharger in mode BACKGROUND {}
+[debug] [2019-10-08T23:36:19.955Z] DEBUG: [runtime-status] ProcessBackground {"eventId":"09c93584-3812-4b12-8ffc-919e8e92c819","timestamp":"2019-10-08T23:36:18.945Z","eventType":"google.pubsub.topic.publish","data":{}}
+[debug] [2019-10-08T23:36:19.956Z] DEBUG: [runtime-status] RunBackground {"data":{},"context":{"eventId":"09c93584-3812-4b12-8ffc-919e8e92c819","timestamp":"2019-10-08T23:36:18.945Z","eventType":"google.pubsub.topic.publish"}}
+[info] >  Initializing bulk customer charge.
+[info] >  Could not charge reservation. Error: Cannot charge user: YbapmZ8dhjOvrLK7ema0IukNsIb2
+[info] >  Could not charge reservation. Error: Cannot charge user: YbapmZ8dhjOvrLK7ema0IukNsIb2
+[info] >  Error: Cannot charge user: YbapmZ8dhjOvrLK7ema0IukNsIb2,Error: Cannot charge user: YbapmZ8dhjOvrLK7ema0IukNsIb2
+[debug] [2019-10-08T23:36:20.865Z] DEBUG: [runtime-status] Ephemeral server survived. {}
+[debug] [2019-10-08T23:36:20.865Z] [functions] Finished "customerCharger" in ~1s
+[debug] [2019-10-08T23:36:59.824Z] DEBUG: File /Users/cha/repos/pingpod-web/src/functions/chargeCustomers.js changed, reloading triggers
+[debug] [2019-10-08T23:37:01.103Z] DEBUG: [runtime-status] Functions runtime initialized. {"cwd":"/Users/cha/repos/pingpod-web/src/functions","node_version":"10.16.0"}
+[debug] [2019-10-08T23:37:01.104Z] DEBUG: [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-10-08T23:37:01.107Z] DEBUG: [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.6.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-10-08T23:37:01.108Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-10-08T23:37:01.108Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-10-08T23:37:02.807Z] shell:customerCharger: trigger={"schedule":{"schedule":"every 5 minutes"},"eventTrigger":{"resource":"projects/pingpod-web/topics","eventType":"google.pubsub.topic.publish","service":"pubsub.googleapis.com"},"labels":{"deployment-scheduled":"true"},"name":"customerCharger","entryPoint":"customerCharger"}
+[debug] [2019-10-08T23:37:02.807Z] shell:customerCharger: opts={}, data={}
+[debug] [2019-10-08T23:37:03.076Z] DEBUG: [runtime-status] Functions runtime initialized. {"cwd":"/Users/cha/repos/pingpod-web/src/functions","node_version":"10.16.0"}
+[debug] [2019-10-08T23:37:03.076Z] [functions] Beginning execution of "customerCharger"
+[debug] [2019-10-08T23:37:03.076Z] DEBUG: [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-10-08T23:37:03.079Z] DEBUG: [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.6.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-10-08T23:37:03.080Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-10-08T23:37:03.081Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-10-08T23:37:03.804Z] DEBUG: [runtime-status] Trigger "customerCharger" has been found, beginning invocation! {}
+[debug] [2019-10-08T23:37:03.804Z] DEBUG: [runtime-status]  {"schedule":{"schedule":"every 5 minutes"},"eventTrigger":{"resource":"projects/pingpod-web/topics","eventType":"google.pubsub.topic.publish","service":"pubsub.googleapis.com"},"labels":{"deployment-scheduled":"true"},"name":"customerCharger","entryPoint":"customerCharger"}
+[debug] [2019-10-08T23:37:03.804Z] DEBUG: [runtime-status] Running customerCharger in mode BACKGROUND {}
+[debug] [2019-10-08T23:37:03.804Z] DEBUG: [runtime-status] ProcessBackground {"eventId":"537609ad-c7e2-447a-8100-5e4dfd79b55f","timestamp":"2019-10-08T23:37:02.807Z","eventType":"google.pubsub.topic.publish","data":{}}
+[debug] [2019-10-08T23:37:03.805Z] DEBUG: [runtime-status] RunBackground {"data":{},"context":{"eventId":"537609ad-c7e2-447a-8100-5e4dfd79b55f","timestamp":"2019-10-08T23:37:02.807Z","eventType":"google.pubsub.topic.publish"}}
+[info] >  Initializing bulk customer charge.
+[info] >  Could not charge reservation. Error: Cannot charge user: YbapmZ8dhjOvrLK7ema0IukNsIb2
+[info] >  Could not charge reservation. Error: Cannot charge user: YbapmZ8dhjOvrLK7ema0IukNsIb2
+[info] >  COMPLETE: Error: Cannot charge user: YbapmZ8dhjOvrLK7ema0IukNsIb2,Error: Cannot charge user: YbapmZ8dhjOvrLK7ema0IukNsIb2
+[debug] [2019-10-08T23:37:04.639Z] DEBUG: [runtime-status] Ephemeral server survived. {}
+[debug] [2019-10-08T23:37:04.640Z] [functions] Finished "customerCharger" in ~1s
+[debug] [2019-10-08T23:38:16.179Z] DEBUG: File /Users/cha/repos/pingpod-web/src/functions/chargeCustomers.js changed, reloading triggers
+[debug] [2019-10-08T23:38:17.465Z] DEBUG: [runtime-status] Functions runtime initialized. {"cwd":"/Users/cha/repos/pingpod-web/src/functions","node_version":"10.16.0"}
+[debug] [2019-10-08T23:38:17.466Z] DEBUG: [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-10-08T23:38:17.469Z] DEBUG: [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.6.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-10-08T23:38:17.470Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-10-08T23:38:17.471Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-10-08T23:38:28.273Z] DEBUG: File /Users/cha/repos/pingpod-web/src/functions/chargeCustomers.js changed, reloading triggers
+[debug] [2019-10-08T23:38:29.567Z] DEBUG: [runtime-status] Functions runtime initialized. {"cwd":"/Users/cha/repos/pingpod-web/src/functions","node_version":"10.16.0"}
+[debug] [2019-10-08T23:38:29.567Z] DEBUG: [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-10-08T23:38:29.571Z] DEBUG: [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.6.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-10-08T23:38:29.572Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-10-08T23:38:29.572Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-10-08T23:38:30.323Z] shell:customerCharger: trigger={"schedule":{"schedule":"every 5 minutes"},"eventTrigger":{"resource":"projects/pingpod-web/topics","eventType":"google.pubsub.topic.publish","service":"pubsub.googleapis.com"},"labels":{"deployment-scheduled":"true"},"name":"customerCharger","entryPoint":"customerCharger"}
+[debug] [2019-10-08T23:38:30.323Z] shell:customerCharger: opts={}, data={}
+[debug] [2019-10-08T23:38:30.605Z] DEBUG: [runtime-status] Functions runtime initialized. {"cwd":"/Users/cha/repos/pingpod-web/src/functions","node_version":"10.16.0"}
+[debug] [2019-10-08T23:38:30.605Z] [functions] Beginning execution of "customerCharger"
+[debug] [2019-10-08T23:38:30.606Z] DEBUG: [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-10-08T23:38:30.608Z] DEBUG: [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.6.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-10-08T23:38:30.609Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-10-08T23:38:30.610Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-10-08T23:38:31.341Z] DEBUG: [runtime-status] Trigger "customerCharger" has been found, beginning invocation! {}
+[debug] [2019-10-08T23:38:31.341Z] DEBUG: [runtime-status]  {"schedule":{"schedule":"every 5 minutes"},"eventTrigger":{"resource":"projects/pingpod-web/topics","eventType":"google.pubsub.topic.publish","service":"pubsub.googleapis.com"},"labels":{"deployment-scheduled":"true"},"name":"customerCharger","entryPoint":"customerCharger"}
+[debug] [2019-10-08T23:38:31.341Z] DEBUG: [runtime-status] Running customerCharger in mode BACKGROUND {}
+[debug] [2019-10-08T23:38:31.341Z] DEBUG: [runtime-status] ProcessBackground {"eventId":"f4497676-73e1-4ab1-8439-a71a47bdb6ee","timestamp":"2019-10-08T23:38:30.323Z","eventType":"google.pubsub.topic.publish","data":{}}
+[debug] [2019-10-08T23:38:31.342Z] DEBUG: [runtime-status] RunBackground {"data":{},"context":{"eventId":"f4497676-73e1-4ab1-8439-a71a47bdb6ee","timestamp":"2019-10-08T23:38:30.323Z","eventType":"google.pubsub.topic.publish"}}
+[info] >  Initializing bulk customer charge.
+[info] >  Could not charge reservation. Error: Cannot charge user: YbapmZ8dhjOvrLK7ema0IukNsIb2
+[info] >  eh?
+[info] >  Could not charge reservation. Error: Cannot charge user: YbapmZ8dhjOvrLK7ema0IukNsIb2
+[info] >  COMPLETE: Error: Cannot charge user: YbapmZ8dhjOvrLK7ema0IukNsIb2,Error: Cannot charge user: YbapmZ8dhjOvrLK7ema0IukNsIb2
+[debug] [2019-10-08T23:38:32.362Z] DEBUG: [runtime-status] Ephemeral server survived. {}
+[debug] [2019-10-08T23:38:32.362Z] [functions] Finished "customerCharger" in ~1s
+[debug] [2019-10-08T23:38:39.528Z] DEBUG: File /Users/cha/repos/pingpod-web/src/functions/chargeCustomers.js changed, reloading triggers
+[debug] [2019-10-08T23:38:39.628Z] DEBUG: File /Users/cha/repos/pingpod-web/src/functions/chargeCustomers.js changed, reloading triggers
+[debug] [2019-10-08T23:38:40.912Z] DEBUG: [runtime-status] Functions runtime initialized. {"cwd":"/Users/cha/repos/pingpod-web/src/functions","node_version":"10.16.0"}
+[debug] [2019-10-08T23:38:40.913Z] DEBUG: [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-10-08T23:38:40.916Z] DEBUG: [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.6.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-10-08T23:38:40.917Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-10-08T23:38:40.917Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-10-08T23:38:42.491Z] shell:customerCharger: trigger={"schedule":{"schedule":"every 5 minutes"},"eventTrigger":{"resource":"projects/pingpod-web/topics","eventType":"google.pubsub.topic.publish","service":"pubsub.googleapis.com"},"labels":{"deployment-scheduled":"true"},"name":"customerCharger","entryPoint":"customerCharger"}
+[debug] [2019-10-08T23:38:42.491Z] shell:customerCharger: opts={}, data={}
+[debug] [2019-10-08T23:38:42.767Z] DEBUG: [runtime-status] Functions runtime initialized. {"cwd":"/Users/cha/repos/pingpod-web/src/functions","node_version":"10.16.0"}
+[debug] [2019-10-08T23:38:42.768Z] [functions] Beginning execution of "customerCharger"
+[debug] [2019-10-08T23:38:42.768Z] DEBUG: [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-10-08T23:38:42.771Z] DEBUG: [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.6.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-10-08T23:38:42.772Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-10-08T23:38:42.773Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-10-08T23:38:43.492Z] DEBUG: [runtime-status] Trigger "customerCharger" has been found, beginning invocation! {}
+[debug] [2019-10-08T23:38:43.492Z] DEBUG: [runtime-status]  {"schedule":{"schedule":"every 5 minutes"},"eventTrigger":{"resource":"projects/pingpod-web/topics","eventType":"google.pubsub.topic.publish","service":"pubsub.googleapis.com"},"labels":{"deployment-scheduled":"true"},"name":"customerCharger","entryPoint":"customerCharger"}
+[debug] [2019-10-08T23:38:43.492Z] DEBUG: [runtime-status] Running customerCharger in mode BACKGROUND {}
+[debug] [2019-10-08T23:38:43.492Z] DEBUG: [runtime-status] ProcessBackground {"eventId":"f4510e52-3f54-4f5f-b107-a6a04d9c4935","timestamp":"2019-10-08T23:38:42.491Z","eventType":"google.pubsub.topic.publish","data":{}}
+[debug] [2019-10-08T23:38:43.493Z] DEBUG: [runtime-status] RunBackground {"data":{},"context":{"eventId":"f4510e52-3f54-4f5f-b107-a6a04d9c4935","timestamp":"2019-10-08T23:38:42.491Z","eventType":"google.pubsub.topic.publish"}}
+[info] >  Initializing bulk customer charge.
+[info] >  Could not charge reservation. Error: Cannot charge user: YbapmZ8dhjOvrLK7ema0IukNsIb2
+[info] >  eh? Error: Cannot charge user: YbapmZ8dhjOvrLK7ema0IukNsIb2
+[info] >  Could not charge reservation. Error: Cannot charge user: YbapmZ8dhjOvrLK7ema0IukNsIb2
+[info] >  COMPLETE: Error: Cannot charge user: YbapmZ8dhjOvrLK7ema0IukNsIb2,Error: Cannot charge user: YbapmZ8dhjOvrLK7ema0IukNsIb2
+[debug] [2019-10-08T23:38:44.309Z] DEBUG: [runtime-status] Ephemeral server survived. {}
+[debug] [2019-10-08T23:38:44.309Z] [functions] Finished "customerCharger" in ~1s
+[debug] [2019-10-08T23:39:05.491Z] DEBUG: File /Users/cha/repos/pingpod-web/src/functions/chargeCustomers.js changed, reloading triggers
+[debug] [2019-10-08T23:39:06.795Z] DEBUG: [runtime-status] Functions runtime initialized. {"cwd":"/Users/cha/repos/pingpod-web/src/functions","node_version":"10.16.0"}
+[debug] [2019-10-08T23:39:06.796Z] DEBUG: [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-10-08T23:39:06.798Z] DEBUG: [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.6.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-10-08T23:39:06.799Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-10-08T23:39:06.800Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-10-08T23:39:09.803Z] DEBUG: File /Users/cha/repos/pingpod-web/src/functions/chargeCustomers.js changed, reloading triggers
+[debug] [2019-10-08T23:39:11.098Z] DEBUG: [runtime-status] Functions runtime initialized. {"cwd":"/Users/cha/repos/pingpod-web/src/functions","node_version":"10.16.0"}
+[debug] [2019-10-08T23:39:11.099Z] DEBUG: [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-10-08T23:39:11.102Z] DEBUG: [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.6.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-10-08T23:39:11.103Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-10-08T23:39:11.104Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-10-08T23:39:12.770Z] shell:customerCharger: trigger={"schedule":{"schedule":"every 5 minutes"},"eventTrigger":{"resource":"projects/pingpod-web/topics","eventType":"google.pubsub.topic.publish","service":"pubsub.googleapis.com"},"labels":{"deployment-scheduled":"true"},"name":"customerCharger","entryPoint":"customerCharger"}
+[debug] [2019-10-08T23:39:12.770Z] shell:customerCharger: opts={}, data={}
+[debug] [2019-10-08T23:39:13.047Z] DEBUG: [runtime-status] Functions runtime initialized. {"cwd":"/Users/cha/repos/pingpod-web/src/functions","node_version":"10.16.0"}
+[debug] [2019-10-08T23:39:13.048Z] [functions] Beginning execution of "customerCharger"
+[debug] [2019-10-08T23:39:13.049Z] DEBUG: [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-10-08T23:39:13.051Z] DEBUG: [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.6.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-10-08T23:39:13.052Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-10-08T23:39:13.053Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-10-08T23:39:13.790Z] DEBUG: [runtime-status] Trigger "customerCharger" has been found, beginning invocation! {}
+[debug] [2019-10-08T23:39:13.790Z] DEBUG: [runtime-status]  {"schedule":{"schedule":"every 5 minutes"},"eventTrigger":{"resource":"projects/pingpod-web/topics","eventType":"google.pubsub.topic.publish","service":"pubsub.googleapis.com"},"labels":{"deployment-scheduled":"true"},"name":"customerCharger","entryPoint":"customerCharger"}
+[debug] [2019-10-08T23:39:13.790Z] DEBUG: [runtime-status] Running customerCharger in mode BACKGROUND {}
+[debug] [2019-10-08T23:39:13.790Z] DEBUG: [runtime-status] ProcessBackground {"eventId":"1c29b4b1-cef9-42ed-90ec-e033412d282f","timestamp":"2019-10-08T23:39:12.770Z","eventType":"google.pubsub.topic.publish","data":{}}
+[debug] [2019-10-08T23:39:13.791Z] DEBUG: [runtime-status] RunBackground {"data":{},"context":{"eventId":"1c29b4b1-cef9-42ed-90ec-e033412d282f","timestamp":"2019-10-08T23:39:12.770Z","eventType":"google.pubsub.topic.publish"}}
+[info] >  Initializing bulk customer charge.
+[info] >  Could not charge reservation. Error: Cannot charge user: YbapmZ8dhjOvrLK7ema0IukNsIb2
+[info] >  eh? 1 2
+[info] >  Could not charge reservation. Error: Cannot charge user: YbapmZ8dhjOvrLK7ema0IukNsIb2
+[info] >  COMPLETE: Error: Cannot charge user: YbapmZ8dhjOvrLK7ema0IukNsIb2,Error: Cannot charge user: YbapmZ8dhjOvrLK7ema0IukNsIb2
+[debug] [2019-10-08T23:39:14.812Z] DEBUG: [runtime-status] Ephemeral server survived. {}
+[debug] [2019-10-08T23:39:14.812Z] [functions] Finished "customerCharger" in ~1s
+[debug] [2019-10-08T23:39:51.315Z] DEBUG: File /Users/cha/repos/pingpod-web/src/functions/chargeCustomers.js changed, reloading triggers
+[debug] [2019-10-08T23:39:52.711Z] DEBUG: [runtime-status] Functions runtime initialized. {"cwd":"/Users/cha/repos/pingpod-web/src/functions","node_version":"10.16.0"}
+[debug] [2019-10-08T23:39:52.711Z] DEBUG: [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-10-08T23:39:52.715Z] DEBUG: [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.6.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-10-08T23:39:52.717Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-10-08T23:39:52.717Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-10-08T23:39:54.152Z] shell:customerCharger: trigger={"schedule":{"schedule":"every 5 minutes"},"eventTrigger":{"resource":"projects/pingpod-web/topics","eventType":"google.pubsub.topic.publish","service":"pubsub.googleapis.com"},"labels":{"deployment-scheduled":"true"},"name":"customerCharger","entryPoint":"customerCharger"}
+[debug] [2019-10-08T23:39:54.152Z] shell:customerCharger: opts={}, data={}
+[debug] [2019-10-08T23:39:54.429Z] DEBUG: [runtime-status] Functions runtime initialized. {"cwd":"/Users/cha/repos/pingpod-web/src/functions","node_version":"10.16.0"}
+[debug] [2019-10-08T23:39:54.430Z] [functions] Beginning execution of "customerCharger"
+[debug] [2019-10-08T23:39:54.430Z] DEBUG: [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-10-08T23:39:54.433Z] DEBUG: [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.6.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-10-08T23:39:54.433Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-10-08T23:39:54.434Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-10-08T23:39:55.168Z] DEBUG: [runtime-status] Trigger "customerCharger" has been found, beginning invocation! {}
+[debug] [2019-10-08T23:39:55.168Z] DEBUG: [runtime-status]  {"schedule":{"schedule":"every 5 minutes"},"eventTrigger":{"resource":"projects/pingpod-web/topics","eventType":"google.pubsub.topic.publish","service":"pubsub.googleapis.com"},"labels":{"deployment-scheduled":"true"},"name":"customerCharger","entryPoint":"customerCharger"}
+[debug] [2019-10-08T23:39:55.168Z] DEBUG: [runtime-status] Running customerCharger in mode BACKGROUND {}
+[debug] [2019-10-08T23:39:55.168Z] DEBUG: [runtime-status] ProcessBackground {"eventId":"453103ce-4b94-4616-94f5-66972b54de63","timestamp":"2019-10-08T23:39:54.152Z","eventType":"google.pubsub.topic.publish","data":{}}
+[debug] [2019-10-08T23:39:55.169Z] DEBUG: [runtime-status] RunBackground {"data":{},"context":{"eventId":"453103ce-4b94-4616-94f5-66972b54de63","timestamp":"2019-10-08T23:39:54.152Z","eventType":"google.pubsub.topic.publish"}}
+[info] >  Initializing bulk customer charge.
+[info] >  init promise
+[info] >  init promise
+[info] >  Could not charge reservation. Error: Cannot charge user: YbapmZ8dhjOvrLK7ema0IukNsIb2
+[info] >  done promise
+[info] >  eh? 1 2
+[info] >  Could not charge reservation. Error: Cannot charge user: YbapmZ8dhjOvrLK7ema0IukNsIb2
+[info] >  done promise
+[info] >  COMPLETE: Error: Cannot charge user: YbapmZ8dhjOvrLK7ema0IukNsIb2,Error: Cannot charge user: YbapmZ8dhjOvrLK7ema0IukNsIb2
+[debug] [2019-10-08T23:39:56.172Z] DEBUG: [runtime-status] Ephemeral server survived. {}
+[debug] [2019-10-08T23:39:56.172Z] [functions] Finished "customerCharger" in ~1s
+[debug] [2019-10-08T23:40:10.921Z] DEBUG: File /Users/cha/repos/pingpod-web/src/functions/chargeCustomers.js changed, reloading triggers
+[debug] [2019-10-08T23:40:12.313Z] DEBUG: [runtime-status] Functions runtime initialized. {"cwd":"/Users/cha/repos/pingpod-web/src/functions","node_version":"10.16.0"}
+[debug] [2019-10-08T23:40:12.314Z] DEBUG: [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-10-08T23:40:12.318Z] DEBUG: [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.6.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-10-08T23:40:12.319Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-10-08T23:40:12.320Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-10-08T23:40:13.271Z] shell:customerCharger: trigger={"schedule":{"schedule":"every 5 minutes"},"eventTrigger":{"resource":"projects/pingpod-web/topics","eventType":"google.pubsub.topic.publish","service":"pubsub.googleapis.com"},"labels":{"deployment-scheduled":"true"},"name":"customerCharger","entryPoint":"customerCharger"}
+[debug] [2019-10-08T23:40:13.271Z] shell:customerCharger: opts={}, data={}
+[debug] [2019-10-08T23:40:13.561Z] DEBUG: [runtime-status] Functions runtime initialized. {"cwd":"/Users/cha/repos/pingpod-web/src/functions","node_version":"10.16.0"}
+[debug] [2019-10-08T23:40:13.562Z] [functions] Beginning execution of "customerCharger"
+[debug] [2019-10-08T23:40:13.562Z] DEBUG: [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-10-08T23:40:13.565Z] DEBUG: [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.6.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-10-08T23:40:13.566Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-10-08T23:40:13.567Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-10-08T23:40:14.309Z] DEBUG: [runtime-status] Trigger "customerCharger" has been found, beginning invocation! {}
+[debug] [2019-10-08T23:40:14.309Z] DEBUG: [runtime-status]  {"schedule":{"schedule":"every 5 minutes"},"eventTrigger":{"resource":"projects/pingpod-web/topics","eventType":"google.pubsub.topic.publish","service":"pubsub.googleapis.com"},"labels":{"deployment-scheduled":"true"},"name":"customerCharger","entryPoint":"customerCharger"}
+[debug] [2019-10-08T23:40:14.310Z] DEBUG: [runtime-status] Running customerCharger in mode BACKGROUND {}
+[debug] [2019-10-08T23:40:14.310Z] DEBUG: [runtime-status] ProcessBackground {"eventId":"2f3fea6d-8a7c-4ddb-978f-67777b2e7d3d","timestamp":"2019-10-08T23:40:13.272Z","eventType":"google.pubsub.topic.publish","data":{}}
+[debug] [2019-10-08T23:40:14.311Z] DEBUG: [runtime-status] RunBackground {"data":{},"context":{"eventId":"2f3fea6d-8a7c-4ddb-978f-67777b2e7d3d","timestamp":"2019-10-08T23:40:13.272Z","eventType":"google.pubsub.topic.publish"}}
+[info] >  Initializing bulk customer charge.
+[info] >  init promise
+[info] >  init promise
+[info] >  Could not charge reservation. Error: Cannot charge user: YbapmZ8dhjOvrLK7ema0IukNsIb2
+[info] >  Could not charge reservation. Error: Cannot charge user: YbapmZ8dhjOvrLK7ema0IukNsIb2
+[info] >  Error: Cannot charge user: YbapmZ8dhjOvrLK7ema0IukNsIb2,Error: Cannot charge user: YbapmZ8dhjOvrLK7ema0IukNsIb2
+[info] >  COMPLETE: Error: Cannot charge user: YbapmZ8dhjOvrLK7ema0IukNsIb2,Error: Cannot charge user: YbapmZ8dhjOvrLK7ema0IukNsIb2
+[debug] [2019-10-08T23:40:15.368Z] DEBUG: [runtime-status] Ephemeral server survived. {}
+[debug] [2019-10-08T23:40:15.368Z] [functions] Finished "customerCharger" in ~1s
+[debug] [2019-10-08T23:40:20.693Z] DEBUG: File /Users/cha/repos/pingpod-web/src/functions/chargeCustomers.js changed, reloading triggers
+[debug] [2019-10-08T23:40:21.982Z] DEBUG: [runtime-status] Functions runtime initialized. {"cwd":"/Users/cha/repos/pingpod-web/src/functions","node_version":"10.16.0"}
+[debug] [2019-10-08T23:40:21.983Z] DEBUG: [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-10-08T23:40:21.986Z] DEBUG: [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.6.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-10-08T23:40:21.987Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-10-08T23:40:21.988Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-functions/lib/index.js"}

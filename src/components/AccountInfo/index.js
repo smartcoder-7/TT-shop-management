@@ -7,7 +7,8 @@ import firebase from 'util/firebase'
 import styles from './styles.scss'
 import authContainer, { AuthSubscriber } from '../../containers/authContainer'
 import { ReservationRange } from 'components/Reservation'
-import { INTERVAL_MS, getDateParts } from 'util/getPodSessions'
+import { INTERVAL_MS } from 'util/getPodSessions'
+import getDateParts from 'shared/getDateParts'
 import BillingInfo from './BillingInfo';
 import TextField from '../fields/TextField';
 import { updateUser } from 'util/db';

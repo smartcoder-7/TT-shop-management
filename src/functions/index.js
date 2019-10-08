@@ -1,9 +1,8 @@
 const functions = require('firebase-functions')
-const twilio = require('twilio')
-const admin = require('firebase-admin')
 const uuid = require( 'uuid')
 
-const config = functions.config()
+const chargeCustomers = require('./chargeCustomers')
+const { customersApi } = require('./util/square')
 
 // TODO: Swap out for production creds
 // const accountSid = config.twilio.account_sid
@@ -26,16 +25,6 @@ const config = functions.config()
 //   }
 // })
 
-const SquareConnect = require('square-connect')
-const squareClient = SquareConnect.ApiClient.instance
-squareClient.basePath = 'https://connect.squareupsandbox.com'
-
-// Configure OAuth2 access token for authorization: oauth2
-const oauth2 = squareClient.authentications['oauth2']
-// oauth2.accessToken = functions.config().square.access_token_dev
-oauth2.accessToken = "EAAAEH_SRRZA-IkqcVz6uvVLlDcISN2fTMZ23UT03VNi-6jb3fevLSSjuMgjxEdV"
-
-const customersApi = new SquareConnect.CustomersApi()
 
 exports.newCustomer = functions.https.onCall(async (data = {}, context) => {
   const { email_address, reference_id } = data 
@@ -90,4 +79,15 @@ exports.getCustomer = functions.https.onCall(async (data = {}, context) => {
   } catch(err) {
     throw err
   }
+})
+
+exports.chargeCustomers = functions.https.onCall(async (data = {}, context) => {
+  const response = await chargeCustomers({})
+  return response
+})
+
+exports.customerCharger = functions.pubsub.schedule('every 5 minutes')
+.onRun(async (context) => {
+  const response = await chargeCustomers({})
+  return response
 })

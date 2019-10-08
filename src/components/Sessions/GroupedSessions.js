@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom'
 
 import styles from './styles.scss'
 import { ReservationRange } from 'components/Reservation'
-import { INTERVAL_MS, getDateParts } from 'util/getPodSessions'
+import { INTERVAL_MS } from 'util/getPodSessions'
+import getDateParts from 'shared/getDateParts'
 import { formatTime } from 'util/getPodSessions'
-import getSessionPrice from '../../util/getSessionPrice';
+import getSessionPrice from 'shared/getSessionPrice';
 
 const ReservationsPerDate = ({ date, times, locationId, reservations, inCart }) => {
   const ranges = []
