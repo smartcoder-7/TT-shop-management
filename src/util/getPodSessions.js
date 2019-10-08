@@ -1,4 +1,5 @@
 import getSessionPrice from "shared/getSessionPrice";
+import { parseFromTimeZone, formatToTimeZone } from 'date-fns-timezone'
 
 export const INTERVAL_MS = 1000 * 60 * 30
 
@@ -45,9 +46,10 @@ export const formatDate = (date) => {
 
 export const getSessions = (doc, date, locationId) => {
   const { reservations, numTables, timezone } = doc.data()
-  
-  const dateObj = new Date(`${date} 00:00 ${timezone}`)
+
+  const dateObj = parseFromTimeZone(`${date} 00:00`, { timeZone: 'America/New_York' })
   const dateId = formatDate(dateObj)
+  console.log(dateObj, date)
   const allTimes = getAllTimes(dateObj)
   const reservationsOnDate = reservations[dateId] || {}
 

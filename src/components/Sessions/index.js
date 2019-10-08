@@ -43,8 +43,8 @@ class Sessions extends React.Component {
       }
       
       const sessions = getSessions(doc, date, locationId)
-      this.setState({ sessions })
 
+      this.setState({ sessions })
 
       if (!this.isLoaded && onFirstLoad) onFirstLoad()
 

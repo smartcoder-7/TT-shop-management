@@ -160,7 +160,7 @@ class PodSchedule extends React.Component {
                 if (sessions.length && !availableSessions.length) {
                   return 'No sessions available for this day.'
                 }
-                
+
                 return (
                   availableSessions.map(({ id, time, isAvailable, isPast, rate }) => {
                     const isSelected = cartContainer.isInCart(id)
