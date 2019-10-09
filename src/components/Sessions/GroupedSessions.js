@@ -103,7 +103,6 @@ const GroupedSessions = ({
         .reverse()
         .map(date => {
           const times = Object.keys(location[date] || {})
-          console.log(times)
 
           return (
             <ReservationsPerDate 

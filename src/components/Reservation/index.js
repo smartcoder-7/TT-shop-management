@@ -17,7 +17,8 @@ const Reservation = ({ docRef }) => {
 
   if (!doc || !doc.exists) return null
 
-  const { date, time, locationId } = doc.data()
+  const { date, time, locationId, payment } = doc.data()
+
   return (
     <>
       <div onClick={() => setShowModal(true)}>
@@ -46,7 +47,9 @@ export const ReservationRange = ({ start, end, tables }) => {
 
   if (!doc || !doc.exists) return null
 
-  const { date, time, locationId } = doc.data()
+  const { date, time, locationId, payment } = doc.data()
+
+  console.log(doc.data(), payment)
 
   const requestAccess = () => {
     const sessionId = `${locationId}-${time}`
@@ -82,6 +85,14 @@ export const ReservationRange = ({ start, end, tables }) => {
             </div>
           ))}
         </div>
+
+        {payment && (
+          <div className={styles.paymentDetails}>
+            [PAID] 
+            <br />
+            <label>Payment Id: {payment.id}</label>
+          </div>
+        )}
 
         {error && <div>{error}</div>}
       </div>

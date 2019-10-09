@@ -1,5 +1,7 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
+import qs from 'qs'
+
 import Layout from 'components/Layout'
 import Logo from 'components/Logo'
 import EmailSubscribe from 'components/EmailSubscribe'
@@ -11,11 +13,42 @@ const IS_DEV = process.env.NODE_ENV === 'development'
 class Home extends React.Component {
   scrollRef = React.createRef()
 
+  state = {}
+
   constructor(props) {
     super(props)
+    console.log(props)
+
+    const { location } = props
+    const queryParams = qs.parse(location.search, { ignoreQueryPrefix: true })
+    this.state.isMobile = queryParams.mobile !== undefined
   }
 
   render() {
+    if (this.state.isMobile) {
+      return (
+        <Layout className={styles.home}>
+          <div data-row>
+            <div className={styles.intro} data-col="12">
+              <h1>
+                <Logo className={styles.logo} theme="pink" />
+                PINGPOD
+              </h1>
+              <p>
+                The world’s first fully autonomous table tennis court system.
+              </p>
+
+              {IS_DEV && (
+                <Link to="/reserve/0" data-link>
+                  Reserve a Table
+                </Link>
+              )}
+            </div>
+          </div>
+        </Layout>
+      )
+    }
+
     return (
       <Layout className={styles.home}>
         <div data-row>
@@ -94,4 +127,4 @@ class Home extends React.Component {
   }
 }
 
-export default Home
+export default withRouter(Home)
