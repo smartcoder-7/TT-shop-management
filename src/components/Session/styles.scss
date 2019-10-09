@@ -76,6 +76,7 @@
 .sessionInfo {
   width: 100%;
   display: flex;
+  align-items: center;
   justify-content: space-between;
   will-change: width, margin;
   transition: all 200ms ease-in-out;

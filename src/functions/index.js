@@ -86,7 +86,7 @@ exports.chargeCustomers = functions.https.onCall(async (data = {}, context) => {
   return response
 })
 
-exports.customerCharger = functions.pubsub.schedule('every 5 minutes')
+exports.customerCharger = functions.pubsub.schedule('every 20 minutes')
 .onRun(async (context) => {
   const response = await chargeCustomers({})
   return response
