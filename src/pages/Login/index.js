@@ -69,7 +69,7 @@ class Login extends React.Component {
       this.setState({ submissionError: err })
     })
   }
-  
+
   signup = (data = {}) => {
     const { email, password } = data
     authContainer.signupWithEmail({ email, password })

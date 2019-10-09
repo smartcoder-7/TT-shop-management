@@ -123,6 +123,14 @@ class AuthContainer extends Container {
   triggerChange = () => {
     this.setState({})
   }
+
+  resetPassword = ({ email = "" }) => {
+    return firebase.auth().sendPasswordResetEmail(email).then(function() {
+      // Email sent.
+    }).catch(function(error) {
+      // An error happened.
+    });
+  }
 }
 
 const authContainer = new AuthContainer()

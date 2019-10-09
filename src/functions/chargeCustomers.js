@@ -7,6 +7,21 @@ const db = require('./util/db')
 const getSessionPrice = require('./shared/getSessionPrice')
 const { paymentsApi } = require('./util/square')
 
+const invalidate = ({ paymentId, userId, reservationId }) => {
+  // payment should also be canceled here if it exists
+
+  const userPromise = db.collection('users').doc(userId)
+  .update({ error: 'Invalid billing information.' })
+
+  const reservationPromise = db.collection('reservations').doc(reservationId)
+  .update({ error: 'Could not charge user. Check billing information.' })
+
+  return allSettled([
+    userPromise,
+    reservationPromise
+  ])
+}
+
 const chargeReservation = ({
   userId,
   time
@@ -71,15 +86,22 @@ const processReservation = (doc) => {
           resolve(charge)
         })
         .catch(err => {
-          // Cancel payment
-          console.log('Could not update reservation.', err)
-          throw err
+          invalidate({ 
+            paymentId: payment.id, 
+            reservationId: doc.id, 
+            userId: data.userId
+          }).then(() => {
+            reject(err)
+          })
         })
     })
     .catch(err => {
-      // console.log(err)
-      console.log('Could not charge reservation.', err)
-      reject(err)
+      invalidate({ 
+        reservationId: doc.id, 
+        userId: data.userId
+      }).then(() => {
+        reject(err)
+      })
     })
   })
 }
