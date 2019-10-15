@@ -109,8 +109,13 @@ const processReservation = (doc) => {
 const allSettled = (promises) => {
   return new Promise((resolve) => {
     const done = []
+
     promises.forEach(promise => {
       console.log('init promise')
+      if (!promise.finally) {
+        console.log('weird keys: ', Object.keys(promise))
+      }
+      
       promise
       .then((response) => {
         done.push(response)

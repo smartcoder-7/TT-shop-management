@@ -1671,3 +1671,15 @@
 [info] >  COMPLETE: Error: Cannot charge user: YbapmZ8dhjOvrLK7ema0IukNsIb2,Error: Cannot charge user: YbapmZ8dhjOvrLK7ema0IukNsIb2,[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]
 [debug] [2019-10-15T05:53:49.758Z] DEBUG: [runtime-status] Ephemeral server survived. {}
 [debug] [2019-10-15T05:53:49.758Z] [functions] Finished "customerCharger" in ~2s
+[debug] [2019-10-15T06:01:04.955Z] DEBUG: File /Users/cha/repos/pingpod-web/src/functions/chargeCustomers.js changed, reloading triggers
+[debug] [2019-10-15T06:01:06.125Z] DEBUG: File /Users/cha/repos/pingpod-web/src/functions/chargeCustomers.js changed, reloading triggers
+[debug] [2019-10-15T06:01:06.352Z] DEBUG: [runtime-status] Functions runtime initialized. {"cwd":"/Users/cha/repos/pingpod-web/src/functions","node_version":"10.16.0"}
+[debug] [2019-10-15T06:01:06.352Z] DEBUG: [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-10-15T06:01:06.355Z] DEBUG: [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.6.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-10-15T06:01:06.356Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-10-15T06:01:06.357Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-10-15T06:01:07.414Z] DEBUG: [runtime-status] Functions runtime initialized. {"cwd":"/Users/cha/repos/pingpod-web/src/functions","node_version":"10.16.0"}
+[debug] [2019-10-15T06:01:07.414Z] DEBUG: [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-10-15T06:01:07.417Z] DEBUG: [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.6.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-10-15T06:01:07.418Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-10-15T06:01:07.419Z] DEBUG: [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/Users/cha/repos/pingpod-web/src/functions/node_modules/firebase-functions/lib/index.js"}
