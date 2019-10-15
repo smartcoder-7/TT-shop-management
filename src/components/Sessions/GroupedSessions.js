@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { parseFromTimeZone, formatToTimeZone } from 'date-fns-timezone'
 
 import styles from './styles.scss'
 import { ReservationRange } from 'components/Reservation'
@@ -30,13 +31,16 @@ const ReservationsPerDate = ({ date, times, locationId, reservations, inCart }) 
     })
   })
 
+  const dateObj = parseFromTimeZone(`${date} 00:00`, { timeZone: 'America/New_York' })
+  console.log(dateObj, date)
+
   const {
     dayOfTheWeek,
     month,
     day,
     year
-  } = getDateParts(new Date(date))
-  
+  } = getDateParts(dateObj)
+
   return (
     <div className={styles.reservationDate} key={date}>
 
