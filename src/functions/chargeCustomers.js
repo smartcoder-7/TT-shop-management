@@ -111,23 +111,21 @@ const allSettled = (promises) => {
     const done = []
 
     promises.forEach(promise => {
-      console.log('init promise')
-      if (!promise.finally) {
-        console.log('weird keys: ', Object.keys(promise))
+      const onFinish = () => {
+        if (done.length === promises.length) {
+          return resolve(done)
+        }
       }
       
       promise
       .then((response) => {
         done.push(response)
+        onFinish()
       })
       .catch((err => {
         done.push(err)
+        onFinish()
       }))
-      .finally(() => {
-        if (done.length === promises.length) {
-          return resolve(done)
-        }
-      })
     })
   })
 }

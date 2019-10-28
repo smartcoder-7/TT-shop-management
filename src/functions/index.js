@@ -1,7 +1,10 @@
+require('envkey')
+
 const functions = require('firebase-functions')
 const uuid = require( 'uuid')
 
 const chargeCustomers = require('./chargeCustomers')
+const sendgridEmail = require('./sendEmail')
 const { customersApi } = require('./util/square')
 
 // TODO: Swap out for production creds
@@ -83,6 +86,11 @@ exports.getCustomer = functions.https.onCall(async (data = {}, context) => {
 
 exports.chargeCustomers = functions.https.onCall(async (data = {}, context) => {
   const response = await chargeCustomers({})
+  return response
+})
+
+exports.sendEmail = functions.https.onCall(async (data = {}, context) => {
+  const response = await sendgridEmail(data)
   return response
 })
 

@@ -5,6 +5,8 @@ import { Container, Subscribe, Provider } from 'unstated'
 import { createCustomer } from 'util/square'
 
 const db = firebase.firestore()
+const functions = firebase.functions()
+const sendEmail = functions.httpsCallable('sendEmail')
 
 class AuthContainer extends Container {
   state = {
@@ -105,6 +107,13 @@ class AuthContainer extends Container {
   signupWithEmail = ({ email = "", password = ""}) => {
     return firebase.auth()
     .createUserWithEmailAndPassword(email, password)
+    .then(() => {
+      sendEmail({
+        email, 
+        subject: 'Welcome to PingPod',
+        text: 'Thanks for creating an account!' 
+      })
+    })
     .catch(function(error) {
       console.log('SIGNUP ERROR', error)
       throw error
