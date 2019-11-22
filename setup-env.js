@@ -13,13 +13,25 @@ const getEnvFile = () => {
   let str = ''
 
   Object.keys(secrets).forEach((key) => {
-    str += `${key}=${secrets[key]}\n`
+    str += `${key}=${secrets[key]} `
   })
 
+  return str
+}
+
+const getHerokuConfigFile = () => {
+  let str = `
+    heroku config:add ${getEnvFile()}
+  `
   return str
 }
 
 fs.writeFileSync(
   path.resolve(ROOT_DIR, '.env'), 
   getEnvFile()
+)
+
+fs.writeFileSync(
+  path.resolve(ROOT_DIR, 'setup-heroku.sh'), 
+  getHerokuConfigFile()
 )
