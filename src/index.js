@@ -6,6 +6,7 @@ import authContainer, { AuthSubscriber } from './containers/authContainer'
 
 import Home from 'pages/Home'
 import PodSchedule from 'pages/PodSchedule'
+import LocationPicker from 'pages/LocationPicker'
 import Login from 'pages/Login'
 import Cart from 'pages/Cart'
 import Account from 'pages/Account'
@@ -55,6 +56,7 @@ class App extends React.Component {
         <AuthSubscriber>{() => (
           <>
             <Route path="/" exact component={Home} />
+            <Route path="/reserve" exact component={LocationPicker} />
             <Route path="/reserve/:locationId?" component={PodSchedule} />
             <Route path="/login" component={Login} />
 

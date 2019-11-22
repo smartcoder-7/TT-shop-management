@@ -22,6 +22,10 @@ module.exports = [
         '/.netlify': {
           target: 'http://localhost:9000',
           pathRewrite: { '^/.netlify/functions': '' }
+        },
+        '^/api/*': {
+          target: 'http://localhost:7999/api/',
+          secure: false
         }
       }
     },
