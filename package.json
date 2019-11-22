@@ -5,11 +5,10 @@
   "main": "index.js",
   "scripts": {
     "setup:env": "node ./setup-env.js",
-    "build": "NODE_ENV=production npm run setup:env && webpack --progress",
-    "dev": "NODE_ENV=development npm run setup:env && webpack-dev-server",
+    "build": "NODE_ENV=production yarn run setup:env && webpack --progress",
+    "dev": "NODE_ENV=development yarn run setup:env && webpack-dev-server",
     "start:dev": "nodemon ./server/index.js",
-    "start": "node ./server/index.js",
-    "deploy": "npm run build && firebase deploy"
+    "start": "yarn run build && node ./server/index.js"
   },
   "author": "",
   "license": "ISC",
