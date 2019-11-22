@@ -7,9 +7,9 @@
     "setup:env": "node ./setup-env.js",
     "build": "NODE_ENV=production npm run setup:env && webpack --progress",
     "dev": "NODE_ENV=development npm run setup:env && webpack-dev-server",
-    "start": "nodemon ./server/index.js",
-    "deploy": "npm run build && firebase deploy",
-    "deploy:functions": "firebase deploy --only functions"
+    "start:dev": "nodemon ./server/index.js",
+    "start": "node ./server/index.js",
+    "deploy": "npm run build && firebase deploy"
   },
   "author": "",
   "license": "ISC",

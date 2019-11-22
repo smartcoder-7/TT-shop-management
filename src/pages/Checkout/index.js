@@ -4,9 +4,6 @@ import firebase from 'firebase/app'
 import { Form, Field } from 'react-final-form'
 import CreditCardField from 'components/fields/CreditCardField'
 
-const functions = firebase.functions()
-const addCard = functions.httpsCallable('addCustomerCard')
-
 import cartContainer, { CartSubscriber } from 'containers/cartContainer'
 
 import Layout from 'components/Layout'

@@ -8,9 +8,6 @@ import mastercardSvg from 'payment-icons/min/flat/mastercard.svg'
 
 import CreditCardField from 'components/fields/CreditCardField'
 
-const functions = firebase.functions()
-const addCard = functions.httpsCallable('addCustomerCard')
-
 import cartContainer, { CartSubscriber } from 'containers/cartContainer'
 
 import Layout from 'components/Layout'

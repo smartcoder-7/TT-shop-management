@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import firebase from 'util/firebase'
 import { 
   CardElement,
   injectStripe,
@@ -14,9 +13,6 @@ import Loading from 'components/Loading'
 import { NewCard, Card } from './Card'
 import { updateUser } from 'util/db'
 import FieldWrapper from 'components/fields/FieldWrapper'
-
-const functions = firebase.functions()
-const getCustomer = functions.httpsCallable('getCustomer')
 
 const AddCard = ({ stripe, handleResult }) => {
   const handleSubmit = (e) => {

@@ -13,22 +13,6 @@ import BillingInfo from './BillingInfo';
 import TextField from '../fields/TextField';
 import { updateUser } from 'util/db';
 
-const functions = firebase.functions()
-const getCustomer = functions.httpsCallable('getCustomer')
-
-const Card = ({
-  card_brand,
-  last_4,
-  exp_month,
-  exp_year
-}) => {
-  return (
-    <div>
-      {card_brand} {last_4}
-    </div>
-  )
-}
-
 class AccountInfo extends React.Component {
   state = {
     loading: true,

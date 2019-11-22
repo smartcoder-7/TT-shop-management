@@ -134,14 +134,14 @@ class Cart extends React.Component {
               </div>
             </div>
 
-            {/* <div>
+            <div>
               <Link to="/reserve/0" data-link>
                 + Add more sessions
               </Link>
             </div>
 
             <br />
-
+{/* 
             {canContinue && (
               <button 
                 data-size="small" 

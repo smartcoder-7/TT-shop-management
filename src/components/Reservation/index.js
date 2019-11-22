@@ -3,36 +3,35 @@ import React, { useState, useEffect } from 'react'
 import styles from './styles.scss'
 import { AccountSession } from 'components/Session'
 import Modal from 'components/Modal'
-import RequestAccess from './RequestAccess'
 import { formatTime } from 'util/getPodSessions'
 import { getAccessCode, getPod, getUser } from 'util/db'
 
-const Reservation = ({ docRef }) => {
-  const [doc, setDoc] = useState()
-  const [showModal, setShowModal] = useState(false)
+// const Reservation = ({ docRef }) => {
+//   const [doc, setDoc] = useState()
+//   const [showModal, setShowModal] = useState(false)
 
-  useEffect(() => {
-    docRef.get().then(setDoc)
-  }, [])
+//   useEffect(() => {
+//     docRef.get().then(setDoc)
+//   }, [])
 
-  if (!doc || !doc.exists) return null
+//   if (!doc || !doc.exists) return null
 
-  const { date, time, locationId, payment } = doc.data()
+//   const { date, time, locationId, payment } = doc.data()
 
-  return (
-    <>
-      <div onClick={() => setShowModal(true)}>
-        <AccountSession
-          id={`${locationId}-${time}`}
-        />
-      </div>
+//   return (
+//     <>
+//       <div onClick={() => setShowModal(true)}>
+//         <AccountSession
+//           id={`${locationId}-${time}`}
+//         />
+//       </div>
       
-      <Modal isActive={showModal} onClose={() => setShowModal(false)}>
-        <RequestAccess id={`${locationId}-${time}`} />
-      </Modal>
-    </>
-  )
-}
+//       <Modal isActive={showModal} onClose={() => setShowModal(false)}>
+//         <RequestAccess id={`${locationId}-${time}`} />
+//       </Modal>
+//     </>
+//   )
+// }
 
 export const ReservationRange = ({ start, end, tables }) => {
   const docRef = tables[0].reservations[0]
@@ -118,4 +117,4 @@ export const ReservationRange = ({ start, end, tables }) => {
   )
 }
 
-export default Reservation
+// export default Reservation

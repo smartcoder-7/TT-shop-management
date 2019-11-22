@@ -15,12 +15,6 @@ import firebase from 'util/firebase'
 
 import 'styles/index.scss'
 
-const functions = firebase.functions()
-
-if (process.env.NODE_ENV === 'development') {
-  functions.useFunctionsEmulator('http://localhost:5000') 
-}
-
 const AuthenticatedRoute = ({ component: Component, path, ...rest }) => (
   <Route
     {...rest}
