@@ -5,9 +5,9 @@ import { parseFromTimeZone, formatToTimeZone } from 'date-fns-timezone'
 import styles from './styles.scss'
 import { ReservationRange } from 'components/Reservation'
 import { INTERVAL_MS } from 'util/getPodSessions'
-import getDateParts from 'shared/getDateParts'
+import getDateParts from 'util/getDateParts'
 import { formatTime } from 'util/getPodSessions'
-import getSessionPrice from 'shared/getSessionPrice';
+import getSessionPrice from 'util/getSessionPrice';
 
 const ReservationsPerDate = ({ date, times, locationId, reservations, inCart }) => {
   const ranges = []

@@ -3,7 +3,7 @@ import classNames from 'classnames'
 
 import styles from './styles.scss'
 import { parseSession } from 'util/getPodSessions';
-import getDateParts from 'shared/getDateParts'
+import getDateParts from 'util/getDateParts'
 
 const with0 = n => n < 10 ? `0${n}` : n
 

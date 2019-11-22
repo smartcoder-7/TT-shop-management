@@ -8,7 +8,7 @@
     "build": "NODE_ENV=production yarn run setup:env && webpack --progress",
     "dev": "NODE_ENV=development yarn run setup:env && webpack-dev-server",
     "start:dev": "nodemon ./server/index.js",
-    "start": "yarn run build && node ./server/index.js"
+    "start": "node ./server/index.js"
   },
   "author": "",
   "license": "ISC",

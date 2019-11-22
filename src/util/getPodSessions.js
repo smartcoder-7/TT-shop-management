@@ -1,4 +1,4 @@
-import getSessionPrice from "shared/getSessionPrice";
+import getSessionPrice from "util/getSessionPrice";
 import { parseFromTimeZone, formatToTimeZone } from 'date-fns-timezone'
 
 export const INTERVAL_MS = 1000 * 60 * 30
