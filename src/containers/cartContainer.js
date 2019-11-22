@@ -68,11 +68,11 @@ class CartContainer extends Container {
 
     this.state.items = storedItems
 
-    validateReservations({ 
-      sessionIds: this.state.items, 
-      userId: authContainer.userId, 
-      onUnavailable: this.removeItem 
-    })
+    // validateReservations({ 
+    //   sessionIds: this.state.items, 
+    //   userId: authContainer.userId, 
+    //   onUnavailable: this.removeItem 
+    // })
   }
 
   empty = () => {

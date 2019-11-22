@@ -3,4 +3,5 @@ node_modules
 public/scripts
 functions/dist
 secrets
+secrets.json
 .env

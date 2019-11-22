@@ -1,4 +1,5 @@
 const path = require('path')
+const DotEnvPlugin = require('dotenv-webpack')
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 const SRC_DIR = path.resolve(__dirname, 'src')
@@ -23,8 +24,8 @@ module.exports = [
           target: 'http://localhost:9000',
           pathRewrite: { '^/.netlify/functions': '' }
         },
-        '^/api/*': {
-          target: 'http://localhost:7999/api/',
+        '/api/*': {
+          target: 'http://localhost:7999/',
           secure: false
         }
       }
@@ -70,6 +71,7 @@ module.exports = [
     },
     plugins: [
       new CleanWebpackPlugin(),
+      new DotEnvPlugin()
     ],
   }
 ]

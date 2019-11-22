@@ -1,46 +1,40 @@
 import axios from 'axios'
 
-const BASE_URL = 'https://solarville.blocktech.dk'
-
 const ENDPOINTS = {
-  LOGIN: `${BASE_URL}/api/v1/auth/tokens/issue`,
-  ALL_TRANSACTIONS: `${BASE_URL}/api/pub/transactions`,
-  ALL_HOMES: `${BASE_URL}/api/pub/homes`
+  CREATE_USER: '/api/create-user',
+  UPDATE_USER_BILLING: '/api/update-user-billing',
+  GET_USER_BILLING: '/api/get-user-billing',
 }
 
-export const login = ({ userName, password }) => {
+export const createUser = ({ userId, email }) => {
   return axios({
     method: 'POST',
-    url: ENDPOINTS.LOGIN,
+    url: ENDPOINTS.CREATE_USER,
     data: {
-      userName, 
-      password
+      userId,
+      email
     }
-  })
-  .then(response => {
-    return response.data.data
   })
 }
 
-export const getTransactions = (options = {}) => {
+export const updateUserBilling = ({ userId, customerId, token }) => {
   return axios({
-    url: ENDPOINTS.ALL_TRANSACTIONS,
-    method: 'GET',
-    params: {
-      limit: options.limit || 10
+    method: 'POST',
+    url: ENDPOINTS.UPDATE_USER_BILLING,
+    data: {
+      userId,
+      customerId, 
+      token
     }
-  })
-  .then(response => {
-    return response.data.data
   })
 }
 
-export const getHomes = () => {
+export const getUserBilling = ({ userId, customerId, token }) => {
   return axios({
-    method: 'GET',
-    url: ENDPOINTS.ALL_HOMES,
-  })
-  .then(response => {
-    return response.data.data
-  })
+    method: 'POST',
+    url: ENDPOINTS.GET_USER_BILLING,
+    data: {
+      userId,
+    }
+  }).then(d => d.data)
 }

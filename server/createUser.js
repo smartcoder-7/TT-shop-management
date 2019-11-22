@@ -1,4 +1,5 @@
 const db = require('./util/db')
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 const createUser = async (req, res) => {
   const { 
@@ -9,14 +10,23 @@ const createUser = async (req, res) => {
   const userRef = db.collection('users').doc(userId)
   const user = await userRef.get()
 
+  let userData = {}
+
   if (user.exists) {
-    res.status(200).json(user.data())
-    return
+    userData = user.data()
   }
 
-  const userData = {
-    id: userId,
-    email
+  userData.id = userId
+  userData.email = email || ''
+
+  if (!userData.stripeId) {
+    const customer = await stripe.customers.create({
+      metadata: {
+        userId
+      },
+    });
+
+    userData.stripeId = customer.id
   }
 
   await userRef.set(userData)

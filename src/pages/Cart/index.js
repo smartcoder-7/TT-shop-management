@@ -63,21 +63,21 @@ class Cart extends React.Component {
       return
     }
 
-    if (!user.firstName || !user.lastName) {
-      this.setState({
-        submissionError: 'Missing account information.'
-      })
+    // if (!user.firstName || !user.lastName) {
+    //   this.setState({
+    //     submissionError: 'Missing account information.'
+    //   })
 
-      return
-    }
+    //   return
+    // }
 
-    if (!user.activeCard) {
-      this.setState({
-        submissionError: 'Missing active card.'
-      })
+    // if (!user.activeCard) {
+    //   this.setState({
+    //     submissionError: 'Missing active card.'
+    //   })
 
-      return
-    }
+    //   return
+    // }
 
     console.log('TRYING TO RESERVE', userId, sessionIds)
     makeReservations({ sessionIds, userId, onUnavailable: this.onUnavailable })
@@ -134,7 +134,7 @@ class Cart extends React.Component {
               </div>
             </div>
 
-            <div>
+            {/* <div>
               <Link to="/reserve/0" data-link>
                 + Add more sessions
               </Link>
@@ -154,18 +154,18 @@ class Cart extends React.Component {
             {step > 0 && (
               <div className={styles.step}>
                 <h3 className={styles.header}>2. Add/Update Account Info</h3>
-                <AccountInfo />
+                <AccountInfo /> */}
 
-                <button onClick={this.checkout} disabled={!canCheckout}>
+                <button onClick={this.checkout}>
                   Checkout
                 </button>
-              </div>
-            )}
+              {/* </div>
+            )} */}
 
 
-            {submissionError && (
+            {/* {submissionError && (
               <div>{submissionError}</div>
-            )}
+            )} */}
           </Layout>
         )
       }}</CartSubscriber>

@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import Layout from 'components/Layout'
 import firebase from 'util/firebase'
+import { 
+  CardElement,
+  injectStripe,
+  StripeProvider,
+  Elements,
+} from 'react-stripe-elements';
 
+import { updateUserBilling, getUserBilling } from 'api'
 import styles from './styles.scss'
 import authContainer, { AuthSubscriber } from 'containers/authContainer'
 import Loading from 'components/Loading'
-import { INTERVAL_MS } from 'util/getPodSessions'
-import getDateParts from 'shared/getDateParts'
 import { NewCard, Card } from './Card'
 import { updateUser } from 'util/db'
 import FieldWrapper from 'components/fields/FieldWrapper'
@@ -15,94 +18,83 @@ import FieldWrapper from 'components/fields/FieldWrapper'
 const functions = firebase.functions()
 const getCustomer = functions.httpsCallable('getCustomer')
 
-class BillingInfo extends React.Component {
-  state = {
-    loading: true,
-    squareId: undefined,
-    cards: []
-  }
+const AddCard = ({ stripe, handleResult }) => {
+  const handleSubmit = (e) => {
+    e.preventDefault()
 
-  constructor(props) {
-    super(props)
+    if (!stripe) {
+      console.error('Stripe has not loaded.')
+      return
+    }
 
-    authContainer.subscribe(this.onAuthChange)
-  }
+    stripe.createToken().then(handleResult);
+  };
 
-  componentDidMount() {
-    this.onAuthChange()
-  }
+  return (
+    <div>
+      <form onSubmit={handleSubmit}>
+        <label>
+          <CardElement
+            // {...createOptions()}
+          />
+        </label>
+        <div className="error" role="alert">
+          {/* {this.state.errorMessage} */}
+        </div>
+        <button>Update Card</button>
+      </form>
+    </div>
+  )
+}
 
-  componentWillUnmount() {
-    this.isUnmounted = true
-    authContainer.unsubscribe(this.onAuthChange)
-  }
+const CardForm = injectStripe(AddCard)
 
-  componentDidUpdate(prevProps, prevState) {
-    const { squareId } = this.state
-    if (prevState.squareId === squareId) return
+const BillingInfo = () => {
+  const [userBilling, setUserBilling] = useState()
+  const { user } = authContainer
 
-    this.onCardUpdate()
-  }
+  useEffect(() => {
+    getUserBilling({ userId: user.id })
+    .then(data => setUserBilling(data))
+  }, [user.id])
 
-  onAuthChange = () => {
-    const { user } = authContainer
-
-    if (!user || !user.squareId) return
-
-    this.setState({ squareId: user.squareId })
-  }
-
-  onCardUpdate = () => {
-    const { user, userId } = authContainer
-    const { squareId } = this.state
-    
-    getCustomer({ customer_id: squareId })
-    .then(({ data })=> {
-      if (this.isUnmounted) return
-
-      const cards = data.customer.cards || []
-
-      if (!user.activeCard && cards.length > 0) {
-        updateUser(userId, { activeCard: cards[0].id })
-      }
-
-      this.setState({ cards, loading: false })
+  const handleResult = ({ token, error }) => {
+    updateUserBilling({
+      userId: user.id,
+      customerId: user.stripeId,
+      token,
+    }).catch(err => {
+      console.log(err)
     })
   }
 
-  setActiveCard = (cardId) => {
-    const { userId } = authContainer
-    updateUser(userId, { activeCard: cardId })
-  }
+  const cards = userBilling ? userBilling.sources.data : []
+  const defaultCard = cards[0]
 
-  render() {
-    const { loading, cards } = this.state
-    const { user } = authContainer
+  console.log(userBilling)
 
-    return (
-      <div className={styles.billingInfo}>
-        <FieldWrapper label="Billing Info">
-          <div className={styles.cards}>
-            <Loading loading={loading} />
-            {!loading && !cards.length && 'No cards saved.'}
-
-            {cards.map(card => {
-              return (
-                <Card 
-                  {...card} 
-                  key={card.id} 
-                  onClick={() => this.setActiveCard(card.id)} 
-                  isActive={card.id === user.activeCard}
-                />
-              )
-            })}
-            
-            {!loading && <NewCard onAdd={this.onCardUpdate} />}
-          </div>
-        </FieldWrapper>
+  return (
+    <div className={styles.billingInfo}>
+      <div className={styles.cards}>
+        <Loading loading={!userBilling} />
+        {userBilling && !cards.length && 'No cards saved.'}
+        {defaultCard && <Card 
+          {...defaultCard} 
+          key={defaultCard.id} 
+        />}
       </div>
-    )
-  }
+
+      <StripeProvider apiKey={process.env.STRIPE_PUBLISHABLE_KEY}>
+        <Elements>
+          <CardForm handleResult={handleResult} />
+        </Elements>
+      </StripeProvider>
+    </div>
+  )
 }
 
-export default BillingInfo
+export default () => (
+  <AuthSubscriber>{() => (
+    <BillingInfo />
+  )}</AuthSubscriber>
+)
