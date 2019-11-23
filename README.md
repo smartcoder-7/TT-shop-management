@@ -18,3 +18,12 @@ User flow:
     - Redirect back to previous page
   - Make reservations
 
+
+### Deploying
+To deploy to production, checkout the root directory and run:
+
+```sh
+yarn run deploy
+```
+
+This should set the heroku environment variables and deploy the latest build to production. 

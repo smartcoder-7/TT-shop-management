@@ -9,7 +9,7 @@
     "dev": "NODE_ENV=development yarn run set:env && webpack-dev-server",
     "start:dev": "NODE_ENV=development yarn run set:env && nodemon ./server/index.js",
     "start": "node ./server/index.js",
-    "deploy": "NODE_ENV=production node ./scripts/deploy.js"
+    "deploy": "yarn run build && NODE_ENV=production node ./scripts/deploy.js"
   },
   "author": "",
   "license": "ISC",
