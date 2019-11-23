@@ -4,12 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "setup:env": "node ./setup-env.js",
+    "set:env": "node ./scripts/set-env.js",
     "build": "NODE_ENV=production webpack --progress",
-    "dev": "NODE_ENV=development yarn run setup:env && webpack-dev-server",
-    "start:dev": "nodemon ./server/index.js",
+    "dev": "NODE_ENV=development yarn run set:env && webpack-dev-server",
+    "start:dev": "NODE_ENV=development yarn run set:env && nodemon ./server/index.js",
     "start": "node ./server/index.js",
-    "deploy": "NODE_ENV=production yarn run setup:env && ./setup-heroku.sh && git push heroku master"
+    "deploy": "NODE_ENV=production node ./scripts/deploy.js"
   },
   "author": "",
   "license": "ISC",
