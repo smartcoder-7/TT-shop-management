@@ -1,5 +1,5 @@
-const getDateParts = require('util/getDateParts')
-const RATES = require('util/sessionRates')
+import getDateParts from 'util/getDateParts'
+import RATES from 'util/sessionRates'
 
 const getSessionPrice = ({
   time,

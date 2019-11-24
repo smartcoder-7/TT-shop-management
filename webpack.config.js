@@ -67,7 +67,7 @@ module.exports = [
       ],
     },
     resolve: {
-      modules: [SRC_DIR, SHARED_DIR, 'node_modules']
+      modules: [SRC_DIR, 'node_modules']
     },
     plugins: [
       new CleanWebpackPlugin(),
