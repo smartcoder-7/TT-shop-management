@@ -15,12 +15,12 @@ express()
   .use(express.static(path.resolve(ROOT_DIR, 'public')))
   .use(express.json())
 
-  .get('/', (req, res) => res.sendFile('/index.html'))
-
   .post('/api/create-reservations', createReservations)
   .post('/api/get-reservations', getReservations)
   .post('/api/create-user', createUser)
   .post('/api/update-user-billing', updateUserBilling)
   .post('/api/get-user-billing', getUserBilling)
+
+  .get('*', (req, res) => res.sendFile('/index.html'))
 
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
