@@ -6,4 +6,3 @@ const output = getConfigVariables()
 
 const deployFile = path.resolve(__dirname, './deploy.sh')
 const deployProcess = shell.exec(`${deployFile} ${output}`)
-deployProcess.stdout.pipe(process.stdout);
