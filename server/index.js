@@ -21,6 +21,6 @@ express()
   .post('/api/update-user-billing', updateUserBilling)
   .post('/api/get-user-billing', getUserBilling)
 
-  .get('*', (req, res) => res.sendFile('/index.html'))
+  .get('*', (req, res) => res.sendFile(path.resolve(ROOT_DIR, 'public/index.html'))
 
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
