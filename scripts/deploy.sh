@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 echo "Setting env variables in Heroku: ${1}"
-heroku config:add \'${1}\'
+heroku config:add ${1}
 
 echo "---"
 echo "Committing and pushing changes."
