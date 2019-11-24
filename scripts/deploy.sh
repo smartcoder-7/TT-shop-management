@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-echo "Setting env variables in Heroku: $@"
 heroku config:add $@
 
 echo "---"
