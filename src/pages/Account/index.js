@@ -3,50 +3,53 @@ import { Link } from 'react-router-dom'
 import Layout from 'components/Layout'
 
 import styles from './styles.scss'
+import { getReservations } from 'api'
 import authContainer, { AuthSubscriber } from 'containers/authContainer'
 import AccountInfo from 'components/AccountInfo'
 import GroupedSessions from 'components/Sessions/GroupedSessions'
+import Reservations from 'components/Reservations'
+import getDateParts from 'util/getDateParts'
 
+const Account = () => {
+  const [userReservations, setUserReservations] = useState([])
+  const { user } = authContainer
 
-class Account extends React.Component {
-  constructor(props) {
-    super(props)
-  }
+  useEffect(() => {
+    getReservations({ userId: user.id })
+    .then(({ reservations }) => {
+      setUserReservations(reservations)
+    })
+  }, [user.id])
 
-  render() {    
-    return (
-      <Layout className={styles.account}>
-        <AuthSubscriber>{() => {
-          const { user } = authContainer
+  return (
+    <Layout className={styles.account}>
+      <h1>Account</h1>
+      
+      <AccountInfo />
 
-          return (
-            <>
-              <h1>Account</h1>
-              
-              <AccountInfo />
+      <Link to="/reserve/0">
+        <button>Reserve another Table</button>
+      </Link>
 
-              <Link to="/reserve/0">
-                <button>Reserve another Table</button>
-              </Link>
+      <br />
+      <br />
 
-              <br />
-              <br />
-
-              <div>
-                <h1>Reservations</h1>
-                <br />
-                <div data-row>
-                  <div data-col="12">
-                    <GroupedSessions sessions={authContainer.user.reservations} />
-                  </div>
-                </div>
-              </div>
-            </>
-          )
-        }}</AuthSubscriber>
-      </Layout>
-    )
-  }
+      <div>
+        <h1>Reservations</h1>
+        <br />
+        <div data-row>
+          <div data-col="12">
+            <Reservations reservations={userReservations} />
+            {/* <GroupedSessions sessions={authContainer.user.reservations} /> */}
+          </div>
+        </div>
+      </div>
+    </Layout>
+  )
 }
 
-export default Account
+export default () => (
+  <AuthSubscriber>{() => (
+    <Account />
+  )}</AuthSubscriber>
+)

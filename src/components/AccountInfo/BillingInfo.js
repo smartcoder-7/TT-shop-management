@@ -59,15 +59,15 @@ const BillingInfo = () => {
       userId: user.id,
       customerId: user.stripeId,
       token,
-    }).catch(err => {
+    })
+    .then(data => setUserBilling(data))
+    .catch(err => {
       console.log(err)
     })
   }
 
   const cards = userBilling ? userBilling.sources.data : []
   const defaultCard = cards[0]
-
-  console.log(userBilling)
 
   return (
     <div className={styles.billingInfo}>

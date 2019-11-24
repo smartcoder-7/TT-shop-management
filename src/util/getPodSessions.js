@@ -1,4 +1,4 @@
-import getSessionPrice from "util/getSessionPrice";
+import getSessionPrice from "util/getSessionPrice"
 import { parseFromTimeZone, formatToTimeZone } from 'date-fns-timezone'
 
 export const INTERVAL_MS = 1000 * 60 * 30
@@ -24,7 +24,7 @@ const getAllTimes = (date) => {
   const times = []
   const beginningOfDay = date.getTime()
 
-  date.setDate(date.getDate() + 1) 
+  date.setDate(date.getDate() + 1)
   const endOfDay = date.getTime()
 
   let lastTime = beginningOfDay
@@ -45,35 +45,48 @@ export const formatDate = (date) => {
 }
 
 export const getSessions = (doc, date, locationId) => {
-  const { reservations, numTables, timezone } = doc.data()
+  const {
+    reservations,
+    numTables,
+    timezone
+  } = doc.data()
 
-  const dateObj = parseFromTimeZone(`${date} 00:00`, { timeZone: 'America/New_York' })
+  const dateObj = parseFromTimeZone(
+    `${date} 00:00`,
+    {
+      timeZone: 'America/New_York'
+    }
+  )
   const dateId = formatDate(dateObj)
   console.log(dateObj, date)
   const allTimes = getAllTimes(dateObj)
-  const reservationsOnDate = reservations[dateId] || {}
+  const reservationsOnDate = reservations[dateId] || {
+
+  }
 
   return allTimes
-  .map(time => {
-    const now = new Date()
-    const reservationsAtTime = reservationsOnDate[time] || []
+    .map(time => {
+      const now = new Date()
+      const reservationsAtTime = reservationsOnDate[time] || []
 
-    const isAvailable = (
-      time > now.getTime() &&
-      reservationsAtTime.length < numTables
-    )
+      const isAvailable = (
+        time > now.getTime() &&
+        reservationsAtTime.length < numTables
+      )
 
-    const isPast = time < now.getTime()
-    const rate = getSessionPrice({ time, timezone })
+      const isPast = time < now.getTime()
+      const rate = getSessionPrice({
+        time, timezone
+      })
 
-    return { 
-      id: `${locationId}-${time}`,
-      rate,
-      time,
-      isAvailable,
-      isPast
-    }
-  })
+      return {
+        id: `${locationId}-${time}`,
+        rate,
+        time,
+        isAvailable,
+        isPast
+      }
+    })
 }
 
 export const parseSession = (str = '') => {

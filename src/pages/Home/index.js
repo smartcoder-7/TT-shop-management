@@ -17,7 +17,6 @@ class Home extends React.Component {
 
   constructor(props) {
     super(props)
-    console.log(props)
 
     const { location } = props
     const queryParams = qs.parse(location.search, { ignoreQueryPrefix: true })
@@ -39,7 +38,7 @@ class Home extends React.Component {
               </p>
 
               {IS_DEV && (
-                <Link to="/reserve/0" data-link>
+                <Link to="/reserve" data-link>
                   Reserve a Table
                 </Link>
               )}
@@ -62,7 +61,7 @@ class Home extends React.Component {
             </p>
 
             {IS_DEV && (
-              <Link to="/reserve/0" data-link>
+              <Link to="/reserve" data-link>
                 Reserve a Table
               </Link>
             )}

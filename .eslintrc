@@ -1,0 +1,28 @@
+{
+  "plugins": [
+    "prettier"
+  ],
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "sourceType": "module",
+    "allowImportExportEverywhere": false,
+    "codeFrame": true
+  },
+  "rules": {
+    "semi": [
+      2,
+      "never"
+    ],
+    "object-curly-newline": [
+      "error",
+      {
+        "ObjectExpression": "always",
+        "ObjectPattern": "always",
+        "ImportDeclaration": {
+          "multiline": true
+        },
+        "ExportDeclaration": "always"
+      }
+    ]
+  }
+}
