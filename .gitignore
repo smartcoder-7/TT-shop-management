@@ -5,3 +5,4 @@ functions/dist
 secrets
 secrets.json
 .env
+scripts/keys
