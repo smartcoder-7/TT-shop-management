@@ -54,7 +54,10 @@ class AuthContainer extends Container {
         return
       } 
 
-      this.unwatchUser()
+      if (this.unwatchUser) {
+        this.unwatchUser()
+      }
+      
       this.setState({ 
         userId: null,
         user: {},
