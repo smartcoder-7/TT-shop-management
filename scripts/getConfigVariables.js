@@ -14,7 +14,7 @@ const getConfigVariables = () => {
 
   Object.keys(secrets).forEach((key) => {
     const val = secrets[key].replace(/\n/g, '\\n')
-    str += `${key}="${val}"\n`
+    str += `${key}="${val}" `
   })
 
   return str
