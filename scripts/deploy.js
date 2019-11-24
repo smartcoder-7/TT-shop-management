@@ -5,4 +5,5 @@ const getConfigVariables = require('./getConfigVariables')
 const output = getConfigVariables()
 
 const deployFile = path.resolve(__dirname, './deploy.sh')
-shell.exec(`${deployFile} ${output}`)
+const deployProcess = shell.exec(`${deployFile} ${output}`)
+deployProcess.stdout.pipe(process.stdout);
