@@ -4,5 +4,5 @@ const getConfigVariables = require('./getConfigVariables')
 
 fs.writeFileSync(
   path.resolve(__dirname, '../.env'),
-  getConfigVariables()
+  getConfigVariables('\n')
 )

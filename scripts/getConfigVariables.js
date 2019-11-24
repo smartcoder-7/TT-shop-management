@@ -9,12 +9,12 @@ const secrets = isDev ?
   allSecrets.development : 
   allSecrets.production
 
-const getConfigVariables = () => {
+const getConfigVariables = (separator = ' ') => {
   let str = ''
 
   Object.keys(secrets).forEach((key) => {
     const val = secrets[key].replace(/\n/g, '\\n')
-    str += `${key}="${val}" `
+    str += `${key}="${val}"${separator}`
   })
 
   return str
