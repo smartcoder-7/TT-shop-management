@@ -14,10 +14,10 @@ const getConfigVariables = () => {
 
   Object.keys(secrets).forEach((key) => {
     const val = secrets[key].replace(/\n/g, '')
-    str += `${key}="${val}" `
+    str += `${key}=\"${val}\" `
   })
 
-  return `'${str}'`
+  return str
 }
 
 module.exports = getConfigVariables
