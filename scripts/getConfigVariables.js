@@ -9,15 +9,29 @@ const secrets = isDev ?
   allSecrets.development : 
   allSecrets.production
 
-const getConfigVariables = (separator = ' ') => {
+const getEnv = () => {
   let str = ''
 
   Object.keys(secrets).forEach((key) => {
-    const val = secrets[key].replace(/\n/g, '\\n')
-    str += `${key}="${val}"${separator}`
+    const val = secrets[key]
+    str += `${key}="${val}" `
   })
 
   return str
 }
 
-module.exports = getConfigVariables
+const getDotEnv = (separator = ' ') => {
+  let str = ''
+
+  Object.keys(secrets).forEach((key) => {
+    const val = secrets[key].replace(/\n/g, '\\n')
+    str += `${key}="${val}"\n`
+  })
+
+  return str
+}
+
+module.exports = {
+  getEnv,
+  getDotEnv
+}

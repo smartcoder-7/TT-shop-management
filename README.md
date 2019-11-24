@@ -19,6 +19,22 @@ User flow:
   - Make reservations
 
 
+### Development
+Watch the frontend code via webpack-dev-server in one tab:
+
+```sh
+yarn install
+yarn run watch:dev
+```
+
+And run the Node server in another:
+```sh
+yarn run start:dev
+```
+
+Open http://localhost:8000/ in your browser, et voila!
+
+
 ### Deploying
 To deploy to production, checkout the root directory and run:
 

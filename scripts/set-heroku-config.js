@@ -1,8 +1,8 @@
 const shell = require('shelljs')
 const path = require('path')
-const getConfigVariables = require('./getConfigVariables')
+const { getEnv } = require('./getConfigVariables')
 
-const output = getConfigVariables()
+const output = getEnv()
 
 const deployFile = path.resolve(__dirname, './deploy.sh')
 console.log(output)
