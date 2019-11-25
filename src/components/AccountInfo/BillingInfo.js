@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { 
+import {
   CardElement,
   injectStripe,
   StripeProvider,
   Elements,
-} from 'react-stripe-elements';
+} from 'react-stripe-elements'
 
-import { updateUserBilling, getUserBilling } from 'api'
+import { updateUserBilling, getUserBilling, constants } from 'api'
 import styles from './styles.scss'
 import authContainer, { AuthSubscriber } from 'containers/authContainer'
 import Loading from 'components/Loading'
@@ -14,7 +14,9 @@ import { NewCard, Card } from './Card'
 import { updateUser } from 'util/db'
 import FieldWrapper from 'components/fields/FieldWrapper'
 
-const AddCard = ({ stripe, handleResult }) => {
+const AddCard = ({
+  stripe, handleResult
+}) => {
   const handleSubmit = (e) => {
     e.preventDefault()
 
@@ -23,15 +25,15 @@ const AddCard = ({ stripe, handleResult }) => {
       return
     }
 
-    stripe.createToken().then(handleResult);
-  };
+    stripe.createToken().then(handleResult)
+  }
 
   return (
     <div>
       <form onSubmit={handleSubmit}>
         <label>
           <CardElement
-            // {...createOptions()}
+          // {...createOptions()}
           />
         </label>
         <div className="error" role="alert">
@@ -47,23 +49,29 @@ const CardForm = injectStripe(AddCard)
 
 const BillingInfo = () => {
   const [userBilling, setUserBilling] = useState()
-  const { user } = authContainer
+  const {
+    user
+  } = authContainer
 
   useEffect(() => {
-    getUserBilling({ userId: user.id })
-    .then(data => setUserBilling(data))
+    getUserBilling({
+      userId: user.id
+    })
+      .then(data => setUserBilling(data))
   }, [user.id])
 
-  const handleResult = ({ token, error }) => {
+  const handleResult = ({
+    token, error
+  }) => {
     updateUserBilling({
       userId: user.id,
       customerId: user.stripeId,
       token,
     })
-    .then(data => setUserBilling(data))
-    .catch(err => {
-      console.log(err)
-    })
+      .then(data => setUserBilling(data))
+      .catch(err => {
+        console.log(err)
+      })
   }
 
   const cards = userBilling ? userBilling.sources.data : []
@@ -74,13 +82,13 @@ const BillingInfo = () => {
       <div className={styles.cards}>
         <Loading loading={!userBilling} />
         {userBilling && !cards.length && 'No cards saved.'}
-        {defaultCard && <Card 
-          {...defaultCard} 
-          key={defaultCard.id} 
+        {defaultCard && <Card
+          {...defaultCard}
+          key={defaultCard.id}
         />}
       </div>
 
-      <StripeProvider apiKey={process.env.STRIPE_PUBLISHABLE_KEY}>
+      <StripeProvider apiKey={constants.STRIPE_PUBLISHABLE_KEY}>
         <Elements>
           <CardForm handleResult={handleResult} />
         </Elements>

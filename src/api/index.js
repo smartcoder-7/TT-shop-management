@@ -1,4 +1,5 @@
 import axios from 'axios'
+import constants from './constants'
 
 const ENDPOINTS = {
   CREATE_USER: '/api/create-user',
@@ -7,7 +8,9 @@ const ENDPOINTS = {
   GET_RESERVATIONS: '/api/get-reservations'
 }
 
-export const createUser = ({ userId, email }) => {
+export const createUser = ({
+  userId, email
+}) => {
   return axios({
     method: 'POST',
     url: ENDPOINTS.CREATE_USER,
@@ -18,19 +21,23 @@ export const createUser = ({ userId, email }) => {
   })
 }
 
-export const updateUserBilling = ({ userId, customerId, token }) => {
+export const updateUserBilling = ({
+  userId, customerId, token
+}) => {
   return axios({
     method: 'POST',
     url: ENDPOINTS.UPDATE_USER_BILLING,
     data: {
       userId,
-      customerId, 
+      customerId,
       token
     }
   }).then(d => d.data)
 }
 
-export const getUserBilling = ({ userId, customerId, token }) => {
+export const getUserBilling = ({
+  userId, customerId, token
+}) => {
   return axios({
     method: 'POST',
     url: ENDPOINTS.GET_USER_BILLING,
@@ -40,7 +47,9 @@ export const getUserBilling = ({ userId, customerId, token }) => {
   }).then(d => d.data)
 }
 
-export const getReservations = ({ userId, locationId, reservationTime }) => {
+export const getReservations = ({
+  userId, locationId, reservationTime
+}) => {
   return axios({
     method: 'POST',
     url: ENDPOINTS.GET_RESERVATIONS,
@@ -50,4 +59,8 @@ export const getReservations = ({ userId, locationId, reservationTime }) => {
       reservationTime
     }
   }).then(d => d.data)
+}
+
+export {
+  constants
 }
