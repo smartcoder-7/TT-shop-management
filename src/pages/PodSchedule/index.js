@@ -1,13 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { withRouter, Link } from 'react-router-dom'
+import classNames from 'classnames'
 
 import { getAvailableSessions } from 'api'
-import cartContainer from 'containers/cartContainer'
+import parseSessionId from 'util/parseSessionId'
 import Layout from 'components/Layout'
 import getDateParts from 'util/getDateParts'
 
 import styles from './styles.scss'
-import { CartSubscriber } from 'containers/cartContainer'
+import cartContainer, { CartSubscriber } from 'containers/cartContainer'
 import ArrowLeft from 'components/svg/ArrowLeft'
 import ArrowRight from 'components/svg/ArrowRight'
 
@@ -15,11 +16,38 @@ import TableRates from './TableRates'
 
 const getDifferentDate = (original, diff) => {
   const newDate = new Date(original)
+  newDate.setHours(0)
   newDate.setMinutes(0)
   newDate.setSeconds(0)
   newDate.setMilliseconds(0)
   newDate.setDate(original.getDate() + diff)
   return newDate
+}
+
+export const Session = ({
+  sessionId
+}) => {
+  const isSelected = cartContainer.isInCart(sessionId)
+  const { formattedTime, formattedEndTime } = parseSessionId(sessionId)
+
+  const onClick = () => {
+    if (isSelected) cartContainer.removeItem(sessionId)
+    else cartContainer.addItem(sessionId)
+  }
+
+  return (
+    <div
+      data-selected={isSelected}
+      className={classNames(styles.session, styles.scheduleSession)}
+      onClick={onClick}
+    >
+      <div className={styles.check}>✔</div>
+      <div className={styles.sessionInfo}>
+        <label>{formattedTime} - {formattedEndTime}</label>
+        {/* <RateLabel rate={rate} /> */}
+      </div>
+    </div>
+  )
 }
 
 const PodSchedule = ({ match: { params } }) => {
@@ -48,12 +76,12 @@ const PodSchedule = ({ match: { params } }) => {
     const startTime = start.getTime()
     const endTime = end.getTime()
 
-    console.log(startTime, endTime)
     getAvailableSessions({ locationId, startTime, endTime })
       .then(({ sessions }) => {
+        if (startTime !== start.getTime()) return
         setSessions(sessions)
       })
-  }, [start])
+  }, [start, locationId])
 
   console.log('moop', sessions)
 
@@ -76,11 +104,8 @@ const PodSchedule = ({ match: { params } }) => {
         <>
           <div className={styles.sessions} data-row ref={sessionsRef}>
             {sessions.map(session => {
-              return (
-                <div key={session}>
-                  {session}
-                </div>
-              )
+              const sessionId = `${locationId}-${session}`
+              return <Session sessionId={sessionId} key={sessionId} />
             })}
           </div>
           <div data-row className={styles.checkout}>
@@ -97,6 +122,5 @@ const PodSchedule = ({ match: { params } }) => {
     </Layout>
   )
 }
-
 
 export default withRouter(PodSchedule)

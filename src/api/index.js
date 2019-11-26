@@ -1,12 +1,13 @@
 import axios from 'axios'
-import constants from './constants'
+import constants from 'util/constants'
 
 const ENDPOINTS = {
   CREATE_USER: '/api/create-user',
   UPDATE_USER_BILLING: '/api/update-user-billing',
   GET_USER_BILLING: '/api/get-user-billing',
   GET_RESERVATIONS: '/api/get-reservations',
-  GET_AVAILABLE_SESSIONS: '/api/get-available-sessions'
+  GET_AVAILABLE_SESSIONS: '/api/get-available-sessions',
+  CREATE_RESERVATIONS: '/api/create-reservations'
 }
 
 export const createUser = ({
@@ -83,6 +84,20 @@ export const getAvailableSessions = ({
       endTime
     }
   }).then(d => d.data)
+}
+
+export const createReservations = ({
+  reservations,
+  userId,
+}) => {
+  return axios({
+    method: 'POST',
+    url: ENDPOINTS.CREATE_RESERVATIONS,
+    data: {
+      userId,
+      reservations
+    }
+  })
 }
 
 export {

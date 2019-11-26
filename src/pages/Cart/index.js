@@ -1,187 +1,90 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link, withRouter } from 'react-router-dom'
-import firebase, { auth } from 'firebase/app'
 
 import cartContainer, { CartSubscriber } from 'containers/cartContainer'
 import authContainer from 'containers/authContainer'
 import Layout from 'components/Layout'
-import { parseSession } from 'util/getPodSessions'
-import makeReservations, { validateReservations } from 'util/makeReservations'
+import Reservations from 'components/Reservations'
+import parseSessionId from 'util/parseSessionId'
+import { createReservations } from 'api'
 
 import styles from './styles.scss'
-import AccountInfo from 'components/AccountInfo'
 
-class Cart extends React.Component {
-  state = {
-    submissionError: '',
-    step: 0
-  }
+const _Cart = () => {
+  const [submissionError, setSubmissionError] = useState()
+  const { user } = authContainer
 
-  constructor(props) {
-    super(props)
-  }
+  const sessionIds = cartContainer.items || []
 
-  componentDidMount() {
-    const {
-      userId
-    } = authContainer.state
-    const sessionIds = cartContainer.items
+  const reservations = sessionIds
+    .map(parseSessionId)
+    .filter(r => !!r.locationId && !!r.time)
+    .map(r => ({
+      locationId: r.locationId,
+      reservationTime: r.time
+    }))
 
-    validateReservations({
-      sessionIds, userId, onUnavailable: this.onUnavailable
-    })
-      .catch((err) => {
-        if (this.isUnmounted) return
+  const canCheckout = (
+    reservations.length > 0 &&
+    user.firstName &&
+    user.lastName &&
+    user.stripeId &&
+    user.hasActiveCard
+  )
 
-        this.setState({
-          submissionError: err
-        })
-      })
-  }
-
-  componentWillUnmount() {
-    this.isUnmounted = true
-  }
-
-  onUnavailable = (sessionId) => {
-    // Show unavailable items for a few seconds so they can see which
-    // ones got booked up.
-    setTimeout(() => {
-      cartContainer.removeItem(sessionId)
-    }, 2000)
-  }
-
-  checkout = () => {
-    const {
-      userId, user
-    } = authContainer.state
-    const sessionIds = cartContainer.items
-    const {
-      history
-    } = this.props
-
-    if (!sessionIds || !sessionIds.length) {
-      this.setState({
-        submissionError: 'No sessions selected.'
-      })
-
-      return
-    }
-
-    // if (!user.firstName || !user.lastName) {
-    //   this.setState({
-    //     submissionError: 'Missing account information.'
-    //   })
-
-    //   return
-    // }
-
-    // if (!user.activeCard) {
-    //   this.setState({
-    //     submissionError: 'Missing active card.'
-    //   })
-
-    //   return
-    // }
-
-    console.log('TRYING TO RESERVE', userId, sessionIds)
-    makeReservations({
-      sessionIds, userId, onUnavailable: this.onUnavailable
-    })
+  const checkout = () => {
+    createReservations({ userId: user.id, reservations })
       .then(() => {
-        console.log('SUCCESS!')
-        history.push('/account')
+        cartContainer.empty()
+        console.log('hey!!! redirect')
       })
       .catch((err) => {
-        if (this.isUnmounted) return
-
-        this.setState({
-          submissionError: err
-        })
+        console.error(err)
+        setSubmissionError('Could not complete reservation.')
       })
   }
 
-  render() {
-    const {
-      submissionError, step
-    } = this.state
-    const {
-      user
-    } = authContainer
+  return (
+    <Layout className={styles.cart}>
+      <h1>Cart</h1>
 
-    const canCheckout = (
-      user.firstName &&
-      user.lastName &&
-      user.squareId &&
-      user.activeCard
-    )
+      <div className={styles.step}>
+        <h3 className={styles.header}>Confirm Selection</h3>
 
-    return (
-      <CartSubscriber>{() => {
-        console.log('rerender')
-        const {
-          locationIds, items
-        } = cartContainer
-        const canContinue = (
-          step < 1 &&
-          !!locationIds.length &&
-          items.length > 0
-        )
+        <div data-row>
+          <div data-col="12">
+            <Reservations reservations={reservations} />
+          </div>
+        </div>
+      </div>
 
-        console.log('cart', cartContainer.sessions)
+      <div>
+        <Link to="/reserve/0" data-link>
+          + Add more sessions
+            </Link>
+      </div>
 
-        return (
-          <Layout className={styles.cart}>
-            <h1>Cart</h1>
+      <br />
 
-            <div className={styles.step}>
-              <h3 className={styles.header}>1. Confirm Selection</h3>
-
-              <div data-row>
-                <div data-col="12">
-                  {!items.length && 'No sessions selected.'}
-                  {/* <GroupedSessions sessions={cartContainer.sessions} inCart={true} /> */}
-                </div>
-              </div>
+      {!canCheckout && (
+        <div>
+          Cannot check out. Please update billing.
             </div>
+      )}
 
-            <div>
-              <Link to="/reserve/0" data-link>
-                + Add more sessions
-              </Link>
-            </div>
+      <button onClick={checkout}>
+        Checkout
+          </button>
 
-            <br />
-            {/* 
-            {canContinue && (
-              <button 
-                data-size="small" 
-                onClick={() => this.setState({ step: 1 })}
-              >
-                Continue
-              </button>
-            )}
-
-            {step > 0 && (
-              <div className={styles.step}>
-                <h3 className={styles.header}>2. Add/Update Account Info</h3>
-                <AccountInfo /> */}
-
-            <button onClick={this.checkout}>
-              Checkout
-                </button>
-            {/* </div>
-            )} */}
-
-
-            {/* {submissionError && (
-              <div>{submissionError}</div>
-            )} */}
-          </Layout>
-        )
-      }}</CartSubscriber>
-    )
-  }
+      {submissionError && <div>{submissionError}</div>}
+    </Layout>
+  )
 }
+
+const Cart = () => (
+  <CartSubscriber>{() => (
+    <_Cart />
+  )}</CartSubscriber>
+)
 
 export default withRouter(Cart)

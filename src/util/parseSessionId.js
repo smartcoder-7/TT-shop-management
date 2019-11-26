@@ -1,4 +1,5 @@
-import { formatDate } from './date'
+import { formatDate, formatTime } from './datetime'
+import constants from './constants'
 
 const parseSessionId = (str = '') => {
   const parts = str.split('-')
@@ -6,16 +7,16 @@ const parseSessionId = (str = '') => {
   const reservationTime = parseInt(parts[1])
 
   const date = new Date(reservationTime)
-  const timeEnd = time + INTERVAL_MS
+  const endTime = reservationTime + constants.INTERVAL_MS
 
   return {
     locationId,
     date,
     formattedDate: formatDate(date),
-    time,
-    timeEnd,
-    timeFormatted: formatTime(time),
-    timeEndFormatted: formatTime(timeEnd),
+    time: reservationTime,
+    endTime,
+    formattedTime: formatTime(reservationTime),
+    formattedEndTime: formatTime(endTime),
   }
 }
 
