@@ -1,8 +1,15 @@
 @import 'styles/_variables.scss';
 
 .podSchedule {
-  background: $light-gray;
-  min-height: 100vh;
+  background: $white;
+
+  [data-bg-color] {
+    background: $white;
+  }
+
+  main {
+    padding: 0;
+  }
 }
 
 .prevDay,
@@ -23,22 +30,32 @@
 }
 
 .sessions {
-  height: calc(100vh - 70rem);
-  overflow: scroll;
   flex-direction: column;
   flex-wrap: nowrap !important;
   position: relative;
   margin-top: 5rem;
-
-  background: $medium-gray;
-  border: 2px solid $medium-gray;
+  padding-bottom: 30rem;
 }
 
 .checkout {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 30rem;
+  background: $black;
+  color: $white;
   margin-top: 1rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
   button {
-    height: 12rem;
+    text-align: center;
+    background: transparent !important;
+    margin-bottom: 2rem;
   }
 }
 
@@ -51,56 +68,54 @@
 }
 
 button.tableRates {
-  color: $blue;
+  color: $white;
 }
 
 .session {
-  padding: 5rem;
-  background: $white;
-  margin-bottom: 2px;
+  position: relative;
+  padding: 8rem 5rem;
+  background: $blue;
+  color: $white;
   height: 12rem;
   display: flex;
   align-items: center;
+  border-bottom: 1px solid rgba(255,255,255,0.3);
 
   &[data-past="true"] {
     height: 5rem;
     padding: 2rem 5rem;
     font-size: 80%;
   }
-}
 
-.sessionInfo {
-  will-change: width, margin-left;
-  transition: all 200ms ease-in-out;
-}
-
-.scheduleSession {
-  position: relative;
 
   &[data-selected="true"] {
+    background: $white;
+    color: $blue;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+  
     .check {
+      background: $pink;
+      border-color: $pink;
+      color: $white;
       transform: none;
-    }
-
-    .sessionInfo {
-      width: calc(100% - 10rem);
-      margin-left: 10rem;
     }
   }
 
   .check {
-    position: absolute;
-    top: 0;
-    left: 0;
     height: 100%;
-    width: 10rem;
-    background: $pink;
-    color: $white;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 100%;
+    border: 1px solid $white;
+    color: transparent;
+    font-size: 2.5rem;
+
     display: flex;
     align-items: center;
     justify-content: center;
-
-    transition: transform 200ms ease-in-out;
-    transform: translate3d(-10rem,0,0);
   }
+}
+
+.sessionInfo {
+  flex: 1;
 }

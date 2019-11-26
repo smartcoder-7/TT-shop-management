@@ -41,11 +41,11 @@ export const Session = ({
       className={classNames(styles.session, styles.scheduleSession)}
       onClick={onClick}
     >
-      <div className={styles.check}>✔</div>
       <div className={styles.sessionInfo}>
-        <label>{formattedTime} - {formattedEndTime}</label>
+        <label>{formattedTime}</label>
         {/* <RateLabel rate={rate} /> */}
       </div>
+      <div className={styles.check}>✔</div>
     </div>
   )
 }
@@ -102,21 +102,24 @@ const PodSchedule = ({ match: { params } }) => {
 
       <CartSubscriber>{() => (
         <>
-          <div className={styles.sessions} data-row ref={sessionsRef}>
+          <div className={styles.sessions} ref={sessionsRef}>
             {sessions.map(session => {
               const sessionId = `${locationId}-${session}`
               return <Session sessionId={sessionId} key={sessionId} />
             })}
           </div>
-          <div data-row className={styles.checkout}>
-            <Link to="/cart" data-col="12">
-              <button disabled={!cartContainer.items.length}>
-                Reserve Selected Times ({cartContainer.items.length})
-              </button>
-            </Link>
-          </div>
-          <br />
-          <TableRates />
+
+          {cartContainer.items && (
+            <div className={styles.checkout}>
+              <Link to="/cart" data-col="12">
+                <button disabled={!cartContainer.items.length}>
+                  Reserve Selected Times ({cartContainer.items.length})
+                </button>
+              </Link>
+
+              <TableRates />
+            </div>
+          )}
         </>
       )}</CartSubscriber>
     </Layout>

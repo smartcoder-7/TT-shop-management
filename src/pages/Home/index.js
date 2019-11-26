@@ -109,18 +109,30 @@ class Home extends React.Component {
 
         <div data-row>
           <div data-col="0" data-col-landscape="3"></div>
-            <div data-col="12" data-col-landscape="6">
-              <h2>Get Early Access</h2>
-              <br />
-              <p>
-                PingPod launches in New York City in December 2019. Sign up with your email to be part of our exclusive beta user&nbsp;list.
+          <div data-col="12" data-col-landscape="6">
+            <h2>Get Early Access</h2>
+            <br />
+            <p>
+              PingPod launches in New York City in December 2019. Sign up with your email to be part of our exclusive beta user&nbsp;list.
               </p>
-              <br />
+            <br />
 
-                <EmailSubscribe />
-            </div>
+            <EmailSubscribe />
+          </div>
           <div data-col="0" data-col-landscape="3"></div>
         </div>
+
+        <footer>
+          <br />
+          <br />
+          <div className={styles.content} data-row>
+            <div data-col="12">
+              Questions or comments? Get in touch at <a data-link href="mailto:info@pingpod.com">info@pingpod.com</a>.
+            </div>
+          </div>
+          <br />
+          <br />
+        </footer>
       </Layout>
     )
   }

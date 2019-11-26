@@ -12,8 +12,8 @@ const IS_DEV = process.env.NODE_ENV === 'development'
 const Layout = ({
   className,
   children
-}) => {  
-  const [scrolled, setScrolled ] = useState(!!window.pageYOffset)
+}) => {
+  const [scrolled, setScrolled] = useState(!!window.pageYOffset)
   useEffect(() => {
     const onScroll = () => {
       setScrolled(!!window.pageYOffset)
@@ -43,29 +43,8 @@ const Layout = ({
       </div>
 
       <main>
-        <div className={styles.content} data-row>
-          <div data-col="12">
-            {children}
-          </div>
-        </div>
+        {children}
       </main>
-
-      <br />
-      <br />
-      <br />
-      <br />
-
-      <footer>
-        <br />
-        <br />
-        <div className={styles.content} data-row>
-          <div data-col="12">
-            Questions or comments? Get in touch at <a data-link href="mailto:info@pingpod.com">info@pingpod.com</a>.
-          </div>
-        </div>
-        <br />
-        <br />
-      </footer>
     </div>
   )
 }
