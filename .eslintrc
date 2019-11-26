@@ -35,7 +35,7 @@
         "ExportDeclaration": {
           "multiline": true,
           "minItems": 2
-        },
+        }
       }
     ]
   }
