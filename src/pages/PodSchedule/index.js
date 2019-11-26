@@ -1,211 +1,126 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { withRouter, Link } from 'react-router-dom'
-import qs from 'qs'
+import classNames from 'classnames'
 
-import cartContainer from 'containers/cartContainer'
+import { getAvailableSessions } from 'api'
+import parseSessionId from 'util/parseSessionId'
 import Layout from 'components/Layout'
-import Sessions from 'components/Sessions'
-import { ScheduleSession } from 'components/Session'
-import Modal from 'components/Modal'
-import { formatDate } from 'util/getPodSessions'
 import getDateParts from 'util/getDateParts'
 
 import styles from './styles.scss'
-import { CartSubscriber } from 'containers/cartContainer';
-import ArrowLeft from 'components/svg/ArrowLeft';
-import ArrowRight from 'components/svg/ArrowRight';
+import cartContainer, { CartSubscriber } from 'containers/cartContainer'
+import ArrowLeft from 'components/svg/ArrowLeft'
+import ArrowRight from 'components/svg/ArrowRight'
 
-import RATES from 'util/sessionRates'
-import { RateLabel } from 'components/Session';
+import TableRates from './TableRates'
 
-const TableRates = () => {
-  const [showModal, setShowModal] = useState(false)
+const getDifferentDate = (original, diff) => {
+  const newDate = new Date(original)
+  newDate.setHours(0)
+  newDate.setMinutes(0)
+  newDate.setSeconds(0)
+  newDate.setMilliseconds(0)
+  newDate.setDate(original.getDate() + diff)
+  return newDate
+}
+
+export const Session = ({
+  sessionId
+}) => {
+  const isSelected = cartContainer.isInCart(sessionId)
+  const { formattedTime, formattedEndTime } = parseSessionId(sessionId)
+
+  const onClick = () => {
+    if (isSelected) cartContainer.removeItem(sessionId)
+    else cartContainer.addItem(sessionId)
+  }
 
   return (
-    <>
-      <Modal isActive={showModal} onClose={() => setShowModal(false)}>
-        <div data-row>
-          <div data-col="1"/>
-          <div data-col="10">
-            <h3>Table Rates</h3>
-            <p data-p2>(price per 30-minute session)</p>
-            <br />
-            <br />
-
-            {Object.values(RATES).map((rate, i) => {
-              return (
-                <div key={i} className={styles.tableRate}>
-                  <RateLabel rate={rate} showEmpty />
-                  <div>${rate.price.NON_MEMBER / 2}</div>
-                </div>
-              )
-            })}
-          </div>
-        </div>
-        <div data-col="1"/>
-      </Modal>
-      <button className={styles.tableRates} data-link onClick={() => setShowModal(true)}>
-        Table Rates
-      </button>
-    </>
+    <div
+      data-selected={isSelected}
+      className={classNames(styles.session, styles.scheduleSession)}
+      onClick={onClick}
+    >
+      <div className={styles.check}>✔</div>
+      <div className={styles.sessionInfo}>
+        <label>{formattedTime} - {formattedEndTime}</label>
+        {/* <RateLabel rate={rate} /> */}
+      </div>
+    </div>
   )
 }
 
-class PodSchedule extends React.Component {
-  state = {
-    date: new Date(),
-    sessions: [],
+const PodSchedule = ({ match: { params } }) => {
+  const [start, setStart] = useState(new Date())
+  const [sessions, setSessions] = useState([])
+  const sessionsRef = useRef()
+
+  const locationId = params.locationId
+
+  const adjustDate = (diff) => {
+    const newStart = getDifferentDate(start, diff)
+    setStart(newStart)
   }
 
-  sessionsRef = React.createRef()
-  scrollToRef = React.createRef()
+  const prevDay = () => { adjustDate(-1) }
+  const nextDay = () => { adjustDate(1) }
 
-  constructor(props) {
-    super(props)
-  }
+  const {
+    dayOfTheWeek,
+    month,
+    day
+  } = getDateParts(start)
 
-  componentDidMount() {
-    const { location } = this.props
-    const queryParams = qs.parse(location.search, { ignoreQueryPrefix: true })
-    if (queryParams.time) {
-      const time = parseInt(queryParams.time)
-      this.setState({ date: new Date(time) })
-    }
-  }
+  useEffect(() => {
+    const end = getDifferentDate(start, 1)
+    const startTime = start.getTime()
+    const endTime = end.getTime()
 
-  scrollToSession = () => {
-    const sessionsEl = this.sessionsRef.current
-    const scrollToEl = this.scrollToRef.current
+    getAvailableSessions({ locationId, startTime, endTime })
+      .then(({ sessions }) => {
+        if (startTime !== start.getTime()) return
+        setSessions(sessions)
+      })
+  }, [start, locationId])
 
-    if (scrollToEl) {
-      sessionsEl.scrollTop = scrollToEl.offsetTop
-    }
-  }
+  console.log('moop', sessions)
 
-  prevDay = () => {
-    const current = this.state.date
-    const date = new Date(current)
-    date.setDate(date.getDate() - 1)
-    this.setDate(date)
-  }
-
-  nextDay = () => {
-    const current = this.state.date
-    const date = new Date(current)
-    date.setDate(date.getDate() + 1)
-    this.setDate(date)
-  }
-
-  setDate = (date) => {
-    const today = new Date()
-    today.setMinutes(0)
-    today.setSeconds(0)
-    today.setMilliseconds(0)
-
-    if (date.getTime() < today.getTime()) {
-      return
-    }
-
-    this.setState({ date })
-  }
-
-  render() {
-    const { date } = this.state
-    const { params } = this.props.match
-    const locationId = params.locationId
-
-    const {
-      dayOfTheWeek,
-      month,
-      day
-    } = getDateParts(date)
-
-    const dateToScroll = new Date(date)
-    dateToScroll.setMinutes(0)
-    dateToScroll.setSeconds(0)
-    dateToScroll.setMilliseconds(0)
-    const timeToScroll = dateToScroll.getTime()
-
-    const today = new Date()
-    today.setMinutes(0)
-    today.setSeconds(0)
-    today.setMilliseconds(0)
-
-    const isToday = today.getTime() === dateToScroll.getTime()
-
-    return (
-      <Layout className={styles.podSchedule}>
-        <div data-row>
-          <div data-col="2" className={styles.prevDay} onClick={this.prevDay} data-active={!isToday}>
-            <ArrowLeft />
-          </div>
-          <div data-col="8" className={styles.today}>
-            <p data-label>{dayOfTheWeek}</p>
-            <h1>{month} {day}</h1>
-          </div>
-          <div data-col="2" className={styles.nextDay} onClick={this.nextDay}>
-            <ArrowRight />
-          </div>
+  return (
+    <Layout className={styles.podSchedule}>
+      <div data-row>
+        <div data-col="2" className={styles.prevDay} onClick={prevDay}>
+          <ArrowLeft />
         </div>
+        <div data-col="8" className={styles.today}>
+          <p data-label>{dayOfTheWeek}</p>
+          <h1>{month} {day}</h1>
+        </div>
+        <div data-col="2" className={styles.nextDay} onClick={nextDay}>
+          <ArrowRight />
+        </div>
+      </div>
 
-        <CartSubscriber>{() => (
-          <>
-            <div className={styles.sessions} data-row ref={this.sessionsRef}>
-              <Sessions 
-                date={formatDate(date)} 
-                locationId={locationId}
-                onFirstLoad={this.scrollToSession}
-              >{(sessions) => {
-                const availableSessions = sessions.filter(({ isAvailable }) => isAvailable) 
-                if (sessions.length && !availableSessions.length) {
-                  return 'No sessions available for this day.'
-                }
-
-                return (
-                  availableSessions.map(({ id, time, isAvailable, isPast, rate }) => {
-                    const isSelected = cartContainer.isInCart(id)
-
-                    const toggleSelect = () => {
-                      if (isSelected) cartContainer.removeItem(id)
-                      else cartContainer.addItem(id)
-                    }
-
-                    const scrollToRef = timeToScroll === time ? this.scrollToRef : null
-
-                    if (isPast) return null
-
-                    return (
-                      <div key={id} ref={scrollToRef}>
-                        <ScheduleSession
-                          id={id}
-                          isAvailable={isAvailable}
-                          isPast={isPast}
-                          isSelected={isSelected}
-                          key={id} 
-                          onClick={toggleSelect}
-                          rate={rate}
-                        />
-                      </div>
-                    )
-                  })
-                )
-              }}</Sessions>
-            </div>
-            <div data-row className={styles.checkout}>
-              <Link to="/cart" data-col="12">
-                <button disabled={!cartContainer.items.length}>
-                  Reserve Selected Times ({cartContainer.items.length})
-                </button>
-              </Link>
-            </div>
-            <br />
-            <TableRates />
-          </>
-        )}</CartSubscriber>
-
-      </Layout>
-    )
-  }
+      <CartSubscriber>{() => (
+        <>
+          <div className={styles.sessions} data-row ref={sessionsRef}>
+            {sessions.map(session => {
+              const sessionId = `${locationId}-${session}`
+              return <Session sessionId={sessionId} key={sessionId} />
+            })}
+          </div>
+          <div data-row className={styles.checkout}>
+            <Link to="/cart" data-col="12">
+              <button disabled={!cartContainer.items.length}>
+                Reserve Selected Times ({cartContainer.items.length})
+              </button>
+            </Link>
+          </div>
+          <br />
+          <TableRates />
+        </>
+      )}</CartSubscriber>
+    </Layout>
+  )
 }
 
 export default withRouter(PodSchedule)

@@ -2,6 +2,7 @@ import React from 'react'
 import { Container, Subscribe, Provider } from 'unstated'
 import makeReservations, { validateReservations } from 'util/makeReservations'
 
+import parseSessionId from 'util/parseSessionId'
 import { parseSession } from 'util/getPodSessions'
 import authContainer from './authContainer';
 
@@ -17,45 +18,45 @@ class CartContainer extends Container {
     return this.state.items || []
   }
 
-  get locationIds() {
-    const locations = []
+  // get locationIds() {
+  //   const locations = []
 
-    this.items.forEach(item => {
-      const {
-        locationId,
-      } = parseSession(item)
+  //   this.items.forEach(item => {
+  //     const {
+  //       locationId,
+  //     } = parseSession(item)
 
-      if (locations.indexOf(locationId) < 0) {
-        locations.push(locationId)
-      }
-    })
+  //     if (locations.indexOf(locationId) < 0) {
+  //       locations.push(locationId)
+  //     }
+  //   })
 
-    return locations
-  }
+  //   return locations
+  // }
 
-  get sessions() {
-    const sessions = {}
+  // get sessions() {
+  //   const sessions = {}
 
-    this.items.forEach(item => {
-      const {
-        locationId,
-        date,
-        time
-      } = parseSession(item)
+  //   this.items.forEach(item => {
+  //     const {
+  //       locationId,
+  //       date,
+  //       time
+  //     } = parseSession(item)
 
-      sessions[locationId] = sessions[locationId] || {}
-      sessions[locationId][date] = sessions[locationId][date] || {}
-      sessions[locationId][date][time] = [ 'in-cart' ]
-    })
+  //     sessions[locationId] = sessions[locationId] || {}
+  //     sessions[locationId][date] = sessions[locationId][date] || {}
+  //     sessions[locationId][date][time] = [ 'in-cart' ]
+  //   })
 
-    return sessions
-  }
+  //   return sessions
+  // }
 
   constructor() {
     super()
 
     let storedItems = []
-    
+
     try {
       const cookie = localStorage.getItem(CART_KEY) || ''
       const storedString = cookie.trim()
@@ -73,6 +74,26 @@ class CartContainer extends Container {
     //   userId: authContainer.userId, 
     //   onUnavailable: this.removeItem 
     // })
+
+    this.poll()
+  }
+
+  poll = () => {
+    setInterval(this.clean, 3000)
+  }
+
+  clean = () => {
+    const oldItems = this.items
+
+    const newItems = oldItems.filter(sessionId => {
+      const { time } = parseSessionId(sessionId)
+      const isPast = time < Date.now()
+      return !isPast
+    })
+
+    if (newItems.length === oldItems.length) return
+
+    this.setState({ items: newItems })
   }
 
   empty = () => {
@@ -85,7 +106,7 @@ class CartContainer extends Container {
   }
 
   addItem = (item) => {
-    const items = [ ...this.state.items ]
+    const items = [...this.state.items]
 
     if (items.indexOf(item) > -1) {
       return
@@ -98,7 +119,7 @@ class CartContainer extends Container {
   }
 
   removeItem = (item) => {
-    const items = [ ...this.state.items ]
+    const items = [...this.state.items]
     const index = items.indexOf(item)
 
     if (index < 0) {

@@ -61,7 +61,8 @@ const BillingInfo = () => {
   }, [user.id])
 
   const handleResult = ({
-    token, error
+    token,
+    error
   }) => {
     updateUserBilling({
       userId: user.id,

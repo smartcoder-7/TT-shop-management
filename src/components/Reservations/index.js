@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from "react"
 import { INTERVAL_MS, formatTime } from "util/getPodSessions"
+import parseSessionId from 'util/parseSessionId'
 import getDateParts from "util/getDateParts"
+import styles from './styles.scss'
 
 const formatInfo = reservation => {
-  const date = new Date(reservation.reservationTime)
-  const {
-    dayOfTheWeek,
-    month,
-    day,
-    hours,
-    minutes
-  } = getDateParts(date)
+  const sessionId = `0-${reservation.reservationTime}`
+  const { formattedDate, formattedTime } = parseSessionId(sessionId)
 
-  return `${dayOfTheWeek}, ${month} ${day} ${formatTime(date.getTime())}`
+  return `${formattedDate} ${formattedTime}`
 }
+
+const getSessionId = ({ reservationTime, locationId = '0' }) => (
+  `${locationId}-${reservationTime}`
+)
 
 const isActiveRange = r =>
   r[r.length - 1].reservationTime >= Date.now() - INTERVAL_MS
@@ -21,12 +21,15 @@ const isActiveRange = r =>
 const ReservationRange = ({
   reservations
 }) => {
-  const first = reservations[0]
-  const last = reservations[reservations.length - 1]
+  const firstSessionId = getSessionId(reservations[0])
+  const lastSessionId = getSessionId(reservations[reservations.length - 1])
+
+  const first = parseSessionId(firstSessionId)
+  const last = parseSessionId(lastSessionId)
 
   return (
     <div>
-      {formatInfo(first)} - {formatInfo(last)}
+      {first.formattedDate}: {first.formattedTime} - {last.formattedEndTime}
     </div>
   )
 }

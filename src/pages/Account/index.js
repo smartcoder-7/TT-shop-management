@@ -6,25 +6,30 @@ import styles from './styles.scss'
 import { getReservations } from 'api'
 import authContainer, { AuthSubscriber } from 'containers/authContainer'
 import AccountInfo from 'components/AccountInfo'
-import GroupedSessions from 'components/Sessions/GroupedSessions'
 import Reservations from 'components/Reservations'
 import getDateParts from 'util/getDateParts'
 
 const Account = () => {
   const [userReservations, setUserReservations] = useState([])
-  const { user } = authContainer
+  const {
+    user
+  } = authContainer
 
   useEffect(() => {
-    getReservations({ userId: user.id })
-    .then(({ reservations }) => {
-      setUserReservations(reservations)
+    getReservations({
+      userId: user.id
     })
+      .then(({
+        reservations
+      }) => {
+        setUserReservations(reservations)
+      })
   }, [user.id])
 
   return (
     <Layout className={styles.account}>
       <h1>Account</h1>
-      
+
       <AccountInfo />
 
       <Link to="/reserve/0">
@@ -40,7 +45,6 @@ const Account = () => {
         <div data-row>
           <div data-col="12">
             <Reservations reservations={userReservations} />
-            {/* <GroupedSessions sessions={authContainer.user.reservations} /> */}
           </div>
         </div>
       </div>

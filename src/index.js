@@ -15,55 +15,51 @@ import firebase from 'util/firebase'
 
 import 'styles/index.scss'
 
-const AuthenticatedRoute = ({ component: Component, path, ...rest }) => (
-  <Route
-    {...rest}
-    render={props => {
-      if (authContainer.state.loading) {
-        return null
-      }
+const AuthenticatedRoute = ({
+  component: Component,
+  path,
+  ...rest
+}) => (
+    <Route
+      {...rest}
+      render={props => {
+        if (authContainer.state.loading) {
+          return null
+        }
 
-      if (authContainer.userId && authContainer.user) {
-        return <Component {...props} />
-      }
+        if (authContainer.userId && authContainer.user) {
+          return <Component {...props} />
+        }
 
-      return (
-        <Redirect
-          to={{
-            pathname: "/login",
-            search: `?redirect=${window.location}`,
-          }}
-        />
-      )
-    }}
-  />
+        return (
+          <Redirect
+            to={{
+              pathname: "/login",
+              search: `?redirect=${window.location}`,
+            }}
+          />
+        )
+      }}
+    />
+  )
+
+const App = () => (
+  <Router>
+    <AuthSubscriber>{() => (
+      <>
+        <Route path="/" exact component={Home} />
+        <Route path="/reserve" exact component={LocationPicker} />
+        <Route path="/reserve/:locationId?" component={PodSchedule} />
+        <Route path="/login" component={Login} />
+
+        <Switch>
+          <AuthenticatedRoute path="/account" component={Account} />
+          <AuthenticatedRoute path="/cart" component={Cart} />
+          <AuthenticatedRoute path="/checkout" component={Checkout} />
+        </Switch>
+      </>
+    )}</AuthSubscriber>
+  </Router>
 )
-
-class App extends React.Component {
-  constructor(props) {
-    super(props)
-  }
-
-  render() {
-    return (
-      <Router>
-        <AuthSubscriber>{() => (
-          <>
-            <Route path="/" exact component={Home} />
-            <Route path="/reserve" exact component={LocationPicker} />
-            <Route path="/reserve/:locationId?" component={PodSchedule} />
-            <Route path="/login" component={Login} />
-
-            <Switch>
-              <AuthenticatedRoute path="/account" component={Account} />
-              <AuthenticatedRoute path="/cart" component={Cart} />
-              <AuthenticatedRoute path="/checkout" component={Checkout} />
-            </Switch>
-          </>
-        )}</AuthSubscriber>
-      </Router>
-    )
-  }
-}
 
 ReactDOM.render(<App />, document.getElementById('app'))

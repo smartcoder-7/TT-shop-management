@@ -19,6 +19,9 @@ User flow:
   - Make reservations
 
 
+Session Ids:
+0-123456789
+
 ### Development
 Watch the frontend code via webpack-dev-server in one tab:
 

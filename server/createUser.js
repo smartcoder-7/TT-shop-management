@@ -2,8 +2,8 @@ const db = require('./util/db')
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 const createUser = async (req, res) => {
-  const { 
-    userId, 
+  const {
+    userId,
     email,
   } = req.body
 
@@ -24,7 +24,7 @@ const createUser = async (req, res) => {
       metadata: {
         userId
       },
-    });
+    })
 
     userData.stripeId = customer.id
   }
