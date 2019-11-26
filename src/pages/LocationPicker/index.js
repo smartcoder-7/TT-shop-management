@@ -5,7 +5,6 @@ import Layout from 'components/Layout'
 import styles from './styles.scss'
 import authContainer, { AuthSubscriber } from 'containers/authContainer'
 import AccountInfo from 'components/AccountInfo'
-import GroupedSessions from 'components/Sessions/GroupedSessions'
 
 
 class Account extends React.Component {
@@ -13,7 +12,7 @@ class Account extends React.Component {
     super(props)
   }
 
-  render() {    
+  render() {
     return (
       <Layout className={styles.account}>
         <>

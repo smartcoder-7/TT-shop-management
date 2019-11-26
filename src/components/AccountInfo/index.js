@@ -6,12 +6,11 @@ import firebase from 'util/firebase'
 
 import styles from './styles.scss'
 import authContainer, { AuthSubscriber } from '../../containers/authContainer'
-import { ReservationRange } from 'components/Reservation'
 import { INTERVAL_MS } from 'util/getPodSessions'
 import getDateParts from 'util/getDateParts'
-import BillingInfo from './BillingInfo';
-import TextField from '../fields/TextField';
-import { updateUser } from 'util/db';
+import BillingInfo from './BillingInfo'
+import TextField from '../fields/TextField'
+import { updateUser } from 'util/db'
 
 class AccountInfo extends React.Component {
   state = {
@@ -23,30 +22,38 @@ class AccountInfo extends React.Component {
   }
 
   render() {
-    const { loading, cards } = this.state
+    const {
+ loading, cards 
+} = this.state
 
     return (
       <div className={styles.billingInfo}>
         <AuthSubscriber>{() => {
-          const { user, userId } = authContainer
+          const {
+ user, userId 
+} = authContainer
 
-          const onSubmit = ({ firstName = '', lastName = '' }) => {
+          const onSubmit = ({
+ firstName = '', lastName = '' 
+}) => {
             // Update user!
-            updateUser(userId, { firstName, lastName })
+            updateUser(userId, {
+ firstName, lastName 
+})
           }
 
           return (
             <div>
               <Form
                 onSubmit={onSubmit}
-                render={({ 
-                  handleSubmit, 
+                render={({
+                  handleSubmit,
                   dirty,
                   submitSucceeded,
-                  dirtySinceLastSubmit, 
+                  dirtySinceLastSubmit,
                 }) => {
                   const shouldSave = submitSucceeded ? dirtySinceLastSubmit : dirty
-                  
+
                   return (
                     <div data-row>
                       <form onSubmit={handleSubmit} data-col="12">

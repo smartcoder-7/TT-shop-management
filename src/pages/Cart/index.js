@@ -4,15 +4,12 @@ import firebase, { auth } from 'firebase/app'
 
 import cartContainer, { CartSubscriber } from 'containers/cartContainer'
 import authContainer from 'containers/authContainer'
-import Sessions from 'components/Sessions'
-import { CartSession } from 'components/Session'
 import Layout from 'components/Layout'
 import { parseSession } from 'util/getPodSessions'
 import makeReservations, { validateReservations } from 'util/makeReservations'
 
 import styles from './styles.scss'
-import AccountInfo from 'components/AccountInfo';
-import GroupedSessions from '../../components/Sessions/GroupedSessions';
+import AccountInfo from 'components/AccountInfo'
 
 class Cart extends React.Component {
   state = {
@@ -25,17 +22,21 @@ class Cart extends React.Component {
   }
 
   componentDidMount() {
-    const { userId } = authContainer.state
+    const {
+      userId
+    } = authContainer.state
     const sessionIds = cartContainer.items
 
-    validateReservations({ sessionIds, userId, onUnavailable: this.onUnavailable })
-    .catch((err) => {
-      if (this.isUnmounted) return
-
-      this.setState({
-        submissionError: err
-      })
+    validateReservations({
+      sessionIds, userId, onUnavailable: this.onUnavailable
     })
+      .catch((err) => {
+        if (this.isUnmounted) return
+
+        this.setState({
+          submissionError: err
+        })
+      })
   }
 
   componentWillUnmount() {
@@ -51,9 +52,13 @@ class Cart extends React.Component {
   }
 
   checkout = () => {
-    const { userId, user } = authContainer.state
+    const {
+      userId, user
+    } = authContainer.state
     const sessionIds = cartContainer.items
-    const { history } = this.props
+    const {
+      history
+    } = this.props
 
     if (!sessionIds || !sessionIds.length) {
       this.setState({
@@ -80,45 +85,51 @@ class Cart extends React.Component {
     // }
 
     console.log('TRYING TO RESERVE', userId, sessionIds)
-    makeReservations({ sessionIds, userId, onUnavailable: this.onUnavailable })
-    .then(() => {
-      console.log('SUCCESS!')
-      history.push('/account')
+    makeReservations({
+      sessionIds, userId, onUnavailable: this.onUnavailable
     })
-    .catch((err) => {
-      if (this.isUnmounted) return
-
-      this.setState({
-        submissionError: err
+      .then(() => {
+        console.log('SUCCESS!')
+        history.push('/account')
       })
-    })
+      .catch((err) => {
+        if (this.isUnmounted) return
+
+        this.setState({
+          submissionError: err
+        })
+      })
   }
 
   render() {
-    const { submissionError, step } = this.state
-    const { user } = authContainer
+    const {
+      submissionError, step
+    } = this.state
+    const {
+      user
+    } = authContainer
 
     const canCheckout = (
       user.firstName &&
       user.lastName &&
-      user.squareId && 
+      user.squareId &&
       user.activeCard
     )
 
     return (
       <CartSubscriber>{() => {
         console.log('rerender')
-        const { locationIds, items } = cartContainer
+        const {
+          locationIds, items
+        } = cartContainer
         const canContinue = (
-          step < 1 && 
+          step < 1 &&
           !!locationIds.length &&
           items.length > 0
         )
 
-        console.log(cartContainer.sessions)
-    
-        console.log(canContinue)
-    
+        console.log('cart', cartContainer.sessions)
+
         return (
           <Layout className={styles.cart}>
             <h1>Cart</h1>
@@ -129,7 +140,7 @@ class Cart extends React.Component {
               <div data-row>
                 <div data-col="12">
                   {!items.length && 'No sessions selected.'}
-                  <GroupedSessions sessions={cartContainer.sessions} inCart={true} />
+                  {/* <GroupedSessions sessions={cartContainer.sessions} inCart={true} /> */}
                 </div>
               </div>
             </div>
@@ -141,7 +152,7 @@ class Cart extends React.Component {
             </div>
 
             <br />
-{/* 
+            {/* 
             {canContinue && (
               <button 
                 data-size="small" 
@@ -156,10 +167,10 @@ class Cart extends React.Component {
                 <h3 className={styles.header}>2. Add/Update Account Info</h3>
                 <AccountInfo /> */}
 
-                <button onClick={this.checkout}>
-                  Checkout
+            <button onClick={this.checkout}>
+              Checkout
                 </button>
-              {/* </div>
+            {/* </div>
             )} */}
 
 

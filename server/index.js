@@ -7,6 +7,7 @@ const ROOT_DIR = path.resolve(__dirname, '../')
 
 const createReservations = require('./createReservations')
 const getReservations = require('./getReservations')
+const getAvailableSessions = require('./getAvailableSessions')
 const createUser = require('./createUser')
 const updateUserBilling = require('./updateUserBilling')
 const getUserBilling = require('./getUserBilling')
@@ -20,7 +21,8 @@ express()
   .post('/api/create-user', createUser)
   .post('/api/update-user-billing', updateUserBilling)
   .post('/api/get-user-billing', getUserBilling)
+  .post('/api/get-available-sessions', getAvailableSessions)
 
   .get('*', (req, res) => res.sendFile(path.resolve(ROOT_DIR, 'public/index.html')))
 
-  .listen(PORT, () => console.log(`Listening on ${ PORT }`))
+  .listen(PORT, () => console.log(`Listening on ${PORT}`))

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { INTERVAL_MS, formatTime } from "util/getPodSessions"
 import getDateParts from "util/getDateParts"
+import styles from './styles.scss'
 
 const formatInfo = reservation => {
   const date = new Date(reservation.reservationTime)
