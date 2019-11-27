@@ -11,14 +11,10 @@
   left: 0;
   right: 0;
   width: 100%;
-  z-index: 2;
+  z-index: 3;
   background: $light-gray;
-  border-bottom: 2px solid transparent;
+  box-sizing: border-box;
   transition: border-color 100ms linear;
-
-  &[data-scrolled="true"] {
-    border-bottom: 2px solid rgba(0,0,0,0.2);
-  }
 }
 
 header {
@@ -26,7 +22,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 14rem;
+  height: $header-height;
 
   h1 {
     font-size: 36px;
@@ -49,7 +45,7 @@ header {
 
 main {
   flex: 1;
-  margin-top: 15rem;
+  margin-top: $header-height;
   padding-bottom: 15rem;
 }
 

@@ -10,6 +10,16 @@ const DAYS_OF_THE_WEEK = [
   'Saturday'
 ]
 
+const DAYS_OF_THE_WEEK_ABBR = [
+  'Sun',
+  'Mon',
+  'Tue',
+  'Wed',
+  'Thu',
+  'Fri',
+  'Sat'
+]
+
 const MONTHS = [
   'January',
   'February',
@@ -25,9 +35,26 @@ const MONTHS = [
   'December'
 ]
 
-const getDateParts = (date) => {
+const MONTHS_ABBR = [
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
+  'May',
+  'Jun',
+  'Jul',
+  'Aug',
+  'Sep',
+  'Oct',
+  'Nov',
+  'Dec'
+]
+
+export const getDateParts = (date) => {
   const dayOfTheWeek = DAYS_OF_THE_WEEK[date.getDay()]
+  const dayOfTheWeekAbbr = DAYS_OF_THE_WEEK_ABBR[date.getDay()]
   const month = MONTHS[date.getMonth()]
+  const monthAbbr = MONTHS_ABBR[date.getMonth()]
   const day = date.getDate()
   const year = date.getFullYear()
   const hours = date.getHours()
@@ -35,7 +62,9 @@ const getDateParts = (date) => {
 
   return {
     dayOfTheWeek,
+    dayOfTheWeekAbbr,
     month,
+    monthAbbr,
     day,
     year,
     hours,

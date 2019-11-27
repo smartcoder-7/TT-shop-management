@@ -48,8 +48,12 @@ const App = () => (
     <AuthSubscriber>{() => (
       <>
         <Route path="/" exact component={Home} />
-        <Route path="/reserve" exact component={LocationPicker} />
-        <Route path="/reserve/:locationId?" component={PodSchedule} />
+
+        <Switch>
+          <Route path="/reserve" exact component={LocationPicker} />
+          <Route path="/reserve/:locationId?" component={PodSchedule} />
+        </Switch>
+
         <Route path="/login" component={Login} />
 
         <Switch>

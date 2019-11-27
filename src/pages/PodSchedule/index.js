@@ -1,11 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { withRouter, Link } from 'react-router-dom'
 import classNames from 'classnames'
+import locations from '../../../locations.json'
 
 import { getAvailableSessions } from 'api'
 import parseSessionId from 'util/parseSessionId'
 import Layout from 'components/Layout'
-import getDateParts from 'util/getDateParts'
+import { getDateParts } from 'util/datetime'
 
 import styles from './styles.scss'
 import cartContainer, { CartSubscriber } from 'containers/cartContainer'
@@ -14,6 +15,17 @@ import ArrowRight from 'components/svg/ArrowRight'
 
 import TableRates from './TableRates'
 
+const FULL_DAY = (1000 * 60 * 60 * 24)
+
+const flattenTime = (time) => {
+  const newDate = new Date(time)
+  newDate.setHours(0)
+  newDate.setMinutes(0)
+  newDate.setSeconds(0)
+  newDate.setMilliseconds(0)
+  return newDate.getTime()
+}
+
 const getDifferentDate = (original, diff) => {
   const newDate = new Date(original)
   newDate.setHours(0)
@@ -21,8 +33,20 @@ const getDifferentDate = (original, diff) => {
   newDate.setSeconds(0)
   newDate.setMilliseconds(0)
   newDate.setDate(original.getDate() + diff)
+
+  if (newDate.getTime() < Date.now()) return new Date()
   return newDate
 }
+
+const addDays = (time, days) => {
+  return flattenTime(time) + (days * FULL_DAY)
+}
+
+const add24Hours = time => {
+  return flattenTime(time) + FULL_DAY
+}
+
+const getToday = () => flattenTime(Date.now())
 
 export const Session = ({
   sessionId
@@ -50,67 +74,95 @@ export const Session = ({
   )
 }
 
+// Every 5 minutes.
+const POLL_INTERVAL = 1000 * 60 * 5
+
 const PodSchedule = ({ match: { params } }) => {
-  const [start, setStart] = useState(new Date())
+  const [today, setToday] = useState(getToday())
+  const [activeDay, setActiveDay] = useState(today)
   const [sessions, setSessions] = useState([])
   const sessionsRef = useRef()
 
   const locationId = params.locationId
-
-  const adjustDate = (diff) => {
-    const newStart = getDifferentDate(start, diff)
-    setStart(newStart)
-  }
-
-  const prevDay = () => { adjustDate(-1) }
-  const nextDay = () => { adjustDate(1) }
-
-  const {
-    dayOfTheWeek,
-    month,
-    day
-  } = getDateParts(start)
+  const location = locations[locationId]
 
   useEffect(() => {
-    const end = getDifferentDate(start, 1)
-    const startTime = start.getTime()
-    const endTime = end.getTime()
+    const newToday = getToday()
+    if (newToday !== today) {
+      setToday(newToday)
+      return
+    }
 
-    getAvailableSessions({ locationId, startTime, endTime })
-      .then(({ sessions }) => {
-        if (startTime !== start.getTime()) return
-        setSessions(sessions)
-      })
-  }, [start, locationId])
+    const startTime = activeDay
+    const endTime = add24Hours(activeDay)
+
+    const updateSessions = () => {
+      getAvailableSessions({ locationId, startTime, endTime })
+        .then(({ sessions }) => {
+          if (startTime !== activeDay) return
+
+          const filteredSessions = sessions.filter(s => {
+            return s >= Date.now()
+          })
+          setSessions(filteredSessions)
+        })
+    }
+
+    const poll = setInterval(updateSessions, POLL_INTERVAL)
+    updateSessions()
+
+    return () => {
+      clearInterval(poll)
+    }
+  }, [activeDay, locationId, today])
+
+  const upcomingDays = new Array(30).fill('').map((_, i) => i)
+  console.log(upcomingDays)
 
   console.log('moop', sessions)
 
+  const activeDate = getDateParts(new Date(activeDay))
+
   return (
     <Layout className={styles.podSchedule}>
-      <div data-row>
-        <div data-col="2" className={styles.prevDay} onClick={prevDay}>
-          <ArrowLeft />
+      <div className={styles.header}>
+        <div className={styles.info}>
+          <h3 className={styles.location}>{location.displayName}.</h3>
         </div>
-        <div data-col="8" className={styles.today}>
-          <p data-label>{dayOfTheWeek}</p>
-          <h1>{month} {day}</h1>
-        </div>
-        <div data-col="2" className={styles.nextDay} onClick={nextDay}>
-          <ArrowRight />
+
+        <div className={styles.dayPicker}>
+          {upcomingDays.map(n => {
+            const time = addDays(today, n)
+            const { dayOfTheWeekAbbr, monthAbbr, day } = getDateParts(new Date(time))
+            // const upcomingDate = getDifferentDate(n)
+            return (
+              <div
+                className={styles.day}
+                key={time}
+                onClick={() => setActiveDay(time)}
+                data-is-active={time === activeDay}
+              >
+                <span>{time === today ? 'Today' : dayOfTheWeekAbbr}</span>
+                <label>{monthAbbr} {day}</label>
+              </div>
+            )
+          })}
         </div>
       </div>
 
-      <CartSubscriber>{() => (
-        <>
-          <div className={styles.sessions} ref={sessionsRef}>
-            {sessions.map(session => {
-              const sessionId = `${locationId}-${session}`
-              return <Session sessionId={sessionId} key={sessionId} />
-            })}
-          </div>
+      <CartSubscriber>{() => {
+        const canCheckout = !!cartContainer.items.length
 
-          {cartContainer.items && (
-            <div className={styles.checkout}>
+        return (
+          <>
+            <div className={styles.sessions} ref={sessionsRef} data-is-active={canCheckout}>
+              {sessions.map(session => {
+                const sessionId = `${locationId}-${session}`
+                return <Session sessionId={sessionId} key={sessionId} />
+              })}
+            </div>
+
+            <div className={styles.checkout} data-is-active={canCheckout}>
               <Link to="/cart" data-col="12">
                 <button disabled={!cartContainer.items.length}>
                   Reserve Selected Times ({cartContainer.items.length})
@@ -119,9 +171,9 @@ const PodSchedule = ({ match: { params } }) => {
 
               <TableRates />
             </div>
-          )}
-        </>
-      )}</CartSubscriber>
+          </>
+        )
+      }}</CartSubscriber>
     </Layout>
   )
 }

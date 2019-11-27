@@ -1,4 +1,5 @@
 const db = require('./util/db')
+const locations = require('../locations.json')
 
 const INTERVAL_MS = 1000 * 60 * 30
 
@@ -29,14 +30,12 @@ const getAvailableSessions = async (req, res) => {
     endTime
   } = req.body
 
-  const locationNode = await db.collection('locations').doc(locationId).get()
+  const location = locations[locationId]
 
-  if (!locationNode.exists) {
+  if (!location) {
     res.status(500).send(`No such location id: ${locationId}.`)
     return
   }
-
-  const location = locationNode.data()
 
   try {
     // Get location, and check availability.
@@ -59,9 +58,31 @@ const getAvailableSessions = async (req, res) => {
 
     const sessions = getAllSessions(startTime, endTime)
 
+    const checkClosed = (time) => {
+      // Always open?
+      if (!location.closedFrom || !location.closedUntil) return false
+
+      const date = new Date(time)
+
+      const hour = date.getHours()
+      const minute = date.getMinutes()
+
+      return (
+        (hour > location.closedFrom.hour || (
+          hour === location.closedFrom.hour &&
+          minute >= location.closedFrom.minute
+        )) &&
+        (hour < location.closedUntil.hour || (
+          hour === location.closedUntil.hour &&
+          minute < location.closedUntil.minute
+        ))
+      )
+    }
+
     const availableSessions = sessions.filter(time => {
+      const isClosed = checkClosed(time)
       const isFullyBooked = bookings[time] >= location.numTables
-      return !isFullyBooked
+      return !isClosed && !isFullyBooked
     })
 
     res.status(200).json({
