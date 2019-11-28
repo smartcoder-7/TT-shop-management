@@ -37,7 +37,6 @@ const _Cart = ({ history }) => {
       .then(() => {
         cartContainer.empty()
         history.push('/account')
-        console.log('hey!!! redirect')
       })
       .catch((err) => {
         console.error(err)
