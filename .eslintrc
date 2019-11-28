@@ -1,7 +1,11 @@
 {
   "plugins": [
     "prettier",
-    "unused-imports"
+    "unused-imports",
+    "json"
+  ],
+  "extends": [
+    "plugin:json/recommended"
   ],
   "parser": "babel-eslint",
   "parserOptions": {
@@ -18,25 +22,37 @@
       "never"
     ],
     "object-curly-newline": [
-      "error",
+      2,
       {
         "ObjectExpression": {
           "multiline": true,
-          "minItems": 2
+          "minProperties": 3
         },
         "ObjectPattern": {
           "multiline": true,
-          "minItems": 2
+          "minProperties": 3
         },
         "ImportDeclaration": {
           "multiline": true,
-          "minItems": 2
+          "minProperties": 3
         },
         "ExportDeclaration": {
           "multiline": true,
-          "minItems": 2
+          "minProperties": 3
         }
       }
     ]
-  }
+  },
+  "overrides": [
+    {
+      "files": [
+        "*.json"
+      ],
+      "rules": {
+        "object-curly-newline": "off",
+        "object-property-newline": "off",
+        "array-element-newline": "off"
+      }
+    }
+  ]
 }

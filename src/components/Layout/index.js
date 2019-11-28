@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import classnames from 'classnames'
-import authContainer from '../../containers/authContainer'
 
 import styles from './styles.scss'
 import Menu from './Menu'
 import Logo from '../Logo'
+import Modal from 'components/Modal'
+import modalContainer, { ModalSubscriber } from '../../containers/modalContainer';
 
 const IS_DEV = process.env.NODE_ENV === 'development'
 
@@ -45,6 +46,16 @@ const Layout = ({
       <main>
         {children}
       </main>
+
+      <ModalSubscriber>{() => {
+        const { content, isOpen } = modalContainer
+
+        return (
+          <Modal isActive={isOpen}>
+            {content}
+          </Modal>
+        )
+      }}</ModalSubscriber>
     </div>
   )
 }

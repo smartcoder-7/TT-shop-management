@@ -6,16 +6,18 @@ import locations from '../../../locations.json'
 import { getAvailableSessions } from 'api'
 import parseSessionId from 'util/parseSessionId'
 import Layout from 'components/Layout'
+import getSessionRate from 'util/getSessionRate'
 import { getDateParts } from 'util/datetime'
+import Loading from 'components/Loading'
+import RateLabel from 'components/RateLabel'
 
 import styles from './styles.scss'
 import cartContainer, { CartSubscriber } from 'containers/cartContainer'
-import ArrowLeft from 'components/svg/ArrowLeft'
-import ArrowRight from 'components/svg/ArrowRight'
 
 import TableRates from './TableRates'
 
 const FULL_DAY = (1000 * 60 * 60 * 24)
+const POLL_INTERVAL = 1000 * 60 * 5
 
 const flattenTime = (time) => {
   const newDate = new Date(time)
@@ -26,24 +28,8 @@ const flattenTime = (time) => {
   return newDate.getTime()
 }
 
-const getDifferentDate = (original, diff) => {
-  const newDate = new Date(original)
-  newDate.setHours(0)
-  newDate.setMinutes(0)
-  newDate.setSeconds(0)
-  newDate.setMilliseconds(0)
-  newDate.setDate(original.getDate() + diff)
-
-  if (newDate.getTime() < Date.now()) return new Date()
-  return newDate
-}
-
 const addDays = (time, days) => {
   return flattenTime(time) + (days * FULL_DAY)
-}
-
-const add24Hours = time => {
-  return flattenTime(time) + FULL_DAY
 }
 
 const getToday = () => flattenTime(Date.now())
@@ -52,7 +38,9 @@ export const Session = ({
   sessionId
 }) => {
   const isSelected = cartContainer.isInCart(sessionId)
-  const { formattedTime, formattedEndTime } = parseSessionId(sessionId)
+  const { formattedTime } = parseSessionId(sessionId)
+
+  const rate = getSessionRate(sessionId)
 
   const onClick = () => {
     if (isSelected) cartContainer.removeItem(sessionId)
@@ -67,39 +55,29 @@ export const Session = ({
     >
       <div className={styles.sessionInfo}>
         <label>{formattedTime}</label>
-        {/* <RateLabel rate={rate} /> */}
+        <RateLabel rate={rate} />
       </div>
       <div className={styles.check}>✔</div>
     </div>
   )
 }
 
-// Every 5 minutes.
-const POLL_INTERVAL = 1000 * 60 * 5
-
-const PodSchedule = ({ match: { params } }) => {
-  const [today, setToday] = useState(getToday())
-  const [activeDay, setActiveDay] = useState(today)
+const SessionPicker = ({ locationId, startTime, endTime }) => {
+  const [loading, setLoading] = useState(true)
   const [sessions, setSessions] = useState([])
-  const sessionsRef = useRef()
 
-  const locationId = params.locationId
-  const location = locations[locationId]
+  const canCheckout = !!cartContainer.items.length
 
   useEffect(() => {
-    const newToday = getToday()
-    if (newToday !== today) {
-      setToday(newToday)
-      return
-    }
-
-    const startTime = activeDay
-    const endTime = add24Hours(activeDay)
-
     const updateSessions = () => {
+      const requestedStartTime = startTime
+      setLoading(true)
       getAvailableSessions({ locationId, startTime, endTime })
         .then(({ sessions }) => {
-          if (startTime !== activeDay) return
+          setLoading(false)
+
+          // No race conditions
+          if (requestedStartTime !== startTime) return
 
           const filteredSessions = sessions.filter(s => {
             return s >= Date.now()
@@ -114,27 +92,62 @@ const PodSchedule = ({ match: { params } }) => {
     return () => {
       clearInterval(poll)
     }
-  }, [activeDay, locationId, today])
-
-  const upcomingDays = new Array(30).fill('').map((_, i) => i)
-  console.log(upcomingDays)
+  }, [locationId, startTime, endTime])
 
   console.log('moop', sessions)
 
-  const activeDate = getDateParts(new Date(activeDay))
+  return (
+    <>
+      <div className={styles.sessions} data-is-active={canCheckout}>
+        {loading && <Loading />}
+        {!loading && sessions.map(session => {
+          const sessionId = `${locationId}-${session}`
+          return <Session sessionId={sessionId} key={sessionId} />
+        })}
+      </div>
+
+      <Link to="/cart" data-col="12">
+        <div className={styles.checkout} data-is-active={canCheckout}>
+          <label>Reserve</label>
+          <div className={styles.total}>
+            ${cartContainer.totalPrice} / {cartContainer.totalTime} hr
+          </div>
+        </div>
+      </Link>
+    </>
+  )
+}
+
+const PodSchedule = ({ match: { params } }) => {
+  const [today, setToday] = useState(getToday())
+  const [activeDay, setActiveDay] = useState(today)
+
+  const locationId = params.locationId
+  const location = locations[locationId]
+
+  useEffect(() => {
+    const newToday = getToday()
+    if (newToday === today) return
+
+    setToday(newToday)
+  }, [activeDay, locationId, today])
+
+  const upcomingDays = new Array(30).fill('').map((_, i) => i)
 
   return (
     <Layout className={styles.podSchedule}>
       <div className={styles.header}>
         <div className={styles.info}>
-          <h3 className={styles.location}>{location.displayName}.</h3>
+          <h3 className={styles.location}>
+            {location.displayName}.
+            <TableRates />
+          </h3>
         </div>
 
         <div className={styles.dayPicker}>
           {upcomingDays.map(n => {
             const time = addDays(today, n)
             const { dayOfTheWeekAbbr, monthAbbr, day } = getDateParts(new Date(time))
-            // const upcomingDate = getDifferentDate(n)
             return (
               <div
                 className={styles.day}
@@ -150,30 +163,13 @@ const PodSchedule = ({ match: { params } }) => {
         </div>
       </div>
 
-      <CartSubscriber>{() => {
-        const canCheckout = !!cartContainer.items.length
-
-        return (
-          <>
-            <div className={styles.sessions} ref={sessionsRef} data-is-active={canCheckout}>
-              {sessions.map(session => {
-                const sessionId = `${locationId}-${session}`
-                return <Session sessionId={sessionId} key={sessionId} />
-              })}
-            </div>
-
-            <div className={styles.checkout} data-is-active={canCheckout}>
-              <Link to="/cart" data-col="12">
-                <button disabled={!cartContainer.items.length}>
-                  Reserve Selected Times ({cartContainer.items.length})
-                </button>
-              </Link>
-
-              <TableRates />
-            </div>
-          </>
-        )
-      }}</CartSubscriber>
+      <CartSubscriber>{() => (
+        <SessionPicker
+          locationId={locationId}
+          startTime={activeDay}
+          endTime={addDays(activeDay, 1)}
+        />
+      )}</CartSubscriber>
     </Layout>
   )
 }

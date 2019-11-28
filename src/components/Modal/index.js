@@ -1,8 +1,11 @@
 import React from 'react'
 
 import styles from './styles.scss'
+import modalContainer from 'containers/modalContainer';
 
-const Modal = ({ children, isActive, onClose = () => {} }) => {
+const Modal = ({ children, isActive }) => {
+  const onClose = () => modalContainer.close()
+
   return (
     <>
       <div className={styles.modal} data-active={isActive} onClick={onClose}>

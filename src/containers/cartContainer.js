@@ -1,10 +1,8 @@
 import React from 'react'
 import { Container, Subscribe, Provider } from 'unstated'
-import makeReservations, { validateReservations } from 'util/makeReservations'
 
 import parseSessionId from 'util/parseSessionId'
-import { parseSession } from 'util/getPodSessions'
-import authContainer from './authContainer';
+import getSessionRate from 'util/getSessionRate'
 
 const ROOT_KEY = 'pingpod'
 const CART_KEY = `${ROOT_KEY}/cart`
@@ -18,39 +16,20 @@ class CartContainer extends Container {
     return this.state.items || []
   }
 
-  // get locationIds() {
-  //   const locations = []
+  get totalPrice() {
+    let sum = 0
 
-  //   this.items.forEach(item => {
-  //     const {
-  //       locationId,
-  //     } = parseSession(item)
+    this.items.forEach(sessionId => {
+      const rate = getSessionRate(sessionId)
+      sum += rate.MEMBER
+    })
 
-  //     if (locations.indexOf(locationId) < 0) {
-  //       locations.push(locationId)
-  //     }
-  //   })
+    return sum
+  }
 
-  //   return locations
-  // }
-
-  // get sessions() {
-  //   const sessions = {}
-
-  //   this.items.forEach(item => {
-  //     const {
-  //       locationId,
-  //       date,
-  //       time
-  //     } = parseSession(item)
-
-  //     sessions[locationId] = sessions[locationId] || {}
-  //     sessions[locationId][date] = sessions[locationId][date] || {}
-  //     sessions[locationId][date][time] = [ 'in-cart' ]
-  //   })
-
-  //   return sessions
-  // }
+  get totalTime() {
+    return this.items.length / 2
+  }
 
   constructor() {
     super()
@@ -68,12 +47,6 @@ class CartContainer extends Container {
     }
 
     this.state.items = storedItems
-
-    // validateReservations({ 
-    //   sessionIds: this.state.items, 
-    //   userId: authContainer.userId, 
-    //   onUnavailable: this.removeItem 
-    // })
 
     this.poll()
   }

@@ -1,15 +1,13 @@
 import React, { useState } from 'react'
-import Modal from 'components/Modal'
 import { RateLabel } from 'components/Session'
 import RATES from 'util/sessionRates'
 import styles from './styles.scss'
+import modalContainer from '../../containers/modalContainer';
 
 const TableRates = () => {
-  const [showModal, setShowModal] = useState(false)
-
-  return (
-    <>
-      <Modal isActive={showModal} onClose={() => setShowModal(false)}>
+  const openModal = () => {
+    modalContainer.open({
+      content: (
         <div data-row>
           <div data-col="1" />
           <div data-col="10">
@@ -27,10 +25,15 @@ const TableRates = () => {
               )
             })}
           </div>
+          <div data-col="1" />
         </div>
-        <div data-col="1" />
-      </Modal>
-      <button className={styles.tableRates} data-link onClick={() => setShowModal(true)}>
+      )
+    })
+  }
+
+  return (
+    <>
+      <button className={styles.tableRates} data-link onClick={openModal}>
         Table Rates
       </button>
     </>

@@ -46,31 +46,35 @@ const _Cart = () => {
 
   return (
     <Layout className={styles.cart}>
-      <h1>Cart</h1>
+      <div data-row>
+        <div data-col={12}>
+          <h1>Cart</h1>
 
-      <div className={styles.step}>
-        <h3 className={styles.header}>Confirm Selection</h3>
+          <div className={styles.step}>
+            <h3 className={styles.header}>Confirm Selection</h3>
 
-        <div data-row>
-          <div data-col="12">
-            <Reservations reservations={reservations} />
+            <div data-row>
+              <div data-col="12">
+                <Reservations reservations={reservations} />
+              </div>
+            </div>
           </div>
+
+          <div>
+            <Link to="/reserve/0" data-link>
+              + Add more sessions
+            </Link>
+          </div>
+
+          <br />
+
+          {!canCheckout && (
+            <div>
+              Cannot check out. Please update billing.
+            </div>
+          )}
         </div>
       </div>
-
-      <div>
-        <Link to="/reserve/0" data-link>
-          + Add more sessions
-            </Link>
-      </div>
-
-      <br />
-
-      {!canCheckout && (
-        <div>
-          Cannot check out. Please update billing.
-            </div>
-      )}
 
       <button onClick={checkout}>
         Checkout

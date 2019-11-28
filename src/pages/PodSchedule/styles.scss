@@ -5,6 +5,7 @@ $checkoutHeight: 30rem;
 
 .podSchedule {
   background: $white;
+  min-height: 100vh;
 
   [data-bg-color] {
     background: $white;
@@ -24,11 +25,16 @@ $checkoutHeight: 30rem;
   background: $white;
   height: $navHeight;
   display: flex;
-  padding: 0 5rem;
   flex-direction: column;
 
   .info {
+    padding: 0 5rem;
     margin-bottom: 5rem;
+  }
+
+  .location {
+    display: flex;
+    align-items: flex-end;
   }
 }
 
@@ -40,11 +46,14 @@ $checkoutHeight: 30rem;
   .day {
     display: inline-flex;
     flex-direction: column;
-    padding-right: 8rem;
+    padding-right: 3rem;
+    padding-left: 5rem;
 
     &[data-is-active="true"] {
       font-weight: bold;
       pointer-events: none;
+
+      label { opacity: 0.8; }
     }
 
     label {
@@ -107,10 +116,13 @@ $checkoutHeight: 30rem;
     transform: none;
   }
 
-  button {
-    text-align: center;
-    background: transparent !important;
+  label {
     margin-bottom: 2rem;
+    font-size: 4rem !important;
+  }
+
+  .total {
+
   }
 }
 
@@ -123,7 +135,11 @@ $checkoutHeight: 30rem;
 }
 
 button.tableRates {
-  color: $white;
+  display: inline-block;
+  font-size: 3rem;
+  margin-left: auto;
+  color: $blue;
+  margin-bottom: 0.5rem;
 }
 
 .session {
@@ -173,4 +189,8 @@ button.tableRates {
 
 .sessionInfo {
   flex: 1;
+
+  label {
+    margin-right: 3rem;
+  }
 }
