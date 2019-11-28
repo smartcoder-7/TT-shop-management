@@ -5,10 +5,9 @@ import Layout from 'components/Layout'
 import styles from './styles.scss'
 import { getReservations } from 'api'
 import { INTERVAL_MS } from "util/getPodSessions"
-import authContainer, { AuthSubscriber } from 'containers/authContainer'
+import authContainer from 'containers/authContainer'
 import AccountInfo from 'components/AccountInfo'
 import Reservations from 'components/Reservations'
-import getDateParts from 'util/getDateParts'
 
 const UserReservations = ({ reservations }) => {
   const [showPast, setShowPast] = useState(false)

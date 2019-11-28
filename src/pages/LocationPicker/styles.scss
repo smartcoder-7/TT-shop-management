@@ -1,24 +1,12 @@
-.account {
-  min-height: 100vh;
+@import 'styles/_variables.scss';
+
+.locations {
+  margin-top: 5rem;
 }
 
-.reservationDate {
-  margin-bottom: 5rem;
+.location {
 
-  .date {
-    margin-bottom: 1rem;
+  h2 {
+    color: $pink;
   }
-}
-
-.info {
-  margin-top: 6rem;
-  margin-bottom: 10rem;
-}
-
-.infoItem {
-  margin-bottom: 3rem;
-}
-
-.billingInfo {
-  margin-bottom: 5rem;
 }
