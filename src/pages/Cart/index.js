@@ -10,7 +10,7 @@ import { createReservations } from 'api'
 
 import styles from './styles.scss'
 
-const _Cart = () => {
+const _Cart = ({ history }) => {
   const [submissionError, setSubmissionError] = useState()
   const { user } = authContainer
 
@@ -36,6 +36,7 @@ const _Cart = () => {
     createReservations({ userId: user.id, reservations })
       .then(() => {
         cartContainer.empty()
+        history.push('/account')
         console.log('hey!!! redirect')
       })
       .catch((err) => {
@@ -46,13 +47,11 @@ const _Cart = () => {
 
   return (
     <Layout className={styles.cart}>
-      <div data-row>
+      <div data-row className={styles.details}>
         <div data-col={12}>
           <h1>Cart</h1>
 
-          <div className={styles.step}>
-            <h3 className={styles.header}>Confirm Selection</h3>
-
+          <div className={styles.items}>
             <div data-row>
               <div data-col="12">
                 <Reservations reservations={reservations} />
@@ -61,8 +60,8 @@ const _Cart = () => {
           </div>
 
           <div>
-            <Link to="/reserve/0" data-link>
-              + Add more sessions
+            <Link to="/reserve" data-link>
+              + Add time
             </Link>
           </div>
 
@@ -73,21 +72,22 @@ const _Cart = () => {
               Cannot check out. Please update billing.
             </div>
           )}
+
+          {submissionError && <div>{submissionError}</div>}
         </div>
       </div>
 
-      <button onClick={checkout}>
-        Checkout
-          </button>
+      <button className={styles.checkout} onClick={checkout}>
+        Check Out
+      </button>
 
-      {submissionError && <div>{submissionError}</div>}
     </Layout>
   )
 }
 
-const Cart = () => (
+const Cart = (props) => (
   <CartSubscriber>{() => (
-    <_Cart />
+    <_Cart {...props} />
   )}</CartSubscriber>
 )
 

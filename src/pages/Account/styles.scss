@@ -1,5 +1,13 @@
+@import 'styles/_variables.scss';
+
 .account {
+  background: $white;
+  color: $black;
   min-height: 100vh;
+
+  [data-bg-color] {
+    background: $white;
+  }
 }
 
 .reservationDate {
@@ -21,4 +29,16 @@
 
 .billingInfo {
   margin-bottom: 5rem;
+}
+
+.userReservations {
+  h3 {
+    margin-bottom: 3rem;
+  }
+}
+
+.showPast {
+  display: block;
+  margin-bottom: 3rem;
+  color: $blue;
 }

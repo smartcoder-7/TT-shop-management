@@ -23,7 +23,7 @@ export const RateLabel = ({ rate, showEmpty }) => {
   if (!showEmpty && !rate.name) return null
 
   return (
-    <label 
+    <label
       className={styles.rateName || 'Normal'}
       data-rate={rate.name}
     >
@@ -32,8 +32,8 @@ export const RateLabel = ({ rate, showEmpty }) => {
   )
 }
 
-export const ScheduleSession = ({ 
-  id, 
+export const ScheduleSession = ({
+  id,
   isAvailable,
   isPast,
   isSelected,
@@ -43,16 +43,16 @@ export const ScheduleSession = ({
   const { time, timeEnd } = parseSession(id)
 
   return (
-    <div 
+    <div
       data-available={isAvailable}
       data-past={isPast}
       data-selected={isSelected}
-      className={classNames(styles.session, styles.scheduleSession)} 
+      className={classNames(styles.session, styles.scheduleSession)}
       onClick={onClick}
     >
       <div className={styles.check}>✔</div>
       <div className={styles.sessionInfo}>
-        {!isAvailable && !isPast && <div data-label>UNAVAILABLE</div>} 
+        {!isAvailable && !isPast && <div data-label>UNAVAILABLE</div>}
         <label>{formatTime(time)} - {formatTime(timeEnd)}</label>
         <RateLabel rate={rate} />
       </div>
@@ -60,42 +60,42 @@ export const ScheduleSession = ({
   )
 }
 
-export const CartSession = ({ 
-  id, 
+export const CartSession = ({
+  id,
   isAvailable,
   isSelected,
   onXClick
 }) => {
-  const { date, time, timeEnd } = parseSession(id)
+  const { time, timeEnd } = parseSession(id)
 
   const { month, dayOfTheWeek, day, year } = getDateParts(new Date(time))
 
   return (
-    <div 
+    <div
       data-available={isAvailable}
       data-selected={isSelected}
-      className={classNames(styles.session, styles.cartSession)} 
+      className={classNames(styles.session, styles.cartSession)}
     >
       <div>
         <label>{dayOfTheWeek}, {month} {day}, {year}</label>
         <br />
         <label>{formatTime(time)} - {formatTime(timeEnd)}</label>
       </div>
-      
+
       <div className={styles.remove} onClick={onXClick}>✕</div>
     </div>
   )
 }
 
-export const AccountSession = ({ 
-  id, 
+export const AccountSession = ({
+  id,
   isAvailable,
 }) => {
   const { time, timeEnd, locationId } = parseSession(id)
 
   return (
-    <div 
-      className={classNames(styles.session, styles.accountSession)} 
+    <div
+      className={classNames(styles.session, styles.accountSession)}
     >
       <div>
         <p>Location: {locationId}</p>

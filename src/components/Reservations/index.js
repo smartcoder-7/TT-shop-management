@@ -15,9 +15,6 @@ const getSessionId = ({ reservationTime, locationId = '0' }) => (
   `${locationId}-${reservationTime}`
 )
 
-const isActiveRange = r =>
-  r[r.length - 1].reservationTime >= Date.now() - INTERVAL_MS
-
 const ReservationRange = ({
   reservations
 }) => {
@@ -28,8 +25,13 @@ const ReservationRange = ({
   const last = parseSessionId(lastSessionId)
 
   return (
-    <div>
-      {first.formattedDate}: {first.formattedTime} - {last.formattedEndTime}
+    <div className={styles.reservation}>
+      <label>
+        {first.formattedDate}
+      </label>
+      <p className={styles.date}>
+        {first.formattedTime} - {last.formattedEndTime}
+      </p>
     </div>
   )
 }
@@ -56,22 +58,9 @@ const Reservations = ({
     ranges.push([res])
   })
 
-  const activeRanges = ranges.filter(isActiveRange)
-  const pastRanges = ranges.filter(r => !isActiveRange(r)).reverse()
-
-  console.log("res", sortedReservations, ranges)
-
   return (
     <div>
-      <h3>Upcoming Reservations</h3>
-      {activeRanges.map((range, i) => (
-        <ReservationRange reservations={range} key={i} />
-      ))}
-
-      <br />
-
-      <h3>Past Reservations</h3>
-      {pastRanges.map((range, i) => (
+      {ranges.map((range, i) => (
         <ReservationRange reservations={range} key={i} />
       ))}
     </div>

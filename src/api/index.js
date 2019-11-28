@@ -7,7 +7,8 @@ const ENDPOINTS = {
   GET_USER_BILLING: '/api/get-user-billing',
   GET_RESERVATIONS: '/api/get-reservations',
   GET_AVAILABLE_SESSIONS: '/api/get-available-sessions',
-  CREATE_RESERVATIONS: '/api/create-reservations'
+  CREATE_RESERVATIONS: '/api/create-reservations',
+  UPDATE_USER_INFO: '/api/update-user-info'
 }
 
 export const createUser = ({
@@ -36,6 +37,22 @@ export const updateUserBilling = ({
       userId,
       customerId,
       token
+    }
+  }).then(d => d.data)
+}
+
+export const updateUserInfo = ({
+  userId,
+  firstName,
+  lastName
+}) => {
+  return axios({
+    method: 'POST',
+    url: ENDPOINTS.UPDATE_USER_INFO,
+    data: {
+      userId,
+      firstName,
+      lastName
     }
   }).then(d => d.data)
 }

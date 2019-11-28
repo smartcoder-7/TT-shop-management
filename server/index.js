@@ -11,6 +11,7 @@ const getAvailableSessions = require('./getAvailableSessions')
 const createUser = require('./createUser')
 const updateUserBilling = require('./updateUserBilling')
 const getUserBilling = require('./getUserBilling')
+const updateUserInfo = require('./updateUserInfo')
 
 express()
   .use(express.static(path.resolve(ROOT_DIR, 'public')))
@@ -22,6 +23,7 @@ express()
   .post('/api/update-user-billing', updateUserBilling)
   .post('/api/get-user-billing', getUserBilling)
   .post('/api/get-available-sessions', getAvailableSessions)
+  .post('/api/update-user-info', updateUserInfo)
 
   .get('*', (req, res) => res.sendFile(path.resolve(ROOT_DIR, 'public/index.html')))
 

@@ -10,9 +10,7 @@ import { updateUserBilling, getUserBilling, constants } from 'api'
 import styles from './styles.scss'
 import authContainer, { AuthSubscriber } from 'containers/authContainer'
 import Loading from 'components/Loading'
-import { NewCard, Card } from './Card'
-import { updateUser } from 'util/db'
-import FieldWrapper from 'components/fields/FieldWrapper'
+import { Card } from './Card'
 
 const AddCard = ({
   stripe, handleResult
@@ -48,6 +46,7 @@ const AddCard = ({
 const CardForm = injectStripe(AddCard)
 
 const BillingInfo = () => {
+  const [loading, setLoading] = useState(true)
   const [userBilling, setUserBilling] = useState()
   const {
     user
@@ -57,19 +56,26 @@ const BillingInfo = () => {
     getUserBilling({
       userId: user.id
     })
-      .then(data => setUserBilling(data))
+      .then(data => {
+        setLoading(false)
+        setUserBilling(data)
+      })
   }, [user.id])
 
   const handleResult = ({
     token,
     error
   }) => {
+    setLoading(true)
     updateUserBilling({
       userId: user.id,
       customerId: user.stripeId,
       token,
     })
-      .then(data => setUserBilling(data))
+      .then(data => {
+        setLoading(false)
+        setUserBilling(data)
+      })
       .catch(err => {
         console.log(err)
       })
@@ -81,8 +87,8 @@ const BillingInfo = () => {
   return (
     <div className={styles.billingInfo}>
       <div className={styles.cards}>
-        <Loading loading={!userBilling} />
-        {userBilling && !cards.length && 'No cards saved.'}
+        {loading && <Loading />}
+        {!loading && !cards.length && 'No cards saved.'}
         {defaultCard && <Card
           {...defaultCard}
           key={defaultCard.id}

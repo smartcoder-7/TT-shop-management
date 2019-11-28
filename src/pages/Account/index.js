@@ -4,10 +4,49 @@ import Layout from 'components/Layout'
 
 import styles from './styles.scss'
 import { getReservations } from 'api'
+import { INTERVAL_MS } from "util/getPodSessions"
 import authContainer, { AuthSubscriber } from 'containers/authContainer'
 import AccountInfo from 'components/AccountInfo'
 import Reservations from 'components/Reservations'
 import getDateParts from 'util/getDateParts'
+
+const UserReservations = ({ reservations }) => {
+  const [showPast, setShowPast] = useState(false)
+
+  const sortedReservations = reservations.sort((a, b) => {
+    return a.reservationTime > b.reservationTime ? 1 : -1
+  })
+
+  const activeReservations = []
+  const pastReservations = []
+
+  sortedReservations.forEach((res) => {
+    const isActive = res.reservationTime >= Date.now() - INTERVAL_MS
+
+    if (isActive) activeReservations.push(res)
+    else pastReservations.push(res)
+  })
+
+  return (
+    <div className={styles.userReservations}>
+      <h3>Reservations</h3>
+      <Reservations reservations={activeReservations} />
+
+      <Link to="/reserve" data-link>
+        + Book another table
+      </Link>
+
+      <br />
+      <br />
+      <br />
+
+      <label className={styles.showPast} onClick={() => setShowPast(!showPast)}>
+        {showPast ? '- Hide' : '+ Show'} Past Reservations
+      </label>
+      {showPast && <Reservations reservations={pastReservations} />}
+    </div>
+  )
+}
 
 const Account = () => {
   const [userReservations, setUserReservations] = useState([])
@@ -28,32 +67,17 @@ const Account = () => {
 
   return (
     <Layout className={styles.account}>
-      <h1>Account</h1>
+      <div data-row className={styles.details}>
+        <div data-col={12}>
+          <h1>My Account</h1>
 
-      <AccountInfo />
+          <AccountInfo />
 
-      <Link to="/reserve/0">
-        <button>Reserve another Table</button>
-      </Link>
-
-      <br />
-      <br />
-
-      <div>
-        <h1>Reservations</h1>
-        <br />
-        <div data-row>
-          <div data-col="12">
-            <Reservations reservations={userReservations} />
-          </div>
+          <UserReservations reservations={userReservations} />
         </div>
       </div>
     </Layout>
   )
 }
 
-export default () => (
-  <AuthSubscriber>{() => (
-    <Account />
-  )}</AuthSubscriber>
-)
+export default Account

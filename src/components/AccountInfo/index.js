@@ -10,77 +10,59 @@ import { INTERVAL_MS } from 'util/getPodSessions'
 import getDateParts from 'util/getDateParts'
 import BillingInfo from './BillingInfo'
 import TextField from '../fields/TextField'
-import { updateUser } from 'util/db'
+import { updateUserInfo } from 'api'
 
-class AccountInfo extends React.Component {
-  state = {
-    loading: true,
+const AccountInfo = () => {
+  const { user } = authContainer
+
+  const onSubmit = ({
+    firstName = '', lastName = ''
+  }) => {
+    // Update user!
+    updateUserInfo({
+      userId: user.id,
+      firstName,
+      lastName
+    }).then(() => {
+      console.log('heyo')
+    })
   }
 
-  constructor(props) {
-    super(props)
-  }
+  return (
+    <div className={styles.billingInfo}>
+      <div>
+        <Form
+          onSubmit={onSubmit}
+          render={({
+            handleSubmit,
+            dirty,
+            submitSucceeded,
+            dirtySinceLastSubmit,
+          }) => {
+            const shouldSave = submitSucceeded ? dirtySinceLastSubmit : dirty
 
-  render() {
-    const {
- loading, cards 
-} = this.state
-
-    return (
-      <div className={styles.billingInfo}>
-        <AuthSubscriber>{() => {
-          const {
- user, userId 
-} = authContainer
-
-          const onSubmit = ({
- firstName = '', lastName = '' 
-}) => {
-            // Update user!
-            updateUser(userId, {
- firstName, lastName 
-})
-          }
-
-          return (
-            <div>
-              <Form
-                onSubmit={onSubmit}
-                render={({
-                  handleSubmit,
-                  dirty,
-                  submitSucceeded,
-                  dirtySinceLastSubmit,
-                }) => {
-                  const shouldSave = submitSucceeded ? dirtySinceLastSubmit : dirty
-
-                  return (
-                    <div data-row>
-                      <form onSubmit={handleSubmit} data-col="12">
-                        <section className={styles.accountInfo}>
-                          <div data-row className={styles.fieldRow}>
-                            <div data-col="6" className={styles.field}>
-                              <TextField name="firstName" initialValue={user.firstName} label="First Name" />
-                            </div>
-                            <div data-col="6" className={styles.field}>
-                              <TextField name="lastName" initialValue={user.lastName} label="Last Name" />
-                            </div>
-                          </div>
-                          {shouldSave && <button data-size="small" data-plain className={styles.save}>Save Changes</button>}
-                        </section>
-                      </form>
+            return (
+              <form onSubmit={handleSubmit}>
+                <section className={styles.accountInfo}>
+                  <div data-row className={styles.fieldRow}>
+                    <div data-col="6" className={styles.field}>
+                      <TextField name="firstName" initialValue={user.firstName} label="First Name" />
                     </div>
-                  )
-                }}
-              />
+                    <div data-col="6" className={styles.field}>
+                      <TextField name="lastName" initialValue={user.lastName} label="Last Name" />
+                    </div>
+                  </div>
+                  {shouldSave && <button data-size="small" data-plain className={styles.save}>Save Changes</button>}
+                </section>
+              </form>
+            )
+          }}
+        />
 
-              <BillingInfo />
-            </div>
-          )
-        }}</AuthSubscriber>
+        <BillingInfo />
       </div>
-    )
-  }
+    </div>
+  )
 }
 
 export default AccountInfo
