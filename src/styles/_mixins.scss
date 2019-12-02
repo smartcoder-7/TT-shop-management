@@ -1,5 +1,9 @@
 @import 'styles/_variables.scss';
 
+@mixin h1() {
+  font-size: 5.5rem;
+}
+
 @mixin h3() {
   font-size: 3rem;
   text-transform: uppercase;

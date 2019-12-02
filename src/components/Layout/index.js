@@ -31,6 +31,8 @@ const Layout = ({
     <div className={classnames(styles.layout, className)}>
       <div className={styles.headerWrapper} data-bg-color data-scrolled={scrolled}>
         <header data-row>
+          {IS_DEV && <Menu />}
+
           <ul>
             <li>
               <Link to="/">
@@ -38,8 +40,6 @@ const Layout = ({
               </Link>
             </li>
           </ul>
-
-          {IS_DEV && <Menu />}
         </header>
       </div>
 

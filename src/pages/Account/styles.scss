@@ -1,4 +1,5 @@
 @import 'styles/_variables.scss';
+@import 'styles/_mixins.scss';
 
 .account {
   background: $white;
@@ -6,7 +7,8 @@
   min-height: 100vh;
 
   [data-bg-color] {
-    background: $white;
+    background: $blue;
+    color: $white;
   }
 }
 
@@ -15,6 +17,58 @@
 
   .date {
     margin-bottom: 1rem;
+  }
+}
+
+.accountInfo {
+  background: $blue;
+  color: $white;
+  padding-top: 15rem;
+  padding-bottom: 5rem;
+
+  input.name {
+    @include h1();
+    display: inline-block;
+    border: none;
+    width: 50%;
+    padding: 0;
+    background: rgba(255,255,255,0.1);
+  }
+
+  .error {
+    color: $pink;
+  }
+
+  .emoji {
+    margin-right: 2rem;
+  }
+
+  .activeCard {
+    display: flex;
+    align-items: center;
+    margin-top: 0.5rem;
+  }
+
+  .card {
+    display: inline-flex;
+    font-size: 80%;
+  }
+  
+  .cardBrand {
+    display: inline-block;
+    width: 6rem;
+    height: 3.5rem;
+
+    &[data-type="DEFAULT"] {
+      background: currentColor;
+      opacity: 0.2;
+      border-radius: 2px;
+    }
+  }
+
+  .cardNumber {
+    margin-top: 0.3rem;
+    margin-right: 1rem;
   }
 }
 
@@ -32,6 +86,7 @@
 }
 
 .userReservations {
+  padding-top: 10rem;
   h3 {
     margin-bottom: 3rem;
   }

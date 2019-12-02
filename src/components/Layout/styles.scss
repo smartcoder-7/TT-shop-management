@@ -34,12 +34,13 @@ header {
   }
 
   ul {
+    width: 100%;
     display: flex;
+    justify-content: center;
   }
 
   li {
-    display: inline-block;
-    margin-right: 10rem !important;
+    display: flex;
   }
 }
 
@@ -60,18 +61,24 @@ header,
 }
 
 .menuTrigger {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  height: 100%;
   padding: 2rem;
   margin-right: -2rem;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   cursor: pointer;
 
   .dot {
-    width: 4px;
-    height: 4px;
+    width: 18px;
+    height: 2px;
     border-radius: 1rem;
     background-color: currentColor;
-    margin-bottom: 2px;
+    margin-bottom: 5px;
 
     &:last-child {
       margin-bottom: 0;

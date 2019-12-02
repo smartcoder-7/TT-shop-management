@@ -4,8 +4,6 @@ import Layout from 'components/Layout'
 import locations from '../../../locations.json'
 
 import styles from './styles.scss'
-import authContainer, { AuthSubscriber } from 'containers/authContainer'
-import AccountInfo from 'components/AccountInfo'
 
 
 class Account extends React.Component {

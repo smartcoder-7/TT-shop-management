@@ -46,7 +46,7 @@
   "overrides": [
     {
       "files": [
-        "*.json"
+        "**/*.json"
       ],
       "rules": {
         "object-curly-newline": "off",

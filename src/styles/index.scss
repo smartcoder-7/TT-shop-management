@@ -50,7 +50,7 @@ p {
 }
 
 h1 {
-  font-size: 5.5rem;
+  @include h1();
 }
 
 h2 {
