@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react'
 
 import {
   CardElement,
@@ -8,9 +7,9 @@ import {
   Elements,
 } from 'react-stripe-elements'
 import styles from './styles.scss'
-import { updateUserBilling, getUserBilling, constants } from 'api'
+import { updateUserBilling, constants } from 'api'
 import authContainer from 'containers/authContainer'
-import modalContainer from 'containers/modalContainer';
+import modalContainer from 'containers/modalContainer'
 
 const createOptions = () => {
   return {
@@ -116,19 +115,9 @@ const openBillingModal = () => {
   })
 }
 
-const UserActions = () => {
-  return (
-    <div className={styles.userActions}>
-      <button className={styles.tableRates} data-link onClick={openBillingModal}>
-        + Update Billing Info
-      </button>
-
-      <Link to="/reserve" data-link>
-        + Book Tables
-      </Link>
-    </div>
-  )
+const UpdateBillingInfo = ({ children }) => {
+  return children({ onClick: openBillingModal })
 }
 
+export default UpdateBillingInfo
 
-export default UserActions

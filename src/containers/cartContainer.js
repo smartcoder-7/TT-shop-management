@@ -71,6 +71,7 @@ class CartContainer extends Container {
 
     if (newItems.length === oldItems.length) return
 
+    localStorage.setItem(CART_KEY, newItems.join(','))
     this.setState({ items: newItems })
   }
 

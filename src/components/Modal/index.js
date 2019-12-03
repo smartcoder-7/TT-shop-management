@@ -9,7 +9,7 @@ const Modal = ({ children, isActive }) => {
   return (
     <>
       <div className={styles.modal} data-active={isActive} onClick={onClose}>
-        <div className={styles.modalContent} data-row onClick={(e) => e.stopPropagation()}>
+        <div data-bg-color className={styles.modalContent} data-row onClick={(e) => e.stopPropagation()}>
           <div className={styles.modalInner} data-col="12">
             {children}
           </div>

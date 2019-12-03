@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
 import Layout from 'components/Layout'
 
 import styles from './styles.scss'
 import { getDateParts } from 'util/datetime'
-import { getReservations, getUserBilling } from 'api'
+import { getReservations } from 'api'
 import { INTERVAL_MS } from "util/getPodSessions"
 import authContainer from 'containers/authContainer'
 import Reservations from 'components/Reservations'
-import UserActions from './UserActions'
-import ActiveCard from './ActiveCard'
-import UserBadge from './UserBadge'
+import UserActions from 'components/User/UserActions'
+import UserBadges from 'components/User/UserBadges'
 
 
 const AccountInfo = () => {
@@ -27,9 +25,7 @@ const AccountInfo = () => {
         <div data-col={12}>
           <h1>{user.firstName} {user.lastName}</h1>
           <br />
-          <UserBadge emoji='⭐️'>Member</UserBadge>
-          <ActiveCard />
-          <UserBadge emoji='🏓'>Joined {format(user.createdAt)}</UserBadge>
+          <UserBadges />
         </div>
       </div>
     </div>

@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import ScrollMemory from 'react-router-scroll-memory'
 import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom'
 
 import authContainer, { AuthSubscriber } from './containers/authContainer'
@@ -45,6 +46,8 @@ const AuthenticatedRoute = ({
 
 const App = () => (
   <Router>
+    <ScrollMemory />
+
     <AuthSubscriber>{() => (
       <>
         <Route path="/" exact component={Home} />

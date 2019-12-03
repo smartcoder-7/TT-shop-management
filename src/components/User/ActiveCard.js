@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 
-import styles from './styles.scss'
 import authContainer from 'containers/authContainer'
 import Card from './Card'
 import UserBadge from './UserBadge'
@@ -25,10 +24,9 @@ const ActiveCard = () => {
 
   if (!user.hasActiveCard) {
     return (
-      <label className={styles.error}>
-        <span className={styles.emoji}>❗️</span>
-        Missing Payment Method
-      </label>
+      <UserBadge emoji='❗️'>
+        <span data-error>Missing Payment Method</span>
+      </UserBadge>
     )
   }
 

@@ -6,9 +6,11 @@ import authContainer from 'containers/authContainer'
 import Layout from 'components/Layout'
 import Reservations from 'components/Reservations'
 import parseSessionId from 'util/parseSessionId'
+import UpdateBillingInfo from 'components/modalActions/UpdateBillingInfo'
 import { createReservations } from 'api'
 
 import styles from './styles.scss'
+import UserBadges from '../../components/User/UserBadges';
 
 const _Cart = ({ history }) => {
   const [submissionError, setSubmissionError] = useState()
@@ -24,14 +26,6 @@ const _Cart = ({ history }) => {
       reservationTime: r.time
     }))
 
-  const canCheckout = (
-    reservations.length > 0 &&
-    user.firstName &&
-    user.lastName &&
-    user.stripeId &&
-    user.hasActiveCard
-  )
-
   const checkout = () => {
     createReservations({ userId: user.id, reservations })
       .then(() => {
@@ -43,6 +37,15 @@ const _Cart = ({ history }) => {
         setSubmissionError('Could not complete reservation.')
       })
   }
+
+  const hasBillingInfo = (
+    user.stripeId &&
+    user.hasActiveCard
+  )
+
+  const hasItems = !!reservations.length
+
+  const canCheckout = hasItems && hasBillingInfo
 
   return (
     <Layout className={styles.cart}>
@@ -67,21 +70,32 @@ const _Cart = ({ history }) => {
           </div>
 
           <br />
+          <br />
 
-          {!canCheckout && (
-            <div>
-              Cannot check out. Please update billing.
-            </div>
-          )}
+          <div className={styles.userPreview}>
+            <h4>{user.firstName} {user.lastName}</h4>
+            <br />
+            <UserBadges />
+            <br />
+            <UpdateBillingInfo>{({ onClick }) => (
+              <button data-link onClick={onClick}>
+                Update Billing Info
+              </button>
+            )}</UpdateBillingInfo>
+          </div>
 
           {submissionError && <div>{submissionError}</div>}
         </div>
       </div>
 
-      <button className={styles.checkout} onClick={checkout}>
-        Check Out
-      </button>
-
+      {canCheckout && (
+        <div role="button" className={styles.checkout} onClick={checkout}>
+          <label>Check Out</label>
+          <div className={styles.total}>
+            ${cartContainer.totalPrice} / {cartContainer.totalTime} hr
+          </div>
+        </div>
+      )}
     </Layout>
   )
 }

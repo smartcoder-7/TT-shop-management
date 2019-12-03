@@ -1,0 +1,81 @@
+@import 'styles/_variables.scss';
+@import 'styles/_mixins.scss';
+
+
+
+.userBadge {
+  display: flex;
+  align-items: center;
+  margin-top: 0.5rem;
+
+  .emoji {
+    margin-right: 2rem;
+  }
+}
+
+.card {
+  display: inline-flex;
+  font-size: 80%;
+}
+
+.cardBrand {
+  display: inline-block;
+  width: 6rem;
+  height: 3.5rem;
+
+  &[data-type="DEFAULT"] {
+    background: currentColor;
+    opacity: 0.2;
+    border-radius: 2px;
+  }
+}
+
+.cardNumber {
+  margin-top: 0.3rem;
+  margin-right: 1rem;
+}
+
+.userActions {
+  padding-top: 8rem;
+
+  button, a {
+    margin-bottom: 2rem;
+  }
+}
+
+.info {
+  margin-top: 6rem;
+  margin-bottom: 10rem;
+}
+
+.infoItem {
+  margin-bottom: 3rem;
+}
+
+.billingInfo {
+  margin-bottom: 5rem;
+}
+
+.userReservations {
+  padding-top: 10rem;
+  h3 {
+    margin-bottom: 3rem;
+  }
+}
+
+.cardForm {
+  margin: 5rem 0;
+  border: 1px solid currentColor;
+  padding: 2rem;
+}
+
+.cardError {
+  display: block;
+  margin-bottom: 3rem;
+}
+
+.showPast {
+  display: block;
+  margin-bottom: 3rem;
+  color: $blue;
+}
