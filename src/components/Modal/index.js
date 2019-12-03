@@ -10,7 +10,7 @@ const Modal = ({ children, isActive }) => {
     <>
       <div className={styles.modal} data-active={isActive} onClick={onClose}>
         <div className={styles.modalContent} data-row onClick={(e) => e.stopPropagation()}>
-          <div data-col="12">
+          <div className={styles.modalInner} data-col="12">
             {children}
           </div>
 

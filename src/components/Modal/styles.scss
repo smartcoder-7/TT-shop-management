@@ -30,6 +30,11 @@
   padding: 10rem 0;
 }
 
+.modalInner {
+  display: flex;
+  align-items: center;
+}
+
 .close {
   position: absolute;
   top: 0;

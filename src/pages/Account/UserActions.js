@@ -19,13 +19,12 @@ const createOptions = () => {
         fontSize: '16px',
         color: '#424770',
         fontFamily: 'Avenir, sans-serif',
-        letterSpacing: '0.025em',
         '::placeholder': {
           color: '#aab7c4',
         },
       },
       invalid: {
-        color: '#c23d4b',
+        color: '#FF0078',
       },
     }
   }
@@ -35,6 +34,7 @@ const AddCard = ({
   stripe,
   handleResult
 }) => {
+  const [formError, setFormError] = useState()
   const handleSubmit = (e) => {
     e.preventDefault()
 
@@ -43,21 +43,33 @@ const AddCard = ({
       return
     }
 
-    stripe.createToken().then(handleResult)
+    stripe.createToken().then(({ token, error }) => {
+      if (error) {
+        setFormError(error.message)
+        return
+      }
+
+      handleResult(token)
+    })
   }
 
   return (
     <div>
+      <h3>Update Billing Info</h3>
+      <p data-p3>This is the credit card that will be used when booking tables.</p>
+
       <form onSubmit={handleSubmit}>
-        <label>
-          <CardElement
-            {...createOptions()}
-          />
-        </label>
-        <div className="error" role="alert">
-          {/* {this.state.errorMessage} */}
+        <div className={styles.cardForm}>
+          <CardElement {...createOptions()} />
         </div>
-        <button data-link>Update Card</button>
+
+        {formError && (
+          <label className={styles.cardError} data-error role="alert">
+            {formError}
+          </label>
+        )}
+
+        <button data-link>Save</button>
       </form>
     </div>
   )
@@ -68,21 +80,18 @@ const CardForm = injectStripe(AddCard)
 const BillingModalContent = () => {
   const { user } = authContainer
 
-  const handleResult = ({
-    token,
-    error
-  }) => {
+  const handleResult = (token) => {
     updateUserBilling({
       userId: user.id,
       customerId: user.stripeId,
       token,
     })
-      .then(data => {
+      .then(() => {
         authContainer.updateUserBilling()
         modalContainer.close()
       })
       .catch(err => {
-        console.log(err)
+        throw err
       })
   }
 

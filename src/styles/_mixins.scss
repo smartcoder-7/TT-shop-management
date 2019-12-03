@@ -25,6 +25,13 @@
   font-weight: bold;
 }
 
+@mixin p3() {
+  font-size: 3.5rem;
+  line-height: 1.4em;
+  margin-top: 1.5rem;
+  opacity: 0.7;
+}
+
 @mixin row() {
   display: flex;
   width: $content-width;

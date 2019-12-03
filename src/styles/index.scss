@@ -75,9 +75,18 @@ img {
   width: 100%;
 }
 
+[data-p2],
 [data-label],
 label {
   @include p2();
+}
+
+[data-p3] {
+  @include p3();
+}
+
+[data-error] {
+  color: $pink;
 }
 
 input {

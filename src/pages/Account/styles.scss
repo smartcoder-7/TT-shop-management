@@ -101,6 +101,17 @@
   }
 }
 
+.cardForm {
+  margin: 5rem 0;
+  border: 1px solid currentColor;
+  padding: 2rem;
+}
+
+.cardError {
+  display: block;
+  margin-bottom: 3rem;
+}
+
 .showPast {
   display: block;
   margin-bottom: 3rem;
