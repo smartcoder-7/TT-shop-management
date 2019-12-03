@@ -94,8 +94,6 @@ const SessionPicker = ({ locationId, startTime, endTime }) => {
     }
   }, [locationId, startTime, endTime])
 
-  console.log('moop', sessions)
-
   return (
     <>
       <div className={styles.sessions} data-is-active={canCheckout}>

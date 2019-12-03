@@ -6,6 +6,7 @@ import getSessionRate from 'util/getSessionRate'
 
 const ROOT_KEY = 'pingpod'
 const CART_KEY = `${ROOT_KEY}/cart`
+const LOCATION_KEY = `${ROOT_KEY}/locationId`
 
 class CartContainer extends Container {
   state = {
@@ -29,6 +30,10 @@ class CartContainer extends Container {
 
   get totalTime() {
     return this.items.length / 2
+  }
+
+  get locationId() {
+    return localStorage.getItem(LOCATION_KEY) || ''
   }
 
   constructor() {
@@ -102,6 +107,10 @@ class CartContainer extends Container {
     items.splice(index, 1)
     localStorage.setItem(CART_KEY, items.join(','))
     this.setState({ items })
+  }
+
+  setLocationId = (locationId) => {
+    localStorage.setItem(LOCATION_KEY, locationId)
   }
 }
 

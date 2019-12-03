@@ -35,7 +35,6 @@ const AddCard = ({
   stripe,
   handleResult
 }) => {
-  console.log('check', stripe)
   const handleSubmit = (e) => {
     e.preventDefault()
 
@@ -79,7 +78,7 @@ const BillingModalContent = () => {
       token,
     })
       .then(data => {
-        authContainer.triggerChange()
+        authContainer.updateUserBilling()
         modalContainer.close()
       })
       .catch(err => {
@@ -110,15 +109,15 @@ const openBillingModal = () => {
 
 const UserActions = () => {
   return (
-    <>
+    <div className={styles.userActions}>
       <button className={styles.tableRates} data-link onClick={openBillingModal}>
         + Update Billing Info
       </button>
 
       <Link to="/reserve" data-link>
-        + Book another table
+        + Book Tables
       </Link>
-    </>
+    </div>
   )
 }
 

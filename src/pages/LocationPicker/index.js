@@ -1,41 +1,41 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import Layout from 'components/Layout'
 import locations from '../../../locations.json'
 
 import styles from './styles.scss'
+import cartContainer from 'containers/cartContainer.js';
 
 
-class Account extends React.Component {
-  constructor(props) {
-    super(props)
+const LocationPicker = ({ history }) => {
+  const pickLocation = (locationId) => {
+    cartContainer.setLocationId(locationId)
+    history.push(`/reserve/${locationId}`)
   }
 
-  render() {
-    return (
-      <Layout className={styles.account}>
-        <div data-row className={styles.details}>
-          <div data-col={12}>
-            <h1>Choose a Location</h1>
+  return (
+    <Layout className={styles.account}>
+      <div data-row className={styles.details}>
+        <div data-col={12}>
+          <h1>Choose a Location</h1>
 
-            <div className={styles.locations}>
-              {Object.keys(locations).map(key => {
-                const location = locations[key]
+          <div className={styles.locations}>
+            {Object.keys(locations).map(key => {
+              const location = locations[key]
 
-                return (
-                  <Link to={`/reserve/${key}`} key={key}>
-                    <div className={styles.location}>
-                      <h2>{location.displayName}</h2>
-                    </div>
-                  </Link>
-                )
-              })}
-            </div>
+              return (
+                <button data-plain key={key} onClick={() => pickLocation(key)}>
+                  <div className={styles.location}>
+                    <h2>{location.displayName}</h2>
+                  </div>
+                </button>
+              )
+            })}
           </div>
         </div>
-      </Layout>
-    )
-  }
+      </div>
+    </Layout>
+  )
 }
 
-export default Account
+export default withRouter(LocationPicker)

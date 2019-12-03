@@ -18,6 +18,7 @@ const createUser = async (req, res) => {
 
   userData.id = userId
   userData.email = email || ''
+  userData.createdAt = userData.createdAt || Date.now()
 
   if (!userData.stripeId) {
     const customer = await stripe.customers.create({

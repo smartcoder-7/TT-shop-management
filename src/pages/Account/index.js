@@ -3,57 +3,23 @@ import { Link } from 'react-router-dom'
 import Layout from 'components/Layout'
 
 import styles from './styles.scss'
+import { getDateParts } from 'util/datetime'
 import { getReservations, getUserBilling } from 'api'
 import { INTERVAL_MS } from "util/getPodSessions"
 import authContainer from 'containers/authContainer'
 import Reservations from 'components/Reservations'
 import UserActions from './UserActions'
-import Card from './Card'
-
-const ActiveCard = () => {
-  const [loading, setLoading] = useState(true)
-  const [userBilling, setUserBilling] = useState()
-  const { user } = authContainer
-
-  useEffect(() => {
-    if (!user.hasActiveCard) {
-      setLoading(false)
-      return
-    }
-
-    getUserBilling({
-      userId: user.id
-    })
-      .then(data => {
-        setLoading(false)
-        setUserBilling(data)
-      })
-  }, [user.id])
-
-  const cards = userBilling ? userBilling.sources.data : []
-  const defaultCard = cards[0]
-
-  if (!user.hasActiveCard) {
-    return (
-      <label className={styles.error}>
-        <span className={styles.emoji}>❗️</span>
-        Missing Payment Method
-      </label>
-    )
-  }
-
-  return (
-    <label className={styles.activeCard}>
-      <span className={styles.emoji}>💰</span>
-      {loading && <Card />}
-      {!loading && <Card {...defaultCard} />}
-    </label>
-  )
-}
+import ActiveCard from './ActiveCard'
+import UserBadge from './UserBadge'
 
 
 const AccountInfo = () => {
   const { user } = authContainer
+
+  const format = d => {
+    const { monthAbbr, year } = getDateParts(d)
+    return `${monthAbbr} ${year}`
+  }
 
   return (
     <div className={styles.accountInfo}>
@@ -61,12 +27,9 @@ const AccountInfo = () => {
         <div data-col={12}>
           <h1>{user.firstName} {user.lastName}</h1>
           <br />
-          <label>
-            <span className={styles.emoji}>🏆</span>
-            Member
-          </label>
-          <br />
+          <UserBadge emoji='⭐️'>Member</UserBadge>
           <ActiveCard />
+          <UserBadge emoji='🏓'>Joined {format(user.createdAt)}</UserBadge>
         </div>
       </div>
     </div>
@@ -95,7 +58,8 @@ const UserReservations = ({ reservations }) => {
       <h3>Reservations</h3>
       <Reservations reservations={activeReservations} />
 
-      <br />
+      {!activeReservations.length && 'No upcoming reservations.'}
+
       <br />
       <br />
 
@@ -109,17 +73,11 @@ const UserReservations = ({ reservations }) => {
 
 const Account = () => {
   const [userReservations, setUserReservations] = useState([])
-  const {
-    user
-  } = authContainer
+  const { user } = authContainer
 
   useEffect(() => {
-    getReservations({
-      userId: user.id
-    })
-      .then(({
-        reservations
-      }) => {
+    getReservations({ userId: user.id })
+      .then(({ reservations }) => {
         setUserReservations(reservations)
       })
   }, [user.id])

@@ -23,7 +23,7 @@
 .accountInfo {
   background: $blue;
   color: $white;
-  padding-top: 15rem;
+  padding-top: 10rem;
   padding-bottom: 5rem;
 
   input.name {
@@ -39,14 +39,15 @@
     color: $pink;
   }
 
-  .emoji {
-    margin-right: 2rem;
-  }
 
-  .activeCard {
+  .userBadge {
     display: flex;
     align-items: center;
     margin-top: 0.5rem;
+
+    .emoji {
+      margin-right: 2rem;
+    }
   }
 
   .card {
@@ -69,6 +70,14 @@
   .cardNumber {
     margin-top: 0.3rem;
     margin-right: 1rem;
+  }
+}
+
+.userActions {
+  padding-top: 8rem;
+
+  button, a {
+    margin-bottom: 2rem;
   }
 }
 

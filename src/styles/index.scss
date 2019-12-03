@@ -141,6 +141,11 @@ button {
   &[data-plain] {
     width: auto;
     padding: 0;
+    text-transform: inherit;
+    background: inherit;
+    font-weight: inherit;
+    letter-spacing: inherit;
+    font-size: inherit;
   }
 
   &[data-size="small"] {

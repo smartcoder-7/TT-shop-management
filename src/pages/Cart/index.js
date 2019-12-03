@@ -58,9 +58,11 @@ const _Cart = ({ history }) => {
             </div>
           </div>
 
+          <br />
+
           <div>
-            <Link to="/reserve" data-link>
-              + Add time
+            <Link to={`/reserve/${cartContainer.locationId}`} data-link>
+              + Add more time
             </Link>
           </div>
 

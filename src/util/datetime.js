@@ -50,7 +50,13 @@ const MONTHS_ABBR = [
   'Dec'
 ]
 
-export const getDateParts = (date) => {
+export const getDateParts = (_date) => {
+  let date = _date
+
+  if (!Number.isNaN(date)) {
+    date = new Date(date)
+  }
+
   const dayOfTheWeek = DAYS_OF_THE_WEEK[date.getDay()]
   const dayOfTheWeekAbbr = DAYS_OF_THE_WEEK_ABBR[date.getDay()]
   const month = MONTHS[date.getMonth()]

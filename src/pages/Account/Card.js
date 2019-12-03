@@ -11,7 +11,7 @@ const ICONS = {
 
 const Card = ({
   brand,
-  last4,
+  last4 = '••••',
   isActive,
   onClick
 }) => (
