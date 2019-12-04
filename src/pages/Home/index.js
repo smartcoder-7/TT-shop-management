@@ -7,6 +7,7 @@ import Logo from 'components/Logo'
 import EmailSubscribe from 'components/EmailSubscribe'
 
 import styles from './styles.scss'
+import contextContainer from 'containers/contextContainer'
 
 const IS_DEV = process.env.NODE_ENV === 'development'
 
@@ -22,36 +23,12 @@ class Home extends React.Component {
     const queryParams = qs.parse(location.search, { ignoreQueryPrefix: true })
     this.state.isMobile = queryParams.mobile !== undefined
 
-    if (this.state.isMobile) {
+    if (contextContainer.isMobile) {
       history.push('/reserve')
     }
   }
 
   render() {
-    if (this.state.isMobile) {
-      return (
-        <Layout className={styles.home}>
-          <div data-row>
-            <div className={styles.intro} data-col="12">
-              <h1>
-                <Logo className={styles.logo} theme="pink" />
-                PINGPOD
-              </h1>
-              <p>
-                The world’s first fully autonomous table tennis court system.
-              </p>
-
-              {IS_DEV && (
-                <Link to="/reserve" data-link>
-                  Reserve a Table
-                </Link>
-              )}
-            </div>
-          </div>
-        </Layout>
-      )
-    }
-
     return (
       <Layout className={styles.home}>
         <div data-row>

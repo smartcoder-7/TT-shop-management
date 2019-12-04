@@ -6,7 +6,8 @@ import styles from './styles.scss'
 import Menu from './Menu'
 import Logo from '../Logo'
 import Modal from 'components/Modal'
-import modalContainer, { ModalSubscriber } from '../../containers/modalContainer';
+import modalContainer, { ModalSubscriber } from 'containers/modalContainer';
+import contextContainer from 'containers/contextContainer'
 
 const IS_DEV = process.env.NODE_ENV === 'development'
 
@@ -14,7 +15,9 @@ const Layout = ({
   className,
   children
 }) => {
+  const isTesting = IS_DEV || contextContainer.isMobile
   const [scrolled, setScrolled] = useState(!!window.pageYOffset)
+
   useEffect(() => {
     const onScroll = () => {
       setScrolled(!!window.pageYOffset)
@@ -31,7 +34,7 @@ const Layout = ({
     <div className={classnames(styles.layout, className)}>
       <div className={styles.headerWrapper} data-bg-color data-scrolled={scrolled}>
         <header data-row>
-          {IS_DEV && <Menu />}
+          {isTesting && <Menu />}
 
           <ul>
             <li>
