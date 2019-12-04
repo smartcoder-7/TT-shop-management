@@ -11,7 +11,6 @@ class ContextContainer extends Container {
   }
 
   get isMobile() {
-    return true
     return this.state.subdomain === 'mobile'
   }
 }
