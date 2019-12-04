@@ -62,23 +62,23 @@ class Login extends React.Component {
     const { email, password } = data
 
     authContainer.login({ email, password })
-    .then(() => {
-      this.followRedirect()
-    })
-    .catch((err) => {
-      this.setState({ submissionError: err })
-    })
+      .then(() => {
+        this.followRedirect()
+      })
+      .catch((err) => {
+        this.setState({ submissionError: err })
+      })
   }
 
   signup = (data = {}) => {
     const { email, password } = data
     authContainer.signupWithEmail({ email, password })
-    .then(() => {
-      this.followRedirect()
-    })
-    .catch((err) => {
-      this.setState({ submissionError: err })
-    })
+      .then(() => {
+        this.followRedirect()
+      })
+      .catch((err) => {
+        this.setState({ submissionError: err })
+      })
   }
 
   followRedirect = () => {
@@ -86,7 +86,7 @@ class Login extends React.Component {
 
     const queryParams = qs.parse(location.search, { ignoreQueryPrefix: true })
     const redirect = queryParams.redirect || '/'
-    history.push(redirect)
+    window.location = redirect
   }
 
   renderLogin() {
