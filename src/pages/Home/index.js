@@ -18,9 +18,13 @@ class Home extends React.Component {
   constructor(props) {
     super(props)
 
-    const { location } = props
+    const { location, history } = props
     const queryParams = qs.parse(location.search, { ignoreQueryPrefix: true })
     this.state.isMobile = queryParams.mobile !== undefined
+
+    if (this.state.isMobile) {
+      history.push('/reserve')
+    }
   }
 
   render() {
