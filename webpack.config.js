@@ -1,6 +1,7 @@
 const path = require('path')
 const DotEnvPlugin = require('dotenv-webpack')
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const UnusedFilesWebpackPlugin = require("unused-files-webpack-plugin").default;
 
 const SRC_DIR = path.resolve(__dirname, 'src')
 const SHARED_DIR = path.resolve(__dirname, 'src/functions')
@@ -69,9 +70,15 @@ module.exports = [
     resolve: {
       modules: [SRC_DIR, 'node_modules']
     },
+    optimization: {
+      usedExports: true,
+    },
     plugins: [
       new CleanWebpackPlugin(),
-      new DotEnvPlugin()
+      new DotEnvPlugin(),
+      new UnusedFilesWebpackPlugin({
+        patterns: ['src/**/*.js']
+      }),
     ],
   }
 ]

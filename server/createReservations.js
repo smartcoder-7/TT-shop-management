@@ -1,21 +1,18 @@
 const uuid = require('uuid')
 const { db } = require('./util/firebase')
+const locations = require('../locations.json')
 
 const createReservation = async ({
   locationId,
   reservationTime,
   userId,
 }) => {
-  const locationRef = db.collection('locations').doc(locationId)
-  const location = await locationRef.get()
+  const location = locations[locationId]
 
   // If the location dodesn't exist, bail out.
-  if (!location.exists || !location.data()) {
+  if (!location) {
     return Promise.reject(`Location [${locationId}] not found.`)
   }
-
-  const locationData = location.data()
-  const { numTables } = locationData
 
   // Get location, and check availability.
   const availabilityCheck = await db.collection('reservations')
@@ -26,7 +23,7 @@ const createReservation = async ({
   const otherReservations = availabilityCheck.docs
 
   // If unavailable, return 400.
-  if (!otherReservations.empty && otherReservations.length >= numTables) {
+  if (!otherReservations.empty && otherReservations.length >= location.tables.length) {
     return Promise.reject(`No reservations available at location [${locationId}] at time [${reservationTime}].`)
   }
 

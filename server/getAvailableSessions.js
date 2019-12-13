@@ -81,7 +81,7 @@ const getAvailableSessions = async (req, res) => {
 
     const availableSessions = sessions.filter(time => {
       const isClosed = checkClosed(time)
-      const isFullyBooked = bookings[time] >= location.numTables
+      const isFullyBooked = bookings[time] >= location.tables.length
       return !isClosed && !isFullyBooked
     })
 
