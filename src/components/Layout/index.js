@@ -33,7 +33,7 @@ const Layout = ({
   return (
     <div className={classnames(styles.layout, className)}>
       <div className={styles.headerWrapper} data-bg-color data-scrolled={scrolled}>
-        <header data-row>
+        <header data-row="full">
           {isTesting && <Menu />}
 
           <ul>

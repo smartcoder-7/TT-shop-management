@@ -1,8 +1,8 @@
 const uuid = require('uuid')
-const db = require('./util/db')
+const { db } = require('./util/firebase')
 
-const createReservation = async ({ 
-  locationId, 
+const createReservation = async ({
+  locationId,
   reservationTime,
   userId,
 }) => {
@@ -19,9 +19,9 @@ const createReservation = async ({
 
   // Get location, and check availability.
   const availabilityCheck = await db.collection('reservations')
-  .where('locationId', '==', locationId)
-  .where('reservationTime', '==', reservationTime)
-  .get()
+    .where('locationId', '==', locationId)
+    .where('reservationTime', '==', reservationTime)
+    .get()
 
   const otherReservations = availabilityCheck.docs
 
@@ -43,8 +43,8 @@ const createReservation = async ({
 }
 
 const createReservations = async (req, res) => {
-  const { 
-    userId, 
+  const {
+    userId,
     reservations = []
   } = req.body
 
@@ -53,7 +53,7 @@ const createReservations = async (req, res) => {
   try {
     const validReservations = await Promise.all(
       reservations.map(r => {
-        return createReservation({ ...r, userId })  
+        return createReservation({ ...r, userId })
       })
     )
 
@@ -69,7 +69,7 @@ const createReservations = async (req, res) => {
       reservations: validReservations
     })
   } catch (err) {
-    res.status(400).send(err)
+    res.status(400).send(err.message)
   }
 }
 

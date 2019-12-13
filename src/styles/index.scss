@@ -201,6 +201,12 @@ li {
   @include row();
 }
 
+[data-row="full"] {
+  @media (min-width: 1024px) {
+    width: 90%;
+  }
+}
+
 @for $n from 1 through 12 {
   [data-col="#{$n}"]:not([data-col-landscape]) {
     @include col($n);

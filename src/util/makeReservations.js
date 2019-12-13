@@ -8,10 +8,10 @@ import { getAccessCode, getPod, getUser } from 'util/db'
 
 const db = firebase.firestore()
 
-export const validateReservations = ({ 
-  sessionIds = [], 
-  userId, 
-  onUnavailable = () => {} 
+export const validateReservations = ({
+  sessionIds = [],
+  userId,
+  onUnavailable = () => { }
 }) => {
   const promises = sessionIds.map(sessionId => {
     const {
@@ -19,52 +19,52 @@ export const validateReservations = ({
       time,
       locationId,
     } = parseSession(sessionId)
-  
+
     return getPod(locationId)
-    .catch(err => {
-      onUnavailable(sessionId)
-      throw err
-    })
-    .then((location) => {
-      if (!location) {
+      .catch(err => {
         onUnavailable(sessionId)
-        throw `Invalid pod id: [${locationId}]`
-      }
+        throw err
+      })
+      .then((location) => {
+        if (!location) {
+          onUnavailable(sessionId)
+          throw `Invalid pod id: [${locationId}]`
+        }
 
-      const { numTables, timezone } = location
-      const reservations = location.reservations || {}
-      const reservationsAtDate = reservations[date] || {}
-      const reservationsAtTime = reservationsAtDate[time] || {}
+        const { numTables, timezone } = location
+        const reservations = location.reservations || {}
+        const reservationsAtDate = reservations[date] || {}
+        const reservationsAtTime = reservationsAtDate[time] || {}
 
-      const now = new Date()
-      const sessionTime = new Date(`${date} 00:00 ${timezone}`)
-      sessionTime.setTime(time)
+        const now = new Date()
+        const sessionTime = new Date(`${date} 00:00 ${timezone}`)
+        sessionTime.setTime(time)
 
-      if (sessionTime.getTime() < now.getTime()) {
-        onUnavailable(sessionId)
-        throw "Looks like some of your selections are out of date. Try again?"
-      }
+        if (sessionTime.getTime() < now.getTime()) {
+          onUnavailable(sessionId)
+          throw "Looks like some of your selections are out of date. Try again?"
+        }
 
-      if (Object.keys(reservationsAtTime).length >= numTables) {
-        onUnavailable(sessionId)
-        throw "Darn! Looks like some of your selections got booked up. Try again?"
-      }
-    })
+        if (Object.keys(reservationsAtTime).length >= numTables) {
+          onUnavailable(sessionId)
+          throw "Darn! Looks like some of your selections got booked up. Try again?"
+        }
+      })
   })
-  
+
   return Promise.all(promises)
 }
 
-const makeReservations = ({ 
-  sessionIds = [], 
-  userId, 
+const makeReservations = ({
+  sessionIds = [],
+  userId,
 }) => {
   const reservations = sessionIds.map(sessionId => {
     const {
       time,
       locationId,
     } = parseSession(sessionId)
-    
+
     return {
       reservationTime: time,
       locationId,

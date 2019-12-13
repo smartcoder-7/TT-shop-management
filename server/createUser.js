@@ -1,4 +1,4 @@
-const db = require('./util/db')
+const { db } = require('./util/firebase')
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 const createUser = async (req, res) => {

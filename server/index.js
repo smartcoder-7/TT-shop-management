@@ -5,6 +5,8 @@ const PORT = process.env.PORT || 7999
 
 const ROOT_DIR = path.resolve(__dirname, '../')
 
+const authenticate = require('./util/authenticate')
+
 const createReservations = require('./createReservations')
 const getReservations = require('./getReservations')
 const getAvailableSessions = require('./getAvailableSessions')
@@ -17,10 +19,10 @@ express()
   .use(express.static(path.resolve(ROOT_DIR, 'public')))
   .use(express.json())
 
-  .post('/api/create-reservations', createReservations)
+  .post('/api/create-reservations', authenticate(createReservations))
   .post('/api/get-reservations', getReservations)
-  .post('/api/create-user', createUser)
-  .post('/api/update-user-billing', updateUserBilling)
+  .post('/api/create-user', authenticate(createUser))
+  .post('/api/update-user-billing', authenticate(updateUserBilling))
   .post('/api/get-user-billing', getUserBilling)
   .post('/api/get-available-sessions', getAvailableSessions)
   .post('/api/update-user-info', updateUserInfo)

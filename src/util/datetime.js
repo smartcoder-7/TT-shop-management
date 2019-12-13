@@ -94,3 +94,21 @@ export const formatTime = (time) => {
   const ampm = hour < 12 ? 'AM' : 'PM'
   return `${with0(hour12)}:${with0(minutes)} ${ampm}`
 }
+
+export const getDayStartTime = (time) => {
+  const newDate = new Date(time)
+  newDate.setHours(0)
+  newDate.setMinutes(0)
+  newDate.setSeconds(0)
+  newDate.setMilliseconds(0)
+  return newDate.getTime()
+}
+
+export const toNearestHour = (time) => {
+  const newDate = new Date(time)
+  newDate.setHours(0)
+  newDate.setMinutes(0)
+  newDate.setSeconds(0)
+  newDate.setMilliseconds(0)
+  return newDate.getTime()
+}

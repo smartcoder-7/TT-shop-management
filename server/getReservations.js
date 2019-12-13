@@ -1,10 +1,12 @@
-const db = require('./util/db')
+const { db } = require('./util/firebase')
 
 const getReservations = async (req, res) => {
-  const { 
-    userId, 
+  const {
+    userId,
     locationId,
     reservationTime,
+    startTime,
+    endTime
   } = req.body
 
   // Get location, and check availability.
@@ -20,6 +22,14 @@ const getReservations = async (req, res) => {
 
   if (reservationTime !== undefined) {
     query = query.where('reservationTime', '==', reservationTime)
+  } else {
+    if (startTime !== undefined) {
+      query = query.where('reservationTime', '>=', startTime)
+    }
+
+    if (endTime !== undefined) {
+      query = query.where('reservationTime', '<', endTime)
+    }
   }
 
   try {
@@ -31,11 +41,11 @@ const getReservations = async (req, res) => {
         reservations.push(doc.data())
       })
     }
-    
+
     res.status(200).json({
       reservations
     })
-  } catch(err) {
+  } catch (err) {
     res.status(500).send('Failed to get reservations.')
     return
   }

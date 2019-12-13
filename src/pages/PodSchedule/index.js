@@ -7,9 +7,10 @@ import { getAvailableSessions } from 'api'
 import parseSessionId from 'util/parseSessionId'
 import Layout from 'components/Layout'
 import getSessionRate from 'util/getSessionRate'
-import { getDateParts } from 'util/datetime'
+import { toNearestHour } from 'util/datetime'
 import Loading from 'components/Loading'
 import RateLabel from 'components/RateLabel'
+import DayPicker from 'components/DayPicker'
 
 import styles from './styles.scss'
 import cartContainer, { CartSubscriber } from 'containers/cartContainer'
@@ -19,20 +20,9 @@ import TableRates from './TableRates'
 const FULL_DAY = (1000 * 60 * 60 * 24)
 const POLL_INTERVAL = 1000 * 60 * 5
 
-const flattenTime = (time) => {
-  const newDate = new Date(time)
-  newDate.setHours(0)
-  newDate.setMinutes(0)
-  newDate.setSeconds(0)
-  newDate.setMilliseconds(0)
-  return newDate.getTime()
-}
-
 const addDays = (time, days) => {
-  return flattenTime(time) + (days * FULL_DAY)
+  return toNearestHour(time) + (days * FULL_DAY)
 }
-
-const getToday = () => flattenTime(Date.now())
 
 export const Session = ({
   sessionId
@@ -117,20 +107,10 @@ const SessionPicker = ({ locationId, startTime, endTime }) => {
 }
 
 const PodSchedule = ({ match: { params } }) => {
-  const [today, setToday] = useState(getToday())
-  const [activeDay, setActiveDay] = useState(today)
+  const [activeDay, setActiveDay] = useState(toNearestHour(Date.now()))
 
   const locationId = params.locationId
   const location = locations[locationId]
-
-  useEffect(() => {
-    const newToday = getToday()
-    if (newToday === today) return
-
-    setToday(newToday)
-  }, [activeDay, locationId, today])
-
-  const upcomingDays = new Array(30).fill('').map((_, i) => i)
 
   return (
     <Layout className={styles.podSchedule}>
@@ -142,23 +122,7 @@ const PodSchedule = ({ match: { params } }) => {
           </h3>
         </div>
 
-        <div className={styles.dayPicker}>
-          {upcomingDays.map(n => {
-            const time = addDays(today, n)
-            const { dayOfTheWeekAbbr, monthAbbr, day } = getDateParts(new Date(time))
-            return (
-              <div
-                className={styles.day}
-                key={time}
-                onClick={() => setActiveDay(time)}
-                data-is-active={time === activeDay}
-              >
-                <span>{time === today ? 'Today' : dayOfTheWeekAbbr}</span>
-                <label>{monthAbbr} {day}</label>
-              </div>
-            )
-          })}
-        </div>
+        <DayPicker onChange={time => setActiveDay(time)} />
       </div>
 
       <CartSubscriber>{() => (

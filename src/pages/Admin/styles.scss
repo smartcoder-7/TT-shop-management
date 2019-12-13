@@ -1,6 +1,6 @@
 @import 'styles/_variables.scss';
 
-.home {
+.admin {
   min-height: 100vh;
   background: $light-gray;
   color: $black;
@@ -15,14 +15,13 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  margin-top: 20rem;
 
   .logo {
-    width: 30rem;
+    height: 0.8em;
   }
 
   h1 {
-    font-size: 10.7rem;
+    font-size: 5rem;
     font-weight: bold;
     text-transform: uppercase;
     letter-spacing: 0.1em;
@@ -35,4 +34,60 @@
   p {
     margin-bottom: 5rem;
   }
+}
+
+.session {
+  display: flex;
+  width: 100%;
+
+  &[data-empty="true"] {
+    opacity: 0.3;
+    height: 2rem;
+
+    * { font-size: 0; padding: 0; }
+  }
+
+  &[data-header="true"] {
+    .timestamp {
+      background: transparent;
+    }
+
+    .table {
+      background: $white;
+    }
+  }
+
+  .timestamp {
+    width: 20rem;
+    padding: 1rem;
+    background: $white;
+    border: 2px solid $light-gray;
+  }
+
+  .tables {
+    display: flex;
+  }
+  
+  .table {
+    width: 30rem;
+    border: 2px solid $light-gray;
+    padding: 1rem;
+    text-align: center;
+    background: $white;
+
+    &[data-reserved="true"] {
+      background: $pink;
+      color: $white;
+      font-weight: bold;
+    }
+  }
+}
+
+.sessions {
+  width: 100%;
+  margin-top: 10rem;
+}
+
+.dayPicker {
+  margin: 0 -5rem;
 }

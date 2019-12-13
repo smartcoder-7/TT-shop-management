@@ -2,7 +2,17 @@
   "0": {
     "displayName": "Allen Street",
     "timezone": "GMT-0500",
-    "numTables": 3,
+    "numTables": 2,
+    "tables": [
+      {
+        "id": "1",
+        "type": "PREMIUM"
+      },
+      {
+        "id": "2",
+        "type": "REGULAR"
+      }
+    ],
     "closedFrom": {
       "hour": 2,
       "minute": 0

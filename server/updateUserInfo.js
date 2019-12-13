@@ -1,4 +1,4 @@
-const db = require('./util/db')
+const { db } = require('./util/firebase')
 
 const updateUserInfo = async (req, res) => {
   const {

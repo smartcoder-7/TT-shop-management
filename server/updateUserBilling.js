@@ -1,11 +1,11 @@
-const db = require('./util/db')
+const { db } = require('./util/firebase')
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 const updateUserBilling = async (req, res) => {
-  const { 
+  const {
     userId,
     customerId,
-    token, 
+    token,
   } = req.body
 
   try {
@@ -27,7 +27,7 @@ const updateUserBilling = async (req, res) => {
     await userRef.update({ hasActiveCard: true })
 
     res.status(200).json(updatedCustomer)
-  } catch(err) {
+  } catch (err) {
     res.status(500).send(err.message)
   }
 }

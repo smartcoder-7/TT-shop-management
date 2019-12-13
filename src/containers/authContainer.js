@@ -5,12 +5,14 @@ import { Container, Subscribe, Provider } from 'unstated'
 import { createUser, getUserBilling } from 'api'
 
 const db = firebase.firestore()
+const auth = firebase.auth()
 
 class AuthContainer extends Container {
   state = {
     loading: true,
     userId: null,
     user: {},
+    idToken: null
   }
 
   get userId() {
@@ -18,6 +20,7 @@ class AuthContainer extends Container {
     return this.state.user.id
   }
 
+  get idToken() { return this.state.idToken }
   get user() { return this.state.user }
   get userBilling() { return this.state.userBilling }
 
@@ -37,6 +40,7 @@ class AuthContainer extends Container {
             user: userData,
             loading: false,
           }).then(this.updateUserBilling)
+
         })
       })
   }
@@ -54,10 +58,10 @@ class AuthContainer extends Container {
     super()
 
     firebase.auth()
-      .onAuthStateChanged(user => {
-        const lastUid = this.userId
-
+      .onAuthStateChanged(async user => {
         if (user) {
+          const idToken = await auth.currentUser.getIdToken()
+          await this.setState({ idToken })
           this.watchUser(user)
           return
         }
@@ -70,6 +74,7 @@ class AuthContainer extends Container {
           userId: null,
           user: {},
           loading: false,
+          idToken: null,
         })
       })
   }

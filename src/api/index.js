@@ -1,5 +1,6 @@
 import axios from 'axios'
 import constants from 'util/constants'
+import authContainer from 'containers/authContainer'
 
 const ENDPOINTS = {
   CREATE_USER: '/api/create-user',
@@ -11,12 +12,22 @@ const ENDPOINTS = {
   UPDATE_USER_INFO: '/api/update-user-info'
 }
 
+const apiRequest = ({ url, data }) => {
+  return axios({
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${authContainer.idToken}`,
+    },
+    url,
+    data
+  })
+}
+
 export const createUser = ({
   userId,
   email
 }) => {
-  return axios({
-    method: 'POST',
+  return apiRequest({
     url: ENDPOINTS.CREATE_USER,
     data: {
       userId,
@@ -30,8 +41,7 @@ export const updateUserBilling = ({
   customerId,
   token
 }) => {
-  return axios({
-    method: 'POST',
+  return apiRequest({
     url: ENDPOINTS.UPDATE_USER_BILLING,
     data: {
       userId,
@@ -46,8 +56,7 @@ export const updateUserInfo = ({
   firstName,
   lastName
 }) => {
-  return axios({
-    method: 'POST',
+  return apiRequest({
     url: ENDPOINTS.UPDATE_USER_INFO,
     data: {
       userId,
@@ -59,11 +68,8 @@ export const updateUserInfo = ({
 
 export const getUserBilling = ({
   userId,
-  customerId,
-  token
 }) => {
-  return axios({
-    method: 'POST',
+  return apiRequest({
     url: ENDPOINTS.GET_USER_BILLING,
     data: {
       userId,
@@ -74,15 +80,18 @@ export const getUserBilling = ({
 export const getReservations = ({
   userId,
   locationId,
-  reservationTime
+  reservationTime,
+  startTime,
+  endTime,
 }) => {
-  return axios({
-    method: 'POST',
+  return apiRequest({
     url: ENDPOINTS.GET_RESERVATIONS,
     data: {
       userId,
       locationId,
-      reservationTime
+      reservationTime,
+      startTime,
+      endTime
     }
   }).then(d => d.data)
 }
@@ -92,8 +101,7 @@ export const getAvailableSessions = ({
   startTime,
   endTime
 }) => {
-  return axios({
-    method: 'POST',
+  return apiRequest({
     url: ENDPOINTS.GET_AVAILABLE_SESSIONS,
     data: {
       locationId,
@@ -107,8 +115,7 @@ export const createReservations = ({
   reservations,
   userId,
 }) => {
-  return axios({
-    method: 'POST',
+  return apiRequest({
     url: ENDPOINTS.CREATE_RESERVATIONS,
     data: {
       userId,

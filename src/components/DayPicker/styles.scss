@@ -1,0 +1,44 @@
+@import 'styles/_variables.scss';
+
+.dayPicker {
+  flex: 1;
+  white-space: nowrap;
+  overflow: scroll;
+
+  .day {
+    display: inline-flex;
+    flex-direction: column;
+    padding-right: 3rem;
+    padding-left: 5rem;
+    cursor: pointer;
+
+    &[data-is-active="true"] {
+      font-weight: bold;
+      pointer-events: none;
+
+      label { opacity: 0.8; }
+    }
+
+    label {
+      margin-top: 1rem;
+      opacity: 0.3;
+    }
+  }
+}
+
+.prevDay,
+.nextDay {
+  color: $pink;
+
+  &[data-active="false"] {
+    opacity: 0.3;
+  }
+}
+
+.today {
+  text-align: center;
+
+  h1 {
+    margin-top: 1rem;
+  }
+}
