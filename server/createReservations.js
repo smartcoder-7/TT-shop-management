@@ -6,6 +6,7 @@ const createReservation = async ({
   locationId,
   reservationTime,
   userId,
+  isPremium,
 }) => {
   const location = locations[locationId]
 
@@ -34,6 +35,7 @@ const createReservation = async ({
     userId,
     locationId,
     reservationTime,
+    isPremium
   }
 
   return Promise.resolve(reservation)

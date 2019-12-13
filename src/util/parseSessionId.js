@@ -10,6 +10,7 @@ const parseSessionId = (str = '') => {
   const endTime = reservationTime + constants.INTERVAL_MS
 
   return {
+    full: str,
     locationId,
     date,
     formattedDate: formatDate(date),

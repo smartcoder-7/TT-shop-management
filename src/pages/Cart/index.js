@@ -23,7 +23,8 @@ const _Cart = ({ history }) => {
     .filter(r => !!r.locationId && !!r.time)
     .map(r => ({
       locationId: r.locationId,
-      reservationTime: r.time
+      reservationTime: r.time,
+      isPremium: cartContainer.isPremium(r.full)
     }))
 
   const checkout = () => {

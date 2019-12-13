@@ -130,7 +130,7 @@ class CartContainer extends Container {
   }
 
   isPremium = item => {
-    return this.state.premium[item]
+    return !!this.state.premium[item]
   }
 
   setLocationId = (locationId) => {
