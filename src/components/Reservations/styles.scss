@@ -1,11 +1,19 @@
+@import 'styles/_variables.scss';
+
 .reservation {
+  display: flex;
+  flex-direction: column;
   margin-bottom: 2rem;
   border: 1px solid currentColor;
   padding: 3rem;
 
   label {
-    display: block;
     margin-bottom: 1rem;
+  }
+
+  .premiumLabel {
+    margin-bottom: 2rem;
+    color: $pink;
   }
 }
 
