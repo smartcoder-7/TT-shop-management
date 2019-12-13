@@ -90,6 +90,7 @@ class CartContainer extends Container {
   empty = () => {
     this.setState({ items: [] })
     localStorage.setItem(CART_KEY, '')
+    localStorage.setItem(PREMIUM_KEY, '')
   }
 
   isInCart = (sessionId) => {
@@ -119,12 +120,13 @@ class CartContainer extends Container {
 
     items.splice(index, 1)
     localStorage.setItem(CART_KEY, items.join(','))
+    this.togglePremium(item, false)
     this.setState({ items })
   }
 
-  togglePremium = (item) => {
+  togglePremium = (item, val) => {
     const premium = { ...this.state.premium }
-    premium[item] = !premium[item]
+    premium[item] = typeof val !== 'undefined' ? val : !premium[item]
     localStorage.setItem(PREMIUM_KEY, JSON.stringify(premium))
     this.setState({ premium })
   }
