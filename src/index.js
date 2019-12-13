@@ -12,7 +12,7 @@ import Login from 'pages/Login'
 import Cart from 'pages/Cart'
 import Account from 'pages/Account'
 import Checkout from 'pages/Checkout'
-import firebase from 'util/firebase'
+import Admin from 'pages/Admin'
 
 import 'styles/index.scss'
 
@@ -28,7 +28,10 @@ const AuthenticatedRoute = ({
           return null
         }
 
-        if (authContainer.userId && authContainer.user) {
+        if (
+          window.location.pathname === '/login' ||
+          (authContainer.userId && authContainer.user)
+        ) {
           return <Component {...props} />
         }
 
@@ -36,7 +39,7 @@ const AuthenticatedRoute = ({
           <Redirect
             to={{
               pathname: "/login",
-              search: `?redirect=${window.location}`,
+              search: `?redirect=${window.location.pathname}`,
             }}
           />
         )
@@ -55,14 +58,14 @@ const App = () => (
         <Switch>
           <Route path="/reserve" exact component={LocationPicker} />
           <Route path="/reserve/:locationId?" component={PodSchedule} />
-        </Switch>
 
-        <Route path="/login" component={Login} />
+          <Route path="/login" component={Login} />
 
-        <Switch>
           <AuthenticatedRoute path="/account" component={Account} />
           <AuthenticatedRoute path="/cart" component={Cart} />
           <AuthenticatedRoute path="/checkout" component={Checkout} />
+
+          <AuthenticatedRoute path="/admin" component={Admin} />
         </Switch>
       </>
     )}</AuthSubscriber>

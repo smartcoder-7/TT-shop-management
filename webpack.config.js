@@ -41,7 +41,7 @@ module.exports = [
         {
           test: /\.scss$/,
           use: [
-            'style-loader', 
+            'style-loader',
             {
               loader: 'css-loader',
               options: {
@@ -60,9 +60,9 @@ module.exports = [
             },
           ],
         },
-        { 
-          test: /\.svg$/, 
-          loader: 'svg-inline-loader' 
+        {
+          test: /\.svg$/,
+          loader: 'svg-inline-loader'
         }
       ],
     },

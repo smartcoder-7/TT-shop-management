@@ -25,6 +25,7 @@ express()
   .post('/api/get-available-sessions', getAvailableSessions)
   .post('/api/update-user-info', updateUserInfo)
 
+  .get('/robots.txt', (req, res) => res.sendFile(path.resolve(ROOT_DIR, 'robots.txt')))
   .get('*', (req, res) => res.sendFile(path.resolve(ROOT_DIR, 'public/index.html')))
 
   .listen(PORT, () => console.log(`Listening on ${PORT}`))
