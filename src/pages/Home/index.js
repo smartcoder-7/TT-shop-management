@@ -94,7 +94,7 @@ class Home extends React.Component {
             <h2>Get Early Access</h2>
             <br />
             <p>
-              PingPod launches in New York City in December 2019. Sign up with your email to be part of our exclusive beta user&nbsp;list.
+              PingPod launches in New York City early 2020. Sign up with your email to be part of our exclusive beta user&nbsp;list.
               </p>
             <br />
 
