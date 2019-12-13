@@ -16,6 +16,7 @@ import styles from './styles.scss'
 import cartContainer, { CartSubscriber } from 'containers/cartContainer'
 
 import TableRates from './TableRates'
+import Crown from '../../components/svg/Crown.js';
 
 const FULL_DAY = (1000 * 60 * 60 * 24)
 const POLL_INTERVAL = 1000 * 60 * 5
@@ -27,6 +28,7 @@ const addDays = (time, days) => {
 export const Session = ({
   sessionId
 }) => {
+  const premium = cartContainer.isPremium(sessionId)
   const isSelected = cartContainer.isInCart(sessionId)
   const { formattedTime } = parseSessionId(sessionId)
 
@@ -37,17 +39,31 @@ export const Session = ({
     else cartContainer.addItem(sessionId)
   }
 
+  const togglePremium = (e) => {
+    e.stopPropagation()
+    cartContainer.togglePremium(sessionId)
+  }
+
   return (
     <div
       data-selected={isSelected}
+      data-premium={premium}
       className={classNames(styles.session, styles.scheduleSession)}
       onClick={onClick}
     >
       <div className={styles.sessionInfo}>
+        <div className={styles.check}>✔</div>
         <label>{formattedTime}</label>
         <RateLabel rate={rate} />
+        {premium && <span className={styles.premiumLabel}>
+          <RateLabel rate={{ displayName: 'Premium' }} />
+        </span>}
       </div>
-      <div className={styles.check}>✔</div>
+      <div className={styles.premiumWrapper} onClick={togglePremium}>
+        <div className={styles.premium}>
+          <Crown />
+        </div>
+      </div>
     </div>
   )
 }

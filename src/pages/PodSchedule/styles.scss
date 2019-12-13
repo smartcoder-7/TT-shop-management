@@ -144,10 +144,10 @@ button.tableRates {
 
 .session {
   position: relative;
-  padding: 8rem 5rem;
+  padding: 0rem 5rem;
   background: $blue;
   color: $white;
-  height: 12rem;
+  height: 15rem;
   display: flex;
   align-items: center;
   border-bottom: 1px solid rgba(255,255,255,0.3);
@@ -165,25 +165,62 @@ button.tableRates {
     border-bottom: 1px solid rgba(0,0,0,0.1);
   
     .check {
+      display: inline-block;
+    }
+
+    .premiumWrapper {
+      pointer-events: all;
+    }
+
+    .premium {
+      background: #6a7275;
+      border-color: #6a7275;
+    }
+  }
+
+  &[data-premium="true"] {
+    .premium {
+      opacity: 1;
       background: $pink;
       border-color: $pink;
-      color: $white;
-      transform: none;
     }
   }
 
   .check {
+    display: none;
+    color: $blue;
+    margin-right: 1.5rem;
+  }
+
+  .premiumLabel {
+    color: $pink;
+  }
+
+  .premiumWrapper {
+    display: flex;
+    align-items: center;
+    padding: 0 2rem;
     height: 100%;
-    width: 4rem;
-    height: 4rem;
+    pointer-events: none;
+  }
+
+  .premium {
+    width: 7rem;
+    height: 7rem;
     border-radius: 100%;
     border: 1px solid $white;
-    color: transparent;
-    font-size: 2.5rem;
+    // background: $pink;
+    padding: 1rem;
 
     display: flex;
     align-items: center;
     justify-content: center;
+    color: $white;
+    opacity: 0.2;
+
+    :global(svg) {
+      fill: currentColor;
+    }
   }
 }
 

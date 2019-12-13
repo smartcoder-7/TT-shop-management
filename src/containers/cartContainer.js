@@ -7,10 +7,12 @@ import getSessionRate from 'util/getSessionRate'
 const ROOT_KEY = 'pingpod'
 const CART_KEY = `${ROOT_KEY}/cart`
 const LOCATION_KEY = `${ROOT_KEY}/locationId`
+const PREMIUM_KEY = `${ROOT_KEY}/premium-sessions`
 
 class CartContainer extends Container {
   state = {
     items: [],
+    premium: {}
   }
 
   get items() {
@@ -40,6 +42,7 @@ class CartContainer extends Container {
     super()
 
     let storedItems = []
+    let premium = {}
 
     try {
       const cookie = localStorage.getItem(CART_KEY) || ''
@@ -51,7 +54,16 @@ class CartContainer extends Container {
       console.log(err)
     }
 
+    try {
+      const cookie = localStorage.getItem(PREMIUM_KEY) || '{}'
+      const storedString = cookie.trim()
+      premium = JSON.parse(storedString)
+    } catch (err) {
+      console.log(err)
+    }
+
     this.state.items = storedItems
+    this.state.premium = premium
 
     this.poll()
   }
@@ -108,6 +120,17 @@ class CartContainer extends Container {
     items.splice(index, 1)
     localStorage.setItem(CART_KEY, items.join(','))
     this.setState({ items })
+  }
+
+  togglePremium = (item) => {
+    const premium = { ...this.state.premium }
+    premium[item] = !premium[item]
+    localStorage.setItem(PREMIUM_KEY, JSON.stringify(premium))
+    this.setState({ premium })
+  }
+
+  isPremium = item => {
+    return this.state.premium[item]
   }
 
   setLocationId = (locationId) => {
