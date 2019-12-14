@@ -1,6 +1,13 @@
 const { auth } = require('./firebase')
 
+const IS_OFFLINE = process.env.IS_OFFLINE
+
 const authenticate = fn => (req, res) => {
+  if (IS_OFFLINE) {
+    fn(req, res)
+    return
+  }
+
   const authHeader = req.header('Authorization')
   const idToken = authHeader.split('Bearer ')[1]
 

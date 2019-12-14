@@ -9,6 +9,8 @@
     "build": "NODE_ENV=production webpack",
     "watch:dev": "NODE_ENV=development yarn run set:env && webpack-dev-server",
     "start:dev": "NODE_ENV=development yarn run set:env && nodemon ./server/index.js",
+    "watch:dev:offline": "IS_OFFLINE=true yarn run watch:dev",
+    "start:dev:offline": "IS_OFFLINE=true yarn run start:dev",
     "start": "node ./server/index.js",
     "deploy": "NODE_ENV=production yarn run set:heroku-config && ./scripts/deploy.sh"
   },
@@ -30,6 +32,7 @@
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-unused-imports": "^0.1.1",
     "file-loader": "^4.2.0",
+    "firebase-mock": "^2.3.0",
     "firebase-tools": "^7.2.4",
     "netlify-lambda": "^1.4.13",
     "node-sass": "^4.12.0",

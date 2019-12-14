@@ -1,5 +1,5 @@
 const { db } = require('./util/firebase')
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
 
 const createUser = async (req, res) => {
   const {
@@ -7,8 +7,14 @@ const createUser = async (req, res) => {
     email,
   } = req.body
 
-  const userRef = db.collection('users').doc(userId)
-  const user = await userRef.get()
+  let userRef, user
+
+  try {
+    userRef = db.collection('users').doc(userId)
+    user = await userRef.get()
+  } catch (err) {
+    res.status(500).send('Cannot reach server.')
+  }
 
   let userData = {}
 
@@ -22,9 +28,7 @@ const createUser = async (req, res) => {
 
   if (!userData.stripeId) {
     const customer = await stripe.customers.create({
-      metadata: {
-        userId
-      },
+      metadata: { userId },
     })
 
     userData.stripeId = customer.id
