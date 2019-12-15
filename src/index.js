@@ -16,7 +16,7 @@ import Admin from 'pages/Admin'
 
 import 'styles/index.scss'
 
-const IS_OFFLINE = process.env.IS_OFFLINE
+const IS_OFFLINE = process.env.IS_OFFLINE === "true"
 
 const AuthenticatedRoute = ({
   component: Component,

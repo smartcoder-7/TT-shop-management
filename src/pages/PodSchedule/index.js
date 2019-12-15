@@ -66,11 +66,11 @@ export const Session = ({
           <RateLabel rate={{ displayName: 'Premium' }} />
         </span>}
       </div>
-      {premiumTablesLeft && <div className={styles.premiumWrapper} onClick={togglePremium}>
+      {premiumTablesLeft ? <div className={styles.premiumWrapper} onClick={togglePremium}>
         <div className={styles.premium}>
           <ThreeStar />
         </div>
-      </div>}
+      </div> : null}
     </div>
   )
 }

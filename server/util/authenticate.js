@@ -1,6 +1,6 @@
 const { auth } = require('./firebase')
 
-const IS_OFFLINE = process.env.IS_OFFLINE
+const IS_OFFLINE = process.env.IS_OFFLINE === "true"
 
 const authenticate = fn => (req, res) => {
   if (IS_OFFLINE) {

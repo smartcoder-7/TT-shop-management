@@ -4,7 +4,7 @@ const allSecrets = require('../secrets.json')
 
 const ROOT_DIR = __dirname
 
-const IS_OFFLINE = process.env.IS_OFFLINE
+const IS_OFFLINE = process.env.IS_OFFLINE === "true"
 const isDev = process.env.NODE_ENV === 'development'
 
 const secrets = isDev ?
@@ -31,7 +31,11 @@ const getDotEnv = (separator = ' ') => {
   let str = ''
 
   Object.keys(envVars).forEach((key) => {
-    const val = envVars[key].replace(/\n/g, '\\n')
+    let val = envVars[key]
+    console.log(key, val)
+    if (typeof val === 'string') {
+      val = val.replace(/\n/g, '\\n')
+    }
     str += `${key}="${val}"\n`
   })
 

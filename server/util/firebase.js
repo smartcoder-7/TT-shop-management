@@ -1,7 +1,7 @@
 const mock = require('firebase-mock')
 const admin = require('firebase-admin')
 
-const IS_OFFLINE = process.env.IS_OFFLINE
+const IS_OFFLINE = process.env.IS_OFFLINE === "true"
 
 if (!IS_OFFLINE) {
   admin.initializeApp({

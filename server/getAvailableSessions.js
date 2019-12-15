@@ -2,7 +2,7 @@ const { db } = require('./util/firebase')
 const getAllSessions = require('../shared/getAllSessions')
 const locations = require('../locations.json')
 
-const IS_OFFLINE = process.env.IS_OFFLINE
+const IS_OFFLINE = process.env.IS_OFFLINE === "true"
 
 /*
   Returns all session availability: 

@@ -88,7 +88,7 @@ class CartContainer extends Container {
   }
 
   empty = () => {
-    this.setState({ items: [] })
+    this.setState({ items: [], premium: {} })
     localStorage.setItem(CART_KEY, '')
     localStorage.setItem(PREMIUM_KEY, '')
   }
