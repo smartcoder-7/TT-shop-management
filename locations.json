@@ -5,11 +5,11 @@
     "tables": [
       {
         "id": "1",
-        "type": "PREMIUM"
+        "isPremium": true
       },
       {
         "id": "2",
-        "type": "REGULAR"
+        "isPremium": false
       }
     ],
     "closedFrom": {

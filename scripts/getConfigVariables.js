@@ -4,16 +4,23 @@ const allSecrets = require('../secrets.json')
 
 const ROOT_DIR = __dirname
 
+const IS_OFFLINE = process.env.IS_OFFLINE
 const isDev = process.env.NODE_ENV === 'development'
-const secrets = isDev ? 
-  allSecrets.development : 
+
+const secrets = isDev ?
+  allSecrets.development :
   allSecrets.production
+
+const envVars = {
+  ...secrets,
+  IS_OFFLINE
+}
 
 const getEnv = () => {
   let str = ''
 
-  Object.keys(secrets).forEach((key) => {
-    const val = secrets[key]
+  Object.keys(envVars).forEach((key) => {
+    const val = envVars[key]
     str += `${key}="${val}" `
   })
 
@@ -23,8 +30,8 @@ const getEnv = () => {
 const getDotEnv = (separator = ' ') => {
   let str = ''
 
-  Object.keys(secrets).forEach((key) => {
-    const val = secrets[key].replace(/\n/g, '\\n')
+  Object.keys(envVars).forEach((key) => {
+    const val = envVars[key].replace(/\n/g, '\\n')
     str += `${key}="${val}"\n`
   })
 

@@ -16,7 +16,8 @@ import styles from './styles.scss'
 import cartContainer, { CartSubscriber } from 'containers/cartContainer'
 
 import TableRates from './TableRates'
-import Crown from '../../components/svg/Crown.js';
+import ThreeStar from '../../components/svg/ThreeStar.js';
+import OneStar from '../../components/svg/OneStar.js';
 
 const FULL_DAY = (1000 * 60 * 60 * 24)
 const POLL_INTERVAL = 1000 * 60 * 5
@@ -26,8 +27,14 @@ const addDays = (time, days) => {
 }
 
 export const Session = ({
-  sessionId
+  session: {
+    startTime,
+    tablesLeft,
+    premiumTablesLeft,
+  },
+  locationId
 }) => {
+  const sessionId = `${locationId}-${startTime}`
   const premium = cartContainer.isPremium(sessionId)
   const isSelected = cartContainer.isInCart(sessionId)
   const { formattedTime } = parseSessionId(sessionId)
@@ -59,11 +66,11 @@ export const Session = ({
           <RateLabel rate={{ displayName: 'Premium' }} />
         </span>}
       </div>
-      <div className={styles.premiumWrapper} onClick={togglePremium}>
+      {premiumTablesLeft && <div className={styles.premiumWrapper} onClick={togglePremium}>
         <div className={styles.premium}>
-          <Crown />
+          <ThreeStar />
         </div>
-      </div>
+      </div>}
     </div>
   )
 }
@@ -85,8 +92,8 @@ const SessionPicker = ({ locationId, startTime, endTime }) => {
           // No race conditions
           if (requestedStartTime !== startTime) return
 
-          const filteredSessions = sessions.filter(s => {
-            return s >= Date.now()
+          const filteredSessions = sessions.filter(({ startTime }) => {
+            return startTime >= Date.now()
           })
           setSessions(filteredSessions)
         })
@@ -105,8 +112,12 @@ const SessionPicker = ({ locationId, startTime, endTime }) => {
       <div className={styles.sessions} data-is-active={canCheckout}>
         {loading && <Loading />}
         {!loading && sessions.map(session => {
-          const sessionId = `${locationId}-${session}`
-          return <Session sessionId={sessionId} key={sessionId} />
+          if (!session.tablesLeft) return null
+          return <Session
+            session={session}
+            locationId={locationId}
+            key={session.startTime}
+          />
         })}
       </div>
 

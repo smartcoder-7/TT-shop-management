@@ -1,11 +1,8 @@
 import React from 'react'
-import firebase from 'util/firebase'
+import { db, auth } from 'util/firebase'
 
 import { Container, Subscribe, Provider } from 'unstated'
 import { createUser, getUserBilling } from 'api'
-
-const db = firebase.firestore()
-const auth = firebase.auth()
 
 class AuthContainer extends Container {
   state = {
@@ -57,31 +54,29 @@ class AuthContainer extends Container {
   constructor() {
     super()
 
-    firebase.auth()
-      .onAuthStateChanged(async user => {
-        if (user) {
-          const idToken = await auth.currentUser.getIdToken()
-          await this.setState({ idToken })
-          this.watchUser(user)
-          return
-        }
+    auth.onAuthStateChanged(async user => {
+      if (user) {
+        const idToken = await auth.currentUser.getIdToken()
+        await this.setState({ idToken })
+        this.watchUser(user)
+        return
+      }
 
-        if (this.unwatchUser) {
-          this.unwatchUser()
-        }
+      if (this.unwatchUser) {
+        this.unwatchUser()
+      }
 
-        this.setState({
-          userId: null,
-          user: {},
-          loading: false,
-          idToken: null,
-        })
+      this.setState({
+        userId: null,
+        user: {},
+        loading: false,
+        idToken: null,
       })
+    })
   }
 
   login = ({ email = "", password = "" }) => {
-    return firebase.auth()
-      .signInWithEmailAndPassword(email, password)
+    return auth.signInWithEmailAndPassword(email, password)
       .then((res) => {
         console.log('LOGIN', res.user)
       })
@@ -93,8 +88,7 @@ class AuthContainer extends Container {
   }
 
   signupWithEmail = ({ email = "", password = "" }) => {
-    return firebase.auth()
-      .createUserWithEmailAndPassword(email, password)
+    return auth.createUserWithEmailAndPassword(email, password)
       .then(() => {
         // sendEmail({
         //   email, 
@@ -109,8 +103,7 @@ class AuthContainer extends Container {
   }
 
   logout = () => {
-    return firebase.auth()
-      .signOut()
+    return auth.signOut()
       .then(() => {
         console.log('logged out!')
         window.location = '/login'
@@ -122,7 +115,7 @@ class AuthContainer extends Container {
   }
 
   resetPassword = ({ email = "" }) => {
-    return firebase.auth().sendPasswordResetEmail(email).then(function () {
+    return auth.sendPasswordResetEmail(email).then(function () {
       // Email sent.
     }).catch(function (error) {
       // An error happened.

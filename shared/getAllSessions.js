@@ -1,4 +1,4 @@
-import locations from '../../locations.json'
+const locations = require('../locations.json')
 
 const INTERVAL_MS = 1000 * 60 * 30
 
@@ -61,9 +61,7 @@ const getAllSessions = ({
     return !isClosed
   })
 
-  return {
-    sessions: availableSessions
-  }
+  return availableSessions
 }
 
-export default getAllSessions
+module.exports = getAllSessions

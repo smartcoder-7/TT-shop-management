@@ -6,7 +6,7 @@ import Layout from 'components/Layout'
 import Logo from 'components/Logo'
 import DayPicker from 'components/DayPicker'
 import EmailSubscribe from 'components/EmailSubscribe'
-import getAllSessions from 'util/getAllSessions'
+import getAllSessions from '../../../shared/getAllSessions'
 
 import styles from './styles.scss'
 import contextContainer from 'containers/contextContainer'
@@ -45,7 +45,7 @@ const SessionsData = ({ day }) => {
   const location = locations['0']
   const startTime = day
   const endTime = startTime + (1000 * 60 * 60 * 24)
-  const { sessions } = getAllSessions({ startTime, endTime, locationId: '0' })
+  const sessions = getAllSessions({ startTime, endTime, locationId: '0' })
 
   useEffect(() => {
     getReservations({ startTime })
