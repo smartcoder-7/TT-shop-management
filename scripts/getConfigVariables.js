@@ -32,7 +32,6 @@ const getDotEnv = (separator = ' ') => {
 
   Object.keys(envVars).forEach((key) => {
     let val = envVars[key]
-    console.log(key, val)
     if (typeof val === 'string') {
       val = val.replace(/\n/g, '\\n')
     }

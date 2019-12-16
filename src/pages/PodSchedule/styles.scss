@@ -181,7 +181,8 @@ button.tableRates {
   &[data-premium="true"] {
     .premium {
       opacity: 1;
-      background: $pink;
+      background: $white;
+      color: $pink;
       border-color: $pink;
     }
   }

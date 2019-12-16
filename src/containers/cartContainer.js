@@ -51,7 +51,7 @@ class CartContainer extends Container {
         storedItems = storedString.split(',')
       }
     } catch (err) {
-      console.log(err)
+      console.warn(err)
     }
 
     try {
@@ -59,7 +59,7 @@ class CartContainer extends Container {
       const storedString = cookie.trim()
       premium = JSON.parse(storedString)
     } catch (err) {
-      console.log(err)
+      console.warn(err)
     }
 
     this.state.items = storedItems
