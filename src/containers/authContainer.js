@@ -12,48 +12,10 @@ class AuthContainer extends Container {
     idToken: null,
   }
 
-  get userId() {
-    if (!this.state.user) return null
-    return this.state.user.id
-  }
-
+  get userId() { return this.user ? this.user.id : null }
   get idToken() { return this.state.idToken }
   get user() { return this.state.user }
   get userBilling() { return this.state.userBilling }
-
-  watchUser(user) {
-    if (this.unwatchUser) this.unwatchUser()
-    if (!user) return
-
-    const userId = user.uid
-    createUser({ userId, email: user.email })
-      .then(() => {
-        const userRef = db.collection('users').doc(userId)
-        this.unwatchUser = userRef.onSnapshot(async doc => {
-          const userData = doc.data()
-
-          if (this.user && this.user.hasActiveCard) {
-            const userBilling = await getUserBilling({ userId: this.user.id })
-            await this.setState({ userBilling })
-          }
-
-          this.setState({
-            userId: user.uid,
-            user: userData,
-            loading: false,
-          })
-        })
-      })
-  }
-
-  updateUserBilling = () => {
-    if (!this.user || !this.user.hasActiveCard) return
-
-    getUserBilling({ userId: this.user.id })
-      .then(userBilling => {
-        this.setState({ userBilling })
-      })
-  }
 
   constructor() {
     super()
@@ -77,6 +39,31 @@ class AuthContainer extends Container {
     })
   }
 
+  watchUser() {
+    if (this.unwatchUser) this.unwatchUser()
+    if (!auth.currentUser) return
+
+    const { uid: userId, email } = auth.currentUser
+    createUser({ userId, email })
+      .then(() => {
+        const userRef = db.collection('users').doc(userId)
+        this.unwatchUser = userRef.onSnapshot(async doc => {
+          const user = doc.data()
+
+          if (user.hasActiveCard) {
+            const userBilling = await getUserBilling({ userId })
+            await this.setState({ userBilling })
+          }
+
+          this.setState({
+            userId,
+            user,
+            loading: false,
+          })
+        })
+      })
+  }
+
   onLogin = async () => {
     const user = auth.currentUser
     const idToken = await auth.currentUser.getIdToken()
@@ -85,7 +72,7 @@ class AuthContainer extends Container {
       userId: user.uid,
       loading: true,
     })
-    this.watchUser(auth.currentUser)
+    this.watchUser()
   }
 
   login = ({ email = "", password = "" }) => {
