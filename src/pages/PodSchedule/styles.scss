@@ -167,13 +167,19 @@ button.tableRates {
     .check {
       display: inline-block;
     }
-
+    
     .premiumWrapper {
       pointer-events: all;
     }
     
     .premium {
       color: $pink;
+    }
+  }
+  
+  &[data-selected="false"] {
+    .premiumLabel {
+      display: none;
     }
   }
 

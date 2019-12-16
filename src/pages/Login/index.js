@@ -85,7 +85,7 @@ class Login extends React.Component {
     const { history, location } = this.props
 
     const queryParams = qs.parse(location.search, { ignoreQueryPrefix: true })
-    const redirect = queryParams.redirect || '/'
+    const redirect = queryParams.redirect || '/account'
 
     history.push(redirect)
   }
