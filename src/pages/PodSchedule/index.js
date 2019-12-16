@@ -17,7 +17,7 @@ import cartContainer, { CartSubscriber } from 'containers/cartContainer'
 
 import TableRates from './TableRates'
 import ThreeStar from '../../components/svg/ThreeStar.js';
-import OneStar from '../../components/svg/OneStar.js';
+import TwoStar from '../../components/svg/TwoStar';
 
 const FULL_DAY = (1000 * 60 * 60 * 24)
 const POLL_INTERVAL = 1000 * 60 * 5
@@ -30,6 +30,7 @@ export const Session = ({
   session: {
     startTime,
     tablesLeft,
+    regularTablesLeft,
     premiumTablesLeft,
   },
   locationId
@@ -41,6 +42,11 @@ export const Session = ({
 
   const rate = getSessionRate(sessionId)
 
+  useEffect(() => {
+    if (!regularTablesLeft) cartContainer.togglePremium(sessionId, true)
+    else if (!premiumTablesLeft) cartContainer.togglePremium(sessionId, false)
+  }, [regularTablesLeft, premiumTablesLeft, premium])
+
   const onClick = () => {
     if (isSelected) cartContainer.removeItem(sessionId)
     else cartContainer.addItem(sessionId)
@@ -48,7 +54,9 @@ export const Session = ({
 
   const togglePremium = (e) => {
     e.stopPropagation()
-    cartContainer.togglePremium(sessionId)
+    if (!regularTablesLeft) cartContainer.togglePremium(sessionId, true)
+    else if (!premiumTablesLeft) cartContainer.togglePremium(sessionId, false)
+    else cartContainer.togglePremium(sessionId)
   }
 
   return (
@@ -66,11 +74,12 @@ export const Session = ({
           <RateLabel rate={{ displayName: 'Premium' }} />
         </span>}
       </div>
-      {premiumTablesLeft ? <div className={styles.premiumWrapper} onClick={togglePremium}>
+      {<div className={styles.premiumWrapper} onClick={togglePremium}>
         <div className={styles.premium}>
-          <ThreeStar />
+          {!!regularTablesLeft && <TwoStar className={styles.regularSvg} />}
+          {!!premiumTablesLeft && <ThreeStar className={styles.premiumSvg} />}
         </div>
-      </div> : null}
+      </div>}
     </div>
   )
 }

@@ -120,13 +120,18 @@ class CartContainer extends Container {
 
     items.splice(index, 1)
     localStorage.setItem(CART_KEY, items.join(','))
-    this.togglePremium(item, false)
     this.setState({ items })
   }
 
   togglePremium = (item, val) => {
     const premium = { ...this.state.premium }
-    premium[item] = typeof val !== 'undefined' ? val : !premium[item]
+
+    if (typeof val !== 'undefined') {
+      if (premium[item] === val) return
+      premium[item] = val
+    } else {
+      premium[item] = !premium[item]
+    }
     localStorage.setItem(PREMIUM_KEY, JSON.stringify(premium))
     this.setState({ premium })
   }
