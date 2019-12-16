@@ -32,7 +32,6 @@ const AuthenticatedRoute = ({
 
         if (
           IS_OFFLINE ||
-          window.location.pathname === '/login' ||
           (authContainer.userId && authContainer.user)
         ) {
           return <Component {...props} />
@@ -42,7 +41,7 @@ const AuthenticatedRoute = ({
           <Redirect
             to={{
               pathname: "/login",
-              search: `?redirect=${window.location.pathname}`,
+              search: `?redirect=${props.location.pathname}`,
             }}
           />
         )

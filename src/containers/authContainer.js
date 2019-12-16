@@ -9,7 +9,7 @@ class AuthContainer extends Container {
     loading: true,
     userId: null,
     user: {},
-    idToken: null
+    idToken: null,
   }
 
   get userId() {
@@ -29,15 +29,19 @@ class AuthContainer extends Container {
     createUser({ userId, email: user.email })
       .then(() => {
         const userRef = db.collection('users').doc(userId)
-        this.unwatchUser = userRef.onSnapshot(doc => {
+        this.unwatchUser = userRef.onSnapshot(async doc => {
           const userData = doc.data()
+
+          if (this.user && this.user.hasActiveCard) {
+            const userBilling = await getUserBilling({ userId: this.user.id })
+            await this.setState({ userBilling })
+          }
 
           this.setState({
             userId: user.uid,
             user: userData,
             loading: false,
-          }).then(this.updateUserBilling)
-
+          })
         })
       })
   }
@@ -56,9 +60,7 @@ class AuthContainer extends Container {
 
     auth.onAuthStateChanged(async user => {
       if (user) {
-        const idToken = await auth.currentUser.getIdToken()
-        await this.setState({ idToken })
-        this.watchUser(user)
+        this.onLogin()
         return
       }
 
@@ -75,10 +77,22 @@ class AuthContainer extends Container {
     })
   }
 
+  onLogin = async () => {
+    const user = auth.currentUser
+    const idToken = await auth.currentUser.getIdToken()
+    await this.setState({
+      idToken,
+      userId: user.uid,
+      loading: true,
+    })
+    this.watchUser(auth.currentUser)
+  }
+
   login = ({ email = "", password = "" }) => {
     return auth.signInWithEmailAndPassword(email, password)
       .then((res) => {
         console.log('LOGIN', res.user)
+        return this.onLogin()
       })
       .catch((error) => {
         console.log('LOGIN ERROR', error)
