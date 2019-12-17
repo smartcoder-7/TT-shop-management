@@ -16,12 +16,12 @@ import { getDayStartTime, formatTime } from '../../util/datetime';
 
 const IS_DEV = process.env.NODE_ENV === 'development'
 
-const Session = ({ time, tables, reservations = [] }) => {
+const Session = ({ time, tables, location, reservations = [] }) => {
   return (
     <div className={styles.session} data-empty={!reservations.length}>
       <div className={styles.timestamp}>
         <label>
-          {formatTime(time)}
+          {formatTime(time, location.timezone)}
         </label>
       </div>
 
@@ -77,6 +77,7 @@ const SessionsData = ({ day }) => {
           <Session
             key={s}
             time={s}
+            location={location}
             reservations={reservationsBySession[s]}
             tables={location.tables}
           />
@@ -87,7 +88,8 @@ const SessionsData = ({ day }) => {
 }
 
 const Admin = () => {
-  const [activeDay, setActiveDay] = useState(getDayStartTime(Date.now()))
+  const location = locations['0']
+  const [activeDay, setActiveDay] = useState(getDayStartTime(Date.now(), location.timezone))
 
   return (
     <Layout className={styles.admin}>
