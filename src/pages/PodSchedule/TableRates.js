@@ -1,10 +1,14 @@
 import React, { useState } from 'react'
-import { RateLabel } from 'components/Session'
-import RATES from 'util/sessionRates'
+import RateLabel from 'components/RateLabel'
 import styles from './styles.scss'
 import modalContainer from '../../containers/modalContainer';
 
-const TableRates = () => {
+const TableRates = ({ location }) => {
+  const rates = [
+    location.defaultRate,
+    ...location.specialRates
+  ]
+
   const openModal = () => {
     modalContainer.open({
       content: (
@@ -16,11 +20,11 @@ const TableRates = () => {
             <br />
             <br />
 
-            {Object.values(RATES).map((rate, i) => {
+            {rates.map((rate, i) => {
               return (
                 <div key={i} className={styles.tableRate}>
                   <RateLabel rate={rate} showEmpty />
-                  <div>${rate.price.NON_MEMBER / 2}</div>
+                  <div>${rate.NON_MEMBER / 2}</div>
                 </div>
               )
             })}

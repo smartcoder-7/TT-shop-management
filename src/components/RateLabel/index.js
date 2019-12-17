@@ -1,16 +1,16 @@
 import React from 'react'
 import styles from './styles.scss'
 
-const RateLabel = ({ rate }) => {
+const RateLabel = ({ rate, showEmpty }) => {
   const { id, displayName } = rate
-  if (!displayName) return null
+  if (!showEmpty && !displayName) return null
 
   return (
     <label
       className={styles.rateName}
       data-rate={id}
     >
-      {displayName}
+      {displayName || 'Normal'}
     </label>
   )
 }

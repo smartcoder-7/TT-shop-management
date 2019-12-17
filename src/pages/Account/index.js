@@ -3,7 +3,7 @@ import Layout from 'components/Layout'
 
 import styles from './styles.scss'
 import { getReservations } from 'api'
-import { INTERVAL_MS } from "util/getPodSessions"
+import { INTERVAL_MS } from 'util/constants'
 import authContainer from 'containers/authContainer'
 import Reservations from 'components/Reservations'
 import UserActions from 'components/User/UserActions'

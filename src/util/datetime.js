@@ -24,7 +24,6 @@ export const formatDate = (time, timezone) => {
   return `${dayOfTheWeek}, ${month} ${day}`
 }
 
-// TODO: Deal with timezones!!
 export const formatTime = (time, timeZone) => {
   const date = new Date(time)
   const newDate = utcToZonedTime(date, timeZone)

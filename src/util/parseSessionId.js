@@ -1,5 +1,5 @@
 import { formatDate, formatTime } from './datetime'
-import constants from './constants'
+import * as constants from './constants'
 import locations from '../../locations.json'
 
 const parseSessionId = (str = '') => {

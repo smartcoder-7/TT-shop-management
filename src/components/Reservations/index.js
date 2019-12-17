@@ -1,15 +1,8 @@
 import React, { useState, useEffect } from "react"
-import { INTERVAL_MS } from "util/getPodSessions"
+import { INTERVAL_MS } from 'util/constants'
 import RateLabel from 'components/RateLabel'
 import parseSessionId from 'util/parseSessionId'
 import styles from './styles.scss'
-
-const formatInfo = reservation => {
-  const sessionId = `0-${reservation.reservationTime}`
-  const { formattedDate, formattedTime } = parseSessionId(sessionId)
-
-  return `${formattedDate} ${formattedTime}`
-}
 
 const getSessionId = ({ reservationTime, locationId = '0' }) => (
   `${locationId}-${reservationTime}`

@@ -153,7 +153,7 @@ const PodSchedule = ({ match: { params } }) => {
         <div className={styles.info}>
           <h3 className={styles.location}>
             {location.displayName}.
-            <TableRates />
+            <TableRates location={location} />
           </h3>
         </div>
 
