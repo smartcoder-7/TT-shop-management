@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import Layout from 'components/Layout'
 
 import styles from './styles.scss'
-import { getDateParts } from 'util/datetime'
 import { getReservations } from 'api'
 import { INTERVAL_MS } from "util/getPodSessions"
 import authContainer from 'containers/authContainer'
@@ -13,11 +12,6 @@ import UserBadges from 'components/User/UserBadges'
 
 const AccountInfo = () => {
   const { user } = authContainer
-
-  const format = d => {
-    const { monthAbbr, year } = getDateParts(d)
-    return `${monthAbbr} ${year}`
-  }
 
   return (
     <div className={styles.accountInfo}>

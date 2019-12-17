@@ -33,27 +33,3 @@ const getAllTimes = (date) => {
 
   return times
 }
-
-export const formatDate = (date) => {
-  const year = date.getFullYear()
-  const month = date.getMonth() + 1
-  const day = date.getDate()
-  return `${year}-${with0(month)}-${with0(day)}`
-}
-
-export const parseSession = (str = '') => {
-  const parts = str.split('-')
-  const time = parseInt(parts[1])
-
-  const date = new Date(time)
-  const timeEnd = time + INTERVAL_MS
-
-  return {
-    locationId: parts[0],
-    date: formatDate(date),
-    time,
-    timeEnd,
-    timeFormatted: formatTime(time),
-    timeEndFormatted: formatTime(timeEnd),
-  }
-}

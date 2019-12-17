@@ -7,7 +7,6 @@ import { getAvailableSessions } from 'api'
 import parseSessionId from 'util/parseSessionId'
 import Layout from 'components/Layout'
 import getSessionRate from 'util/getSessionRate'
-import { toNearestHour } from 'util/datetime'
 import Loading from 'components/Loading'
 import RateLabel from 'components/RateLabel'
 import DayPicker from 'components/DayPicker'
@@ -18,13 +17,10 @@ import cartContainer, { CartSubscriber } from 'containers/cartContainer'
 import TableRates from './TableRates'
 import ThreeStar from '../../components/svg/ThreeStar.js';
 import TwoStar from '../../components/svg/TwoStar';
+import { getDayStartTime, formatTime } from '../../util/datetime.js';
 
 const FULL_DAY = (1000 * 60 * 60 * 24)
 const POLL_INTERVAL = 1000 * 60 * 5
-
-const addDays = (time, days) => {
-  return toNearestHour(time) + (days * FULL_DAY)
-}
 
 export const Session = ({
   session: {
@@ -35,10 +31,10 @@ export const Session = ({
   },
   locationId
 }) => {
+  const location = locations[locationId]
   const sessionId = `${locationId}-${startTime}`
   const premium = cartContainer.isPremium(sessionId)
   const isSelected = cartContainer.isInCart(sessionId)
-  const { formattedTime } = parseSessionId(sessionId)
 
   const rate = getSessionRate(sessionId)
 
@@ -68,7 +64,7 @@ export const Session = ({
     >
       <div className={styles.sessionInfo}>
         <div className={styles.check}>✔</div>
-        <label>{formattedTime}</label>
+        <label>{formatTime(startTime, location.timezone)}</label>
         <RateLabel rate={rate} />
         {premium && <span className={styles.premiumLabel}>
           <RateLabel rate={{ displayName: 'Premium' }} />
@@ -104,6 +100,7 @@ const SessionPicker = ({ locationId, startTime, endTime }) => {
           const filteredSessions = sessions.filter(({ startTime }) => {
             return startTime >= Date.now()
           })
+
           setSessions(filteredSessions)
         })
     }
@@ -143,10 +140,12 @@ const SessionPicker = ({ locationId, startTime, endTime }) => {
 }
 
 const PodSchedule = ({ match: { params } }) => {
-  const [activeDay, setActiveDay] = useState(toNearestHour(Date.now()))
-
   const locationId = params.locationId
   const location = locations[locationId]
+
+  const initialStart = getDayStartTime(Date.now(), location.timezone)
+  const [startTime, setStartTime] = useState(initialStart)
+  const endTime = startTime + FULL_DAY
 
   return (
     <Layout className={styles.podSchedule}>
@@ -158,14 +157,14 @@ const PodSchedule = ({ match: { params } }) => {
           </h3>
         </div>
 
-        <DayPicker onChange={time => setActiveDay(time)} />
+        <DayPicker timezone={location.timezone} onChange={time => setStartTime(time)} />
       </div>
 
       <CartSubscriber>{() => (
         <SessionPicker
           locationId={locationId}
-          startTime={activeDay}
-          endTime={addDays(activeDay, 1)}
+          startTime={startTime}
+          endTime={endTime}
         />
       )}</CartSubscriber>
     </Layout>

@@ -1,106 +1,44 @@
+const { zonedTimeToUtc, utcToZonedTime, format } = require('date-fns-tz')
+import set from 'date-fns/set'
+
 const with0 = n => n < 10 ? `0${n}` : `${n}`
 
-const DAYS_OF_THE_WEEK = [
-  'Sunday',
-  'Monday',
-  'Tuesday',
-  'Wednesday',
-  'Thursday',
-  'Friday',
-  'Saturday'
-]
-
-const DAYS_OF_THE_WEEK_ABBR = [
-  'Sun',
-  'Mon',
-  'Tue',
-  'Wed',
-  'Thu',
-  'Fri',
-  'Sat'
-]
-
-const MONTHS = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December'
-]
-
-const MONTHS_ABBR = [
-  'Jan',
-  'Feb',
-  'Mar',
-  'Apr',
-  'May',
-  'Jun',
-  'Jul',
-  'Aug',
-  'Sep',
-  'Oct',
-  'Nov',
-  'Dec'
-]
-
-export const getDateParts = (_date) => {
-  let date = _date
-
-  if (!Number.isNaN(date)) {
-    date = new Date(date)
-  }
-
-  const dayOfTheWeek = DAYS_OF_THE_WEEK[date.getDay()]
-  const dayOfTheWeekAbbr = DAYS_OF_THE_WEEK_ABBR[date.getDay()]
-  const month = MONTHS[date.getMonth()]
-  const monthAbbr = MONTHS_ABBR[date.getMonth()]
-  const day = date.getDate()
-  const year = date.getFullYear()
-  const hours = date.getHours()
-  const minutes = date.getMinutes()
+export const parseTime = (time, timeZone) => {
+  const _date = new Date(time)
+  const date = utcToZonedTime(_date, timeZone)
 
   return {
-    dayOfTheWeek,
-    dayOfTheWeekAbbr,
-    month,
-    monthAbbr,
-    day,
-    year,
-    hours,
-    minutes
+    dayOfTheWeek: format(date, 'EEEE', { timeZone }),
+    dayOfTheWeekAbbr: format(date, 'EEE', { timeZone }),
+    month: format(date, 'MMMM', { timeZone }),
+    monthAbbr: format(date, 'MMM', { timeZone }),
+    day: format(date, 'd', { timeZone }),
+    year: format(date, 'yyyy', { timeZone }),
+    hours: format(date, 'hh', { timeZone }),
+    minutes: format(date, 'mm', { timeZone })
   }
 }
 
-export const formatDate = (date) => {
-  const { dayOfTheWeek, month, day } = getDateParts(date)
+export const formatDate = (time, timezone) => {
+  const { dayOfTheWeek, month, day } = parseTime(time, timezone)
   return `${dayOfTheWeek}, ${month} ${day}`
 }
 
 // TODO: Deal with timezones!!
-export const formatTime = (time) => {
+export const formatTime = (time, timeZone) => {
   const date = new Date(time)
-  const hour = date.getHours()
-  const minutes = date.getMinutes()
-
-  let hour12 = hour % 12
-  hour12 = hour12 === 0 ? 12 : hour12
-  const ampm = hour < 12 ? 'AM' : 'PM'
-  return `${with0(hour12)}:${with0(minutes)} ${ampm}`
+  const newDate = utcToZonedTime(date, timeZone)
+  return format(newDate, 'hh:mm aa', { timeZone })
 }
 
-export const getDayStartTime = (time) => {
-  const newDate = new Date(time)
-  newDate.setHours(0)
-  newDate.setMinutes(0)
-  newDate.setSeconds(0)
-  newDate.setMilliseconds(0)
+export const getDayStartTime = (time, timezone) => {
+  const flattened = set(new Date(time), {
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+    milliseconds: 0
+  })
+  const newDate = zonedTimeToUtc(flattened, timezone)
   return newDate.getTime()
 }
 

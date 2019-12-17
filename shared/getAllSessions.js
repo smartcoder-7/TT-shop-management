@@ -1,3 +1,4 @@
+const { zonedTimeToUtc, utcToZonedTime, format } = require('date-fns-tz')
 const locations = require('../locations.json')
 
 const INTERVAL_MS = 1000 * 60 * 30
@@ -39,7 +40,8 @@ const getAllSessions = ({
     // Always open?
     if (!location.closedFrom || !location.closedUntil) return false
 
-    const date = new Date(time)
+    const _date = new Date(time)
+    const date = utcToZonedTime(_date, location.timezone)
 
     const hour = date.getHours()
     const minute = date.getMinutes()

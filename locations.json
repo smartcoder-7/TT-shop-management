@@ -1,7 +1,7 @@
 {
   "0": {
     "displayName": "Allen Street",
-    "timezone": "GMT-0500",
+    "timezone": "America/New_York",
     "tables": [
       {
         "id": "1",

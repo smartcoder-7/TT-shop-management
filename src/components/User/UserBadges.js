@@ -1,16 +1,16 @@
 import React from 'react'
 
-import { getDateParts } from 'util/datetime'
 import authContainer from 'containers/authContainer'
 import UserBadge from 'components/User/UserBadge'
 import ActiveCard from './ActiveCard'
+import { parseTime } from 'util/datetime'
 
 
 const UserBadges = () => {
   const { user } = authContainer
 
   const format = d => {
-    const { monthAbbr, year } = getDateParts(d)
+    const { monthAbbr, year } = parseTime(d, 'America/New_York')
     return `${monthAbbr} ${year}`
   }
 

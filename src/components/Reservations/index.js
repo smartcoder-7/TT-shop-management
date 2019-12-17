@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react"
-import { INTERVAL_MS, formatTime } from "util/getPodSessions"
+import { INTERVAL_MS } from "util/getPodSessions"
 import RateLabel from 'components/RateLabel'
 import parseSessionId from 'util/parseSessionId'
-import getDateParts from "util/getDateParts"
-import getSessionRate from 'util/getSessionRate'
 import styles from './styles.scss'
 
 const formatInfo = reservation => {
