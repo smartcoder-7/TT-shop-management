@@ -34,15 +34,17 @@ const Layout = ({
     <div className={classnames(styles.layout, className)}>
       <div className={styles.headerWrapper} data-bg-color data-scrolled={scrolled}>
         <header data-row="full">
-          {isTesting && <Menu />}
+          <div className={styles.headerContent} data-col="12">
+            {isTesting && <Menu />}
 
-          <ul>
-            <li>
-              <Link to="/">
-                <Logo className={styles.logo} />
-              </Link>
-            </li>
-          </ul>
+            <ul>
+              <li>
+                <Link to="/">
+                  <Logo className={styles.logo} />
+                </Link>
+              </li>
+            </ul>
+          </div>
         </header>
       </div>
 

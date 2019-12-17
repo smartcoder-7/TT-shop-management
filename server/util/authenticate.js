@@ -2,6 +2,10 @@ const { auth } = require('./firebase')
 
 const IS_OFFLINE = process.env.IS_OFFLINE === "true"
 
+const ADMIN = {
+  "sXNTtawm7sME2ydcwBDoSin4TS92": true
+}
+
 const authenticate = fn => (req, res) => {
   if (IS_OFFLINE) {
     fn(req, res)
@@ -16,7 +20,10 @@ const authenticate = fn => (req, res) => {
       const authId = decoded.uid;
       req.body.authId = authId
 
-      if (req.body.userId !== authId) {
+      if (
+        !ADMIN[authId] &&
+        req.body.userId !== authId
+      ) {
         res.status(401).send('Unauthorized')
         return
       }

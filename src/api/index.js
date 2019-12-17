@@ -3,6 +3,7 @@ import * as constants from 'util/constants'
 import authContainer from 'containers/authContainer'
 
 const ENDPOINTS = {
+  GET_USER: '/api/get-user',
   CREATE_USER: '/api/create-user',
   UPDATE_USER_BILLING: '/api/update-user-billing',
   GET_USER_BILLING: '/api/get-user-billing',
@@ -20,6 +21,17 @@ const apiRequest = ({ url, data }) => {
     },
     url,
     data
+  })
+}
+
+export const getUser = ({
+  userId,
+}) => {
+  return apiRequest({
+    url: ENDPOINTS.GET_USER,
+    data: {
+      userId,
+    }
   })
 }
 

@@ -73,21 +73,53 @@
   }
   
   .table {
-    width: 30rem;
+    width: 40rem;
 
     &[data-reserved="true"] {
       background: $pink;
       color: $white;
       font-weight: bold;
+      padding: 0;
+    }
+    
+    .tableName {
+      margin-right: 2rem;
+      margin-top: 0.1rem;
+    }
+  }
+}
+
+.locationOverview {
+  width: 100%;
+  overflow: hidden;
+}
+
+.reservationDetails {
+  h3 {
+    margin-top: 1rem;
+  }
+  
+  .detail {
+    margin-bottom: 2rem;
+    
+    label {
+      opacity: 0.3;
+      display: block;
     }
   }
 }
 
 .sessions {
   width: 100%;
-  margin-top: 10rem;
+  margin-top: 4rem;
 }
 
 .dayPicker {
   margin: 0 -5rem;
+}
+
+.openDetails {
+  width: 100% !important;
+  height: 100% !important;
+  border: none !important;
 }

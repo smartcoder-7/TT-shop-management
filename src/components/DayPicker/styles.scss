@@ -1,9 +1,9 @@
 @import 'styles/_variables.scss';
 
 .dayPicker {
-  flex: 1;
   white-space: nowrap;
   overflow: scroll;
+  padding-bottom: 5rem;
 
   .day {
     display: inline-flex;

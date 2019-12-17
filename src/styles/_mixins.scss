@@ -58,6 +58,10 @@
   }
 }
 
+@mixin col-full($n) {
+  width: $n * (90% / $cols);
+}
+
 @mixin col-landscape($n) {
   width: $n * $col-width-landscape;
 

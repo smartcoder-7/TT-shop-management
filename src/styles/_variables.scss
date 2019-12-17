@@ -14,8 +14,9 @@ $unit-portrait: 1.1vw;
 $unit-portrait-lg: 6px;
 $unit-landscape: 5px;
 
+$cols: 12;
 $col-width: 6.5rem;
-$content-width: $col-width * 12;
+$content-width: $col-width * $cols;
 
 $col-width-landscape: 14rem;
-$content-width-landscape: $col-width-landscape * 12;
+$content-width-landscape: $col-width-landscape * $cols;
