@@ -7,7 +7,7 @@ import UpdateBillingInfo from 'components/modalActions/UpdateBillingInfo'
 const UserActions = () => {
   return (
     <div className={styles.userActions}>
-      <UpdateBillingInfo>{({ onClick }) => (
+      <UpdateBillingInfo theme='dark'>{({ onClick }) => (
         <button className={styles.tableRates} data-link onClick={onClick}>
           + Update Billing Info
         </button>

@@ -78,7 +78,7 @@ const _Cart = ({ history }) => {
             <br />
             <UserBadges />
             <br />
-            <UpdateBillingInfo>{({ onClick }) => (
+            <UpdateBillingInfo theme='light'>{({ onClick }) => (
               <button data-link onClick={onClick}>
                 Update Billing Info
               </button>

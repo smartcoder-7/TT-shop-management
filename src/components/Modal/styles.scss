@@ -8,7 +8,6 @@
   height: 100%;
   visibility: hidden;
   z-index: 3;
-  background: rgba(0,0,0,0.5);
 
   &[data-active="true"] {
     visibility: visible;
@@ -22,6 +21,7 @@
   right: 0;
   bottom: 0;
   margin: auto;
+  pointer-events: none;
   
   display: flex;
   align-items: center;
@@ -35,6 +35,17 @@
   align-items: center;
   max-height: 60vh;
   padding: 10rem 0;
+}
+
+.background {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.5;
+  filter: invert(100%);
 }
 
 .close {

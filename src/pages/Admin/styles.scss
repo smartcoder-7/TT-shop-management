@@ -5,7 +5,8 @@
   background: $light-gray;
   color: $black;
 
-  [data-bg-color] {
+  [data-bg-color],
+  [data-modal-bg-color] {
     background: $light-gray;
   }
 }

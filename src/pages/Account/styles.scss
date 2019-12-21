@@ -10,6 +10,11 @@
     background: $blue;
     color: $white;
   }
+  
+  [data-modal-bg-color] {
+    background: $white;
+    color: $black;
+  }
 }
 
 .reservationDate {

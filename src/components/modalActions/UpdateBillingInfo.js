@@ -11,15 +11,17 @@ import { updateUserBilling, constants } from 'api'
 import authContainer from 'containers/authContainer'
 import modalContainer from 'containers/modalContainer'
 
-const createOptions = () => {
+const createOptions = ({ theme = 'dark' }) => {
+  const dark = theme === 'dark'
+
   return {
     style: {
       base: {
         fontSize: '16px',
-        color: '#424770',
+        color: dark ? '#424770' : '#ffffff',
         fontFamily: 'Avenir, sans-serif',
         '::placeholder': {
-          color: '#aab7c4',
+          color: dark ? '#aab7c4' : '#dddddd',
         },
       },
       invalid: {
@@ -29,8 +31,9 @@ const createOptions = () => {
   }
 };
 
-const AddCard = ({
+const _CardForm = ({
   stripe,
+  theme,
   handleResult
 }) => {
   const [formError, setFormError] = useState()
@@ -59,7 +62,7 @@ const AddCard = ({
 
       <form onSubmit={handleSubmit}>
         <div className={styles.cardForm}>
-          <CardElement {...createOptions()} />
+          <CardElement {...createOptions({ theme })} />
         </div>
 
         {formError && (
@@ -74,9 +77,9 @@ const AddCard = ({
   )
 }
 
-const CardForm = injectStripe(AddCard)
+const CardForm = injectStripe(_CardForm)
 
-const BillingModalContent = () => {
+const BillingModalContent = ({ theme }) => {
   const { user } = authContainer
 
   const handleResult = (token) => {
@@ -100,7 +103,7 @@ const BillingModalContent = () => {
       <div data-col="10">
         <StripeProvider apiKey={constants.STRIPE_PUBLISHABLE_KEY}>
           <Elements>
-            <CardForm handleResult={handleResult} />
+            <CardForm handleResult={handleResult} theme={theme} />
           </Elements>
         </StripeProvider>
       </div>
@@ -109,14 +112,14 @@ const BillingModalContent = () => {
   )
 }
 
-const openBillingModal = () => {
+const openBillingModal = ({ theme }) => {
   modalContainer.open({
-    content: <BillingModalContent />
+    content: <BillingModalContent theme={theme} />
   })
 }
 
-const UpdateBillingInfo = ({ children }) => {
-  return children({ onClick: openBillingModal })
+const UpdateBillingInfo = ({ theme, children }) => {
+  return children({ onClick: () => openBillingModal({ theme }) })
 }
 
 export default UpdateBillingInfo
