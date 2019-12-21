@@ -73,6 +73,7 @@
   }
   
   .table {
+    position: relative;
     width: 40rem;
 
     &[data-reserved="true"] {
@@ -119,6 +120,9 @@
 }
 
 .openDetails {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100% !important;
   height: 100% !important;
   border: none !important;
