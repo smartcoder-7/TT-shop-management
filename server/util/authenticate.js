@@ -12,7 +12,7 @@ const ADMIN = {
   // ernesto@pingpod.com
   "RmObH5fZlheisbCxni7FnJbhxUi2": true,
   // david@pingpod.com
-  "uwiOkNc361bwpDX1oZxPI5L3kCR2": true
+  "uwiOkNc361bwpDX1oZxPI5L3kCR2": true,
 }
 
 const authenticate = fn => (req, res) => {

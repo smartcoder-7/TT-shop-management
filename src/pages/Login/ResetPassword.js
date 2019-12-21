@@ -69,9 +69,9 @@ const ResetPassword = ({ email = '', children }) => {
 
   return (
     <>
-      <button className={styles.resetPassword} data-link onClick={openModal}>
+      <a data-link className={styles.resetPassword} onClick={openModal}>
         {children}
-      </button>
+      </a>
     </>
   )
 }
