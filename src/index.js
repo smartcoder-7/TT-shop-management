@@ -21,6 +21,7 @@ const IS_OFFLINE = process.env.IS_OFFLINE === "true"
 const AuthenticatedRoute = ({
   component: Component,
   path,
+  adminOnly = false,
   ...rest
 }) => (
     <Route
@@ -30,14 +31,7 @@ const AuthenticatedRoute = ({
           return null
         }
 
-        if (
-          IS_OFFLINE ||
-          (authContainer.userId && authContainer.user)
-        ) {
-          return <Component {...props} />
-        }
-
-        return (
+        const redirect = (
           <Redirect
             to={{
               pathname: "/login",
@@ -45,6 +39,22 @@ const AuthenticatedRoute = ({
             }}
           />
         )
+
+        if (adminOnly) {
+          if (!authContainer.user || !authContainer.user.isAdmin) {
+            return redirect
+          }
+          return <Component {...props} />
+        }
+
+        if (
+          IS_OFFLINE ||
+          (authContainer.userId && authContainer.user)
+        ) {
+          return <Component {...props} />
+        }
+
+        return redirect
       }}
     />
   )
@@ -67,7 +77,7 @@ const App = () => (
           <AuthenticatedRoute path="/cart" component={Cart} />
           <AuthenticatedRoute path="/checkout" component={Checkout} />
 
-          <AuthenticatedRoute path="/admin" component={Admin} />
+          <AuthenticatedRoute path="/admin" component={Admin} adminOnly={true} />
         </Switch>
       </>
     )}</AuthSubscriber>
