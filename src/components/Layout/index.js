@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import classnames from 'classnames'
 
 import styles from './styles.scss'
@@ -13,9 +13,10 @@ const IS_DEV = process.env.NODE_ENV === 'development'
 
 const Layout = ({
   className,
-  children
+  children,
+  location
 }) => {
-  const isTesting = IS_DEV || contextContainer.isMobile
+  const isTesting = IS_DEV || contextContainer.isMobile || location.pathname !== '/'
   const [scrolled, setScrolled] = useState(!!window.pageYOffset)
 
   useEffect(() => {
@@ -65,4 +66,4 @@ const Layout = ({
   )
 }
 
-export default Layout
+export default withRouter(Layout)
