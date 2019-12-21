@@ -9,11 +9,12 @@ import Layout from 'components/Layout'
 
 import styles from './styles.scss'
 import authContainer from '../../containers/authContainer';
+import ResetPassword from './ResetPassword';
 
 const LoginForm = ({ onSubmit }) => (
   <Form
     onSubmit={onSubmit}
-    render={({ handleSubmit }) => (
+    render={({ handleSubmit, values, ...rest }) => (
       <div data-row>
         <form onSubmit={handleSubmit} data-col="12">
           <div className={styles.fieldRow}>
@@ -22,6 +23,9 @@ const LoginForm = ({ onSubmit }) => (
           <div className={styles.fieldRow}>
             <PasswordField name="password" label="Password" autoComplete="current-password" />
           </div>
+          <ResetPassword email={values.email}>
+            <span className={styles.reset}>Reset Password</span>
+          </ResetPassword>
           <button type="submit">Submit</button>
         </form>
       </div>

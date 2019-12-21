@@ -16,23 +16,25 @@
 }
 
 .modalContent {
-  pointer-events: all;
-  background: $white;
-  min-height: 50rem;
-  max-height: 60vh;
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   margin: auto;
-
-  padding: 10rem 0;
+  
+  display: flex;
+  align-items: center;
 }
 
 .modalInner {
+  position: relative;
+  pointer-events: all;
+  background: $white;
   display: flex;
   align-items: center;
+  max-height: 60vh;
+  padding: 10rem 0;
 }
 
 .close {

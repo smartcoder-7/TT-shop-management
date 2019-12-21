@@ -116,11 +116,11 @@ class AuthContainer extends Container {
   }
 
   resetPassword = ({ email = "" }) => {
-    return auth.sendPasswordResetEmail(email).then(function () {
-      // Email sent.
-    }).catch(function (error) {
-      // An error happened.
-    });
+    return new Promise((resolve, reject) => {
+      auth.sendPasswordResetEmail(email)
+        .then(resolve)
+        .catch(reject);
+    })
   }
 }
 

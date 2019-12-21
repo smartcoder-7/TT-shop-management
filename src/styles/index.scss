@@ -107,19 +107,10 @@ input {
   }
 
   @keyframes onAutoFillStart {  from {/**/}  to {/**/}}
-  @keyframes onAutoFillCancel {  from {/**/}  to {/**/}}
+  
   &:-webkit-autofill {
-      // Expose a hook for JavaScript when autofill is shown
-      // JavaScript can capture 'animationstart' events
       animation-name: onAutoFillStart;
-      
-      // Make the background color become yellow really slowly
       transition: background-color 50000s ease-in-out 0s;
-  }
-  &:not(:-webkit-autofill) {
-      // Expose a hook for JS onAutoFillCancel
-      // JavaScript can capture 'animationstart' events
-      animation-name: onAutoFillCancel;
   }
 }
 

@@ -1,19 +1,13 @@
 import React, { useEffect, useRef } from 'react'
-import { Field } from 'react-final-form'
-import FieldWrapper from './FieldWrapper'
+import Field from './Field'
 
 const EmailField = ({ name = 'email', label, autoComplete, ...rest }) => {
   return (
     <Field
+      type="email"
+      label="Email Address"
       name={name}
-      render={({ input, meta }) => {
-        return (
-          <FieldWrapper isEmpty={!input.value} label={label}>
-            <input {...input} type="email" {...rest} />
-            {meta.touched && meta.error && <span>{meta.error}</span>}
-          </FieldWrapper>
-        )
-      }}
+      {...rest}
     />
   )
 }

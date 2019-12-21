@@ -12,9 +12,8 @@ const Modal = ({ children, isActive }) => {
         <div data-bg-color className={styles.modalContent} data-row onClick={(e) => e.stopPropagation()}>
           <div className={styles.modalInner} data-col="12">
             {children}
+            <div className={styles.close} onClick={onClose}>✕</div>
           </div>
-
-          <div className={styles.close} onClick={onClose}>✕</div>
         </div>
       </div>
     </>
