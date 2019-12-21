@@ -115,6 +115,7 @@ const LocationOverview = ({ locationId }) => {
     <div className={styles.locationOverview}>
       <DayPicker
         className={styles.dayPicker}
+        timezone={location.timezone}
         initialDay={activeDay}
         onChange={time => setActiveDay(time)}
       />

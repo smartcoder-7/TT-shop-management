@@ -30,6 +30,7 @@ const autochargeReservations = async () => {
   }
 
   const charged = await chargeReservations({ reservations })
+  console.log(charged)
   return charged
 }
 

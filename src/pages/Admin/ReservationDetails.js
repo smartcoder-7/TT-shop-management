@@ -8,6 +8,8 @@ const ReservationDetails = ({
   reservation: {
     userId,
     reservationTime,
+    chargeId,
+    chargeError,
     isPremium,
     id
   },
@@ -15,7 +17,6 @@ const ReservationDetails = ({
 }) => {
   const openModal = async () => {
     const { data: user } = await getUser({ userId })
-    console.log(user)
     modalContainer.open({
       content: (
         <div data-row className={styles.reservationDetails}>
@@ -28,7 +29,10 @@ const ReservationDetails = ({
             <p className={styles.detail}><label>Name</label>{user.firstName} {user.lastName}</p>
             <p className={styles.detail}><label>Email</label>{user.email}</p>
             <p className={styles.detail}><label>Active Card</label>{(!!user.hasActiveCard).toString()}</p>
-            <p className={styles.detail}><label>Stripe ID</label>{user.stripeId}</p>
+            <p className={styles.detail}><label>Stripe Customer ID</label>{user.stripeId}</p>
+
+            {chargeId && <p className={styles.detail}><label>(PAID) Stripe Charge ID</label>{chargeId}</p>}
+            {!chargeId && <p className={styles.detail}><label>(UNPAID)</label>{chargeError}</p>}
           </div>
           <div data-col="1" />
         </div>
