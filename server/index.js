@@ -7,6 +7,7 @@ const ROOT_DIR = path.resolve(__dirname, '../')
 
 const authenticate = require('./util/authenticate')
 
+const chargeReservations = require('./chargeReservations')
 const createReservations = require('./createReservations')
 const getReservations = require('./getReservations')
 const getAvailableSessions = require('./getAvailableSessions')
@@ -20,6 +21,7 @@ express()
   .use(express.static(path.resolve(ROOT_DIR, 'public')))
   .use(express.json())
 
+  .post('/api/charge-reservations', chargeReservations)
   .post('/api/create-reservations', authenticate(createReservations))
   .post('/api/get-reservations', getReservations)
   .post('/api/create-user', authenticate(createUser))

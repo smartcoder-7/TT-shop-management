@@ -1,4 +1,4 @@
-const { zonedTimeToUtc, utcToZonedTime, format } = require('date-fns-tz')
+import { zonedTimeToUtc, utcToZonedTime, format } from 'date-fns-tz'
 import set from 'date-fns/set'
 
 const with0 = n => n < 10 ? `0${n}` : `${n}`
