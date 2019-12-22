@@ -66,8 +66,11 @@ const createReservations = async (req, res) => {
       throw err
     })
 
+
+    const reservationIds = []
     validReservations.forEach(reservation => {
       const reservationRef = db.collection('reservations').doc(reservation.id)
+      reservationIds.push(reservation.id)
       batch.set(reservationRef, reservation)
     })
 
@@ -75,7 +78,7 @@ const createReservations = async (req, res) => {
     const orderRef = db.collection('orders').doc(orderId)
     batch.set(orderRef, {
       userId,
-      reservations,
+      reservations: reservationIds,
       createdAt: Date.now()
     })
 

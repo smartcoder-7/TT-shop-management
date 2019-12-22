@@ -8,7 +8,7 @@
     "set:heroku-config": "node ./scripts/set-heroku-config.js",
     "build": "NODE_ENV=production webpack",
     "watch": "yarn run set:env && webpack-dev-server",
-    "start:local": "yarn run set:env && nodemon ./server/index.js",
+    "start:local": "yarn run set:env && nodemon ./server/index.js -w ./server -w ./shared",
     "watch:dev": "NODE_ENV=development yarn run watch",
     "start:dev": "NODE_ENV=development yarn run start:local",
     "watch:dev:offline": "NODE_ENV=offline yarn run watch",

@@ -10,23 +10,38 @@ import Reservations from '../../components/Reservations';
 
 const Success = ({ match: { params } }, history) => {
   const [order, setOrder] = useState()
+  const [loading, setLoading] = useState(true)
   const orderId = params.orderId
 
   useEffect(() => {
     if (!authContainer.userId) return
 
+    setLoading(true)
     getOrder({ orderId, userId: authContainer.userId })
       .then(setOrder)
       .catch((err) => {
         console.log(err)
       })
+      .finally(() => {
+        setLoading(false)
+      })
   }, [orderId, authContainer.userId])
+
+  if (loading) return (
+    <Layout className={styles.success} />
+  )
 
   return (
     <Layout className={styles.success}>
-      <div data-row className={styles.details}>
-        <div data-col={12}>
+      <div data-row>
+        <div data-col={12} className={styles.summary}>
           <h1>You're booked!</h1>
+
+          <p data-p3>
+            The card on file will be charged within 48 hours of each reservation time.
+          </p>
+
+          <br />
 
           {order && (
             <Reservations reservations={order.reservations} />

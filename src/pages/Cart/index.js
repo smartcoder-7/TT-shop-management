@@ -29,9 +29,10 @@ const _Cart = ({ history }) => {
 
   const checkout = () => {
     createReservations({ userId: user.id, reservations })
-      .then(() => {
+      .then((res = {}) => {
+        const orderId = res.orderId
         cartContainer.empty()
-        history.push('/account')
+        history.push(`/success/${orderId}`)
       })
       .catch((err) => {
         console.error(err)

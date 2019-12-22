@@ -13,11 +13,15 @@
 
   .premiumLabel {
     margin-bottom: 2rem;
-    color: $pink;
+    color: currentColor;
   }
 }
 
 .tableDetails {
   opacity: 0.2;
   pointer-events: none;
+}
+
+.date {
+  line-height: 1em;
 }

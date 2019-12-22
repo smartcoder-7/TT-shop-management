@@ -146,7 +146,7 @@ export const createReservations = ({
       userId,
       reservations
     }
-  })
+  }).then(d => d.data)
 }
 
 export {
