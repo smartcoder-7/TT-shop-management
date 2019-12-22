@@ -71,11 +71,20 @@ const createReservations = async (req, res) => {
       batch.set(reservationRef, reservation)
     })
 
+    const orderId = uuid()
+    const orderRef = db.collection('orders').doc(orderId)
+    batch.set(orderRef, {
+      userId,
+      reservations,
+      createdAt: Date.now()
+    })
+
     await batch.commit()
 
     res.status(200).json({
       success: true,
-      reservations: validReservations
+      reservations: validReservations,
+      orderId
     })
   } catch (err) {
     res.status(400).send(err.message)

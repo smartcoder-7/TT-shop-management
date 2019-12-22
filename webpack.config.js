@@ -10,7 +10,8 @@ const PUBLIC_DIR = path.resolve(__dirname, 'public')
 module.exports = [
   {
     entry: path.resolve(SRC_DIR, 'index.js'),
-    mode: process.env.NODE_ENV,
+    mode: process.env.NODE_ENV === 'production'
+      ? 'production' : 'development',
     output: {
       path: path.resolve(PUBLIC_DIR, 'scripts'),
       publicPath: '/scripts/',

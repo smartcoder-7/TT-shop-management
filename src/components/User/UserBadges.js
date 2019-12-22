@@ -9,6 +9,8 @@ import { parseTime } from 'util/datetime'
 const UserBadges = () => {
   const { user } = authContainer
 
+  console.log(user)
+
   const format = d => {
     const { monthAbbr, year } = parseTime(d, 'America/New_York')
     return `${monthAbbr} ${year}`

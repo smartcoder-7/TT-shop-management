@@ -1,19 +1,16 @@
-const fs = require('fs-extra')
-const path = require('path')
-const allSecrets = require('../secrets.json')
+const secrets = require('../secrets.json')
 
-const ROOT_DIR = __dirname
+const ENV_PUBLIC = {
+  offline: {
+    IS_OFFLINE: true
+  }
+}
 
-const IS_OFFLINE = process.env.IS_OFFLINE === "true"
-const isDev = process.env.NODE_ENV === 'development'
-
-const secrets = isDev ?
-  allSecrets.development :
-  allSecrets.production
+const env = process.env.NODE_ENV
 
 const envVars = {
-  ...secrets,
-  IS_OFFLINE
+  ...(secrets[env] || secrets.development),
+  ...(ENV_PUBLIC[env] || {})
 }
 
 const getEnv = () => {
@@ -27,7 +24,7 @@ const getEnv = () => {
   return str
 }
 
-const getDotEnv = (separator = ' ') => {
+const getDotEnv = () => {
   let str = ''
 
   Object.keys(envVars).forEach((key) => {

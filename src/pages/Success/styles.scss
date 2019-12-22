@@ -1,0 +1,26 @@
+@import 'styles/_variables.scss';
+
+.success {
+  background: $pink;
+  color: $white;
+  min-height: 100vh;
+
+  [data-bg-color],
+  [data-modal-bg-color] {
+    background: $pink;
+    color: $white;
+  }
+  
+  h1 {
+    text-align: center;
+    margin-top: 12rem;
+    margin-bottom: 8rem;
+  }
+  
+  button {
+    background: $white !important;
+    color: $pink !important;
+  }
+}
+
+

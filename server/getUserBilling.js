@@ -1,5 +1,5 @@
 const { db } = require('./util/firebase')
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const stripe = require('./util/stripe');
 
 const getUserBilling = async (req, res) => {
   const {
@@ -16,7 +16,6 @@ const getUserBilling = async (req, res) => {
 
   try {
     const customer = await stripe.customers.retrieve(user.data().stripeId)
-
     res.status(200).json(customer)
   } catch (err) {
     res.status(500).send(err.message)

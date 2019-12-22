@@ -4,6 +4,8 @@ import { db, auth } from 'util/firebase'
 import { Container, Subscribe, Provider } from 'unstated'
 import { createUser, getUserBilling } from 'api'
 
+const IS_OFFLINE = !!process.env.IS_OFFLINE
+
 class AuthContainer extends Container {
   state = {
     loading: true,
@@ -35,33 +37,48 @@ class AuthContainer extends Container {
         user: {},
         loading: false,
         idToken: null,
+        userBilling: {}
       })
     })
+
+    if (IS_OFFLINE) {
+      console.log(this.state)
+      setTimeout(() => {
+        createUser({ userId: '12345', email: 'testy@moo.com' })
+          .then((user) => {
+            this.updateUser(user)
+          })
+      })
+    }
   }
 
-  watchUser() {
+  watchUser({ userId, email }) {
     if (this.unwatchUser) this.unwatchUser()
-    if (!auth.currentUser) return
 
-    const { uid: userId, email } = auth.currentUser
     createUser({ userId, email })
       .then(() => {
         const userRef = db.collection('users').doc(userId)
         this.unwatchUser = userRef.onSnapshot(async doc => {
           const user = doc.data()
-
-          if (user.hasActiveCard) {
-            const userBilling = await getUserBilling({ userId })
-            await this.setState({ userBilling })
-          }
-
-          this.setState({
-            userId,
-            user,
-            loading: false,
-          })
+          this.updateUser(user)
         })
       })
+  }
+
+  updateUser = async (user) => {
+    const userId = user.id
+    let userBilling = {}
+
+    if (user.hasActiveCard) {
+      userBilling = await getUserBilling({ userId })
+    }
+
+    this.setState({
+      userId,
+      user,
+      userBilling,
+      loading: false,
+    })
   }
 
   onLogin = async () => {
@@ -72,7 +89,7 @@ class AuthContainer extends Container {
       userId: user.uid,
       loading: true,
     })
-    this.watchUser()
+    this.watchUser({ userId: user.uid, email: user.email })
   }
 
   login = ({ email = "", password = "" }) => {

@@ -1,5 +1,7 @@
 const { db } = require('./util/firebase')
 
+const IS_OFFLINE = !!process.env.IS_OFFLINE
+
 const getReservations = async (req, res) => {
   const {
     userId,
@@ -30,6 +32,10 @@ const getReservations = async (req, res) => {
     if (endTime !== undefined) {
       query = query.where('reservationTime', '<', endTime)
     }
+  }
+
+  if (IS_OFFLINE) {
+    query = db.collection('reservations')
   }
 
   try {

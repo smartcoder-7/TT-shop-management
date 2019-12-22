@@ -5,16 +5,18 @@ import modalContainer from '../../containers/modalContainer';
 import { getUser } from '../../api';
 
 const ReservationDetails = ({
-  reservation: {
+  reservation,
+  children
+}) => {
+  const {
     userId,
     reservationTime,
     chargeId,
     chargeError,
     isPremium,
     id
-  },
-  children
-}) => {
+  } = reservation
+  console.log(reservation)
   const openModal = async () => {
     const { data: user } = await getUser({ userId })
     modalContainer.open({

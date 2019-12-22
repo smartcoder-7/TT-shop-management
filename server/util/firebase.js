@@ -1,7 +1,8 @@
+const { mockUser, mockReservation, mockOrder } = require('../../shared/mockData')
 const mock = require('firebase-mock')
 const admin = require('firebase-admin')
 
-const IS_OFFLINE = process.env.IS_OFFLINE === "true"
+const IS_OFFLINE = !!process.env.IS_OFFLINE
 
 if (!IS_OFFLINE) {
   admin.initializeApp({
@@ -25,8 +26,14 @@ const db = IS_OFFLINE ? new mock.MockFirestore() : admin.firestore()
 const auth = IS_OFFLINE ? new mock.MockAuthentication() : admin.auth()
 
 if (IS_OFFLINE) {
+  db.collection('users').doc(mockUser.id).set(mockUser)
+  db.collection('reservations').doc(mockReservation.id).set(mockReservation)
+  db.collection('orders').doc(mockOrder.id).set(mockOrder)
+
   setInterval(() => {
     db.collection('users').autoFlush();
+    db.collection('reservations').autoFlush();
+    db.collection('orders').autoFlush();
   }, 1000)
 }
 

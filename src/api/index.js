@@ -8,6 +8,7 @@ const ENDPOINTS = {
   UPDATE_USER_BILLING: '/api/update-user-billing',
   GET_USER_BILLING: '/api/get-user-billing',
   GET_RESERVATIONS: '/api/get-reservations',
+  GET_ORDER: '/api/get-order',
   GET_AVAILABLE_SESSIONS: '/api/get-available-sessions',
   CREATE_RESERVATIONS: '/api/create-reservations',
   UPDATE_USER_INFO: '/api/update-user-info'
@@ -45,7 +46,7 @@ export const createUser = ({
       userId,
       email
     }
-  })
+  }).then(d => d.data)
 }
 
 export const updateUserBilling = ({
@@ -108,6 +109,18 @@ export const getReservations = ({
   }).then(d => d.data)
 }
 
+export const getOrder = ({
+  orderId,
+  userId,
+}) => {
+  return apiRequest({
+    url: ENDPOINTS.GET_ORDER,
+    data: {
+      orderId,
+      userId,
+    }
+  }).then(d => d.data)
+}
 export const getAvailableSessions = ({
   locationId,
   startTime,
