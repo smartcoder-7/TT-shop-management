@@ -1,5 +1,5 @@
 const { db } = require('./util/firebase')
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
+const stripe = require('./util/stripe')
 
 const createUser = async (req, res) => {
   const {
@@ -34,7 +34,7 @@ const createUser = async (req, res) => {
     userData.stripeId = customer.id
   }
 
-  await userRef.set(userData)
+  await userRef.update(userData)
   res.status(200).json(userData)
 }
 
