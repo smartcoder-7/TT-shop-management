@@ -27,15 +27,22 @@ const createUser = async (req, res) => {
   userData.createdAt = userData.createdAt || Date.now()
 
   if (!userData.stripeId) {
-    const customer = await stripe.customers.create({
-      metadata: { userId },
-    })
-
-    userData.stripeId = customer.id
+    try {
+      const customer = await stripe.customers.create({
+        metadata: { userId },
+      })
+      userData.stripeId = customer.id
+    } catch (err) {
+      res.status(500).send(err.message)
+    }
   }
 
-  await userRef.update(userData)
-  res.status(200).json(userData)
+  try {
+    await userRef.update(userData)
+    res.status(200).json(userData)
+  } catch (err) {
+    res.status(500).send('Cannot reach server.')
+  }
 }
 
 module.exports = createUser
