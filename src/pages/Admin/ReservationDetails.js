@@ -16,9 +16,9 @@ const ReservationDetails = ({
     isPremium,
     id
   } = reservation
-  console.log(reservation)
+
   const openModal = async () => {
-    const { data: user } = await getUser({ userId })
+    const user = await getUser({ userId })
     modalContainer.open({
       content: (
         <div data-row className={styles.reservationDetails}>

@@ -1,6 +1,8 @@
 const { db } = require('./firebase')
 const locations = require('../../locations.json')
 
+const IS_OFFLINE = !!process.env.IS_OFFLINE
+
 const getTables = location => {
   const total = []
   const regular = []
@@ -17,16 +19,24 @@ const getTables = location => {
 
 class AvailabilityCheck {
   constructor({
+    userId,
     locationId,
     startTime,
     endTime
   }) {
     if (!endTime) endTime = startTime
 
+    this.userId = userId
     this.location = locations[locationId]
     this.tables = getTables(this.location)
 
     this.query = db.collection('reservations')
+
+    if (IS_OFFLINE) {
+      return
+    }
+
+    this.query = this.query
       .where('locationId', '==', locationId)
       .where('reservationTime', '>=', startTime)
       .where('reservationTime', '<=', endTime)
@@ -50,6 +60,16 @@ class AvailabilityCheck {
       this.reservationsByTime[time] = this.reservationsByTime[time] || []
       this.reservationsByTime[time].push(reservation)
     })
+  }
+
+  isAlreadyBookedAt(time) {
+    if (this.userId) {
+      const reservations = this.reservationsByTime[time] || []
+      const alreadyBooked = reservations.find(r => r.userId === this.userId)
+      if (alreadyBooked) return true
+    }
+
+    return false
   }
 
   getReservationsAt(time, filter = () => true) {

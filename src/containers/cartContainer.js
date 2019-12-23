@@ -1,13 +1,15 @@
 import React from 'react'
 import { Container, Subscribe, Provider } from 'unstated'
 
+import * as storage from 'util/localStorage'
 import parseSessionId from 'util/parseSessionId'
 import getSessionRate from 'util/getSessionRate'
 
-const ROOT_KEY = 'pingpod'
-const CART_KEY = `${ROOT_KEY}/cart`
-const LOCATION_KEY = `${ROOT_KEY}/locationId`
-const PREMIUM_KEY = `${ROOT_KEY}/premium-sessions`
+const {
+  CART_KEY,
+  LOCATION_KEY,
+  PREMIUM_KEY
+} = storage
 
 class CartContainer extends Container {
   state = {
@@ -35,35 +37,15 @@ class CartContainer extends Container {
   }
 
   get locationId() {
-    return localStorage.getItem(LOCATION_KEY) || ''
+    return storage.getString(LOCATION_KEY)
   }
 
   constructor() {
     super()
 
-    let storedItems = []
-    let premium = {}
-
-    try {
-      const cookie = localStorage.getItem(CART_KEY) || ''
-      const storedString = cookie.trim()
-      if (storedString) {
-        storedItems = storedString.split(',')
-      }
-    } catch (err) {
-      console.warn(err)
-    }
-
-    try {
-      const cookie = localStorage.getItem(PREMIUM_KEY) || '{}'
-      const storedString = cookie.trim()
-      premium = JSON.parse(storedString)
-    } catch (err) {
-      console.warn(err)
-    }
-
-    this.state.items = storedItems
-    this.state.premium = premium
+    this.clean(false)
+    this.state.items = storage.getArray(CART_KEY)
+    this.state.premium = storage.getObject(PREMIUM_KEY)
 
     this.poll()
   }
@@ -72,25 +54,31 @@ class CartContainer extends Container {
     setInterval(this.clean, 3000)
   }
 
-  clean = () => {
-    const oldItems = this.items
+  clean = (rerender = true) => {
+    const oldItems = storage.getArray(CART_KEY)
 
     const newItems = oldItems.filter(sessionId => {
-      const { time } = parseSessionId(sessionId)
-      const isPast = time < Date.now()
-      return !isPast
+      try {
+        const { time, locationId } = parseSessionId(sessionId)
+        const isPast = time < Date.now()
+        return !isPast
+      } catch (err) {
+        console.warn('Malformed cart item:', sessionId)
+        return false
+      }
     })
 
     if (newItems.length === oldItems.length) return
 
-    localStorage.setItem(CART_KEY, newItems.join(','))
-    this.setState({ items: newItems })
+    storage.setArray(CART_KEY, newItems)
+
+    if (rerender) this.setState({ items: newItems })
   }
 
   empty = () => {
     this.setState({ items: [], premium: {} })
-    localStorage.setItem(CART_KEY, '')
-    localStorage.setItem(PREMIUM_KEY, '')
+    storage.clear(CART_KEY)
+    storage.clear(PREMIUM_KEY)
   }
 
   isInCart = (sessionId) => {
@@ -98,42 +86,23 @@ class CartContainer extends Container {
   }
 
   addItem = (item) => {
-    const items = [...this.state.items]
-
-    if (items.indexOf(item) > -1) {
-      return
-    }
-
-    items.push(item)
-
-    localStorage.setItem(CART_KEY, items.join(','))
-    this.setState({ items })
+    const items = storage.addToArray(CART_KEY, item)
+    if (items) this.setState({ items })
   }
 
   removeItem = (item) => {
-    const items = [...this.state.items]
-    const index = items.indexOf(item)
-
-    if (index < 0) {
-      return
-    }
-
-    items.splice(index, 1)
-    localStorage.setItem(CART_KEY, items.join(','))
-    this.setState({ items })
+    const items = storage.removeFromArray(CART_KEY, item)
+    if (items) this.setState({ items })
   }
 
   togglePremium = (item, val) => {
-    const premium = { ...this.state.premium }
+    const premium = storage.getObject(PREMIUM_KEY)
+    const isPremium = typeof val !== 'undefined'
+      ? val
+      : !premium[item]
 
-    if (typeof val !== 'undefined') {
-      if (premium[item] === val) return
-      premium[item] = val
-    } else {
-      premium[item] = !premium[item]
-    }
-    localStorage.setItem(PREMIUM_KEY, JSON.stringify(premium))
-    this.setState({ premium })
+    const newPremium = storage.updateObject(PREMIUM_KEY, { [item]: isPremium })
+    this.setState({ premium: newPremium })
   }
 
   isPremium = item => {
@@ -141,7 +110,7 @@ class CartContainer extends Container {
   }
 
   setLocationId = (locationId) => {
-    localStorage.setItem(LOCATION_KEY, locationId)
+    storage.setString(LOCATION_KEY, locationId)
   }
 }
 

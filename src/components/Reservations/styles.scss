@@ -1,12 +1,13 @@
 @import 'styles/_variables.scss';
 
 .reservation {
+  position: relative;
   display: flex;
   flex-direction: column;
   margin-bottom: 2rem;
   border: 1px solid currentColor;
   padding: 3rem;
-
+  
   label {
     margin-bottom: 1rem;
   }
@@ -14,6 +15,14 @@
   .premiumLabel {
     margin-bottom: 2rem;
     color: currentColor;
+  }
+  
+  .remove {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 2rem 2.5rem;
+    cursor: pointer;
   }
 }
 

@@ -5,12 +5,14 @@ import authContainer from 'containers/authContainer'
 const ENDPOINTS = {
   GET_USER: '/api/get-user',
   CREATE_USER: '/api/create-user',
+  GET_USERS: '/api/get-users',
   UPDATE_USER_BILLING: '/api/update-user-billing',
   GET_USER_BILLING: '/api/get-user-billing',
   GET_RESERVATIONS: '/api/get-reservations',
   GET_ORDER: '/api/get-order',
   GET_AVAILABLE_SESSIONS: '/api/get-available-sessions',
   CREATE_RESERVATIONS: '/api/create-reservations',
+  VALIDATE_RESERVATIONS: '/api/validate-reservations',
   UPDATE_USER_INFO: '/api/update-user-info'
 }
 
@@ -23,6 +25,14 @@ const apiRequest = ({ url, data }) => {
     url,
     data
   })
+    .then((d = {}) => d.data)
+    .catch(err => {
+      if (err.response && err.response.data) {
+        throw err.response.data
+      }
+
+      throw err.message
+    })
 }
 
 export const getUser = ({
@@ -36,6 +46,12 @@ export const getUser = ({
   })
 }
 
+export const getUsers = () => {
+  return apiRequest({
+    url: ENDPOINTS.GET_USERS,
+  })
+}
+
 export const createUser = ({
   userId,
   email
@@ -46,7 +62,7 @@ export const createUser = ({
       userId,
       email
     }
-  }).then(d => d.data)
+  })
 }
 
 export const updateUserBilling = ({
@@ -61,7 +77,7 @@ export const updateUserBilling = ({
       customerId,
       token
     }
-  }).then(d => d.data)
+  })
 }
 
 export const updateUserInfo = ({
@@ -76,7 +92,7 @@ export const updateUserInfo = ({
       firstName,
       lastName
     }
-  }).then(d => d.data)
+  })
 }
 
 export const getUserBilling = ({
@@ -87,7 +103,7 @@ export const getUserBilling = ({
     data: {
       userId,
     }
-  }).then(d => d.data)
+  })
 }
 
 export const getReservations = ({
@@ -106,7 +122,7 @@ export const getReservations = ({
       startTime,
       endTime
     }
-  }).then(d => d.data)
+  })
 }
 
 export const getOrder = ({
@@ -119,9 +135,10 @@ export const getOrder = ({
       orderId,
       userId,
     }
-  }).then(d => d.data)
+  })
 }
 export const getAvailableSessions = ({
+  userId,
   locationId,
   startTime,
   endTime
@@ -129,11 +146,12 @@ export const getAvailableSessions = ({
   return apiRequest({
     url: ENDPOINTS.GET_AVAILABLE_SESSIONS,
     data: {
+      userId,
       locationId,
       startTime,
       endTime
     }
-  }).then(d => d.data)
+  })
 }
 
 export const createReservations = ({
@@ -146,7 +164,20 @@ export const createReservations = ({
       userId,
       reservations
     }
-  }).then(d => d.data)
+  })
+}
+
+export const validateReservations = ({
+  reservations,
+  userId,
+}) => {
+  return apiRequest({
+    url: ENDPOINTS.VALIDATE_RESERVATIONS,
+    data: {
+      userId,
+      reservations
+    }
+  })
 }
 
 export {

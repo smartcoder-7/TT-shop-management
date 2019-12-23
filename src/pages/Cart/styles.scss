@@ -11,6 +11,11 @@ $checkoutHeight: 30rem;
   [data-modal-bg-color] {
     background: $black;
   }
+  
+  h1 {
+    display: block;
+    margin-bottom: 6rem;
+  }
 }
 
 .details {
@@ -18,7 +23,7 @@ $checkoutHeight: 30rem;
 }
 
 .items {
-  margin-top: 12rem;
+  margin-top: 6rem;
 }
 
 .checkout {
@@ -45,5 +50,5 @@ $checkoutHeight: 30rem;
 .userPreview {
   background: rgba(255,255,255,0.1);
   padding: 3rem;
-  margin: 2rem 0;
+  margin: 5rem 0;
 }

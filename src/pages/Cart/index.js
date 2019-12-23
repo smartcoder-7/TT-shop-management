@@ -11,32 +11,42 @@ import { createReservations } from 'api'
 
 import styles from './styles.scss'
 import UserBadges from '../../components/User/UserBadges';
+import { validateReservations } from '../../api';
 
 const _Cart = ({ history }) => {
   const [submissionError, setSubmissionError] = useState()
+  const [reservations, setReservations] = useState([])
   const { user } = authContainer
 
-  const sessionIds = cartContainer.items || []
+  const userId = user.id
+  const sessionIds = cartContainer.items
 
-  const reservations = sessionIds
-    .map(parseSessionId)
-    .filter(r => !!r.locationId && !!r.time)
-    .map(r => ({
-      locationId: r.locationId,
-      reservationTime: r.time,
-      isPremium: cartContainer.isPremium(r.full)
-    }))
+  useEffect(() => {
+    const _reservations = sessionIds
+      .map(parseSessionId)
+      .filter(r => !!r.locationId && !!r.time)
+      .map(r => ({
+        locationId: r.locationId,
+        reservationTime: r.time,
+        isPremium: cartContainer.isPremium(r.full)
+      }))
+
+    validateReservations({ userId, reservations: _reservations })
+      .then((data) => {
+        setReservations(data.reservations)
+      })
+  }, [sessionIds])
+
 
   const checkout = () => {
-    createReservations({ userId: user.id, reservations })
+    createReservations({ userId, reservations })
       .then((res = {}) => {
         const orderId = res.orderId
         cartContainer.empty()
         history.push(`/success/${orderId}`)
       })
       .catch((err) => {
-        console.error(err)
-        setSubmissionError('Could not complete reservation.')
+        setSubmissionError(err)
       })
   }
 
@@ -46,8 +56,9 @@ const _Cart = ({ history }) => {
   )
 
   const hasItems = !!reservations.length
+  const hasErrors = !!reservations.find(r => !!r.error)
 
-  const canCheckout = hasItems && hasBillingInfo
+  const canCheckout = hasItems && !hasErrors && hasBillingInfo
 
   return (
     <Layout className={styles.cart}>
@@ -55,10 +66,13 @@ const _Cart = ({ history }) => {
         <div data-col={12}>
           <h1>Cart</h1>
 
+          {submissionError && <div data-p3 data-error>{submissionError}</div>}
+          {hasErrors && <div data-p3 data-error>Please remove invalid sessions to continue.</div>}
+
           <div className={styles.items}>
             <div data-row>
               <div data-col="12">
-                <Reservations reservations={reservations} />
+                <Reservations reservations={reservations} showRemove={true} />
               </div>
             </div>
           </div>
@@ -72,7 +86,6 @@ const _Cart = ({ history }) => {
           </div>
 
           <br />
-          <br />
 
           <div className={styles.userPreview}>
             <h4>{user.firstName} {user.lastName}</h4>
@@ -85,8 +98,6 @@ const _Cart = ({ history }) => {
               </button>
             )}</UpdateBillingInfo>
           </div>
-
-          {submissionError && <div>{submissionError}</div>}
         </div>
       </div>
 

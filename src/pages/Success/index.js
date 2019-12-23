@@ -20,7 +20,7 @@ const Success = ({ match: { params } }, history) => {
     getOrder({ orderId, userId: authContainer.userId })
       .then(setOrder)
       .catch((err) => {
-        console.log(err)
+        console.warn('Could not get order.', err)
       })
       .finally(() => {
         setLoading(false)

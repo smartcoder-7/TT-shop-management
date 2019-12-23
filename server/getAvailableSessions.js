@@ -12,6 +12,7 @@ const getAllSessions = require('../shared/getAllSessions')
 
 const getAvailableSessions = async (req, res) => {
   const {
+    userId,
     locationId,
     startTime,
     endTime
@@ -23,12 +24,13 @@ const getAvailableSessions = async (req, res) => {
       endTime
     })
 
-    const check = new AvailabilityCheck({ locationId, startTime, endTime })
+    const check = new AvailabilityCheck({ userId, locationId, startTime, endTime })
     await check.run()
 
     const availableSessions = sessions.map(time => {
       return {
         startTime: time,
+        alreadyBooked: check.isAlreadyBookedAt(time),
         tablesLeft: check.anyTablesLeftAt(time),
         regularTablesLeft: check.regularTablesLeftAt(time),
         premiumTablesLeft: check.premiumTablesLeftAt(time)

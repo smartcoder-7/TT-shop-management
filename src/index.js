@@ -12,7 +12,7 @@ import Login from 'pages/Login'
 import Cart from 'pages/Cart'
 import Account from 'pages/Account'
 import Success from 'pages/Success'
-import Admin from 'pages/Admin'
+import * as Admin from 'pages/Admin'
 
 import 'styles/index.scss'
 
@@ -78,7 +78,9 @@ const App = () => (
           <AuthenticatedRoute path="/cart" component={Cart} />
           <AuthenticatedRoute path="/success/:orderId?" component={Success} />
 
-          <AdminRoute path="/admin" component={Admin} />
+          <AdminRoute path="/admin" exact component={Admin.Home} />
+          <AdminRoute path="/admin/location/:locationId?" component={Admin.Location} />
+          <AdminRoute path="/admin/users" component={Admin.Users} />
         </Switch>
       </>
     )}</AuthSubscriber>

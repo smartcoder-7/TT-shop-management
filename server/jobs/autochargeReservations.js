@@ -20,7 +20,6 @@ const autochargeReservations = async () => {
 
     docs.forEach(doc => {
       const reservation = doc.data()
-      console.log(reservation.id)
       if (reservation.chargeId) return
       if (reservation.chargeExempt) return
       if (reservation.lastCharged && reservation.lastCharged >= retryThreshold) return
@@ -31,7 +30,6 @@ const autochargeReservations = async () => {
   }
 
   const charged = await chargeReservations({ reservations })
-  console.log(charged)
   return charged
 }
 

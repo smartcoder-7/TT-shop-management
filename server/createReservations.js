@@ -14,14 +14,21 @@ const createReservation = ({
 
     // If the location dodesn't exist, bail out.
     if (!location) {
-      return reject({ message: `Location [${locationId}] not found.` })
+      return reject({ message: 'Invalid location.' })
     }
 
     const check = new AvailabilityCheck({
+      userId,
       locationId,
       startTime: reservationTime
     })
     await check.run()
+
+    if (check.isAlreadyBookedAt(reservationTime)) {
+      return reject({
+        message: 'Oops! You already booked a table during one of these sessions. Try again?'
+      })
+    }
 
     const isAvailable = () => {
       if (isPremium) return check.premiumTablesLeftAt(reservationTime) > 0
@@ -30,7 +37,7 @@ const createReservation = ({
 
     if (!isAvailable()) {
       reject({
-        message: `Reservations at location [${locationId}] at time [${reservationTime}] are no longer available.`
+        message: `Some of these sessions are no longer available. Try again?`
       })
     }
 
@@ -90,7 +97,7 @@ const createReservations = async (req, res) => {
       orderId
     })
   } catch (err) {
-    res.status(400).send(err.message)
+    res.status(500).send(err.message)
   }
 }
 

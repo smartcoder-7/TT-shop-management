@@ -85,7 +85,7 @@ label {
   @include p3();
 }
 
-[data-error] {
+[data-error="true"] {
   color: $pink;
 }
 

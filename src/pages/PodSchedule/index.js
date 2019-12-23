@@ -4,7 +4,6 @@ import classNames from 'classnames'
 import locations from '../../../locations.json'
 
 import { getAvailableSessions } from 'api'
-import parseSessionId from 'util/parseSessionId'
 import Layout from 'components/Layout'
 import getSessionRate from 'util/getSessionRate'
 import Loading from 'components/Loading'
@@ -15,9 +14,10 @@ import styles from './styles.scss'
 import cartContainer, { CartSubscriber } from 'containers/cartContainer'
 
 import TableRates from './TableRates'
-import ThreeStar from '../../components/svg/ThreeStar.js';
-import TwoStar from '../../components/svg/TwoStar';
-import { getDayStartTime, formatTime } from '../../util/datetime.js';
+import ThreeStar from 'components/svg/ThreeStar.js';
+import TwoStar from 'components/svg/TwoStar';
+import { getDayStartTime, formatTime } from 'util/datetime.js';
+import authContainer from '../../containers/authContainer.js';
 
 const FULL_DAY = (1000 * 60 * 60 * 24)
 const POLL_INTERVAL = 1000 * 60 * 5
@@ -26,6 +26,7 @@ export const Session = ({
   session: {
     startTime,
     tablesLeft,
+    alreadyBooked,
     regularTablesLeft,
     premiumTablesLeft,
   },
@@ -44,6 +45,7 @@ export const Session = ({
   }, [regularTablesLeft, premiumTablesLeft, premium])
 
   const onClick = () => {
+    if (alreadyBooked) return
     if (isSelected) cartContainer.removeItem(sessionId)
     else cartContainer.addItem(sessionId)
   }
@@ -58,6 +60,7 @@ export const Session = ({
   return (
     <div
       data-selected={isSelected}
+      data-booked={alreadyBooked}
       data-premium={premium}
       className={classNames(styles.session, styles.scheduleSession)}
       onClick={onClick}
@@ -65,12 +68,13 @@ export const Session = ({
       <div className={styles.sessionInfo}>
         <div className={styles.check}>✔</div>
         <label>{formatTime(startTime, location.timezone)}</label>
+        {alreadyBooked && <RateLabel rate={{ displayName: 'Booked ✔' }} />}
         <RateLabel rate={rate} />
         {premium && <span className={styles.premiumLabel}>
           <RateLabel rate={{ displayName: 'Premium' }} />
         </span>}
       </div>
-      {<div className={styles.premiumWrapper} onClick={togglePremium}>
+      {!alreadyBooked && <div className={styles.premiumWrapper} onClick={togglePremium}>
         <div className={styles.premium}>
           {!!regularTablesLeft && <TwoStar className={styles.regularSvg} />}
           {!!premiumTablesLeft && <ThreeStar className={styles.premiumSvg} />}
@@ -89,8 +93,10 @@ const SessionPicker = ({ locationId, startTime, endTime }) => {
   useEffect(() => {
     const updateSessions = () => {
       const requestedStartTime = startTime
+      const userId = authContainer.userId
+
       setLoading(true)
-      getAvailableSessions({ locationId, startTime, endTime })
+      getAvailableSessions({ locationId, startTime, endTime, userId })
         .then(({ sessions }) => {
           setLoading(false)
 
@@ -111,7 +117,7 @@ const SessionPicker = ({ locationId, startTime, endTime }) => {
     return () => {
       clearInterval(poll)
     }
-  }, [locationId, startTime, endTime])
+  }, [locationId, startTime, endTime, authContainer.userId])
 
   return (
     <>
