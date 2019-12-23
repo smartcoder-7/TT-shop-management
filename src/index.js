@@ -50,12 +50,12 @@ const AdminRoute = ({
   component: Component,
   ...rest
 }) => {
-  const isAdmin = (!authContainer.user || !authContainer.user.isAdmin)
+  const isAdmin = (authContainer.user && authContainer.user.isAdmin)
 
   return (
     <AuthenticatedRoute
       {...rest}
-      component={isAdmin ? Component : Redirect}
+      component={isAdmin ? Component : RedirectRoute}
     />
   )
 }
