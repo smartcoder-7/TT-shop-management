@@ -6,6 +6,7 @@ const createUser = async (req, res) => {
     userId,
     email,
   } = req.body
+  console.log('Creating user...')
 
   let userRef, user
 
