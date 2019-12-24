@@ -81,11 +81,24 @@ class AuthContainer extends Container {
     })
   }
 
+  setIdToken = async (force = false) => {
+    const idTokenResult = await auth.currentUser.getIdTokenResult(force)
+
+    let { token: idToken, expirationTime } = idTokenResult
+    const now = Date.now()
+
+    if (now >= expirationTime) {
+      await this.setIdToken(true)
+      return
+    }
+
+    await this.setState({ idToken })
+  }
+
   onLogin = async () => {
     const user = auth.currentUser
-    const idToken = await auth.currentUser.getIdToken()
+    await this.setIdToken(true)
     await this.setState({
-      idToken,
       userId: user.uid,
       loading: true,
     })

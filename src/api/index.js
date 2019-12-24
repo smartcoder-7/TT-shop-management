@@ -16,11 +16,14 @@ const ENDPOINTS = {
   UPDATE_USER_INFO: '/api/update-user-info'
 }
 
-const apiRequest = ({ url, data }) => {
+const apiRequest = async ({ url, data }) => {
+  await authContainer.setIdToken()
+  const idToken = authContainer.idToken
+
   return axios({
     method: 'POST',
     headers: {
-      Authorization: `Bearer ${authContainer.idToken}`,
+      Authorization: `Bearer ${idToken}`,
     },
     url,
     data
