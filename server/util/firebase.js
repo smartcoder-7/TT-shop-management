@@ -4,6 +4,8 @@ const admin = require('firebase-admin')
 
 const IS_OFFLINE = !!process.env.IS_OFFLINE
 
+console.log(IS_OFFLINE, process.env.IS_OFFLINE)
+
 if (!IS_OFFLINE) {
   admin.initializeApp({
     credential: admin.credential.cert({
