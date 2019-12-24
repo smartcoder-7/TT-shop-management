@@ -16,6 +16,7 @@ const ADMIN = {
 }
 
 const authenticate = fn => (req, res) => {
+  console.log('Authenticating...', IS_OFFLINE)
   if (IS_OFFLINE) {
     fn(req, res)
     return
