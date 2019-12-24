@@ -13,7 +13,7 @@
     "start:dev": "NODE_ENV=development yarn run start:local",
     "watch:dev:offline": "NODE_ENV=offline yarn run watch",
     "start:dev:offline": "NODE_ENV=offline yarn start:local",
-    "start": "node ./server/index.js",
+    "start": "NODE_ENV=production node ./server/index.js",
     "deploy": "NODE_ENV=production yarn run set:heroku-config && ./scripts/deploy.sh"
   },
   "author": "",
