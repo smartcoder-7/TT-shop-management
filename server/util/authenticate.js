@@ -24,7 +24,7 @@ const authenticate = fn => async (req, res) => {
   const authHeader = req.header('Authorization')
   const idToken = authHeader.split('Bearer ')[1]
 
-  console.log('Authenticating...', idToken)
+  console.log('Authenticating...', idToken, auth)
   try {
     const decoded = await auth.verifyIdToken(idToken)
     const authId = decoded.uid;
