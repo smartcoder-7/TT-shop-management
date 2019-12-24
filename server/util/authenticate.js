@@ -16,7 +16,6 @@ const ADMIN = {
 }
 
 const authenticate = fn => (req, res) => {
-  console.log('Authenticating...', IS_OFFLINE)
   if (IS_OFFLINE) {
     fn(req, res)
     return
@@ -25,19 +24,22 @@ const authenticate = fn => (req, res) => {
   const authHeader = req.header('Authorization')
   const idToken = authHeader.split('Bearer ')[1]
 
+  console.log('Authenticating...', idToken)
   auth.verifyIdToken(idToken)
     .then(decoded => {
       const authId = decoded.uid;
-      req.body.authId = authId
+      console.log('Decoded...', decoded)
 
       if (
         !ADMIN[authId] &&
         req.body.userId !== authId
       ) {
+        console.log('UNAUTH!...')
         res.status(401).send('Unauthorized')
         return
       }
 
+      console.log('...')
       fn(req, res)
     }).catch(error => {
       res.status(401).send(`Could not authenticate: ${error.message}`)
