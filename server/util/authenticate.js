@@ -15,9 +15,9 @@ const ADMIN = {
   "uwiOkNc361bwpDX1oZxPI5L3kCR2": true,
 }
 
-const authenticate = fn => (req, res) => {
+const authenticate = fn => async (req, res) => {
   if (IS_OFFLINE) {
-    fn(req, res)
+    await fn(req, res)
     return
   }
 
@@ -25,25 +25,25 @@ const authenticate = fn => (req, res) => {
   const idToken = authHeader.split('Bearer ')[1]
 
   console.log('Authenticating...', idToken)
-  auth.verifyIdToken(idToken)
-    .then(decoded => {
-      const authId = decoded.uid;
-      console.log('Decoded...', decoded)
+  try {
+    const decoded = await auth.verifyIdToken(idToken)
+    const authId = decoded.uid;
+    console.log('Decoded...', decoded)
 
-      if (
-        !ADMIN[authId] &&
-        req.body.userId !== authId
-      ) {
-        console.log('UNAUTH!...')
-        res.status(401).send('Unauthorized')
-        return
-      }
+    if (
+      !ADMIN[authId] &&
+      req.body.userId !== authId
+    ) {
+      console.log('UNAUTH!...')
+      res.status(401).send('Unauthorized')
+      return
+    }
 
-      console.log('...')
-      fn(req, res)
-    }).catch(error => {
-      res.status(401).send(`Could not authenticate: ${error.message}`)
-    });
+    console.log('...')
+    await fn(req, res)
+  } catch (error) {
+    res.status(401).send(`Could not authenticate: ${error.message}`)
+  }
 }
 
 module.exports = authenticate
