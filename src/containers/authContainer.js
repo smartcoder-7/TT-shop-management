@@ -81,6 +81,8 @@ class AuthContainer extends Container {
   }
 
   updateUserBilling = async () => {
+    const userId = this.userId
+    if (!userId) return
     const userBilling = await getUserBilling({ userId: this.userId })
 
     await this.setState({

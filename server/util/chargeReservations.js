@@ -1,6 +1,10 @@
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
+const stripe = require('./stripe')
 const { db } = require('./firebase')
+const RateLimiter = require('limiter').RateLimiter
 const getReservationCost = require('../../shared/getReservationCost')
+
+// Stripe Rate Limit (25/s in testing, 100/s in production)
+const limiter = new RateLimiter(25, 'second');
 
 const chargeReservation = async ({
   reservationId,
@@ -78,7 +82,7 @@ const chargeReservation = async ({
     return charge
   } catch (err) {
     console.log('[Stripe Error]', err)
-    throw err.message
+    throw err.message || err.type
   }
 }
 
@@ -88,19 +92,21 @@ const chargeReservations = async ({ reservations }) => {
       const reservationRef = db.collection('reservations').doc(reservationId)
       const lastCharged = Date.now()
 
-      chargeReservation({ reservationId })
-        .then(charge => {
-          const data = { chargeId: charge.id, chargeError: null, lastCharged }
-          console.log('[Successful Charge]', reservationId, data)
-          reservationRef.update(data)
-          resolve(true)
-        })
-        .catch((chargeError = 'Unknown Error') => {
-          const data = { chargeError, lastCharged }
-          console.log('[Charge Error]', reservationId, data)
-          reservationRef.update(data)
-          resolve(false)
-        })
+      limiter.removeTokens(1, () => {
+        chargeReservation({ reservationId })
+          .then(charge => {
+            const data = { chargeId: charge.id, chargeError: null, lastCharged }
+            console.log('[Successful Charge]', reservationId, data)
+            reservationRef.update(data)
+            resolve(true)
+          })
+          .catch((chargeError = 'Unknown Error') => {
+            const data = { chargeError, lastCharged }
+            console.log('[Charge Error]', reservationId, data)
+            reservationRef.update(data)
+            resolve(false)
+          })
+      })
     })
   ))
 
