@@ -91,6 +91,7 @@ class AuthContainer extends Container {
   }
 
   setIdToken = async (force = false) => {
+    if (!auth.currentUser) return
     const idTokenResult = await auth.currentUser.getIdTokenResult(force)
 
     let { token: idToken, expirationTime } = idTokenResult
