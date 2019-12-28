@@ -67,17 +67,24 @@ class AuthContainer extends Container {
 
   updateUser = async (user) => {
     const userId = user.id
-    let userBilling = {}
 
-    if (user.hasActiveCard) {
-      userBilling = await getUserBilling({ userId })
-    }
-
-    this.setState({
+    await this.setState({
       userId,
       user,
-      userBilling,
+      userBilling: null,
       loading: false,
+    })
+
+    if (user.hasActiveCard) {
+      await this.updateUserBilling()
+    }
+  }
+
+  updateUserBilling = async () => {
+    const userBilling = await getUserBilling({ userId: this.userId })
+
+    await this.setState({
+      userBilling,
     })
   }
 

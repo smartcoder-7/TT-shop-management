@@ -2,6 +2,7 @@ const uuid = require('uuid')
 const AvailabilityCheck = require('./util/AvailiabilityCheck')
 const { db } = require('./util/firebase')
 const locations = require('../locations.json')
+const autochargeReservations = require('./jobs/autochargeReservations')
 
 const createReservation = ({
   locationId,
@@ -90,6 +91,7 @@ const createReservations = async (req, res) => {
     })
 
     await batch.commit()
+    autochargeReservations()
 
     res.status(200).json({
       success: true,

@@ -66,15 +66,20 @@ const chargeReservation = async ({
   if (Number.isNaN(amountDollars) || amountDollars > 100) throw 'Calculated cost is invalid.'
 
   const amount = amountDollars * 100
-  const charge = await stripe.charges.create({
-    amount,
-    currency: 'usd',
-    customer: stripeCustomer.id,
-    source: stripeCustomer.default_source,
-    description: 'PINGPOD: Table Reservation',
-  });
 
-  return charge
+  try {
+    const charge = await stripe.charges.create({
+      amount,
+      currency: 'usd',
+      customer: stripeCustomer.id,
+      source: stripeCustomer.default_source,
+      description: 'PINGPOD: Table Reservation',
+    });
+    return charge
+  } catch (err) {
+    console.log('[Stripe Error]', err)
+    throw err.message
+  }
 }
 
 const chargeReservations = async ({ reservations }) => {
@@ -85,12 +90,15 @@ const chargeReservations = async ({ reservations }) => {
 
       chargeReservation({ reservationId })
         .then(charge => {
-          reservationRef.update({ chargeId: charge.id, chargeError: null, lastCharged })
+          const data = { chargeId: charge.id, chargeError: null, lastCharged }
+          console.log('[Successful Charge]', reservationId, data)
+          reservationRef.update(data)
           resolve(true)
         })
-        .catch(err => {
-          const chargeError = err.message
-          reservationRef.update({ chargeError, lastCharged })
+        .catch((chargeError = 'Unknown Error') => {
+          const data = { chargeError, lastCharged }
+          console.log('[Charge Error]', reservationId, data)
+          reservationRef.update(data)
           resolve(false)
         })
     })

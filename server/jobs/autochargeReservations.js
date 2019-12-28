@@ -22,7 +22,8 @@ const autochargeReservations = async () => {
       const reservation = doc.data()
       if (reservation.chargeId) return
       if (reservation.chargeExempt) return
-      if (reservation.lastCharged && reservation.lastCharged >= retryThreshold) return
+      // TODO: Change this to lastNotified
+      // if (reservation.lastCharged && reservation.lastCharged >= retryThreshold) return
       reservations.push(reservation.id)
     })
   } catch (err) {

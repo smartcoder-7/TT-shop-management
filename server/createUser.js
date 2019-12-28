@@ -31,6 +31,7 @@ const createUser = async (req, res) => {
     try {
       const customer = await stripe.customers.create({
         metadata: { userId },
+        email: userData.email,
       })
       userData.stripeId = customer.id
     } catch (err) {
