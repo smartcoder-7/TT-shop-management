@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { Link, withRouter } from 'react-router-dom'
-import uuid from 'uuid'
 
 import cartContainer, { CartSubscriber } from 'containers/cartContainer'
 import authContainer from 'containers/authContainer'
@@ -14,9 +13,7 @@ import { createReservations } from 'api'
 import styles from './styles.scss'
 import UserBadges from '../../components/User/UserBadges';
 import { validateReservations } from '../../api';
-import useResolve from '../../components/Resolve';
 
-const PROMISE_MAP = {}
 
 const _Cart = ({ history }) => {
   const [reservations, setReservations] = useState([])
