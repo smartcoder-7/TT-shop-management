@@ -1,22 +1,14 @@
 import React from 'react'
-import { Field } from 'react-final-form'
+import Field from './Field'
 
-import styles from './styles.scss'
-import FieldWrapper from './FieldWrapper'
-
-const TextField = ({ name = 'text', label, initialValue, ...rest }) => {
+const TextField = ({ name = 'text', label, ...rest }) => {
   return (
     <Field
+      type="text"
+      label={label}
       name={name}
-      initialValue={initialValue}
-      render={({ input, meta }) => (
-        <FieldWrapper isEmpty={!input.value} label={label}>
-          <input {...input} type="text" {...rest} />
-          {meta.touched && meta.error && <span>{meta.error}</span>}
-        </FieldWrapper>
-      )}
+      {...rest}
     />
   )
 }
-
 export default TextField

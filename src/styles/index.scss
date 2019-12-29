@@ -85,10 +85,6 @@ label {
   @include p3();
 }
 
-[data-error="true"] {
-  color: $pink;
-}
-
 input {
   @include p1();
   font-size: 16px;
@@ -228,4 +224,15 @@ li {
       @include col-landscape($n);
     }
   }
+}
+
+[data-field-row="true"] {
+  margin-top: 8rem;
+  margin-bottom: 8rem;
+  flex-wrap: nowrap;
+}
+
+/* STATES */
+[data-error="true"] {
+  color: $pink;
 }

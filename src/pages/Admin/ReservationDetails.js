@@ -31,9 +31,21 @@ const ReservationDetails = ({
             <p className={styles.detail}><label>Name</label>{user.firstName} {user.lastName}</p>
             <p className={styles.detail}><label>Email</label>{user.email}</p>
             <p className={styles.detail}><label>Active Card</label>{(!!user.hasActiveCard).toString()}</p>
-            <p className={styles.detail}><label>Stripe Customer ID</label>{user.stripeId}</p>
 
-            {chargeId && <p className={styles.detail}><label>(PAID) Stripe Charge ID</label>{chargeId}</p>}
+            <p className={styles.detail}>
+              <a data-link href={`https://dashboard.stripe.com/test/customers/${user.stripeId}`} target="_blank" rel="noopener noreferrer">
+                <label>Stripe Customer ID</label>{user.stripeId}
+              </a>
+            </p>
+
+            {chargeId && (
+              <p className={styles.detail}>
+                <a data-link href={`https://dashboard.stripe.com/test/payments/${chargeId}`} target="_blank" rel="noopener noreferrer">
+                  <label>(PAID) Stripe Charge ID</label>{chargeId}
+                </a>
+              </p>
+            )}
+
             {!chargeId && <p className={styles.detail}><label>(UNPAID)</label>{chargeError}</p>}
           </div>
           <div data-col="1" />

@@ -7,6 +7,7 @@ import Layout from 'components/Layout'
 import Reservations from 'components/Reservations'
 import parseSessionId from 'util/parseSessionId'
 import UpdateBillingInfo from 'components/modalActions/UpdateBillingInfo'
+import UpdateName from 'components/modalActions/UpdateName'
 import { createReservations } from 'api'
 
 import styles from './styles.scss'
@@ -57,8 +58,9 @@ const _Cart = ({ history }) => {
 
   const hasItems = !!reservations.length
   const hasErrors = !!reservations.find(r => !!r.error)
+  const missingName = !user.firstName || !user.lastName
 
-  const canCheckout = hasItems && !hasErrors && hasBillingInfo
+  const canCheckout = hasItems && !hasErrors && !missingName && hasBillingInfo
 
   return (
     <Layout className={styles.cart}>
@@ -73,11 +75,11 @@ const _Cart = ({ history }) => {
             <div data-row>
               <div data-col="12">
                 <Reservations reservations={reservations} showRemove={true} />
+
+                {!hasItems && <p data-p3>No sessions added.</p>}
               </div>
             </div>
           </div>
-
-          <br />
 
           <div>
             <Link to={`/reserve/${cartContainer.locationId}`} data-link>
@@ -88,13 +90,22 @@ const _Cart = ({ history }) => {
           <br />
 
           <div className={styles.userPreview}>
-            <h4>{user.firstName} {user.lastName}</h4>
-            <br />
+            {missingName && <UpdateName>{({ onClick }) => (
+              <button data-link data-error onClick={onClick} className={styles.name}>
+                + Add Name <label>(required)</label>
+              </button>
+            )}</UpdateName>}
+
+            {!missingName && <h4 className={styles.name}>{user.firstName} {user.lastName}</h4>}
+
             <UserBadges />
             <br />
-            <UpdateBillingInfo theme='light'>{({ onClick }) => (
-              <button data-link onClick={onClick}>
-                Update Billing Info
+
+            <UpdateBillingInfo theme='dark'>{({ onClick }) => (
+              <button data-link data-error={!hasBillingInfo} onClick={onClick}>
+                {user.hasActiveCard
+                  ? 'Update Billing Info'
+                  : <span>+ Add Billing Info <label>(required)</label></span>}
               </button>
             )}</UpdateBillingInfo>
           </div>

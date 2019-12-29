@@ -37,6 +37,17 @@ const createUser = async (req, res) => {
     } catch (err) {
       res.status(500).send(err.message)
     }
+  } else {
+
+    // For backwards compatibility.
+    try {
+      await stripe.customers.update(userData.stripeId, {
+        metadata: { userId },
+        email: userData.email,
+      })
+    } catch (err) {
+      res.status(500).send(err.message)
+    }
   }
 
   try {

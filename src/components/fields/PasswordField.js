@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Field from './Field'
 
 const PasswordField = ({ name = 'password', label, ...rest }) => {
   return (
     <Field
       type="password"
-      label="Password"
+      label={label}
       name={name}
       {...rest}
     />

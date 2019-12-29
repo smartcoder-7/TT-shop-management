@@ -3,13 +3,13 @@
 $checkoutHeight: 30rem;
 
 .cart {
-  background: $black;
-  color: $white;
+  background: $light-gray;
+  color: $black;
   min-height: 100vh;
 
   [data-bg-color],
   [data-modal-bg-color] {
-    background: $black;
+    background: $light-gray;
   }
   
   h1 {
@@ -48,7 +48,12 @@ $checkoutHeight: 30rem;
 }
 
 .userPreview {
-  background: rgba(255,255,255,0.1);
+  background: $white;
+  color: $black;
   padding: 3rem;
   margin: 5rem 0;
+
+  .name {
+    margin-bottom: 2rem;
+  }
 }

@@ -17,10 +17,10 @@ const LoginForm = ({ onSubmit }) => (
     render={({ handleSubmit, values, ...rest }) => (
       <div data-row>
         <form onSubmit={handleSubmit} data-col="12">
-          <div className={styles.fieldRow}>
+          <div data-field-row>
             <EmailField name="email" label="Email" autoComplete="email" />
           </div>
-          <div className={styles.fieldRow}>
+          <div data-field-row>
             <PasswordField name="password" label="Password" autoComplete="current-password" />
           </div>
           <ResetPassword email={values.email}>
@@ -39,13 +39,13 @@ const SignupForm = ({ onSubmit }) => (
     render={({ handleSubmit }) => (
       <div data-row>
         <form onSubmit={handleSubmit} data-col="12">
-          <div className={styles.fieldRow}>
+          <div data-field-row>
             <EmailField name="email" label="Email" autoComplete="email" />
           </div>
-          <div className={styles.fieldRow}>
+          <div data-field-row>
             <EmailField name="email-confirm" label="Confirm Email" autoComplete="off" />
           </div>
-          <div className={styles.fieldRow}>
+          <div data-field-row>
             <PasswordField name="password" label="Password" autoComplete="new-password" />
           </div>
           <button type="submit">Submit</button>

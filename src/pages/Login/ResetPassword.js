@@ -41,7 +41,7 @@ const ResetForm = ({ email = '' }) => {
             {error && <div className={styles.formError}>
               {error}
             </div>}
-            <div className={styles.fieldRow}>
+            <div data-field-row>
               <EmailField
                 name="email"
                 label="Email"

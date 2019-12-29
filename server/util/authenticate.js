@@ -3,6 +3,8 @@ const { auth } = require('./firebase')
 const IS_OFFLINE = process.env.IS_OFFLINE === "true"
 
 const ADMIN = {
+  // christine@pingpod.nyc
+  "0dmWikaZPUWRmZed1SLGRLpkBvs2": true,
   // itschristinecha+5@gmail.com
   "sXNTtawm7sME2ydcwBDoSin4TS92": true,
   // max@pingpod.com
