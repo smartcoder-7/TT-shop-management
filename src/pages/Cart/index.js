@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link, withRouter } from 'react-router-dom'
+import uuid from 'uuid'
 
 import cartContainer, { CartSubscriber } from 'containers/cartContainer'
 import authContainer from 'containers/authContainer'
@@ -13,16 +14,21 @@ import { createReservations } from 'api'
 import styles from './styles.scss'
 import UserBadges from '../../components/User/UserBadges';
 import { validateReservations } from '../../api';
+import useResolve from '../../components/Resolve';
+
+const PROMISE_MAP = {}
 
 const _Cart = ({ history }) => {
-  const [submissionError, setSubmissionError] = useState()
   const [reservations, setReservations] = useState([])
+  const [submissionError, setSubmissionError] = useState()
   const { user } = authContainer
 
   const userId = user.id
   const sessionIds = cartContainer.items
 
   useEffect(() => {
+    let upToDate = true
+
     const _reservations = sessionIds
       .map(parseSessionId)
       .filter(r => !!r.locationId && !!r.time)
@@ -34,10 +40,13 @@ const _Cart = ({ history }) => {
 
     validateReservations({ userId, reservations: _reservations })
       .then((data) => {
-        setReservations(data.reservations)
+        if (upToDate) {
+          setReservations(data.reservations)
+        }
       })
-  }, [sessionIds])
 
+    return () => (upToDate = false)
+  }, [sessionIds])
 
   const checkout = () => {
     createReservations({ userId, reservations })
