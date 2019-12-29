@@ -4,12 +4,40 @@ import RateLabel from 'components/RateLabel'
 import getAllSessions from '../../../shared/getAllSessions'
 
 import styles from './styles.scss'
-import { getReservations } from 'api'
+import { getReservations, getUser } from 'api'
 import ReservationDetails from './ReservationDetails'
 import locations from '../../../locations.json'
 import { getDayStartTime, formatTime } from '../../util/datetime';
 
 const IS_DEV = process.env.NODE_ENV === 'development'
+
+const USER_CACHE = {}
+
+const Reservation = ({ reservation }) => {
+  if (!reservation) return null
+
+  const [label, setLabel] = useState('RESERVED')
+
+  useEffect(() => {
+    const userId = reservation.userId
+    let promise = USER_CACHE[userId]
+
+    if (!promise) {
+      promise = getUser({ userId })
+      USER_CACHE[userId] = promise
+    }
+
+    promise.then(u => {
+      setLabel(`${u.firstName} ${u.lastName}`)
+    })
+  }, [reservation.userId])
+
+  return (
+    <ReservationDetails reservation={reservation}>
+      <label>{label}</label>
+    </ReservationDetails>
+  )
+}
 
 const Session = ({ time, tables, location, reservations = [] }) => {
   const premiumTables = tables.filter(t => t.isPremium)
@@ -32,11 +60,7 @@ const Session = ({ time, tables, location, reservations = [] }) => {
 
           return (
             <div className={styles.table} key={t.id} data-reserved={!!res}>
-              {res && (
-                <ReservationDetails reservation={res}>
-                  <label>RESERVED</label>
-                </ReservationDetails>
-              )}
+              <Reservation reservation={res} />
             </div>
           )
         })}
@@ -46,11 +70,7 @@ const Session = ({ time, tables, location, reservations = [] }) => {
 
           return (
             <div className={styles.table} key={t.id} data-reserved={!!res}>
-              {res && (
-                <ReservationDetails reservation={res}>
-                  <label>RESERVED</label>
-                </ReservationDetails>
-              )}
+              <Reservation reservation={res} />
             </div>
           )
         })}
@@ -68,7 +88,9 @@ const SessionsData = ({ day }) => {
 
   useEffect(() => {
     getReservations({ startTime })
-      .then(({ reservations: r }) => setReservations(r))
+      .then(({ reservations: r }) => {
+        setReservations(r)
+      })
   }, [])
 
   const reservationsBySession = {}
