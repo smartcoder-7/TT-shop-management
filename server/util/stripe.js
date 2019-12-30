@@ -11,6 +11,22 @@ const mock = {
           { last4: '1234', brand: 'Visa' }
         ]
       }
+    }),
+    create: () => Promise.resolve({
+      id: 'stripe12345',
+      sources: {
+        data: [
+          { last4: '1234', brand: 'Visa' }
+        ]
+      }
+    }),
+    update: () => Promise.resolve({
+      id: 'stripe12345',
+      sources: {
+        data: [
+          { last4: '1234', brand: 'Visa' }
+        ]
+      }
     })
   }
 }

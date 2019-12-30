@@ -39,55 +39,29 @@
 }
 
 .session {
-  display: flex;
-  width: 100%;
-
   &[data-empty="true"] {
     opacity: 0.3;
     height: 2rem;
 
     * { font-size: 0; padding: 0 !important; }
   }
-
-  &[data-header="true"] {
-    .timestamp {
-      background: transparent;
-    }
-
-    .table {
-      background: $white;
-    }
-  }
-
-  .timestamp, .table {
-    padding: 2rem 1rem;
-    background: $white;
-    border: 2px solid $light-gray;
-    text-align: center;
-  }
-
-  .timestamp {
-    width: 20rem;
-  }
-
-  .tables {
-    display: flex;
-  }
   
-  .table {
-    position: relative;
-    width: 40rem;
+  .timestamp {
+    text-align: center;
+    max-width: 9rem;
+  }
 
+  .table {
+    text-align: center;
+    
     &[data-reserved="true"] {
       background: $pink;
       color: $white;
       font-weight: bold;
-      padding: 0;
     }
     
-    .tableName {
+    label {
       margin-right: 2rem;
-      margin-top: 0.1rem;
     }
   }
 }
@@ -122,9 +96,9 @@
 }
 
 .openDetails {
-  position: absolute;
-  top: 0;
-  left: 0;
+  // position: absolute;
+  // top: 0;
+  // left: 0;
   width: 100% !important;
   height: 100% !important;
   border: none !important;
@@ -138,21 +112,8 @@
 }
 
 table {
-  border-spacing: 0;
-  border-collapse: collapse;
-  width: 100%;
-  
-  tr {
-  }
-  
   th {
-    padding: 1rem 0;
-    text-align: left;
-  }
-  
-  td {
-    padding: 1rem;
-    border: 1px solid $black;
+    border: 1px solid $medium-gray;
   }
 }
 

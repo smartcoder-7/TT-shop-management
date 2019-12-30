@@ -4,6 +4,22 @@ import styles from './styles.scss'
 import modalContainer from '../../containers/modalContainer';
 import { getUser } from '../../api';
 
+const Detail = ({ href, label, children }) => {
+  const inner = (<>
+    <label>{label}</label>
+    {children}
+  </>)
+
+  return (
+    <p data-p3 className={styles.detail}>
+      {href && <a data-link href={href} target="_blank" rel="noopener noreferrer">
+        {inner}
+      </a>}
+      {!href && inner}
+    </p>
+  )
+}
+
 const ReservationDetails = ({
   reservation,
   children
@@ -28,25 +44,18 @@ const ReservationDetails = ({
             <h3>Reservation</h3>
             <p data-p2>#{id}</p>
             <br />
-            <p className={styles.detail}><label>Name</label>{user.firstName} {user.lastName}</p>
-            <p className={styles.detail}><label>Email</label>{user.email}</p>
-            <p className={styles.detail}><label>Active Card</label>{(!!user.hasActiveCard).toString()}</p>
+            <Detail label="Name">{user.firstName} {user.lastName}</Detail>
+            <Detail label="Email">{user.email}</Detail>
+            <Detail label="Active Card">{(!!user.hasActiveCard).toString()}</Detail>
+            <Detail label="Stripe Customer ID" href={`https://dashboard.stripe.com/test/customers/${user.stripeId}`}>
+              {user.stripeId}
+            </Detail>
 
-            <p className={styles.detail}>
-              <a data-link href={`https://dashboard.stripe.com/test/customers/${user.stripeId}`} target="_blank" rel="noopener noreferrer">
-                <label>Stripe Customer ID</label>{user.stripeId}
-              </a>
-            </p>
+            {chargeId && <Detail label="[PAID] Stripe Charge ID" href={`https://dashboard.stripe.com/test/payments/${chargeId}`}>
+              {chargeId}
+            </Detail>}
 
-            {chargeId && (
-              <p className={styles.detail}>
-                <a data-link href={`https://dashboard.stripe.com/test/payments/${chargeId}`} target="_blank" rel="noopener noreferrer">
-                  <label>(PAID) Stripe Charge ID</label>{chargeId}
-                </a>
-              </p>
-            )}
-
-            {!chargeId && <p className={styles.detail}><label>(UNPAID)</label>{chargeError}</p>}
+            {!chargeId && <Detail label="[UNPAID]">{chargeError}</Detail>}
           </div>
           <div data-col="1" />
         </div>
