@@ -5,6 +5,7 @@ import RateLabel from 'components/RateLabel'
 import cartContainer from 'containers/cartContainer'
 import parseSessionId from 'util/parseSessionId'
 import canUnlock from '../../../shared/canUnlock'
+import locations from '../../../locations'
 import styles from './styles.scss'
 import authContainer from "containers/authContainer";
 
@@ -74,6 +75,9 @@ const ReservationRange = ({
     })
   }
 
+  const { locationId } = first
+  const location = locations[locationId] || {}
+
   const now = Date.now()
   const currentReservation = reservations.find(r => now >= r.startTime) || reservations[0]
 
@@ -85,9 +89,11 @@ const ReservationRange = ({
         {premium && <span className={styles.premiumLabel}>
           <RateLabel rate={{ displayName: 'Premium' }} />
         </span>}
+
         <label>
-          {first.formattedDate}
+          {location.displayName} • {first.formattedDate}
         </label>
+
         <p className={styles.date}>
           {first.formattedTime} - {last.formattedEndTime}
         </p>
