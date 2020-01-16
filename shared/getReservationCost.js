@@ -1,5 +1,5 @@
 const { utcToZonedTime, format } = require('date-fns-tz')
-const locations = require('../locations.json')
+const locations = require('../locations')
 
 const getReservationCost = ({ locationId, reservationTime }) => {
   const { timezone: timeZone, defaultRate, specialRates } = locations[locationId]
@@ -8,6 +8,8 @@ const getReservationCost = ({ locationId, reservationTime }) => {
 
   const day = format(date, 'd', { timeZone })
   const hours = format(date, 'HH', { timeZone })
+
+  if (!specialRates) return defaultRate
 
   const matchingRate = specialRates.find(rate => {
     const { ranges } = rate

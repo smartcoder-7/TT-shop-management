@@ -1,7 +1,7 @@
 const uuid = require('uuid')
 const AvailabilityCheck = require('./util/AvailiabilityCheck')
 const { db } = require('./util/firebase')
-const locations = require('../locations.json')
+const locations = require('../locations')
 const autochargeReservations = require('./jobs/autochargeReservations')
 
 const createReservation = ({

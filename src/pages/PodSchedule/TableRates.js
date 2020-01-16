@@ -6,7 +6,7 @@ import modalContainer from '../../containers/modalContainer';
 const TableRates = ({ location }) => {
   const rates = [
     location.defaultRate,
-    ...location.specialRates
+    ...(location.specialRates || [])
   ]
 
   const openModal = () => {
@@ -18,13 +18,21 @@ const TableRates = ({ location }) => {
             <h3>Table Rates</h3>
             <p data-p2>(price per 30-minute session)</p>
             <br />
-            <br />
 
             {rates.map((rate, i) => {
               return (
-                <div key={i} className={styles.tableRate}>
-                  <RateLabel rate={rate} showEmpty />
-                  <div>${rate.NON_MEMBER / 2}</div>
+                <div className={styles.rateGroup}>
+                  {rate.displayName && <h3>{rate.displayName}</h3>}
+
+                  <div key={i} className={styles.rate}>
+                    <label>Member</label>
+                    <div>${rate.MEMBER / 2}</div>
+                  </div>
+
+                  {rate.NON_MEMBER && <div key={i} className={styles.rate}>
+                    <label>Non-Member</label>
+                    <div>${rate.NON_MEMBER / 2}</div>
+                  </div>}
                 </div>
               )
             })}

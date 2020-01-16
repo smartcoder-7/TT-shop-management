@@ -26,7 +26,7 @@ class CartContainer extends Container {
 
     this.items.forEach(sessionId => {
       const rate = getSessionRate(sessionId)
-      sum += rate.MEMBER
+      sum += (rate.MEMBER / 2)
     })
 
     return sum

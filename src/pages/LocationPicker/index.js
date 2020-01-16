@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { withRouter } from 'react-router-dom'
 import Layout from 'components/Layout'
-import locations from '../../../locations.json'
+import locations from '../../../locations'
 
 import styles from './styles.scss'
 import cartContainer from 'containers/cartContainer.js';
@@ -24,9 +24,12 @@ const LocationPicker = ({ history }) => {
               const location = locations[key]
 
               return (
-                <button data-plain key={key} onClick={() => pickLocation(key)}>
-                  <div className={styles.location}>
-                    <h2>{location.displayName}</h2>
+                <button data-plain key={key} onClick={() => pickLocation(key)} disabled={!location.active}>
+                  <div className={styles.location} data-active={location.active}>
+                    <h2>
+                      {location.displayName}
+                      {!location.active && <label>(Coming Soon)</label>}
+                    </h2>
                   </div>
                 </button>
               )

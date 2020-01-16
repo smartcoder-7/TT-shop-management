@@ -1,11 +1,11 @@
 import { formatDate, formatTime } from './datetime'
 import * as constants from './constants'
-import locations from '../../locations.json'
+import locations from '../../locations'
 
 const parseSessionId = (str = '') => {
-  const parts = str.split('-')
+  const parts = str.split('/')
   const locationId = parts[0]
-  const location = locations[locationId]
+  const location = locations[locationId] || {}
   const reservationTime = parseInt(parts[1])
 
   const date = new Date(reservationTime)

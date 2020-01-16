@@ -1,5 +1,5 @@
 const { db } = require('../../server/util/firebase')
-const locations = require('../locations.json')
+const locations = require('../locations')
 
 const INTERVAL_MS = 1000 * 60 * 30
 

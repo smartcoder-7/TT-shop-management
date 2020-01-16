@@ -13,9 +13,9 @@ const Menu = ({
   return (
     <>
       <div className={styles.menuTrigger} onClick={() => setExpanded(true)}>
-        <div className={styles.dot}/>
-        <div className={styles.dot}/>
-        <div className={styles.dot}/>
+        <div className={styles.dot} />
+        <div className={styles.dot} />
+        <div className={styles.dot} />
       </div>
 
       <div className={styles.menuWrapper} data-expanded={expanded}>
@@ -23,7 +23,7 @@ const Menu = ({
         <div className={styles.menu} data-expanded={expanded}>
           <ul data-row>
             <li>
-              <Link to="/reserve/0" data-link>Reserve a Table</Link>
+              <Link to="/reserve" data-link>Reserve a Table</Link>
             </li>
 
             <li>
@@ -35,10 +35,10 @@ const Menu = ({
                 <button onClick={authContainer.logout} data-link>Log Out</button>
               </li>
             ) : (
-              <li>
-                <Link to={`/login?redirect=${window.location}`} data-link>Log In</Link>
-              </li>
-            )}
+                <li>
+                  <Link to={`/login?redirect=${window.location}`} data-link>Log In</Link>
+                </li>
+              )}
           </ul>
 
           <div className={styles.close} onClick={() => setExpanded(false)}>

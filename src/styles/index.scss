@@ -155,6 +155,11 @@ button {
     font-weight: inherit;
     letter-spacing: inherit;
     font-size: inherit;
+
+    &[disabled] {
+      background-color: inherit;
+      color: $gray;
+    }
   }
 
   &[data-size="small"] {

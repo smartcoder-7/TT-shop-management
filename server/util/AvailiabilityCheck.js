@@ -1,5 +1,5 @@
 const { db } = require('./firebase')
-const locations = require('../../locations.json')
+const locations = require('../../locations')
 
 const IS_OFFLINE = !!process.env.IS_OFFLINE
 
@@ -60,6 +60,11 @@ class AvailabilityCheck {
       this.reservationsByTime[time] = this.reservationsByTime[time] || []
       this.reservationsByTime[time].push(reservation)
     })
+  }
+
+  bookedBy(time) {
+    const reservations = this.reservationsByTime[time] || []
+    return reservations.map(r => r.userId)
   }
 
   isAlreadyBookedAt(time) {

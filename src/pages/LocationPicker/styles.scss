@@ -5,8 +5,13 @@
 }
 
 .location {
+  padding: 2rem 0;
 
-  h2 {
+  &[data-active="true"] h2 {
     color: $pink;
+  }
+
+  label {
+    margin-left: 2rem;
   }
 }

@@ -1,5 +1,5 @@
 const { zonedTimeToUtc, utcToZonedTime, format } = require('date-fns-tz')
-const locations = require('../locations.json')
+const locations = require('../locations')
 
 const INTERVAL_MS = 1000 * 60 * 30
 

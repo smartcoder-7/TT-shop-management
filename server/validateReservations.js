@@ -1,5 +1,5 @@
 const AvailabilityCheck = require('./util/AvailiabilityCheck')
-const locations = require('../locations.json')
+const locations = require('../locations')
 
 const validateReservation = ({
   userId,

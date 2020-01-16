@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { withRouter, Link } from 'react-router-dom'
 import classNames from 'classnames'
-import locations from '../../../locations.json'
+import locations from '../../../locations'
 
 import { getAvailableSessions } from 'api'
 import Layout from 'components/Layout'
@@ -26,18 +26,20 @@ export const Session = ({
   session: {
     startTime,
     tablesLeft,
-    alreadyBooked,
+    bookedBy,
     regularTablesLeft,
     premiumTablesLeft,
   },
   locationId
 }) => {
   const location = locations[locationId]
-  const sessionId = `${locationId}-${startTime}`
+  const sessionId = `${locationId}/${startTime}`
   const premium = cartContainer.isPremium(sessionId)
   const isSelected = cartContainer.isInCart(sessionId)
 
   const rate = getSessionRate(sessionId)
+
+  const alreadyBooked = bookedBy.indexOf(authContainer.userId) > -1
 
   useEffect(() => {
     if (!regularTablesLeft) cartContainer.togglePremium(sessionId, true)
@@ -51,10 +53,10 @@ export const Session = ({
   }
 
   const togglePremium = (e) => {
+    if (!regularTablesLeft || !premiumTablesLeft) return
+
     e.stopPropagation()
-    if (!regularTablesLeft) cartContainer.togglePremium(sessionId, true)
-    else if (!premiumTablesLeft) cartContainer.togglePremium(sessionId, false)
-    else cartContainer.togglePremium(sessionId)
+    cartContainer.togglePremium(sessionId)
   }
 
   return (
@@ -68,7 +70,7 @@ export const Session = ({
       <div className={styles.sessionInfo}>
         <div className={styles.check}>✔</div>
         <label>{formatTime(startTime, location.timezone)}</label>
-        {alreadyBooked && <RateLabel rate={{ displayName: 'Booked ✔' }} />}
+        {alreadyBooked && <RateLabel rate={{ displayName: 'Booked by you ✔' }} />}
         <RateLabel rate={rate} />
         {premium && <span className={styles.premiumLabel}>
           <RateLabel rate={{ displayName: 'Premium' }} />
@@ -93,10 +95,9 @@ const SessionPicker = ({ locationId, startTime, endTime }) => {
   useEffect(() => {
     const updateSessions = () => {
       const requestedStartTime = startTime
-      const userId = authContainer.userId
 
       setLoading(true)
-      getAvailableSessions({ locationId, startTime, endTime, userId })
+      getAvailableSessions({ locationId, startTime, endTime })
         .then(({ sessions }) => {
           setLoading(false)
 
@@ -117,14 +118,15 @@ const SessionPicker = ({ locationId, startTime, endTime }) => {
     return () => {
       clearInterval(poll)
     }
-  }, [locationId, startTime, endTime, authContainer.userId])
+  }, [locationId, startTime, endTime])
 
   return (
     <>
       <div className={styles.sessions} data-is-active={canCheckout}>
         {loading && <Loading />}
         {!loading && sessions.map(session => {
-          if (!session.tablesLeft) return null
+          const alreadyBooked = session.bookedBy.indexOf(authContainer.userId) > -1
+          if (!session.tablesLeft && !alreadyBooked) return null
           return <Session
             session={session}
             locationId={locationId}

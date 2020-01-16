@@ -7,7 +7,7 @@ import getAllSessions from '../../../shared/getAllSessions'
 import styles from './styles.scss'
 import { getReservations } from 'api'
 import ReservationDetails from './ReservationDetails'
-import locations from '../../../locations.json'
+import locations from '../../../locations'
 import { parseTime } from '../../util/datetime';
 import { getUsers } from '../../api';
 

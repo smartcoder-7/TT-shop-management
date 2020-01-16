@@ -127,14 +127,6 @@ $checkoutHeight: 30rem;
   }
 }
 
-.tableRate {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  margin-bottom: 5rem;
-}
-
 button.tableRates {
   display: inline-block;
   font-size: 3rem;
@@ -143,12 +135,23 @@ button.tableRates {
   margin-bottom: 0.5rem;
 }
 
+.rateGroup:not(:last-child) {
+  margin-bottom: 3rem;
+}
+
+.rate {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
 .session {
   position: relative;
   padding: 0rem 5rem;
-  background: $blue;
-  color: $white;
   height: 15rem;
+  background: $light-gray;
   display: flex;
   align-items: center;
   border-bottom: 1px solid rgba(255,255,255,0.3);
@@ -160,13 +163,13 @@ button.tableRates {
   }
   
   &[data-booked="true"] {
-    background: $light-gray;
-    color: $black;
+    background: #e2e2e2;
+    color: $gray;
   }
 
   &[data-selected="true"] {
-    background: $white;
-    color: $blue;
+    background: $blue;
+    color: $white;
     border-bottom: 1px solid rgba(0,0,0,0.1);
   
     .check {
@@ -178,7 +181,7 @@ button.tableRates {
     }
     
     .premium {
-      color: $pink;
+      color: $white;
     }
   }
   
@@ -210,12 +213,8 @@ button.tableRates {
 
   .check {
     display: none;
-    color: $blue;
+    color: $white;
     margin-right: 1.5rem;
-  }
-
-  .premiumLabel {
-    color: $pink;
   }
 
   .premiumWrapper {
@@ -229,7 +228,6 @@ button.tableRates {
   .premium {
     width: 8rem;
     height: 8rem;
-    color: $white;
     display: flex;
     flex-direction: column;
     align-items: center;

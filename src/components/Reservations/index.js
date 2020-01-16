@@ -5,8 +5,8 @@ import cartContainer from 'containers/cartContainer'
 import parseSessionId from 'util/parseSessionId'
 import styles from './styles.scss'
 
-const getSessionId = ({ reservationTime, locationId = '0' }) => (
-  `${locationId}-${reservationTime}`
+const getSessionId = ({ reservationTime, locationId }) => (
+  `${locationId}/${reservationTime}`
 )
 
 const ReservationRange = ({
