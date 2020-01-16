@@ -108,13 +108,14 @@ const ReservationRange = ({
 const Reservations = ({
   reservations,
   showUnlock = false,
-  showRemove = false
+  showRemove = false,
+  reverse = false
 }) => {
   const sortedReservations = reservations.sort((a, b) => {
     return a.reservationTime > b.reservationTime ? 1 : -1
   })
 
-  const ranges = []
+  let ranges = []
 
   sortedReservations.forEach((res, i) => {
     const prevRes = sortedReservations[i - 1]
@@ -131,6 +132,8 @@ const Reservations = ({
 
     ranges.push([res])
   })
+
+  if (reverse) ranges = ranges.reverse()
 
   return (
     <div>
