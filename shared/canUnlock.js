@@ -1,12 +1,13 @@
-const SESSION_LENGTH = 1000 * 60 * 60 * 30
-const UNLOCK_THRESHOLD = 1000 * 60 * 60 * 10
+const SESSION_LENGTH = 1000 * 60 * 30
+const UNLOCK_THRESHOLD = 1000 * 60 * 10
 
 const canUnlock = (reservation) => {
-  const { startTime } = reservation
+  const { reservationTime } = reservation
 
-  const endTime = startTime + SESSION_LENGTH
+  const endTime = reservationTime + SESSION_LENGTH
   const now = Date.now()
-  const isTooEarly = now < (startTime - UNLOCK_THRESHOLD)
+
+  const isTooEarly = now < (reservationTime - UNLOCK_THRESHOLD)
   const isTooLate = now > endTime
 
   if (isTooEarly || isTooLate) {
