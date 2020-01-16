@@ -5,6 +5,7 @@ import locations from '../../../locations'
 
 import styles from './styles.scss'
 import cartContainer from 'containers/cartContainer.js';
+import authContainer from '../../containers/authContainer';
 
 
 const LocationPicker = ({ history }) => {
@@ -23,11 +24,17 @@ const LocationPicker = ({ history }) => {
             {Object.keys(locations).map(key => {
               const location = locations[key]
 
+              const hasPermission = location.memberOnly ?
+                authContainer.user.isMember : false
+
+              const disabled = !hasPermission || !location.active
+
               return (
-                <button data-plain key={key} onClick={() => pickLocation(key)} disabled={!location.active}>
+                <button data-plain key={key} onClick={() => pickLocation(key)} disabled={disabled}>
                   <div className={styles.location} data-active={location.active}>
                     <h2>
                       {location.displayName}
+                      {location.memberOnly && <label>(Members Only)</label>}
                       {!location.active && <label>(Coming Soon)</label>}
                     </h2>
                   </div>
