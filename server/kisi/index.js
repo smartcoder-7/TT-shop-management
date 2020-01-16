@@ -1,7 +1,7 @@
 const { db } = require('../util/firebase')
 const Kisi = require("kisi-client").default
 const locations = require('../../locations')
-const canUnlock = require('../../shared/canUnlock')
+const { canUnlock } = require('../../shared/canUnlock')
 
 const kisiClient = new Kisi()
 

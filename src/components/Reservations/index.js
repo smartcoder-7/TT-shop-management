@@ -4,7 +4,8 @@ import { unlockDoor } from 'api';
 import RateLabel from 'components/RateLabel'
 import cartContainer from 'containers/cartContainer'
 import parseSessionId from 'util/parseSessionId'
-import canUnlock from '../../../shared/canUnlock'
+import { parseTime } from 'util/datetime'
+import { canUnlock, getUnlockTime } from '../../../shared/canUnlock'
 import locations from '../../../locations'
 import styles from './styles.scss'
 import authContainer from "containers/authContainer";
@@ -13,12 +14,33 @@ const getSessionId = ({ reservationTime, locationId }) => (
   `${locationId}/${reservationTime}`
 )
 
+const Countdown = ({ to }) => {
+  const [now, setNow] = useState(Date.now())
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setNow(Date.now())
+    }, 500)
+
+    return () => clearInterval(interval)
+  }, [])
+
+  const diff = to - now
+  const { hours, minutes, seconds } = parseTime(diff)
+
+  return `${hours}:${minutes}:${seconds}`
+}
+
 const Unlocker = ({ reservation }) => {
   const [unlocked, setUnlocked] = useState(false)
   const [error, setError] = useState(false)
   const hasAccess = canUnlock(reservation)
 
-  if (!hasAccess) return null
+  if (!hasAccess) return (
+    <div className={styles.unlockDisabled} data-label>
+      Access Door in <Countdown to={getUnlockTime(reservation)} />
+    </div>
+  )
 
   const onClick = () => {
     const userId = authContainer.userId

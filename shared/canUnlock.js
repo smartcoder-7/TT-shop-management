@@ -1,6 +1,11 @@
 const SESSION_LENGTH = 1000 * 60 * 30
 const UNLOCK_THRESHOLD = 1000 * 60 * 30
 
+const getUnlockTime = (reservation) => {
+  const { reservationTime } = reservation
+  return reservationTime - UNLOCK_THRESHOLD
+}
+
 const canUnlock = (reservation) => {
   const { reservationTime } = reservation
 
@@ -17,5 +22,7 @@ const canUnlock = (reservation) => {
   return true
 }
 
-
-module.exports = canUnlock
+module.exports = {
+  canUnlock,
+  getUnlockTime
+}

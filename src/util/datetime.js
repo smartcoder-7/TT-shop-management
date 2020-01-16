@@ -15,7 +15,8 @@ export const parseTime = (time, timeZone) => {
     day: format(date, 'd', { timeZone }),
     year: format(date, 'yyyy', { timeZone }),
     hours: format(date, 'hh', { timeZone }),
-    minutes: format(date, 'mm', { timeZone })
+    minutes: format(date, 'mm', { timeZone }),
+    seconds: format(date, 'ss', { timeZone })
   }
 }
 

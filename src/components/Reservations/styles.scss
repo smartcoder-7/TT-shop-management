@@ -17,6 +17,12 @@
     padding: 1rem 3rem;
   }
 
+  .unlockDisabled {
+    background: $gray;
+    color: $white;
+    padding: 1rem 3rem;
+  }
+
   .unlockError {
     background: $blue;
     color: $white;
