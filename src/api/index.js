@@ -87,14 +87,16 @@ export const updateUserBilling = ({
 export const updateUserInfo = ({
   userId,
   firstName,
-  lastName
+  lastName,
+  isMember
 }) => {
   return apiRequest({
     url: ENDPOINTS.UPDATE_USER_INFO,
     data: {
       userId,
       firstName,
-      lastName
+      lastName,
+      isMember
     }
   })
 }

@@ -4,7 +4,8 @@ const updateUserInfo = async (req, res) => {
   const {
     userId,
     firstName,
-    lastName
+    lastName,
+    isMember
   } = req.body
 
   try {
@@ -15,8 +16,12 @@ const updateUserInfo = async (req, res) => {
 
     const user = getUser.data()
 
-    user.firstName = firstName || user.firstName
-    user.lastName = lastName || user.lastName
+    user.firstName = firstName || user.firstName || ''
+    user.lastName = lastName || user.lastName || ''
+
+    if (isMember !== undefined) {
+      user.isMember = !!isMember
+    }
 
     await userRef.update(user)
     res.status(200).json(user)

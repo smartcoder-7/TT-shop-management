@@ -8,7 +8,10 @@ const getUsers = async (req, res) => {
     usersRef = db.collection('users')
     const res = await usersRef.get()
     res.docs.forEach(doc => {
-      users.push(doc.data())
+      users.push({
+        ...doc.data(),
+        id: doc.id
+      })
     })
   } catch (err) {
     res.status(500).send('Cannot reach server.')
