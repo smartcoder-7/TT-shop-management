@@ -46,7 +46,7 @@ const UserReservations = ({ reservations }) => {
   return (
     <div className={styles.userReservations}>
       <h3>Reservations</h3>
-      <Reservations reservations={activeReservations} />
+      <Reservations reservations={activeReservations} showUnlock />
 
       {!activeReservations.length && 'No upcoming reservations.'}
 

@@ -19,6 +19,7 @@ const getUsers = require('./getUsers')
 const updateUserBilling = require('./updateUserBilling')
 const getUserBilling = require('./getUserBilling')
 const updateUserInfo = require('./updateUserInfo')
+const { unlockDoor } = require('./kisi')
 
 express()
   .use(express.static(path.resolve(ROOT_DIR, 'public')))
@@ -36,6 +37,8 @@ express()
   .post('/api/get-user-billing', getUserBilling)
   .post('/api/get-available-sessions', getAvailableSessions)
   .post('/api/update-user-info', updateUserInfo)
+
+  .post('/api/unlock-door', authenticate(unlockDoor))
 
   .get('/robots.txt', (req, res) => res.sendFile(path.resolve(ROOT_DIR, 'robots.txt')))
   .get('*', (req, res) => res.sendFile(path.resolve(ROOT_DIR, 'public/index.html')))

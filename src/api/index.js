@@ -13,7 +13,8 @@ const ENDPOINTS = {
   GET_AVAILABLE_SESSIONS: '/api/get-available-sessions',
   CREATE_RESERVATIONS: '/api/create-reservations',
   VALIDATE_RESERVATIONS: '/api/validate-reservations',
-  UPDATE_USER_INFO: '/api/update-user-info'
+  UPDATE_USER_INFO: '/api/update-user-info',
+  UNLOCK_DOOR: '/api/unlock-door'
 }
 
 const apiRequest = async ({ url, data }) => {
@@ -179,6 +180,19 @@ export const validateReservations = ({
     data: {
       userId,
       reservations
+    }
+  })
+}
+
+export const unlockDoor = ({
+  reservationId,
+  userId,
+}) => {
+  return apiRequest({
+    url: ENDPOINTS.UNLOCK_DOOR,
+    data: {
+      userId,
+      reservationId
     }
   })
 }
