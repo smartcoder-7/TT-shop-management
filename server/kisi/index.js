@@ -6,7 +6,7 @@ const canUnlock = require('../../shared/canUnlock')
 const kisiClient = new Kisi()
 
 const authenticate = async () => {
-  await kisiClient.signIn("christine@pingpod.com", "UrLr_QvNzU2Wa-PB4hgw")
+  await kisiClient.signIn(process.env.KISI_USERNAME, process.env.KISI_PASSWORD)
 }
 
 const unlockDoor = async (req, res) => {
