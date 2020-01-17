@@ -66,7 +66,7 @@ const chargeReservation = async ({
   if (!rate) throw 'Cannot find associated pricing.'
 
   // toggle MEMBER
-  const amountDollars = rate.MEMBER
+  const amountDollars = user.isMember ? rate.MEMBER : rate.NON_MEMBER
   if (Number.isNaN(amountDollars) || amountDollars > 100) throw 'Calculated cost is invalid.'
 
   const amount = amountDollars * 100

@@ -4,6 +4,7 @@ import { Container, Subscribe, Provider } from 'unstated'
 import * as storage from 'util/localStorage'
 import parseSessionId from 'util/parseSessionId'
 import getSessionRate from 'util/getSessionRate'
+import authContainer from './authContainer';
 
 const {
   CART_KEY,
@@ -26,7 +27,8 @@ class CartContainer extends Container {
 
     this.items.forEach(sessionId => {
       const rate = getSessionRate(sessionId)
-      sum += (rate.MEMBER / 2)
+      const price = authContainer.user.isMember ? rate.MEMBER : rate.NON_MEMBER
+      sum += (price / 2)
     })
 
     return sum

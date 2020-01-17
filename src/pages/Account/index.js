@@ -45,12 +45,15 @@ const UserReservations = ({ reservations }) => {
 
   return (
     <div className={styles.userReservations}>
-      <h3>Reservations</h3>
-      <Reservations reservations={activeReservations} showUnlock />
+      <label className={styles.header}>Upcoming Reservations</label>
+      <Reservations
+        reservations={activeReservations}
+        reservationClass={styles.reservation}
+        showUnlock
+      />
 
       {!activeReservations.length && 'No upcoming reservations.'}
 
-      <br />
       <br />
 
       <label className={styles.showPast} onClick={() => setShowPast(!showPast)}>

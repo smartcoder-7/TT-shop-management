@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react"
 import { INTERVAL_MS } from 'util/constants'
+import classNames from 'classnames'
 import { unlockDoor } from 'api';
 import RateLabel from 'components/RateLabel'
 import cartContainer from 'containers/cartContainer'
 import parseSessionId from 'util/parseSessionId'
-import { parseTime } from 'util/datetime'
+import { parseTime, formatDuration } from 'util/datetime'
 import { canUnlock, getUnlockTime } from '../../../shared/canUnlock'
 import locations from '../../../locations'
 import styles from './styles.scss'
@@ -26,9 +27,7 @@ const Countdown = ({ to }) => {
   }, [])
 
   const diff = to - now
-  const { hours, minutes, seconds } = parseTime(diff)
-
-  return `${hours}:${minutes}:${seconds}`
+  return formatDuration(diff)
 }
 
 const Unlocker = ({ reservation }) => {
@@ -51,7 +50,7 @@ const Unlocker = ({ reservation }) => {
 
         setTimeout(() => {
           setUnlocked(false)
-        }, 60000)
+        }, 3000)
       })
       .catch((err) => {
         setError(err)
@@ -71,13 +70,15 @@ const Unlocker = ({ reservation }) => {
       {error && <div className={styles.unlockError} data-label>
         {error}
       </div>}
-      <div className={styles.unlockTarget} onClick={onClick}></div>
+
+      {!unlocked && <div className={styles.unlockTarget} onClick={onClick}></div>}
     </>
   )
 }
 
 const ReservationRange = ({
   showRemove,
+  reservationClass,
   showUnlock,
   reservations
 }) => {
@@ -104,7 +105,7 @@ const ReservationRange = ({
   const currentReservation = reservations.find(r => now >= r.startTime) || reservations[0]
 
   return (
-    <div className={styles.reservation} data-error={!!error}>
+    <div className={classNames(styles.reservation, reservationClass)} data-error={!!error}>
       {showUnlock && <Unlocker reservation={currentReservation} />}
 
       <div className={styles.inner}>
@@ -129,6 +130,7 @@ const ReservationRange = ({
 
 const Reservations = ({
   reservations,
+  reservationClass,
   showUnlock = false,
   showRemove = false,
   reverse = false
@@ -162,6 +164,7 @@ const Reservations = ({
       {ranges.map((range, i) => (
         <ReservationRange
           reservations={range}
+          reservationClass={reservationClass}
           showRemove={showRemove}
           showUnlock={showUnlock}
           key={i}

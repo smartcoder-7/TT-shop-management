@@ -20,6 +20,17 @@ export const parseTime = (time, timeZone) => {
   }
 }
 
+export const formatDuration = (time) => {
+  const seconds = Math.floor(time / 1000)
+  const minutes = Math.floor(seconds / 60)
+  const hours = Math.floor(minutes / 60)
+
+  const s = seconds - (minutes * 60)
+  const m = minutes - (hours * 60)
+
+  return `${with0(hours)}:${with0(m)}:${with0(s)}`
+}
+
 export const formatDate = (time, timezone) => {
   const { dayOfTheWeek, month, day } = parseTime(time, timezone)
   return `${dayOfTheWeek}, ${month} ${day}`
