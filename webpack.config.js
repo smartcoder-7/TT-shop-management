@@ -80,6 +80,9 @@ module.exports = [
       new UnusedFilesWebpackPlugin({
         patterns: ['src/**/*.js']
       }),
+      new webpack.EnvironmentPlugin({
+        STRIPE_PUBLISHABLE_KEY: JSON.stringify(process.env.STRIPE_PUBLISHABLE_KEY)
+      })
     ],
   }
 ]
