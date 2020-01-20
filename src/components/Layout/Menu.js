@@ -6,7 +6,7 @@ import authContainer from '../../containers/authContainer'
 import styles from './styles.scss'
 
 const Menu = ({
-  children
+  children,
 }) => {
   const [expanded, setExpanded] = useState(false)
 
@@ -36,7 +36,7 @@ const Menu = ({
               </li>
             ) : (
                 <li>
-                  <Link to={`/login?redirect=${window.location}`} data-link>Log In</Link>
+                  <Link to='/login' data-link>Log In</Link>
                 </li>
               )}
           </ul>
@@ -50,4 +50,4 @@ const Menu = ({
   )
 }
 
-export default Menu
+export default withRouter(Menu)
