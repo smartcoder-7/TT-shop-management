@@ -50,4 +50,4 @@ const Menu = ({
   )
 }
 
-export default withRouter(Menu)
+export default Menu
