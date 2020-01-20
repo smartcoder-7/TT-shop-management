@@ -3,6 +3,7 @@ const { getEnv } = require('./getConfigVariables')
 
 const output = getEnv()
 
-console.log(output)
+const env = process.env.NODE_ENV
+const deployTarget = env === 'production' ? 'heroku-pingpod' : 'heroku-pingpod-staging'
 
-shell.exec(`heroku config:set ${output} --remote ${output.deployTarget}`)
+shell.exec(`heroku config:set ${output} --remote ${deployTarget}`)

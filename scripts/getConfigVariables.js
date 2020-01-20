@@ -3,12 +3,6 @@ const secrets = require('../secrets.json')
 const ENV_PUBLIC = {
   offline: {
     IS_OFFLINE: true
-  },
-  staging: {
-    deployTarget: 'heroku-pingpod-staging'
-  },
-  production: {
-    deployTarget: 'heroku-pingpod'
   }
 }
 
