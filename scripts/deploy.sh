@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-echo "🚀 Deploying to Heroku."
+echo "🚀 Deploying to Production."
 git add .
-git commit -m "Heroku deploy."
-git push heroku master
+git commit -m "Trigger production deploy."
+git push heroku-pingpod master

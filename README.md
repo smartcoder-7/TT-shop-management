@@ -39,10 +39,17 @@ Open http://localhost:8000/ in your browser, et voila!
 
 
 ### Deploying
+Add Heroku remote targets for staging and production using the CLI.
+```
+heroku login
+git remote add heroku-pingpod-staging https://git.heroku.com/pingpod-staging.git 
+git remote add heroku-pingpod https://git.heroku.com/pingpod.git 
+```
+
 To deploy to production, checkout the root directory and run:
 
 ```sh
-yarn run deploy
+yarn run deploy:production
 ```
 
 This should set the heroku environment variables and deploy the latest build to production. 

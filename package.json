@@ -14,7 +14,8 @@
     "watch:dev:offline": "NODE_ENV=offline yarn run watch",
     "start:dev:offline": "NODE_ENV=offline yarn start:local",
     "start": "NODE_ENV=production node ./server/index.js",
-    "deploy": "NODE_ENV=production yarn run set:heroku-config && ./scripts/deploy.sh"
+    "deploy:staging": "NODE_ENV=staging yarn run set:heroku-config && ./scripts/deploy.sh",
+    "deploy:production": "NODE_ENV=production yarn run set:heroku-config && ./scripts/deploy.sh"
   },
   "author": "",
   "license": "ISC",
