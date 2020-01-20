@@ -97,6 +97,8 @@ const BillingModalContent = ({ theme }) => {
       })
   }
 
+  console.log(process.env.STRIPE_PUBLISHABLE_KEY)
+
   return (
     <div data-row>
       <div data-col="1" />
