@@ -8,7 +8,7 @@ if (!IS_OFFLINE) {
   admin.initializeApp({
     credential: admin.credential.cert({
       "type": "service_account",
-      "project_id": "pingpod-web",
+      "project_id": process.env.FIREBASE_PROJECT_ID,
       "private_key_id": process.env.FIREBASE_ADMIN_PRIVATE_KEY_ID,
       "private_key": process.env.FIREBASE_ADMIN_PRIVATE_KEY,
       "client_email": process.env.FIREBASE_ADMIN_CLIENT_EMAIL,

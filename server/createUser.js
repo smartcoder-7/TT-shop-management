@@ -14,6 +14,7 @@ const createUser = async (req, res) => {
     userRef = db.collection('users').doc(userId)
     user = await userRef.get()
   } catch (err) {
+    console.log(err.message)
     res.status(500).send('Cannot reach server.')
   }
 
@@ -51,9 +52,11 @@ const createUser = async (req, res) => {
   }
 
   try {
-    await userRef.update(userData)
+    if (user.exists) await userRef.update(userData)
+    else await userRef.set(userData)
     res.status(200).json(userData)
   } catch (err) {
+    console.log(err.message)
     res.status(500).send('Cannot reach server.')
   }
 }

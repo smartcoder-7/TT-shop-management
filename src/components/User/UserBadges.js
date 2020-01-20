@@ -16,7 +16,7 @@ const UserBadges = () => {
 
   return (
     <>
-      <UserBadge emoji='⭐️'>Member</UserBadge>
+      {user.isMember && <UserBadge emoji='⭐️'>Member</UserBadge>}
       <ActiveCard />
       <UserBadge emoji='🏓'>Joined {format(user.createdAt)}</UserBadge>
     </>

@@ -13,11 +13,14 @@ import UserBadges from 'components/User/UserBadges'
 const AccountInfo = () => {
   const { user } = authContainer
 
+  const fullName = `${user.firstName || ''} ${user.lastName || ''}`
+  const displayName = fullName.trim() ? fullName : 'My Account'
+
   return (
     <div className={styles.accountInfo}>
       <div data-row>
         <div data-col={12}>
-          <h1>{user.firstName} {user.lastName}</h1>
+          <h1>{displayName}</h1>
           <br />
           <UserBadges />
         </div>

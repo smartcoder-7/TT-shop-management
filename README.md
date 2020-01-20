@@ -53,3 +53,20 @@ yarn run deploy:production
 ```
 
 This should set the heroku environment variables and deploy the latest build to production. 
+
+
+### Other Setup
+To generate a private key file for your Firebase service account:
+```
+In the Firebase console, open Settings > Service Accounts.
+Click Generate New Private Key, then confirm by clicking Generate Key.
+Securely store the JSON file containing the key.
+```
+Reference: https://firebase.google.com/docs/admin/setup
+
+
+Autocharging reservations is scheduled in Heroku Scheduler via:
+```sh
+node server/jobs/autochargeReservations.js
+```
+This should be run every 10 minutes.

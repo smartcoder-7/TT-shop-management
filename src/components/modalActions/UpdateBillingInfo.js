@@ -101,7 +101,7 @@ const BillingModalContent = ({ theme }) => {
     <div data-row>
       <div data-col="1" />
       <div data-col="10">
-        <StripeProvider apiKey={constants.STRIPE_PUBLISHABLE_KEY}>
+        <StripeProvider apiKey={process.env.STRIPE_PUBLISHABLE_KEY}>
           <Elements>
             <CardForm handleResult={handleResult} theme={theme} />
           </Elements>
