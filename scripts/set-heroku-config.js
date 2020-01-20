@@ -3,4 +3,4 @@ const { getEnv } = require('./getConfigVariables')
 
 const output = getEnv()
 
-shell.exec(`${output.deployTarget} config:set ${output}`)
+shell.exec(`heroku config:set ${output} --remote ${output.deployTarget}`)
