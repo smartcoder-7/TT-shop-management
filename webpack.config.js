@@ -84,6 +84,8 @@ module.exports = [
       new webpack.EnvironmentPlugin({
         STRIPE_PUBLISHABLE_KEY: JSON.stringify(process.env.STRIPE_PUBLISHABLE_KEY),
         FIREBASE_API_KEY: JSON.stringify(process.env.FIREBASE_API_KEY),
+        FIREBASE_PROJECT_ID: JSON.stringify(process.env.FIREBASE_PROJECT_ID),
+        FIREBASE_APP_ID: JSON.stringify(process.env.FIREBASE_APP_ID),
         NODE_ENV: JSON.stringify(process.env.NODE_ENV),
       })
     ],
