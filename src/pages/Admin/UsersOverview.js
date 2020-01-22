@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import uuid from 'uuid'
 import DayPicker from 'components/DayPicker'
 import RateLabel from 'components/RateLabel'
+import authContainer from 'containers/authContainer'
 import getAllSessions from '../../../shared/getAllSessions'
 
 import styles from './styles.scss'
@@ -51,7 +52,10 @@ const User = ({ user, refetch }) => {
   }
 
   const toggleMember = () => updateUserInfo({ userId: user.id, isMember: !user.isMember })
-  const toggleAdmin = () => updateUserInfo({ userId: user.id, isAdmin: !user.isAdmin })
+  const toggleAdmin = () => {
+    if (user.id === authContainer.userId) return Promise.resolve()
+    updateUserInfo({ userId: user.id, isAdmin: !user.isAdmin })
+  }
 
   return (
     <tr className={styles.user}>
