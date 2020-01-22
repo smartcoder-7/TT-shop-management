@@ -69,7 +69,8 @@ const chargeReservation = async ({
   const amountDollars = user.isMember ? rate.MEMBER : rate.NON_MEMBER
   if (Number.isNaN(amountDollars) || amountDollars > 100) throw 'Calculated cost is invalid.'
 
-  const amount = amountDollars * 100
+  const perSession = amountDollars / 2
+  const amount = perSession * 100
 
   try {
     const charge = await stripe.charges.create({
