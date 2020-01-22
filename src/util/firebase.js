@@ -12,7 +12,7 @@ const config = {
   authDomain: `${PROJECT_ID}.firebaseapp.com`,
   databaseURL: `https://${PROJECT_ID}.firebaseio.com`,
   projectId: PROJECT_ID,
-  storageBucket: `${FROJECT_ID}.appspot.com`,
+  storageBucket: `${PROJECT_ID}.appspot.com`,
   appId: APP_ID,
 }
 

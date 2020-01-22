@@ -38,10 +38,6 @@ const unlockDoor = async (req, res) => {
   const { locationId } = reservation
   const location = locations[locationId]
 
-  return res.status(200).json({ success: true })
-
-  // TODO - replace with Kisi in prod.
-
   kisiClient
     .post(`/locks/${location.lockId}/unlock`, {})
     .then(result => {
