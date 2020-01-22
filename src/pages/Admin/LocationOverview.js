@@ -77,12 +77,12 @@ const Session = ({ time, tables, location, reservations = [] }) => {
   )
 }
 
-const SessionsData = ({ day }) => {
+const SessionsData = ({ day, locationId }) => {
   const [reservations, setReservations] = useState([])
-  const location = locations['0']
+  const location = locations[locationId]
   const startTime = day
   const endTime = startTime + (1000 * 60 * 60 * 24)
-  const sessions = getAllSessions({ startTime, endTime, locationId: '0' })
+  const sessions = getAllSessions({ startTime, endTime, locationId })
 
   useEffect(() => {
     getReservations({ startTime })
@@ -141,7 +141,7 @@ const LocationOverview = ({ locationId }) => {
         initialDay={activeDay}
         onChange={time => setActiveDay(time)}
       />
-      <SessionsData day={activeDay} />
+      <SessionsData day={activeDay} locationId={locationId} />
     </div>
   )
 }

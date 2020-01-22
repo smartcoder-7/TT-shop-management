@@ -6,6 +6,7 @@ import Layout from 'components/Layout'
 import Logo from 'components/Logo'
 import LocationOverview from './LocationOverview'
 import UsersOverview from './UsersOverview'
+import locations from '../../../locations'
 
 import styles from './styles.scss'
 
@@ -36,11 +37,13 @@ export const Home = () => {
       <div className={styles.linkGroup}>
         <label className={styles.header}>Reservations by Location</label>
         <ul>
-          <li>
-            <Link to="/admin/location/0" data-link>
-              Allen Street
-            </Link>
-          </li>
+          {Object.keys(locations).map(key => (
+            <li key={key}>
+              <Link to={`/admin/location/${key}`} data-link>
+                {locations[key].displayName}
+              </Link>
+            </li>
+          ))}
         </ul>
       </div>
 
