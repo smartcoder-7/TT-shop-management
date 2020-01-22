@@ -41,9 +41,6 @@
 .session {
   &[data-empty="true"] {
     opacity: 0.3;
-    height: 2rem;
-
-    * { font-size: 0; padding: 0 !important; }
   }
   
   .timestamp {
