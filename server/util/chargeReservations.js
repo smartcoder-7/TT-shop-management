@@ -88,9 +88,11 @@ const chargeReservation = async ({
 }
 
 const chargeReservations = async ({ reservations }) => {
-  const promises = reservations.map(reservationId => (
+  const promises = reservations.map(({ id, userId }) => (
     new Promise((resolve) => {
+      const reservationId = id
       const reservationRef = db.collection('reservations').doc(reservationId)
+      const userRef = db.collection('users').doc(userId)
       const lastCharged = Date.now()
 
       limiter.removeTokens(1, () => {
@@ -105,6 +107,8 @@ const chargeReservations = async ({ reservations }) => {
             const data = { chargeError, lastCharged }
             console.log('[Charge Error]', reservationId, data)
             reservationRef.update(data)
+            userRef.update({ hasActiveCard: false })
+
             resolve(false)
           })
       })

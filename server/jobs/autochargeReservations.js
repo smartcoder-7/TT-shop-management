@@ -22,7 +22,7 @@ const autochargeReservations = async () => {
       if (reservation.chargeExempt) return
       // TODO: Change this to lastNotified
       // if (reservation.lastCharged && reservation.lastCharged >= retryThreshold) return
-      reservations.push(reservation.id)
+      reservations.push(reservation)
     })
   } catch (err) {
     throw 'Failed to get reservations.'
