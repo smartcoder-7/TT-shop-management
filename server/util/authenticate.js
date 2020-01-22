@@ -3,18 +3,19 @@ const { auth } = require('./firebase')
 const IS_OFFLINE = process.env.IS_OFFLINE === "true"
 
 const ADMIN = {
-  // christine@pingpod.nyc
-  "0dmWikaZPUWRmZed1SLGRLpkBvs2": true,
-  // itschristinecha+5@gmail.com
-  "sXNTtawm7sME2ydcwBDoSin4TS92": true,
+  // PRODUCTION
+  // christine@pingpod.com
+  "DQHRIz3l7ShkLVEMvAVQxyBjw9Z2": true,
   // max@pingpod.com
   "Q63QHeYrxUbRfMp4znqEDFosPJn2": true,
-  // maxkogler@gmail.com
-  "Z7GutoomyCMYAdsjxoU72UC7BgH2": true,
   // ernesto@pingpod.com
   "RmObH5fZlheisbCxni7FnJbhxUi2": true,
   // david@pingpod.com
   "uwiOkNc361bwpDX1oZxPI5L3kCR2": true,
+
+  // STAGING
+  // christine@pingpod.com
+  "tCzV4p0SRMV9jIoRNv4sF4EdWRZ2": true
 }
 
 const authenticate = fn => async (req, res, next) => {

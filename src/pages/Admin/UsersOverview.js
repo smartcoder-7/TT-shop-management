@@ -15,10 +15,32 @@ const IS_DEV = process.env.NODE_ENV === 'development'
 
 const POLL_INTERVAL = 10000
 
-const User = ({ user, refetch }) => {
+const Toggle = ({ className, onToggle, refetch, value }) => {
   const [loading, setLoading] = useState(false)
+
+  const toggle = () => {
+    if (loading) return
+    setLoading(true)
+    onToggle()
+      .finally(() => {
+        refetch().then(() => {
+          setLoading(false)
+        })
+      })
+  }
+
+  return (
+    <td className={className} data-label onClick={toggle}>
+      {!loading && value}
+      {loading && '...'}
+    </td>
+  )
+}
+
+const User = ({ user, refetch }) => {
   const hasActiveCard = !!user.hasActiveCard
-  const status = user.isMember ? 'Member' : ''
+  const membership = user.isMember ? 'Member' : ''
+  const role = user.isAdmin ? 'Admin' : ''
   let createdAt = ''
 
   try {
@@ -28,16 +50,8 @@ const User = ({ user, refetch }) => {
     createdAt = '-'
   }
 
-  const toggleMember = () => {
-    if (loading) return
-    setLoading(true)
-    updateUserInfo({ userId: user.id, isMember: !user.isMember })
-      .finally(() => {
-        refetch().then(() => {
-          setLoading(false)
-        })
-      })
-  }
+  const toggleMember = () => updateUserInfo({ userId: user.id, isMember: !user.isMember })
+  const toggleAdmin = () => updateUserInfo({ userId: user.id, isAdmin: !user.isAdmin })
 
   return (
     <tr className={styles.user}>
@@ -48,10 +62,8 @@ const User = ({ user, refetch }) => {
       <td className={styles.activeCard} data-label data-active={hasActiveCard}>
         {hasActiveCard.toString()}
       </td>
-      <td className={styles.status} data-label onClick={toggleMember}>
-        {!loading && status}
-        {loading && '...'}
-      </td>
+      <Toggle className={styles.status} onToggle={toggleMember} value={membership} refetch={refetch} />
+      <Toggle className={styles.status} onToggle={toggleAdmin} value={role} refetch={refetch} />
     </tr>
   )
 }
@@ -90,7 +102,8 @@ const UserOverview = () => {
             <th className={styles.email}>Email</th>
             <th className={styles.createdAt}>Joined</th>
             <th>Active Card</th>
-            <th>Status</th>
+            <th>Membership</th>
+            <th>Role</th>
           </tr>
         </thead>
 

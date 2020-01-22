@@ -5,7 +5,8 @@ const updateUserInfo = async (req, res) => {
     userId,
     firstName,
     lastName,
-    isMember
+    isMember,
+    isAdmin
   } = req.body
 
   try {
@@ -21,6 +22,10 @@ const updateUserInfo = async (req, res) => {
 
     if (isMember !== undefined) {
       user.isMember = !!isMember
+    }
+
+    if (isAdmin !== undefined) {
+      user.isAdmin = !!isAdmin
     }
 
     await userRef.update(user)

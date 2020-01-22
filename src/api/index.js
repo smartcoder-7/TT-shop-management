@@ -88,7 +88,8 @@ export const updateUserInfo = ({
   userId,
   firstName,
   lastName,
-  isMember
+  isMember,
+  isAdmin
 }) => {
   return apiRequest({
     url: ENDPOINTS.UPDATE_USER_INFO,
@@ -96,7 +97,8 @@ export const updateUserInfo = ({
       userId,
       firstName,
       lastName,
-      isMember
+      isMember,
+      isAdmin
     }
   })
 }
