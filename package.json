@@ -6,7 +6,7 @@
   "scripts": {
     "set:env": "node ./scripts/set-env.js",
     "set:heroku-config": "node ./scripts/set-heroku-config.js",
-    "build": "NODE_ENV=production node ./scripts/build.js",
+    "build": "node ./scripts/build.js",
     "watch": "yarn run set:env && webpack-dev-server",
     "start:local": "yarn run set:env && nodemon ./server/index.js -w ./server -w ./shared",
     "watch:dev": "NODE_ENV=development yarn run watch",

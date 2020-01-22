@@ -9,6 +9,7 @@ const ENV_PUBLIC = {
 const env = process.env.NODE_ENV
 
 const envVars = {
+  NODE_ENV: env,
   ...(secrets[env] || secrets.development),
   ...(ENV_PUBLIC[env] || {})
 }
