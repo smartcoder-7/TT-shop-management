@@ -9,11 +9,6 @@ import authContainer from '../../containers/authContainer';
 
 
 const LocationPicker = ({ history }) => {
-  const pickLocation = (locationId) => {
-    cartContainer.setLocationId(locationId)
-    history.push(`/reserve/${locationId}`)
-  }
-
   return (
     <Layout className={styles.account}>
       <div data-row className={styles.details}>
@@ -27,7 +22,17 @@ const LocationPicker = ({ history }) => {
               const hasPermission = location.memberOnly ?
                 authContainer.user.isMember : false
 
-              const disabled = !hasPermission || !location.active
+              const pickLocation = (locationId) => {
+                if (!hasPermission) {
+                  history.push(`/login?redirect=/reserve/${locationId}`)
+                  return
+                }
+
+                cartContainer.setLocationId(locationId)
+                history.push(`/reserve/${locationId}`)
+              }
+
+              const disabled = !location.active
 
               return (
                 <button data-plain key={key} onClick={() => pickLocation(key)} disabled={disabled}>

@@ -22,21 +22,21 @@ const Menu = ({
         <div className={styles.overlay} onClick={() => setExpanded(false)} />
         <div className={styles.menu} data-expanded={expanded}>
           <ul data-row>
-            <li>
-              <Link to="/reserve" data-link>Reserve a Table</Link>
+            <li className={styles.option}>
+              <Link to="/reserve">Reserve a Table</Link>
             </li>
 
-            <li>
-              <Link to={'/account'} data-link>My Account</Link>
+            <li className={styles.option}>
+              <Link to={'/account'}>My Account</Link>
             </li>
 
             {authContainer.userId ? (
-              <li>
-                <button onClick={authContainer.logout} data-link>Log Out</button>
+              <li className={styles.option}>
+                <button onClick={authContainer.logout}>Log Out</button>
               </li>
             ) : (
-                <li>
-                  <Link to='/login' data-link>Log In</Link>
+                <li className={styles.option}>
+                  <Link to='/login'>Log In</Link>
                 </li>
               )}
           </ul>

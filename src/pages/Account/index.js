@@ -59,9 +59,11 @@ const UserReservations = ({ reservations }) => {
 
       <br />
 
-      <label className={styles.showPast} onClick={() => setShowPast(!showPast)}>
-        {showPast ? '- Hide' : '+ Show'} Past Reservations
-      </label>
+      {!!pastReservations.length && (
+        <label className={styles.showPast} onClick={() => setShowPast(!showPast)}>
+          {showPast ? '- Hide' : '+ Show'} Past Reservations
+        </label>
+      )}
       {showPast && <Reservations reservations={pastReservations} reverse />}
     </div>
   )
