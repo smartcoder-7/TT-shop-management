@@ -3,15 +3,17 @@ import 'firebase/auth'
 import 'firebase/firestore'
 import 'firebase/functions'
 
-const { FIREBASE_API_KEY, FIREBASE_PROJECT_ID, FIREBASE_APP_ID } = process.env
+const API_KEY = process.env.FIREBASE_API_KEY
+const PROJECT_ID = process.env.FIREBASE_PROJECT_ID
+const APP_ID = process.env.FIREBASE_APP_ID
 
 const config = {
-  apiKey: FIREBASE_API_KEY,
-  authDomain: `${FIREBASE_PROJECT_ID}.firebaseapp.com`,
-  databaseURL: `https://${FIREBASE_PROJECT_ID}.firebaseio.com`,
-  projectId: FIREBASE_PROJECT_ID,
-  storageBucket: `${FIREBASE_PROJECT_ID}.appspot.com`,
-  appId: FIREBASE_APP_ID,
+  apiKey: API_KEY,
+  authDomain: `${PROJECT_ID}.firebaseapp.com`,
+  databaseURL: `https://${PROJECT_ID}.firebaseio.com`,
+  projectId: PROJECT_ID,
+  storageBucket: `${FROJECT_ID}.appspot.com`,
+  appId: APP_ID,
 }
 
 firebase.initializeApp(config)
