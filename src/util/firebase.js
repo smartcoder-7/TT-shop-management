@@ -4,7 +4,7 @@ import 'firebase/firestore'
 import 'firebase/functions'
 
 const productionConfig = {
-  apiKey: "AIzaSyB6hVfDS4tKY6R6oD7Z8l1uAejQEulSsVs",
+  apiKey: process.env.FIREBASE_API_KEY,
   authDomain: "pingpod-web.firebaseapp.com",
   databaseURL: "https://pingpod-web.firebaseio.com",
   projectId: "pingpod-web",
@@ -14,7 +14,7 @@ const productionConfig = {
 }
 
 const stagingConfig = {
-  apiKey: "AIzaSyCQLorQ3Y9RYK9a5iBC2L1EM8OQ9iGdYOc",
+  apiKey: process.env.FIREBASE_API_KEY,
   authDomain: "pingpod-staging.firebaseapp.com",
   databaseURL: "https://pingpod-staging.firebaseio.com",
   projectId: "pingpod-staging",
