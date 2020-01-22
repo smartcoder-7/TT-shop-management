@@ -30,7 +30,7 @@ const Countdown = ({ to }) => {
   return formatDuration(diff)
 }
 
-const Unlocker = ({ reservation }) => {
+const Unlocker = ({ reservation, chargeError }) => {
   const [unlocked, setUnlocked] = useState(false)
   const [error, setError] = useState(false)
   const hasAccess = canUnlock(reservation)
@@ -42,11 +42,17 @@ const Unlocker = ({ reservation }) => {
   )
 
   const onClick = () => {
+    if (chargeError) return
+    if (unlocked) return
+
+    setError()
+
     const userId = authContainer.userId
     const reservationId = reservation.id
     unlockDoor({ userId, reservationId })
       .then(() => {
         setUnlocked(true)
+        setError()
 
         setTimeout(() => {
           setUnlocked(false)
@@ -59,7 +65,7 @@ const Unlocker = ({ reservation }) => {
 
   return (
     <>
-      {!unlocked && <div className={styles.unlock} data-label>
+      {!unlocked && !chargeError && <div className={styles.unlock} data-label>
         Tap to Unlock Door
       </div>}
 
@@ -67,11 +73,17 @@ const Unlocker = ({ reservation }) => {
         Unlocked!
       </div>}
 
-      {error && <div className={styles.unlockError} data-label>
+      {(chargeError || error) && <div className={styles.unlockError} data-label>
+        {chargeError && 'Unable to charge card on file. Please update your billing info and try again.'}
         {error}
       </div>}
 
-      {!unlocked && <div className={styles.unlockTarget} onClick={onClick}></div>}
+      <div
+        className={styles.unlockTarget}
+        onClick={onClick}
+        data-error={!!(chargeError || error)}
+        data-success={unlocked}
+      />
     </>
   )
 }
@@ -89,7 +101,6 @@ const ReservationRange = ({
   const last = parseSessionId(lastSessionId)
 
   const premium = reservations[0].isPremium
-  const error = reservations[0].error
 
   const remove = () => {
     reservations.forEach(r => {
@@ -104,9 +115,12 @@ const ReservationRange = ({
   const now = Date.now()
   const currentReservation = reservations.find(r => now >= r.startTime) || reservations[0]
 
+  const errored = reservations.find(r => r.chargeError)
+  const chargeError = errored ? errored.chargeError : null
+
   return (
-    <div className={classNames(styles.reservation, reservationClass)} data-error={!!error}>
-      {showUnlock && <Unlocker reservation={currentReservation} />}
+    <div className={classNames(styles.reservation, reservationClass)}>
+      {showUnlock && <Unlocker reservation={currentReservation} chargeError={chargeError} />}
 
       <div className={styles.inner}>
         {premium && <span className={styles.premiumLabel}>
@@ -120,7 +134,6 @@ const ReservationRange = ({
         <p className={styles.date}>
           {first.formattedTime} - {last.formattedEndTime}
         </p>
-        {error && <p data-p3><strong>!!</strong> {error}</p>}
 
         {showRemove && <div className={styles.remove} onClick={remove}>✕</div>}
       </div>
