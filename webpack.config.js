@@ -1,4 +1,5 @@
 const path = require('path')
+const webpack = require('webpack')
 const DotEnvPlugin = require('dotenv-webpack')
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const UnusedFilesWebpackPlugin = require("unused-files-webpack-plugin").default;
@@ -80,6 +81,11 @@ module.exports = [
       new UnusedFilesWebpackPlugin({
         patterns: ['src/**/*.js']
       }),
+      new webpack.EnvironmentPlugin({
+        STRIPE_PUBLISHABLE_KEY: JSON.stringify(process.env.STRIPE_PUBLISHABLE_KEY),
+        FIREBASE_API_KEY: JSON.stringify(process.env.FIREBASE_API_KEY),
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+      })
     ],
   }
 ]
