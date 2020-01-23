@@ -15,8 +15,16 @@ const getSessionId = ({ reservationTime, locationId }) => (
   `${locationId}/${reservationTime}`
 )
 
-const Countdown = ({ to }) => {
+const Countdown = ({ to, now }) => {
+  const diff = to - now
+  return formatDuration(diff)
+}
+
+const Unlocker = ({ reservation, chargeError }) => {
   const [now, setNow] = useState(Date.now())
+  const [unlocked, setUnlocked] = useState(false)
+  const [error, setError] = useState(false)
+  const hasAccess = canUnlock(reservation)
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -26,18 +34,9 @@ const Countdown = ({ to }) => {
     return () => clearInterval(interval)
   }, [])
 
-  const diff = to - now
-  return formatDuration(diff)
-}
-
-const Unlocker = ({ reservation, chargeError }) => {
-  const [unlocked, setUnlocked] = useState(false)
-  const [error, setError] = useState(false)
-  const hasAccess = canUnlock(reservation)
-
   if (!hasAccess) return (
     <div className={styles.unlockDisabled} data-label>
-      Access Door in <Countdown to={getUnlockTime(reservation)} />
+      Access Door in <Countdown to={getUnlockTime(reservation)} now={now} />
     </div>
   )
 

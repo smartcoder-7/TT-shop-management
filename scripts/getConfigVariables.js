@@ -3,6 +3,9 @@ const secrets = require('../secrets.json')
 const ENV_PUBLIC = {
   offline: {
     IS_OFFLINE: true
+  },
+  staging: {
+    IS_STAGING: true
   }
 }
 

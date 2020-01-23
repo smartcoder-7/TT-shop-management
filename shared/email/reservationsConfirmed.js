@@ -1,7 +1,9 @@
 const getReservationRanges = require('../getReservationRanges')
 const parseReservationRange = require('../parseReservationRange')
 
-const domain = process.env.NODE_ENV === 'production' ? 'https://pingpod.com' : 'https://app-staging.pingpod.com'
+let domain = 'https://pingpod.com'
+if (process.env.IS_STAGING) domain = 'https://app-staging.pingpod.com'
+if (process.env.IS_DEV) domain = 'http://localhost:8000'
 
 const getReservationsConfirmed = ({ reservations, userId }) => {
   const ranges = getReservationRanges(reservations)
