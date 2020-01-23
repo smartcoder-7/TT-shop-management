@@ -55,10 +55,12 @@ const chargeReservation = async ({
   const stripeCustomer = await stripe.customers.retrieve(user.stripeId)
 
   if (!stripeCustomer) {
+    userRef.update({ hasActiveCard: false, stripeId: null })
     throw 'Cannot find the user\'s associated Stripe account.'
   }
 
   if (!stripeCustomer.default_source) {
+    userRef.update({ hasActiveCard: false })
     throw 'User does not have a default payment source in Stripe.'
   }
 
@@ -107,7 +109,6 @@ const chargeReservations = async ({ reservations }) => {
             const data = { chargeError, lastCharged }
             console.log('[Charge Error]', reservationId, data)
             reservationRef.update(data)
-            userRef.update({ hasActiveCard: false })
 
             resolve(false)
           })
