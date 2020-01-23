@@ -1,4 +1,4 @@
-import parseSessionId from 'util/parseSessionId'
+import parseSessionId from 'shared/parseSessionId'
 import getReservationCost from '../../shared/getReservationCost'
 
 const getSessionRate = (sessionId) => {

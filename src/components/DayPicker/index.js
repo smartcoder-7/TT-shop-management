@@ -1,8 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { getDayStartTime } from 'util/datetime'
+import { getDayStartTime, parseTime } from 'shared/datetime'
 
 import styles from './styles.scss'
-import { parseTime } from '../../util/datetime';
 
 const FULL_DAY = (1000 * 60 * 60 * 24)
 

@@ -2,7 +2,7 @@ import React from 'react'
 import { Container, Subscribe, Provider } from 'unstated'
 
 import * as storage from 'util/localStorage'
-import parseSessionId from 'util/parseSessionId'
+import parseSessionId from 'shared/parseSessionId'
 import getSessionRate from 'util/getSessionRate'
 import authContainer from './authContainer';
 

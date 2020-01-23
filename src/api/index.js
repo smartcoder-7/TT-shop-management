@@ -1,5 +1,5 @@
 import axios from 'axios'
-import * as constants from 'util/constants'
+import constants from 'shared/constants'
 import authContainer from 'containers/authContainer'
 
 const ENDPOINTS = {

@@ -16,8 +16,8 @@ import cartContainer, { CartSubscriber } from 'containers/cartContainer'
 import TableRates from './TableRates'
 import ThreeStar from 'components/svg/ThreeStar.js';
 import TwoStar from 'components/svg/TwoStar';
-import { getDayStartTime, formatTime } from 'util/datetime.js';
-import authContainer from '../../containers/authContainer.js';
+import { getDayStartTime, formatTime } from 'shared/datetime'
+import authContainer from 'containers/authContainer'
 
 const FULL_DAY = (1000 * 60 * 60 * 24)
 const POLL_INTERVAL = 1000 * 60 * 5

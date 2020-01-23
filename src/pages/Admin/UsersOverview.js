@@ -9,7 +9,7 @@ import styles from './styles.scss'
 import { getReservations } from 'api'
 import ReservationDetails from './ReservationDetails'
 import locations from '../../../locations'
-import { parseTime } from '../../util/datetime';
+import { parseTime } from 'shared/datetime';
 import { getUsers, updateUserInfo } from '../../api';
 
 const IS_DEV = process.env.NODE_ENV === 'development'

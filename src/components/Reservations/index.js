@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react"
-import { INTERVAL_MS } from 'util/constants'
+import constants from 'shared/constants'
 import classNames from 'classnames'
 import { unlockDoor } from 'api';
 import RateLabel from 'components/RateLabel'
 import cartContainer from 'containers/cartContainer'
-import parseSessionId from 'util/parseSessionId'
-import { parseTime, formatDuration } from 'util/datetime'
-import { canUnlock, getUnlockTime } from '../../../shared/canUnlock'
-import locations from '../../../locations'
+import { parseTime, formatDuration } from 'shared/datetime'
+import { canUnlock, getUnlockTime } from 'shared/canUnlock'
+import getReservationRanges from 'shared/getReservationRanges'
+import parseReservationRange from 'shared/parseReservationRange'
 import styles from './styles.scss'
-import authContainer from "containers/authContainer";
+import authContainer from "containers/authContainer"
 
 const getSessionId = ({ reservationTime, locationId }) => (
   `${locationId}/${reservationTime}`
@@ -93,13 +93,7 @@ const ReservationRange = ({
   showUnlock,
   reservations
 }) => {
-  const firstSessionId = getSessionId(reservations[0])
-  const lastSessionId = getSessionId(reservations[reservations.length - 1])
-
-  const first = parseSessionId(firstSessionId)
-  const last = parseSessionId(lastSessionId)
-
-  const premium = reservations[0].isPremium
+  const range = parseReservationRange(reservations)
 
   const remove = () => {
     reservations.forEach(r => {
@@ -107,9 +101,6 @@ const ReservationRange = ({
       cartContainer.removeItem(sessionId)
     })
   }
-
-  const { locationId } = first
-  const location = locations[locationId] || {}
 
   const now = Date.now()
   const currentReservation = reservations.find(r => now >= r.startTime) || reservations[0]
@@ -122,16 +113,16 @@ const ReservationRange = ({
       {showUnlock && <Unlocker reservation={currentReservation} chargeError={chargeError} />}
 
       <div className={styles.inner}>
-        {premium && <span className={styles.premiumLabel}>
+        {range.isPremium && <span className={styles.premiumLabel}>
           <RateLabel rate={{ displayName: 'Premium' }} />
         </span>}
 
         <label>
-          {location.displayName} • {first.formattedDate}
+          {range.location} • {range.date}
         </label>
 
         <p className={styles.date}>
-          {first.formattedTime} - {last.formattedEndTime}
+          {range.startTime} - {range.endTime}
         </p>
 
         {showRemove && <div className={styles.remove} onClick={remove}>✕</div>}
@@ -147,27 +138,7 @@ const Reservations = ({
   showRemove = false,
   reverse = false
 }) => {
-  const sortedReservations = reservations.sort((a, b) => {
-    return a.reservationTime > b.reservationTime ? 1 : -1
-  })
-
-  let ranges = []
-
-  sortedReservations.forEach((res, i) => {
-    const prevRes = sortedReservations[i - 1]
-    const isContiguous =
-      prevRes &&
-      prevRes.error === res.error &&
-      res.reservationTime <= prevRes.reservationTime + INTERVAL_MS &&
-      prevRes.isPremium === res.isPremium
-
-    if (isContiguous) {
-      ranges[ranges.length - 1].push(res)
-      return
-    }
-
-    ranges.push([res])
-  })
+  const ranges = getReservationRanges(reservations)
 
   if (reverse) ranges = ranges.reverse()
 

@@ -3,7 +3,7 @@ import React from 'react'
 import authContainer from 'containers/authContainer'
 import UserBadge from 'components/User/UserBadge'
 import ActiveCard from './ActiveCard'
-import { parseTime } from 'util/datetime'
+import { parseTime } from 'shared/datetime'
 
 
 const UserBadges = () => {

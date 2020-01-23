@@ -4,6 +4,7 @@ const { db } = require('./util/firebase')
 const sendEmail = require('./util/sendEmail')
 const locations = require('../locations')
 const autochargeReservations = require('./jobs/autochargeReservations')
+const getReservationsConfirmed = require('../shared/email/reservationsConfirmed')
 
 const createReservation = ({
   locationId,
@@ -75,7 +76,6 @@ const createReservations = async (req, res) => {
       throw err
     })
 
-
     const reservationIds = []
     validReservations.forEach(reservation => {
       const reservationRef = db.collection('reservations').doc(reservation.id)
@@ -94,15 +94,7 @@ const createReservations = async (req, res) => {
     await batch.commit()
     autochargeReservations()
 
-    sendEmail({
-      userId,
-      subject: 'You\'re booked!',
-      text: `Yay! Your reservations are confirmed: ${reservationIds.join(',')}`,
-      html: `
-        <h1>Table time confirmed.</h1>
-        <p>Reservations: ${reservationIds.join(',')}</p>
-      `
-    })
+    sendEmail(getReservationsConfirmed({ reservations: validReservations, userId }))
 
     res.status(200).json({
       success: true,

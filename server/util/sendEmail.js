@@ -5,9 +5,8 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
 const sendEmail = async ({
   userId,
-  subject,
-  text,
-  html = text
+  data,
+  ...rest
 }) => {
   let userRef, user
 
@@ -26,12 +25,19 @@ const sendEmail = async ({
   const msg = {
     to: user.email,
     from: 'info@pingpod.com',
-    subject,
-    text,
-    html,
+    personalizations: [{
+      to: user.email,
+      dynamic_template_data: data
+    }],
+    ...rest,
   }
 
-  sgMail.send(msg)
+  try {
+    await sgMail.send(msg)
+  } catch (err) {
+    console.log(err.response.body.errors)
+    throw err.message
+  }
 }
 
 module.exports = sendEmail

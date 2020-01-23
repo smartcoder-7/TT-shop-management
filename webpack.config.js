@@ -5,7 +5,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const UnusedFilesWebpackPlugin = require("unused-files-webpack-plugin").default;
 
 const SRC_DIR = path.resolve(__dirname, 'src')
-const SHARED_DIR = path.resolve(__dirname, 'src/functions')
+const ROOT_DIR = path.resolve(__dirname)
 const PUBLIC_DIR = path.resolve(__dirname, 'public')
 
 module.exports = [
@@ -70,7 +70,7 @@ module.exports = [
       ],
     },
     resolve: {
-      modules: [SRC_DIR, 'node_modules']
+      modules: [SRC_DIR, ROOT_DIR, 'node_modules']
     },
     optimization: {
       usedExports: true,

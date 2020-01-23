@@ -1,6 +1,6 @@
-import { formatDate, formatTime } from './datetime'
-import * as constants from './constants'
-import locations from '../../locations'
+const { formatDate, formatTime } = require('./datetime')
+const constants = require('./constants')
+const locations = require('../locations')
 
 const parseSessionId = (str = '') => {
   const parts = str.split('/')
@@ -24,4 +24,4 @@ const parseSessionId = (str = '') => {
   }
 }
 
-export default parseSessionId
+module.exports = parseSessionId

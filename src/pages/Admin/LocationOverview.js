@@ -7,7 +7,7 @@ import styles from './styles.scss'
 import { getReservations, getUser } from 'api'
 import ReservationDetails from './ReservationDetails'
 import locations from '../../../locations'
-import { getDayStartTime, formatTime } from '../../util/datetime';
+import { getDayStartTime, formatTime } from 'shared/datetime';
 
 const IS_DEV = process.env.NODE_ENV === 'development'
 
