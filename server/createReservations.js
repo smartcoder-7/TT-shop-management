@@ -1,6 +1,7 @@
 const uuid = require('uuid')
 const AvailabilityCheck = require('./util/AvailiabilityCheck')
 const { db } = require('./util/firebase')
+const sendEmail = require('./util/sendEmail')
 const locations = require('../locations')
 const autochargeReservations = require('./jobs/autochargeReservations')
 
@@ -92,6 +93,16 @@ const createReservations = async (req, res) => {
 
     await batch.commit()
     autochargeReservations()
+
+    sendEmail({
+      userId,
+      subject: 'You\'re booked!',
+      text: `Yay! Your reservations are confirmed: ${reservationIds.join(',')}`,
+      html: `
+        <h1>Table time confirmed.</h1>
+        <p>Reservations: ${reservationIds.join(',')}</p>
+      `
+    })
 
     res.status(200).json({
       success: true,

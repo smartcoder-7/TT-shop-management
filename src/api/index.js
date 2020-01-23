@@ -14,7 +14,8 @@ const ENDPOINTS = {
   CREATE_RESERVATIONS: '/api/create-reservations',
   VALIDATE_RESERVATIONS: '/api/validate-reservations',
   UPDATE_USER_INFO: '/api/update-user-info',
-  UNLOCK_DOOR: '/api/unlock-door'
+  UNLOCK_DOOR: '/api/unlock-door',
+  SEND_EMAIL: '/api/send-email'
 }
 
 const apiRequest = async ({ url, data }) => {
@@ -197,6 +198,23 @@ export const unlockDoor = ({
     data: {
       userId,
       reservationId
+    }
+  })
+}
+
+export const sendEmail = ({
+  userId,
+  subject,
+  text,
+  html
+}) => {
+  return apiRequest({
+    url: ENDPOINTS.SEND_EMAIL,
+    data: {
+      userId,
+      subject,
+      text,
+      html
     }
   })
 }

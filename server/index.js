@@ -19,6 +19,7 @@ const getUsers = require('./getUsers')
 const updateUserBilling = require('./updateUserBilling')
 const getUserBilling = require('./getUserBilling')
 const updateUserInfo = require('./updateUserInfo')
+const sendEmail = require('./sendEmail')
 const { unlockDoor } = require('./kisi')
 
 express()
@@ -37,6 +38,7 @@ express()
   .post('/api/get-user-billing', getUserBilling)
   .post('/api/get-available-sessions', getAvailableSessions)
   .post('/api/update-user-info', updateUserInfo)
+  .post('/api/send-email', authenticate(sendEmail))
 
   .post('/api/unlock-door', authenticate(unlockDoor))
 
