@@ -74,8 +74,7 @@ const Unlocker = ({ reservation, chargeError }) => {
       </div>}
 
       {(chargeError || error) && <div className={styles.unlockError} data-label>
-        {chargeError && 'Unable to charge card on file. Please update your billing info and try again.'}
-        {error}
+        {chargeError || error}
       </div>}
 
       <div

@@ -90,11 +90,10 @@ const chargeReservation = async ({
 }
 
 const chargeReservations = async ({ reservations }) => {
-  const promises = reservations.map(({ id, userId }) => (
+  const promises = reservations.map(({ id }) => (
     new Promise((resolve) => {
       const reservationId = id
       const reservationRef = db.collection('reservations').doc(reservationId)
-      const userRef = db.collection('users').doc(userId)
       const lastCharged = Date.now()
 
       limiter.removeTokens(1, () => {

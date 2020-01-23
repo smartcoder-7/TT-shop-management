@@ -54,7 +54,7 @@ const User = ({ user, refetch }) => {
   const toggleMember = () => updateUserInfo({ userId: user.id, isMember: !user.isMember })
   const toggleAdmin = () => {
     if (user.id === authContainer.userId) return Promise.resolve()
-    updateUserInfo({ userId: user.id, isAdmin: !user.isAdmin })
+    return updateUserInfo({ userId: user.id, isAdmin: !user.isAdmin })
   }
 
   return (

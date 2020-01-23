@@ -1,21 +1,10 @@
-const { auth } = require('./firebase')
+const { auth, db } = require('./firebase')
 
 const IS_OFFLINE = process.env.IS_OFFLINE === "true"
 
-const ADMIN = {
-  // PRODUCTION
-  // christine@pingpod.com
-  "DQHRIz3l7ShkLVEMvAVQxyBjw9Z2": true,
-  // max@pingpod.com
-  "Q63QHeYrxUbRfMp4znqEDFosPJn2": true,
-  // ernesto@pingpod.com
-  "RmObH5fZlheisbCxni7FnJbhxUi2": true,
-  // david@pingpod.com
-  "uwiOkNc361bwpDX1oZxPI5L3kCR2": true,
-
-  // STAGING
-  // christine@pingpod.com
-  "tCzV4p0SRMV9jIoRNv4sF4EdWRZ2": true
+const isAdmin = async (userId) => {
+  const user = await db.collection('users').doc(userId).get()
+  return user.exists && user.data() && user.data().isAdmin
 }
 
 const authenticate = fn => async (req, res, next) => {
@@ -31,12 +20,13 @@ const authenticate = fn => async (req, res, next) => {
     const decoded = await auth.verifyIdToken(idToken)
     const authId = decoded.uid;
 
-    if (
-      !ADMIN[authId] &&
-      req.body.userId !== authId
-    ) {
-      res.status(401).send('Unauthorized')
-      return
+    if (req.body.userId !== authId) {
+      const allow = await isAdmin(authId)
+
+      if (!allow) {
+        res.status(401).send('Unauthorized')
+        return
+      }
     }
 
     await fn(req, res, next)
