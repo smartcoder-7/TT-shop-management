@@ -1,7 +1,7 @@
 module.exports = {
   displayName: "40 Allen",
   active: true,
-  lockId: "12819",
+  lockId: "12926",
   timezone: "America/New_York",
   tables: [
     {
