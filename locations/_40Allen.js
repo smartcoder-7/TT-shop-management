@@ -14,11 +14,12 @@ module.exports = {
     minute: 0
   },
   closedUntil: {
-    "hour": 6,
-    "minute": 0
+    hour: 6,
+    minute: 0
   },
-  "memberOnly": true,
-  "defaultRate": {
-    "MEMBER": 10,
+  memberOnly: true,
+  defaultRate: {
+    MEMBER: 10,
+    NON_MEMBER: 10
   },
 }
