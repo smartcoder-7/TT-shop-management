@@ -4,8 +4,8 @@ import classNames from 'classnames'
 import { unlockDoor, getUnlocks } from 'api';
 import RateLabel from 'components/RateLabel'
 import cartContainer from 'containers/cartContainer'
-import { parseTime, formatDuration } from 'shared/datetime'
-import { canUnlock, getUnlockTime } from 'shared/canUnlock'
+import { parseTime, formatTime, formatDuration } from 'shared/datetime'
+import { canUnlock, getUnlockTime, unlockStarted, unlockEnded } from 'shared/canUnlock'
 import getReservationRanges from 'shared/getReservationRanges'
 import parseReservationRange from 'shared/parseReservationRange'
 import styles from './styles.scss'
@@ -23,14 +23,19 @@ const Countdown = ({ to, now }) => {
   return formatDuration(diff)
 }
 
-const Unlocker = ({ reservation, chargeError }) => {
+const Unlocker = ({ startTime, endTime, reservations }) => {
   const [ready, setReady] = useState(false)
   const [unlocks, setUnlocks] = useState()
   const [now, setNow] = useState(Date.now())
   const [unlocked, setUnlocked] = useState(false)
   const [error, setError] = useState(false)
-  const { id: reservationId } = reservation
   const userId = authContainer.userId
+
+  const currentReservation = reservations.find(r => now >= r.startTime) || reservations[0]
+  const { id: reservationId } = currentReservation
+
+  const errored = reservations.find(r => r.chargeError)
+  const chargeError = errored ? errored.chargeError : null
 
   const checkUnlocks = () => {
     getUnlocks({ reservationId, userId }).then(u => {
@@ -54,11 +59,16 @@ const Unlocker = ({ reservation, chargeError }) => {
 
   // This is also secured in the backend.
   const hitMax = unlocks && unlocks.length >= 5
-  const hasAccess = canUnlock(reservation)
 
-  if (!hasAccess) return (
+  if (!unlockStarted({ startTime })) return (
     <div className={styles.unlockDisabled} data-label>
-      Access Door in <Countdown to={getUnlockTime(reservation)} now={now} />
+      Access Door in <Countdown to={getUnlockTime({ startTime })} now={now} />
+    </div>
+  )
+
+  if (unlockEnded({ endTime })) return (
+    <div className={styles.unlockDisabled} data-label>
+      Access window has ended.
     </div>
   )
 
@@ -121,15 +131,15 @@ const ReservationRange = ({
     })
   }
 
-  const now = Date.now()
-  const currentReservation = reservations.find(r => now >= r.startTime) || reservations[0]
-
-  const errored = reservations.find(r => r.chargeError)
-  const chargeError = errored ? errored.chargeError : null
-
   return (
     <div className={classNames(styles.reservation, reservationClass)}>
-      {showUnlock && <Unlocker reservation={currentReservation} chargeError={chargeError} />}
+      {showUnlock && (
+        <Unlocker
+          startTime={range.startTime}
+          endTime={range.endTime}
+          reservations={reservations}
+        />
+      )}
 
       <div className={styles.inner}>
         {range.isPremium && <span className={styles.premiumLabel}>
@@ -137,11 +147,11 @@ const ReservationRange = ({
         </span>}
 
         <label>
-          {range.location} • {range.date}
+          {range.location.displayName} • {range.date}
         </label>
 
         <p className={styles.date}>
-          {range.startTime} - {range.endTime}
+          {formatTime(range.startTime)} - {formatTime(range.endTime)}
         </p>
 
         {showRemove && <div className={styles.remove} onClick={remove}>✕</div>}

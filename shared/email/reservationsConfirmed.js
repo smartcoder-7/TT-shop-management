@@ -1,5 +1,7 @@
+const { formatDate, formatTime } = require('../datetime')
 const getReservationRanges = require('../getReservationRanges')
 const parseReservationRange = require('../parseReservationRange')
+const locations = require('../../locations')
 
 let domain = 'https://pingpod.com'
 if (process.env.IS_STAGING) domain = 'https://app-staging.pingpod.com'
@@ -7,7 +9,17 @@ if (process.env.IS_DEV) domain = 'http://localhost:8000'
 
 const getReservationsConfirmed = ({ reservations, userId }) => {
   const ranges = getReservationRanges(reservations)
-    .map(parseReservationRange)
+    .map(r => {
+      const { startTime, endTime, location, date, isPremium } = parseReservationRange(r)
+
+      return {
+        startTime: formatTime(startTime),
+        endTime: formatTime(endTime),
+        location: location.displayName,
+        date,
+        isPremium
+      }
+    })
 
   return {
     userId,
