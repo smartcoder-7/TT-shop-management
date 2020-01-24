@@ -1,7 +1,7 @@
 const { db } = require('./firebase')
 
 const getUnlocks = async ({ reservationId, userId }) => {
-  const query = db.collection('reservations')
+  const query = db.collection('unlocks')
     .where('userId', '==', userId)
     .where('reservationId', '==', reservationId)
 

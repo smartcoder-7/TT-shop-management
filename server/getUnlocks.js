@@ -10,7 +10,7 @@ const getUnlocks = async (req, res) => {
     const unlocks = await _getUnlocks({ userId, reservationId })
     res.status(200).json(unlocks)
   } catch (err) {
-    res.status(500).send('Cannot reach server.')
+    res.status(500).send(err.message)
     return
   }
 }

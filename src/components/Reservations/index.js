@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import constants from 'shared/constants'
 import classNames from 'classnames'
-import { unlockDoor } from 'api';
+import { unlockDoor, getUnlocks } from 'api';
 import RateLabel from 'components/RateLabel'
 import cartContainer from 'containers/cartContainer'
 import { parseTime, formatDuration } from 'shared/datetime'
@@ -10,6 +10,9 @@ import getReservationRanges from 'shared/getReservationRanges'
 import parseReservationRange from 'shared/parseReservationRange'
 import styles from './styles.scss'
 import authContainer from "containers/authContainer"
+
+const WARN_UNLOCKS = 2
+const MAX_UNLOCKS = 5
 
 const getSessionId = ({ reservationTime, locationId }) => (
   `${locationId}/${reservationTime}`
@@ -21,23 +24,31 @@ const Countdown = ({ to, now }) => {
 }
 
 const Unlocker = ({ reservation, chargeError }) => {
+  const [ready, setReady] = useState(false)
+  const [unlocks, setUnlocks] = useState()
   const [now, setNow] = useState(Date.now())
   const [unlocked, setUnlocked] = useState(false)
   const [error, setError] = useState(false)
-  const hasAccess = canUnlock(reservation)
+  const { id: reservationId } = reservation
+  const userId = authContainer.userId
+
+  const checkUnlocks = () => {
+    getUnlocks({ reservationId, userId }).then(u => {
+      setReady(true)
+      setUnlocks(u)
+      if (u && u.length >= 5) {
+        setError('Too many unlock attempts. Access for this reservation has been disabled.')
+      }
+    })
+  }
 
   useEffect(() => {
+    checkUnlocks()
     const interval = setInterval(() => {
       setNow(Date.now())
     }, 500)
     return () => clearInterval(interval)
   }, [])
-
-  if (!hasAccess) return (
-    <div className={styles.unlockDisabled} data-label>
-      Access Door in <Countdown to={getUnlockTime(reservation)} now={now} />
-    </div>
-  )
 
   const onClick = () => {
     if (chargeError) return
@@ -45,12 +56,11 @@ const Unlocker = ({ reservation, chargeError }) => {
 
     setError()
 
-    const userId = authContainer.userId
-    const reservationId = reservation.id
     unlockDoor({ userId, reservationId })
       .then(() => {
         setUnlocked(true)
         setError()
+        checkUnlocks()
 
         setTimeout(() => {
           setUnlocked(false)
@@ -61,9 +71,21 @@ const Unlocker = ({ reservation, chargeError }) => {
       })
   }
 
+  if (!ready) return null
+
+  // This is also secured in the backend.
+  const hitMax = unlocks && unlocks.length >= 5
+  const hasAccess = canUnlock(reservation)
+
+  if (!hasAccess) return (
+    <div className={styles.unlockDisabled} data-label>
+      Access Door in <Countdown to={getUnlockTime(reservation)} now={now} />
+    </div>
+  )
+
   return (
     <>
-      {!unlocked && !chargeError && <div className={styles.unlock} data-label>
+      {!unlocked && !hitMax && !chargeError && <div className={styles.unlock} data-label>
         Tap to Unlock Door
       </div>}
 
