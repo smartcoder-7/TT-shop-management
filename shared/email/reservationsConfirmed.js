@@ -10,11 +10,11 @@ if (process.env.IS_DEV) domain = 'http://localhost:8000'
 const getReservationsConfirmed = ({ reservations, userId }) => {
   const ranges = getReservationRanges(reservations)
     .map(r => {
-      const { startTime, endTime, location, date, isPremium } = parseReservationRange(r)
+      const { startTimeFormatted, endTimeFormatted, location, date, isPremium } = parseReservationRange(r)
 
       return {
-        startTime: formatTime(startTime),
-        endTime: formatTime(endTime),
+        startTime: startTimeFormatted,
+        endTime: endTimeFormatted,
         location: location.displayName,
         date,
         isPremium
