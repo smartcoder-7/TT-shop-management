@@ -62,7 +62,7 @@ const Unlocker = ({ startTime, endTime, reservations }) => {
 
   // This is also secured in the backend.
   const hitMax = unlocks && unlocks.length >= 5
-  console.log(startTime, unlockStarted({ startTime }))
+
   if (!unlockStarted({ startTime })) return (
     <div className={styles.unlockDisabled} data-label>
       Access Door in <Countdown to={getUnlockTime({ startTime })} now={now} />
