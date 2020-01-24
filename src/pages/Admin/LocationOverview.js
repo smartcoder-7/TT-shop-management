@@ -13,7 +13,7 @@ const IS_DEV = process.env.NODE_ENV === 'development'
 
 const USER_CACHE = {}
 
-const Reservation = ({ reservation }) => {
+const Reservation = ({ reservation, update }) => {
   if (!reservation) return null
 
   const [label, setLabel] = useState('RESERVED')
@@ -33,13 +33,13 @@ const Reservation = ({ reservation }) => {
   }, [reservation.userId])
 
   return (
-    <ReservationDetails reservation={reservation}>
+    <ReservationDetails reservation={reservation} update={update}>
       <label>{label}</label>
     </ReservationDetails>
   )
 }
 
-const Session = ({ time, tables, location, reservations = [] }) => {
+const Session = ({ time, tables, location, reservations = [], update }) => {
   const premiumTables = tables.filter(t => t.isPremium)
   const regularTables = tables.filter(t => !t.isPremium)
 
@@ -59,7 +59,7 @@ const Session = ({ time, tables, location, reservations = [] }) => {
 
         return (
           <th className={styles.table} key={t.id} data-reserved={!!res}>
-            <Reservation reservation={res} />
+            <Reservation reservation={res} update={update} />
           </th>
         )
       })}
@@ -69,7 +69,7 @@ const Session = ({ time, tables, location, reservations = [] }) => {
 
         return (
           <th className={styles.table} key={t.id} data-reserved={!!res}>
-            <Reservation reservation={res} />
+            <Reservation reservation={res} update={update} />
           </th>
         )
       })}
@@ -84,15 +84,20 @@ const SessionsData = ({ day, locationId }) => {
   const endTime = startTime + (1000 * 60 * 60 * 24)
   const sessions = getAllSessions({ startTime, endTime, locationId })
 
-  useEffect(() => {
+  const update = () => {
     getReservations({ startTime })
       .then(({ reservations: r }) => {
         setReservations(r)
       })
+  }
+
+  useEffect(() => {
+    update()
   }, [])
 
   const reservationsBySession = {}
   reservations.forEach(r => {
+    if (r.canceled) return
     reservationsBySession[r.reservationTime] = reservationsBySession[r.reservationTime] || []
     reservationsBySession[r.reservationTime].push(r)
   })
@@ -121,6 +126,7 @@ const SessionsData = ({ day, locationId }) => {
               location={location}
               reservations={reservationsBySession[s]}
               tables={location.tables}
+              update={update}
             />
           )
         })}

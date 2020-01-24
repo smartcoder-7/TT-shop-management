@@ -56,6 +56,7 @@ class AvailabilityCheck {
 
     this.queryResponse.docs.forEach(doc => {
       const reservation = doc.data()
+      if (reservation.canceled) return
       const time = reservation.reservationTime
       this.reservationsByTime[time] = this.reservationsByTime[time] || []
       this.reservationsByTime[time].push(reservation)

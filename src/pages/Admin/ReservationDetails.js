@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import RateLabel from 'components/RateLabel'
 import styles from './styles.scss'
 import modalContainer from '../../containers/modalContainer';
-import { getUser } from '../../api';
+import { getUser, cancelReservations } from '../../api';
 
 const Detail = ({ href, label, children }) => {
   const inner = (<>
@@ -22,6 +22,7 @@ const Detail = ({ href, label, children }) => {
 
 const ReservationDetails = ({
   reservation,
+  update,
   children
 }) => {
   const {
@@ -32,6 +33,14 @@ const ReservationDetails = ({
     isPremium,
     id
   } = reservation
+
+  const cancel = () => {
+    cancelReservations({ userId, reservations: [id] })
+      .then(() => {
+        modalContainer.close()
+        update()
+      })
+  }
 
   const openModal = async () => {
     const user = await getUser({ userId })
@@ -56,6 +65,8 @@ const ReservationDetails = ({
             </Detail>}
 
             {!chargeId && <Detail label="[UNPAID]">{chargeError}</Detail>}
+
+            <button onClick={cancel}>Cancel{chargeId && ' & Refund'}</button>
           </div>
           <div data-col="1" />
         </div>

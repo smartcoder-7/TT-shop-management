@@ -9,6 +9,7 @@ const ENDPOINTS = {
   UPDATE_USER_BILLING: '/api/update-user-billing',
   GET_USER_BILLING: '/api/get-user-billing',
   GET_RESERVATIONS: '/api/get-reservations',
+  CANCEL_RESERVATIONS: '/api/cancel-reservations',
   GET_ORDER: '/api/get-order',
   GET_AVAILABLE_SESSIONS: '/api/get-available-sessions',
   CREATE_RESERVATIONS: '/api/create-reservations',
@@ -80,6 +81,21 @@ export const getUnlocks = ({
     data: {
       userId,
       reservationId
+    }
+  })
+}
+
+export const cancelReservations = ({
+  userId,
+  reservations,
+  refund
+}) => {
+  return apiRequest({
+    url: ENDPOINTS.CANCEL_RESERVATIONS,
+    data: {
+      userId,
+      reservations,
+      refund
     }
   })
 }
