@@ -15,7 +15,8 @@ const ENDPOINTS = {
   VALIDATE_RESERVATIONS: '/api/validate-reservations',
   UPDATE_USER_INFO: '/api/update-user-info',
   UNLOCK_DOOR: '/api/unlock-door',
-  SEND_EMAIL: '/api/send-email'
+  SEND_EMAIL: '/api/send-email',
+  GET_UNLOCKS: '/api/get-unlocks'
 }
 
 const apiRequest = async ({ url, data }) => {
@@ -66,6 +67,19 @@ export const createUser = ({
     data: {
       userId,
       email
+    }
+  })
+}
+
+export const getUnlocks = ({
+  userId,
+  reservationId
+}) => {
+  return apiRequest({
+    url: ENDPOINTS.GET_UNLOCKS,
+    data: {
+      userId,
+      reservationId
     }
   })
 }

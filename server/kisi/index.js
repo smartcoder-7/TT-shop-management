@@ -1,7 +1,9 @@
+const uuid = require('uuid')
 const { db } = require('../util/firebase')
 const Kisi = require("kisi-client").default
 const locations = require('../../locations')
 const { canUnlock } = require('../../shared/canUnlock')
+const getUnlocks = require('../util/getUnlocks')
 
 const kisiClient = new Kisi()
 
@@ -15,16 +17,18 @@ const unlockDoor = async (req, res) => {
     reservationId,
   } = req.body
 
-  let reservation
+  let reservation, unlocks
 
   await authenticate()
 
+  const reservationRef = db.collection('reservations').doc(reservationId)
+
   try {
-    const doc = await db.collection('reservations').doc(reservationId).get()
+    const doc = await reservationRef.get()
     if (!doc.exists) return res.status(500).send('Reservation does not exist.')
     reservation = doc.data()
   } catch (err) {
-    return res.status(500).send('Cannot reach server.')
+    return res.status(500).send(err.message)
   }
 
   if (reservation.userId !== userId) {
@@ -35,8 +39,24 @@ const unlockDoor = async (req, res) => {
     return res.status(503).send('Outside of reservation access window.')
   }
 
+  try {
+    unlocks = await getUnlocks({ reservationId, userId })
+    if (unlocks.length >= 5) return res.status(503).send('Too many unlock attempts.')
+  } catch (err) {
+    return res.status(500).send(err.message)
+  }
+
   const { locationId } = reservation
   const location = locations[locationId]
+
+  const unlockId = uuid()
+  const unlockRef = db.collection('unlocks').doc(unlockId)
+
+  try {
+    await unlockRef.set({ timestamp: Date.now(), userId, reservationId, locationId })
+  } catch (err) {
+    return res.status(500).send(err.message)
+  }
 
   kisiClient
     .post(`/locks/${location.lockId}/unlock`, {})

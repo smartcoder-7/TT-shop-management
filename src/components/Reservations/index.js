@@ -30,7 +30,6 @@ const Unlocker = ({ reservation, chargeError }) => {
     const interval = setInterval(() => {
       setNow(Date.now())
     }, 500)
-
     return () => clearInterval(interval)
   }, [])
 

@@ -20,7 +20,7 @@ const LocationPicker = ({ history }) => {
               const location = locations[key]
 
               const hasPermission = location.memberOnly ?
-                authContainer.user.isMember : false
+                authContainer.user.isMember : true
 
               const pickLocation = (locationId) => {
                 if (!hasPermission) {
