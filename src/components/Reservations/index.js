@@ -50,9 +50,20 @@ const Unlocker = ({ reservation, chargeError }) => {
     return () => clearInterval(interval)
   }, [])
 
+  if (!ready) return null
+
+  // This is also secured in the backend.
+  const hitMax = unlocks && unlocks.length >= 5
+  const hasAccess = canUnlock(reservation)
+
+  if (!hasAccess) return (
+    <div className={styles.unlockDisabled} data-label>
+      Access Door in <Countdown to={getUnlockTime(reservation)} now={now} />
+    </div>
+  )
+
   const onClick = () => {
-    if (chargeError) return
-    if (unlocked) return
+    if (chargeError || unlocked || hitMax) return
 
     setError()
 
@@ -70,18 +81,6 @@ const Unlocker = ({ reservation, chargeError }) => {
         setError(err)
       })
   }
-
-  if (!ready) return null
-
-  // This is also secured in the backend.
-  const hitMax = unlocks && unlocks.length >= 5
-  const hasAccess = canUnlock(reservation)
-
-  if (!hasAccess) return (
-    <div className={styles.unlockDisabled} data-label>
-      Access Door in <Countdown to={getUnlockTime(reservation)} now={now} />
-    </div>
-  )
 
   return (
     <>
