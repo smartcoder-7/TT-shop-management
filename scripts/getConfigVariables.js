@@ -6,6 +6,9 @@ const ENV_PUBLIC = {
   },
   staging: {
     IS_STAGING: true
+  },
+  development: {
+    IS_DEV: true
   }
 }
 

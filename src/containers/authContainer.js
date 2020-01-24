@@ -55,14 +55,12 @@ class AuthContainer extends Container {
   watchUser({ userId, email }) {
     if (this.unwatchUser) this.unwatchUser()
 
-    createUser({ userId, email })
-      .then(() => {
-        const userRef = db.collection('users').doc(userId)
-        this.unwatchUser = userRef.onSnapshot(async doc => {
-          const user = doc.data()
-          this.updateUser(user)
-        })
-      })
+    const userRef = db.collection('users').doc(userId)
+    this.unwatchUser = userRef.onSnapshot(async doc => {
+      const user = doc.data()
+      if (!user) return
+      this.updateUser(user)
+    })
   }
 
   updateUser = async (user) => {
@@ -115,32 +113,32 @@ class AuthContainer extends Container {
     this.watchUser({ userId: user.uid, email: user.email })
   }
 
-  login = ({ email = "", password = "" }) => {
-    return auth.signInWithEmailAndPassword(email, password)
-      .then((res) => {
-        console.log('LOGIN', res.user)
-        return this.onLogin()
-      })
-      .catch((error) => {
-        console.log('LOGIN ERROR', error)
-        throw error
-        // ...
-      })
+  login = async ({ email = "", password = "" }) => {
+    try {
+      const res = await auth.signInWithEmailAndPassword(email, password)
+      console.log('LOGIN', res.user)
+      const userId = res.user.uid
+      await createUser({ userId, email })
+      await this.onLogin()
+    } catch (error) {
+      console.log('LOGIN ERROR', error)
+      throw error
+    }
   }
 
-  signupWithEmail = ({ email = "", password = "" }) => {
-    return auth.createUserWithEmailAndPassword(email, password)
-      .then(() => {
-        // sendEmail({
-        //   email, 
-        //   subject: 'Welcome to PingPod',
-        //   text: 'Thanks for creating an account!' 
-        // })
-      })
-      .catch(function (error) {
-        console.log('SIGNUP ERROR', error)
-        throw error
-      })
+  signupWithEmail = async ({ email = "", password = "" }) => {
+    try {
+      await auth.createUserWithEmailAndPassword(email, password)
+      await this.login({ email, password })
+      // sendEmail({
+      //   email, 
+      //   subject: 'Welcome to PingPod',
+      //   text: 'Thanks for creating an account!' 
+      // })
+    } catch (error) {
+      console.log('SIGNUP ERROR', error)
+      throw error
+    }
   }
 
   logout = () => {
