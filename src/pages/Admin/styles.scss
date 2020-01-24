@@ -82,6 +82,11 @@
   }
 }
 
+.sessionsWrapper {
+  height: calc(100vh - 50rem);
+  overflow: scroll;
+}
+
 .sessions {
   max-width: 100%;
   width: auto;

@@ -103,35 +103,37 @@ const SessionsData = ({ day, locationId }) => {
   })
 
   return (
-    <table className={styles.sessions}>
-      <thead className={styles.session} data-header={true}>
-        <tr>
-          <th className={styles.timestamp}></th>
+    <div className={styles.sessionsWrapper}>
+      <table className={styles.sessions}>
+        <thead className={styles.session} data-header={true}>
+          <tr>
+            <th className={styles.timestamp}></th>
 
-          {location.tables.map((t, i) => (
-            <th className={styles.table} key={t.id}>
-              <label className={styles.tableName}>Table {t.id}</label>
-              {t.isPremium && <RateLabel rate={{ displayName: 'Premium' }} />}
-            </th>
-          ))}
-        </tr>
-      </thead>
+            {location.tables.map((t, i) => (
+              <th className={styles.table} key={t.id}>
+                <label className={styles.tableName}>Table {t.id}</label>
+                {t.isPremium && <RateLabel rate={{ displayName: 'Premium' }} />}
+              </th>
+            ))}
+          </tr>
+        </thead>
 
-      <tbody>
-        {sessions.map(s => {
-          return (
-            <Session
-              key={s}
-              time={s}
-              location={location}
-              reservations={reservationsBySession[s]}
-              tables={location.tables}
-              update={update}
-            />
-          )
-        })}
-      </tbody>
-    </table>
+        <tbody>
+          {sessions.map(s => {
+            return (
+              <Session
+                key={s}
+                time={s}
+                location={location}
+                reservations={reservationsBySession[s]}
+                tables={location.tables}
+                update={update}
+              />
+            )
+          })}
+        </tbody>
+      </table>
+    </div>
   )
 }
 
