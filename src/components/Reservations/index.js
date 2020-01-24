@@ -158,7 +158,7 @@ const Reservations = ({
   showRemove = false,
   reverse = false
 }) => {
-  const ranges = getReservationRanges(reservations)
+  let ranges = getReservationRanges(reservations)
 
   if (reverse) ranges = ranges.reverse()
 
