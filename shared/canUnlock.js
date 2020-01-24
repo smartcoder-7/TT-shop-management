@@ -7,7 +7,7 @@ const getUnlockTime = ({ startTime }) => {
 
 const unlockStarted = ({ startTime }) => {
   const now = Date.now()
-  return now >= startTime - UNLOCK_THRESHOLD
+  return now >= (startTime - UNLOCK_THRESHOLD)
 }
 
 const unlockEnded = ({ endTime }) => {
@@ -15,11 +15,9 @@ const unlockEnded = ({ endTime }) => {
   return now >= endTime
 }
 
-const canUnlock = (reservation) => {
-  const { reservationTime: startTime } = reservation
-
-  const endTime = reservationTime + SESSION_LENGTH
-
+const canUnlock = ({ reservationTime }) => {
+  const startTime = reservationTime
+  const endTime = startTime + SESSION_LENGTH
   return unlockStarted({ startTime }) && !unlockEnded({ endTime })
 }
 

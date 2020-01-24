@@ -1,4 +1,4 @@
-const { formatDate, formatTime } = require('./datetime')
+const { formatDate, parseTime, formatTime } = require('./datetime')
 const constants = require('./constants')
 const locations = require('../locations')
 
@@ -8,7 +8,7 @@ const parseSessionId = (str = '') => {
   const location = locations[locationId] || {}
   const reservationTime = parseInt(parts[1])
 
-  const date = new Date(reservationTime)
+  const { date } = parseTime(reservationTime, location.timezone)
   const startTime = date.getTime()
   const endTime = reservationTime + constants.INTERVAL_MS
 
@@ -17,7 +17,7 @@ const parseSessionId = (str = '') => {
     locationId,
     date,
     formattedDate: formatDate(startTime, location.timezone),
-    time: reservationTime,
+    time: startTime,
     endTime,
     formattedTime: formatTime(reservationTime, location.timezone),
     formattedEndTime: formatTime(endTime, location.timezone),

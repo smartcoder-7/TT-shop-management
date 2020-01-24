@@ -8,6 +8,7 @@ const parseTime = (time, timeZone) => {
   const date = utcToZonedTime(_date, timeZone)
 
   return {
+    date,
     dayOfTheWeek: format(date, 'EEEE', { timeZone }),
     dayOfTheWeekAbbr: format(date, 'EEE', { timeZone }),
     month: format(date, 'MMMM', { timeZone }),

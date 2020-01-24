@@ -17,7 +17,9 @@ const parseReservationRange = reservations => {
 
   return {
     startTime: first.time,
+    startTimeFormatted: first.formattedTime,
     endTime: last.endTime,
+    endTimeFormatted: last.formattedEndTime,
     location,
     date: first.formattedDate,
     isPremium: !!reservations[0].isPremium

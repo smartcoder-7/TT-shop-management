@@ -29,6 +29,7 @@ const Unlocker = ({ startTime, endTime, reservations }) => {
   const [now, setNow] = useState(Date.now())
   const [unlocked, setUnlocked] = useState(false)
   const [error, setError] = useState(false)
+  const [warning, setWarning] = useState(false)
   const userId = authContainer.userId
 
   const currentReservation = reservations.find(r => now >= r.startTime) || reservations[0]
@@ -41,8 +42,10 @@ const Unlocker = ({ startTime, endTime, reservations }) => {
     getUnlocks({ reservationId, userId }).then(u => {
       setReady(true)
       setUnlocks(u)
-      if (u && u.length >= 5) {
+      if (u && u.length >= MAX_UNLOCKS) {
         setError('Too many unlock attempts. Access for this reservation has been disabled.')
+      } else if (u && u.length >= WARN_UNLOCKS) {
+        setWarning(`${MAX_UNLOCKS - u.length} attempts left`)
       }
     })
   }
@@ -59,7 +62,7 @@ const Unlocker = ({ startTime, endTime, reservations }) => {
 
   // This is also secured in the backend.
   const hitMax = unlocks && unlocks.length >= 5
-
+  console.log(startTime, unlockStarted({ startTime }))
   if (!unlockStarted({ startTime })) return (
     <div className={styles.unlockDisabled} data-label>
       Access Door in <Countdown to={getUnlockTime({ startTime })} now={now} />
@@ -95,7 +98,7 @@ const Unlocker = ({ startTime, endTime, reservations }) => {
   return (
     <>
       {!unlocked && !hitMax && !chargeError && <div className={styles.unlock} data-label>
-        Tap to Unlock Door
+        Tap to Unlock Door {warning && `(${warning})`}
       </div>}
 
       {unlocked && <div className={styles.unlockSuccess} data-label>
@@ -151,7 +154,7 @@ const ReservationRange = ({
         </label>
 
         <p className={styles.date}>
-          {formatTime(range.startTime)} - {formatTime(range.endTime)}
+          {range.startTimeFormatted} - {range.endTimeFormatted}
         </p>
 
         {showRemove && <div className={styles.remove} onClick={remove}>✕</div>}
