@@ -67,21 +67,6 @@
   overflow: hidden;
 }
 
-.reservationDetails {
-  h3 {
-    margin-top: 1rem;
-  }
-  
-  .detail {
-    margin-bottom: 2rem;
-    
-    label {
-      opacity: 0.3;
-      display: block;
-    }
-  }
-}
-
 .sessionsWrapper {
   height: calc(100vh - 50rem);
   overflow: scroll;
@@ -123,12 +108,18 @@ table {
   }
 
   th, td {
+    padding: 1rem 1.5rem;
     text-align: left;
-    padding: 0 1rem;
   }
 }
 
 .user {
+  cursor: pointer;
+
+  &:hover {
+    color: $pink;
+  }
+
   .activeCard {
     text-align: center;
     color: $white;

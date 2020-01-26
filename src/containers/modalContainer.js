@@ -21,6 +21,11 @@ class ModalContainer extends Container {
     this.setState({ isOpen: true, content, onClose })
   }
 
+  setContent = ({ content }) => {
+    if (content === this.state.content) return
+    this.setState({ content })
+  }
+
   close = () => {
     this.state.onClose()
     this.setState({ isOpen: false, content: null, onClose: NOOP })

@@ -1,85 +1,80 @@
 import React, { useState } from 'react'
-import RateLabel from 'components/RateLabel'
 import styles from './styles.scss'
-import modalContainer from '../../containers/modalContainer';
-import { getUser, cancelReservations } from '../../api';
-
-const Detail = ({ href, label, children }) => {
-  const inner = (<>
-    <label>{label}</label>
-    {children}
-  </>)
-
-  return (
-    <p data-p3 className={styles.detail}>
-      {href && <a data-link href={href} target="_blank" rel="noopener noreferrer">
-        {inner}
-      </a>}
-      {!href && inner}
-    </p>
-  )
-}
+import modalContainer from 'containers/modalContainer'
+import Details from './Details'
+import { cancelReservations } from 'api'
+import useReservations from './useReservations';
 
 const ReservationDetails = ({
   reservation,
-  update,
+  user = {},
   children
 }) => {
+  const { updateReservations } = useReservations()
   const {
     userId,
-    reservationTime,
     chargeId,
     chargeError,
-    isPremium,
     id
   } = reservation
 
   const cancel = () => {
     cancelReservations({ userId, reservations: [id] })
       .then(() => {
+        updateReservations()
         modalContainer.close()
-        update()
       })
   }
 
-  const openModal = async () => {
-    const user = await getUser({ userId })
-    modalContainer.open({
+  const details = [
+    {
+      label: 'User Name',
+      content: `${user.firstName} ${user.lastName}`,
+    },
+    {
+      label: 'User Email',
+      content: user.email,
+    },
+    {
+      label: 'User Has Active Card',
+      content: (!!user.hasActiveCard).toString(),
+    },
+    {
+      label: 'Stripe Customer ID',
+      href: `https://dashboard.stripe.com/test/customers/${user.stripeId}`,
+      content: user.stripeId,
+    },
+    {
+      label: 'Payment Status',
+      content: chargeId ? 'Paid' : 'Unpaid'
+    },
+    chargeError ? {
+      label: 'Payment Error',
+      content: chargeError
+    } : {},
+    chargeId ? {
+      label: 'Stripe Charge ID',
+      content: chargeId
+    } : {},
+    {
+      label: 'Actions',
       content: (
-        <div data-row className={styles.reservationDetails}>
-          <div data-col="1" />
-          <div data-col="10">
-            {isPremium && <RateLabel rate={{ displayName: 'Premium' }} />}
-            <h3>Reservation</h3>
-            <p data-p2>#{id}</p>
-            <br />
-            <Detail label="Name">{user.firstName} {user.lastName}</Detail>
-            <Detail label="Email">{user.email}</Detail>
-            <Detail label="Active Card">{(!!user.hasActiveCard).toString()}</Detail>
-            <Detail label="Stripe Customer ID" href={`https://dashboard.stripe.com/test/customers/${user.stripeId}`}>
-              {user.stripeId}
-            </Detail>
-
-            {chargeId && <Detail label="[PAID] Stripe Charge ID" href={`https://dashboard.stripe.com/test/payments/${chargeId}`}>
-              {chargeId}
-            </Detail>}
-
-            {!chargeId && <Detail label="[UNPAID]">{chargeError}</Detail>}
-
-            <button onClick={cancel}>Cancel{chargeId && ' & Refund'}</button>
-          </div>
-          <div data-col="1" />
-        </div>
+        <>
+          <button onClick={cancel}>Cancel{chargeId && ' & Refund'}</button>
+        </>
       )
-    })
-  }
+    }
+  ]
 
   return (
-    <>
+    <Details
+      title="Reservation Details"
+      details={details}
+    >{({ openModal }) => (
       <button className={styles.openDetails} data-link onClick={openModal}>
         {children}
       </button>
-    </>
+    )}</Details>
   )
 }
 

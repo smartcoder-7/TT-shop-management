@@ -4,42 +4,28 @@ import RateLabel from 'components/RateLabel'
 import getAllSessions from '../../../shared/getAllSessions'
 
 import styles from './styles.scss'
-import { getReservations, getUser } from 'api'
 import ReservationDetails from './ReservationDetails'
 import locations from '../../../locations'
-import { getDayStartTime, formatTime } from 'shared/datetime';
+import { getDayStartTime, formatTime } from 'shared/datetime'
+import useReservations, { ReservationsProvider } from './useReservations'
+import useUsers from './useUsers'
 
-const IS_DEV = process.env.NODE_ENV === 'development'
+const Reservation = ({ reservation }) => {
+  const { usersById } = useUsers()
 
-const USER_CACHE = {}
-
-const Reservation = ({ reservation, update }) => {
   if (!reservation) return null
 
-  const [label, setLabel] = useState('RESERVED')
-
-  useEffect(() => {
-    const userId = reservation.userId
-    let promise = USER_CACHE[userId]
-
-    if (!promise) {
-      promise = getUser({ userId })
-      USER_CACHE[userId] = promise
-    }
-
-    promise.then(u => {
-      setLabel(`${u.firstName} ${u.lastName}`)
-    })
-  }, [reservation.userId])
+  const user = usersById[reservation.userId]
+  const label = user ? `${user.firstName} ${user.lastName}` : 'RESERVED'
 
   return (
-    <ReservationDetails reservation={reservation} update={update}>
+    <ReservationDetails reservation={reservation} user={user}>
       <label>{label}</label>
     </ReservationDetails>
   )
 }
 
-const Session = ({ time, tables, location, reservations = [], update }) => {
+const Session = ({ time, tables, location, reservations = [] }) => {
   const premiumTables = tables.filter(t => t.isPremium)
   const regularTables = tables.filter(t => !t.isPremium)
 
@@ -59,7 +45,7 @@ const Session = ({ time, tables, location, reservations = [], update }) => {
 
         return (
           <th className={styles.table} key={t.id} data-reserved={!!res}>
-            <Reservation reservation={res} update={update} />
+            <Reservation reservation={res} />
           </th>
         )
       })}
@@ -69,7 +55,7 @@ const Session = ({ time, tables, location, reservations = [], update }) => {
 
         return (
           <th className={styles.table} key={t.id} data-reserved={!!res}>
-            <Reservation reservation={res} update={update} />
+            <Reservation reservation={res} />
           </th>
         )
       })}
@@ -78,22 +64,11 @@ const Session = ({ time, tables, location, reservations = [], update }) => {
 }
 
 const SessionsData = ({ day, locationId }) => {
-  const [reservations, setReservations] = useState([])
+  const { reservations } = useReservations()
   const location = locations[locationId]
   const startTime = day
   const endTime = startTime + (1000 * 60 * 60 * 24)
   const sessions = getAllSessions({ startTime, endTime, locationId })
-
-  const update = () => {
-    getReservations({ startTime })
-      .then(({ reservations: r }) => {
-        setReservations(r)
-      })
-  }
-
-  useEffect(() => {
-    update()
-  }, [])
 
   const reservationsBySession = {}
   reservations.forEach(r => {
@@ -127,7 +102,6 @@ const SessionsData = ({ day, locationId }) => {
                 location={location}
                 reservations={reservationsBySession[s]}
                 tables={location.tables}
-                update={update}
               />
             )
           })}
@@ -142,15 +116,17 @@ const LocationOverview = ({ locationId }) => {
   const [activeDay, setActiveDay] = useState(getDayStartTime(Date.now(), location.timezone))
 
   return (
-    <div className={styles.locationOverview}>
-      <DayPicker
-        className={styles.dayPicker}
-        timezone={location.timezone}
-        initialDay={activeDay}
-        onChange={time => setActiveDay(time)}
-      />
-      <SessionsData day={activeDay} locationId={locationId} />
-    </div>
+    <ReservationsProvider startTime={activeDay}>
+      <div className={styles.locationOverview}>
+        <DayPicker
+          className={styles.dayPicker}
+          timezone={location.timezone}
+          initialDay={activeDay}
+          onChange={time => setActiveDay(time)}
+        />
+        <SessionsData day={activeDay} locationId={locationId} />
+      </div>
+    </ReservationsProvider>
   )
 }
 

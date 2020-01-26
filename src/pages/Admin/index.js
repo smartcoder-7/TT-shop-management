@@ -9,25 +9,28 @@ import UsersOverview from './UsersOverview'
 import locations from '../../../locations'
 
 import styles from './styles.scss'
+import { UsersProvider } from './useUsers'
 
 const Admin = ({ children }) => {
   return (
-    <Layout className={styles.admin}>
-      <div data-row="full">
-        <div className={styles.intro} data-col={12}>
-          <h1>
-            <Link to="/admin">
-              <Logo className={styles.logo} theme="pink" />
-              ADMIN
+    <UsersProvider>
+      <Layout className={styles.admin}>
+        <div data-row="full">
+          <div className={styles.intro} data-col={12}>
+            <h1>
+              <Link to="/admin">
+                <Logo className={styles.logo} theme="pink" />
+                ADMIN
             </Link>
-          </h1>
-        </div>
+            </h1>
+          </div>
 
-        <div className={styles.content} data-col={12}>
-          {children}
+          <div className={styles.content} data-col={12}>
+            {children}
+          </div>
         </div>
-      </div>
-    </Layout>
+      </Layout>
+    </UsersProvider>
   )
 }
 
