@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import styles from './styles.scss'
 import modalContainer from 'containers/modalContainer'
+import authContainer from 'containers/authContainer'
 import { parseTime } from 'shared/datetime'
 import Details from './Details'
 import { cancelReservations, updateUserInfo } from 'api'
@@ -22,11 +23,13 @@ const UserDetails = ({
     createdAt = '-'
   }
 
+  const isSelf = user.id === authContainer.userId
+
   const toggleMember = () =>
     updateUserInfo({ userId: user.id, isMember: !user.isMember })
       .then(updateUsers)
   const toggleAdmin = () => {
-    if (user.id === authContainer.userId) return Promise.resolve()
+    if (isSelf) return Promise.resolve()
     return updateUserInfo({ userId: user.id, isAdmin: !user.isAdmin })
       .then(updateUsers)
   }
@@ -62,7 +65,7 @@ const UserDetails = ({
       content: (
         <>
           <button onClick={toggleMember}>{user.isMember ? 'Remove Membership' : 'Add Membership'}</button>
-          <button onClick={toggleAdmin}>{user.isAdmin ? 'Remove Admin' : 'Make Admin'}</button>
+          {!isSelf && <button onClick={toggleAdmin}>{user.isAdmin ? 'Remove Admin' : 'Make Admin'}</button>}
         </>
       )
     }

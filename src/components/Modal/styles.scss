@@ -31,10 +31,9 @@
   position: relative;
   pointer-events: all;
   background: $white;
-  display: flex;
-  align-items: center;
+  overflow: scroll;
   max-height: 90vh;
-  padding: 10rem 0;
+  padding: 6rem 0;
 }
 
 .background {

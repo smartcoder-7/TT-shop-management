@@ -9,8 +9,16 @@
     margin-bottom: 2rem;
     
     label {
+      font-size: 2rem;
       opacity: 0.3;
       display: block;
+    }
+
+    button {
+      font-size: 2rem;
+      padding: 2rem;
+      width: auto;
+      margin-bottom: 1rem;
     }
   }
 }
