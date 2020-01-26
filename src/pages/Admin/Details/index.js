@@ -25,12 +25,14 @@ const ModalDetails = ({
 }) => {
   const [isOpen, setOpen] = useState(false)
   const content = (
-    <div className={styles.details}>
+    <div className={styles.detailsWrapper}>
       <h3>{title}</h3>
       <br />
-      {details.map(({ label, href, onClick, content }, i) => (
-        <Detail key={i} label={label} href={href} onClick={onClick} content={content} />
-      ))}
+      <div className={styles.details}>
+        {details.map(({ label, href, onClick, content }, i) => (
+          <Detail key={i} label={label} href={href} onClick={onClick} content={content} />
+        ))}
+      </div>
     </div>
   )
 

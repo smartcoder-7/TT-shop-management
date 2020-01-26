@@ -1,19 +1,28 @@
 @import 'styles/_variables.scss';
 
-.details {
+.detailsWrapper {
   display: flex;
   flex-direction: column;
   padding: 0 6rem;
+}
+
+.details {
+  @media (min-width: 1024px) {
+    column-count: 2;
+  }
 
   h3 {
     margin-top: 1rem;
   }
   
   .detail {
-    margin-bottom: 2rem;
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    margin-top: 0;
     
     label {
       font-size: 2rem;
+      line-height: 1.6em;
       opacity: 0.3;
       display: block;
     }
