@@ -25,16 +25,12 @@ const ModalDetails = ({
 }) => {
   const [isOpen, setOpen] = useState(false)
   const content = (
-    <div data-row className={styles.details}>
-      <div data-col="1" />
-      <div data-col="10">
-        <h3>{title}</h3>
-        <br />
-        {details.map(({ label, href, onClick, content }, i) => (
-          <Detail key={i} label={label} href={href} onClick={onClick} content={content} />
-        ))}
-      </div>
-      <div data-col="1" />
+    <div className={styles.details}>
+      <h3>{title}</h3>
+      <br />
+      {details.map(({ label, href, onClick, content }, i) => (
+        <Detail key={i} label={label} href={href} onClick={onClick} content={content} />
+      ))}
     </div>
   )
 

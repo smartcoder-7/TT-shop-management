@@ -1,6 +1,10 @@
 @import 'styles/_variables.scss';
 
 .details {
+  display: flex;
+  flex-direction: column;
+  padding: 0 6rem;
+
   h3 {
     margin-top: 1rem;
   }
