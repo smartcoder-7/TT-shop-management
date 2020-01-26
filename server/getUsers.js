@@ -18,8 +18,6 @@ const getUsers = async (req, res) => {
     return
   }
 
-  console.log(users)
-
   // let userData = {}
 
   // if (user.exists) {

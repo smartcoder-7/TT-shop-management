@@ -138,3 +138,19 @@ table {
     text-align: center;
   }
 }
+
+.chargeUser {
+  display: flex;
+  margin-bottom: 2rem;
+
+  input {
+    width: 20rem;
+    margin-right: 2rem;
+    border: 1px solid black;
+    padding: 1rem;
+  }
+
+  button {
+    margin-bottom: 0 !important;
+  }
+}

@@ -11,8 +11,6 @@ const ModalContent = ({ theme }) => {
   const { user } = authContainer
 
   const onSubmit = ({ firstName, lastName }) => {
-    console.log(firstName, lastName)
-
     updateUserInfo({
       userId: authContainer.userId,
       firstName,

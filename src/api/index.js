@@ -4,6 +4,7 @@ import authContainer from 'containers/authContainer'
 
 const ENDPOINTS = {
   GET_USER: '/api/get-user',
+  CREATE_PURCHASE: '/api/create-purchase',
   CREATE_USER: '/api/create-user',
   GET_USERS: '/api/get-users',
   UPDATE_USER_BILLING: '/api/update-user-billing',
@@ -49,6 +50,21 @@ export const getUser = ({
     url: ENDPOINTS.GET_USER,
     data: {
       userId,
+    }
+  })
+}
+
+export const createPurchase = ({
+  userId,
+  locationId,
+  purchase
+}) => {
+  return apiRequest({
+    url: ENDPOINTS.CREATE_PURCHASE,
+    data: {
+      userId,
+      locationId,
+      purchase
     }
   })
 }

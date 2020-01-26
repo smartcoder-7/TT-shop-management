@@ -9,12 +9,12 @@ const Detail = ({ href, label, content = '' }) => {
   </>)
 
   return (
-    <p data-p3 className={styles.detail}>
+    <div data-p3 className={styles.detail}>
       {href && <a data-link href={href} target="_blank" rel="noopener noreferrer">
         {inner}
       </a>}
       {!href && inner}
-    </p>
+    </div>
   )
 }
 

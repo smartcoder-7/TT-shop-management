@@ -9,6 +9,7 @@
 .details {
   @media (min-width: 1024px) {
     column-count: 2;
+    column-fill: auto;
   }
 
   h3 {
@@ -16,6 +17,7 @@
   }
   
   .detail {
+    break-inside: avoid;
     font-size: 3rem;
     margin-bottom: 1.5rem;
     margin-top: 0;

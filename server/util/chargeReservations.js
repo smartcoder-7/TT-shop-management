@@ -1,5 +1,6 @@
 const stripe = require('./stripe')
 const { db } = require('./firebase')
+const chargeUser = require('./chargeUser')
 const RateLimiter = require('limiter').RateLimiter
 const getReservationCost = require('../../shared/getReservationCost')
 
@@ -36,33 +37,6 @@ const chargeReservation = async ({
     throw 'Reservation has malformed data.'
   }
 
-  try {
-    userRef = db.collection('users').doc(reservation.userId)
-    const userDoc = await userRef.get()
-    user = userDoc.data()
-  } catch (err) {
-    throw 'User does not exist.'
-  }
-
-  if (!user.stripeId) {
-    throw 'User does not have an associated Stripe id.'
-  }
-
-  if (!user.hasActiveCard) {
-    throw 'User does not have an active card.'
-  }
-
-  const stripeCustomer = await stripe.customers.retrieve(user.stripeId)
-
-  if (!stripeCustomer) {
-    userRef.update({ hasActiveCard: false, stripeId: null })
-    throw 'Cannot find the user\'s associated Stripe account.'
-  }
-
-  if (!stripeCustomer.default_source) {
-    userRef.update({ hasActiveCard: false })
-    throw 'User does not have a default payment source in Stripe.'
-  }
 
   const rate = getReservationCost(reservation)
   if (!rate) throw 'Cannot find associated pricing.'
@@ -74,19 +48,11 @@ const chargeReservation = async ({
   const perSession = amountDollars / 2
   const amount = perSession * 100
 
-  try {
-    const charge = await stripe.charges.create({
-      amount,
-      currency: 'usd',
-      customer: stripeCustomer.id,
-      source: stripeCustomer.default_source,
-      description: 'PINGPOD: Table Reservation',
-    });
-    return charge
-  } catch (err) {
-    console.log('[Stripe Error]', err)
-    throw err.message || err.type
-  }
+  return await chargeUser({
+    userId: reservation.userId,
+    amount,
+    description: 'PINGPOD: Table Reservation'
+  })
 }
 
 const chargeReservations = async ({ reservations }) => {
