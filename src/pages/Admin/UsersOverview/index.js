@@ -29,8 +29,8 @@ const UserOverview = () => {
             <th className={styles.email}>Email</th>
             <th className={styles.createdAt}>Joined</th>
             <th>Active Card</th>
-            <th>Membership</th>
-            <th>Role</th>
+            <th>Member</th>
+            <th>Admin</th>
           </tr>
         </thead>
 

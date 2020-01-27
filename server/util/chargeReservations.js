@@ -1,6 +1,7 @@
 const stripe = require('./stripe')
 const { db } = require('./firebase')
 const chargeUser = require('./chargeUser')
+const getUser = require('./getUser')
 const RateLimiter = require('limiter').RateLimiter
 const getReservationCost = require('../../shared/getReservationCost')
 
@@ -10,7 +11,7 @@ const limiter = new RateLimiter(25, 'second');
 const chargeReservation = async ({
   reservationId,
 }) => {
-  let reservation, userRef, user
+  let reservation
 
   try {
     const reservationRef = db.collection('reservations').doc(reservationId)
@@ -40,6 +41,8 @@ const chargeReservation = async ({
 
   const rate = getReservationCost(reservation)
   if (!rate) throw 'Cannot find associated pricing.'
+
+  const user = await getUser({ userId: reservation.userId })
 
   // toggle MEMBER
   const amountDollars = user.isMember ? rate.MEMBER : rate.NON_MEMBER
@@ -71,7 +74,7 @@ const chargeReservations = async ({ reservations }) => {
             resolve(true)
           })
           .catch((chargeError = 'Unknown Error') => {
-            const data = { chargeError, lastCharged }
+            const data = { chargeError: chargeError.message, lastCharged }
             console.log('[Charge Error]', reservationId, data)
             reservationRef.update(data)
 

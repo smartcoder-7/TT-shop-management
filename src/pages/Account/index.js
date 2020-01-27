@@ -32,9 +32,11 @@ const AccountInfo = () => {
 const UserReservations = ({ reservations }) => {
   const [showPast, setShowPast] = useState(false)
 
-  const sortedReservations = reservations.sort((a, b) => {
-    return a.reservationTime > b.reservationTime ? 1 : -1
-  })
+  const sortedReservations = reservations
+    .filter(r => !r.canceled)
+    .sort((a, b) => {
+      return a.reservationTime > b.reservationTime ? 1 : -1
+    })
 
   const activeReservations = []
   const pastReservations = []
