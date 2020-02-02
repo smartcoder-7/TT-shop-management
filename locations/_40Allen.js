@@ -1,4 +1,5 @@
 module.exports = {
+  id: '40-allen',
   displayName: "40 Allen",
   active: true,
   lockId: "12926",

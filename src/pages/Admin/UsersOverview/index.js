@@ -6,7 +6,7 @@ import styles from '../styles.scss'
 import { parseTime } from 'shared/datetime';
 import { updateUserInfo } from '../../../api';
 import useUsers from '../useUsers'
-import UserDetails from '../UserDetails'
+import UserDetails from './UserDetails'
 
 const UserOverview = () => {
   const { users } = useUsers()

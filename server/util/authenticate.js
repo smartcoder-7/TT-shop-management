@@ -3,8 +3,12 @@ const { auth, db } = require('./firebase')
 const IS_OFFLINE = process.env.IS_OFFLINE === "true"
 
 const isAdmin = async (userId) => {
-  const user = await db.collection('users').doc(userId).get()
-  return user.exists && user.data() && user.data().isAdmin
+  try {
+    const user = await db.collection('users').doc(userId).get()
+    return user.exists && user.data() && user.data().isAdmin
+  } catch (error) {
+    throw error
+  }
 }
 
 const authenticate = fn => async (req, res, next) => {

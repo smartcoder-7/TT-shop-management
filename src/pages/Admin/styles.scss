@@ -144,7 +144,7 @@ table {
   margin-bottom: 2rem;
 
   input {
-    width: 20rem;
+    width: 12rem;
     margin-right: 2rem;
     border: 1px solid black;
     padding: 1rem;
@@ -152,5 +152,9 @@ table {
 
   button {
     margin-bottom: 0 !important;
+  }
+
+  select {
+    margin-left: 2rem;
   }
 }

@@ -1,17 +1,16 @@
 import React, { useState } from 'react'
-import styles from './styles.scss'
+import styles from '../styles.scss'
 import modalContainer from 'containers/modalContainer'
 import authContainer from 'containers/authContainer'
 import { parseTime } from 'shared/datetime'
-import Details from './Details'
+import Details from '../Details'
+import ChargeUser from './ChargeUser'
 import { cancelReservations, updateUserInfo, createPurchase } from 'api'
-import useUsers from './useUsers';
+import useUsers from '../useUsers';
 
 const UserDetails = ({
   user = {},
 }) => {
-  const [chargeAmount, setChargeAmount] = useState(5)
-  const [chargeSuccess, setChargeSuccess] = useState()
   const { updateUsers } = useUsers()
   const hasActiveCard = !!user.hasActiveCard
   const isMember = !!user.isMember
@@ -35,29 +34,6 @@ const UserDetails = ({
     if (isSelf) return Promise.resolve()
     return updateUserInfo({ userId: user.id, isAdmin: !user.isAdmin })
       .then(updateUsers)
-  }
-
-  const updateChargeAmount = (e) => {
-    let val = parseFloat(e.target.value)
-    if (Number.isNaN(val)) val = 0
-    if (val > 100) val = 100
-    if (val < 0) val = 0
-    setChargeAmount(val)
-  }
-
-  const chargeUser = () => {
-    createPurchase({
-      userId: user.id,
-      locationId: '40-allen',
-      purchase: { customAmount: chargeAmount * 100, customDescription: 'PINGPOD: Miscellaneous Purchase' }
-    }).then(() => {
-      setChargeSuccess(true)
-      updateUsers()
-
-      setTimeout(() => {
-        setChargeSuccess(false)
-      }, 5000)
-    })
   }
 
   const details = [
@@ -92,13 +68,9 @@ const UserDetails = ({
         <>
           <button onClick={toggleMember}>{user.isMember ? 'Remove Membership' : 'Add Membership'}</button>
           {!isSelf && <button onClick={toggleAdmin}>{user.isAdmin ? 'Remove Admin' : 'Make Admin'}</button>}
-          {hasActiveCard && user.stripeId && !chargeSuccess && (
-            <div className={styles.chargeUser}>
-              <input type='number' min={1} max={100} value={chargeAmount} onChange={updateChargeAmount} />
-              <button onClick={chargeUser}>Charge User ${chargeAmount.toFixed(2)}</button>
-            </div>
+          {hasActiveCard && user.stripeId && (
+            <ChargeUser user={user} onCharge={updateUsers} />
           )}
-          {chargeSuccess && `Successfully charged user $${chargeAmount.toFixed(2)}.`}
         </>
       )
     }
