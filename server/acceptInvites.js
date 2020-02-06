@@ -24,7 +24,7 @@ const acceptInvites = async (req, res) => {
         .where('invitedUser', '==', userId)
         .get()
 
-      if (match.docs) {
+      if (match.docs && !!match.docs.length) {
         throw { message: 'This user has already been invited to this reservation.' }
       }
 
