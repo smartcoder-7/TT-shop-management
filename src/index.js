@@ -12,6 +12,7 @@ import Login from 'pages/Login'
 import Cart from 'pages/Cart'
 import Account from 'pages/Account'
 import Success from 'pages/Success'
+import Invite from 'pages/Invite'
 import * as Admin from 'pages/Admin'
 
 import 'styles/index.scss'
@@ -77,6 +78,7 @@ const App = () => (
           <AuthenticatedRoute path="/account" component={Account} />
           <AuthenticatedRoute path="/cart" component={Cart} />
           <AuthenticatedRoute path="/success/:orderId?" component={Success} />
+          <AuthenticatedRoute path="/invite/:tokenId" component={Invite} />
 
           <AdminRoute path="/admin" exact component={Admin.Home} />
           <AdminRoute path="/admin/location/:locationId?" component={Admin.Location} />

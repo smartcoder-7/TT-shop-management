@@ -24,7 +24,7 @@ const authenticate = fn => async (req, res, next) => {
     const decoded = await auth.verifyIdToken(idToken)
     const authId = decoded.uid;
 
-    if (req.body.userId !== authId) {
+    if (req.body.authId !== authId) {
       const allow = await isAdmin(authId)
 
       if (!allow) {

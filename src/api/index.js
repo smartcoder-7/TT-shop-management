@@ -6,6 +6,11 @@ const ENDPOINTS = {
   GET_USER: '/api/get-user',
   CREATE_PURCHASE: '/api/create-purchase',
   CREATE_USER: '/api/create-user',
+
+  CREATE_INVITES: '/api/create-invites',
+  GET_INVITES: '/api/get-invites',
+  ACCEPT_INVITES: '/api/accept-invites',
+
   GET_USERS: '/api/get-users',
   UPDATE_USER_BILLING: '/api/update-user-billing',
   GET_USER_BILLING: '/api/get-user-billing',
@@ -31,7 +36,10 @@ const apiRequest = async ({ url, data }) => {
       Authorization: `Bearer ${idToken}`,
     },
     url,
-    data
+    data: {
+      authId: authContainer.userId,
+      ...data
+    }
   })
     .then((d = {}) => d.data)
     .catch(err => {
@@ -87,6 +95,22 @@ export const createUser = ({
     }
   })
 }
+
+export const createInvites = ({
+  userId,
+  reservations,
+}) => {
+  return apiRequest({
+    url: ENDPOINTS.CREATE_INVITES,
+    data: {
+      userId,
+      reservations
+    }
+  })
+}
+
+export const getInvites = (data) => apiRequest({ url: ENDPOINTS.GET_INVITES, data })
+export const acceptInvites = (data) => apiRequest({ url: ENDPOINTS.ACCEPT_INVITES, data })
 
 export const getUnlocks = ({
   userId,
@@ -192,6 +216,20 @@ export const getOrder = ({
     }
   })
 }
+
+export const getInvite = ({
+  inviteId,
+  userId
+}) => {
+  return apiRequest({
+    url: ENDPOINTS.GET_INVITE,
+    data: {
+      inviteId,
+      userId
+    }
+  })
+}
+
 export const getAvailableSessions = ({
   userId,
   locationId,

@@ -5,6 +5,7 @@ import cartContainer, { CartSubscriber } from 'containers/cartContainer'
 import authContainer from 'containers/authContainer'
 import Layout from 'components/Layout'
 import Reservations from 'components/Reservations'
+import { CartReservationRange } from 'components/Reservations/ReservationRange';
 import parseSessionId from 'shared/parseSessionId'
 import UpdateBillingInfo from 'components/modalActions/UpdateBillingInfo'
 import UpdateName from 'components/modalActions/UpdateName'
@@ -80,7 +81,7 @@ const _Cart = ({ history }) => {
           <div className={styles.items}>
             <div data-row>
               <div data-col="12">
-                <Reservations reservations={reservations} showRemove={true} />
+                <Reservations reservations={reservations} RangeComponent={CartReservationRange} />
 
                 {!hasItems && <p data-p3>No sessions added.</p>}
               </div>

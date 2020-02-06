@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react'
 import Layout from 'components/Layout'
 
 import styles from './styles.scss'
-import { getReservations } from 'api'
+import { getReservations, getInvites } from 'api'
 import constants from 'shared/constants'
 import authContainer from 'containers/authContainer'
 import Reservations from 'components/Reservations'
 import UserActions from 'components/User/UserActions'
 import UserBadges from 'components/User/UserBadges'
+import { ActiveReservationRange } from 'components/Reservations/ReservationRange';
 
 
 const AccountInfo = () => {
@@ -29,7 +30,7 @@ const AccountInfo = () => {
   )
 }
 
-const UserReservations = ({ reservations }) => {
+const UserReservations = ({ reservations, invites }) => {
   const [showPast, setShowPast] = useState(false)
 
   const sortedReservations = reservations
@@ -38,22 +39,21 @@ const UserReservations = ({ reservations }) => {
       return a.reservationTime > b.reservationTime ? 1 : -1
     })
 
-  const activeReservations = []
-  const pastReservations = []
+  const isActive = r => r.reservationTime >= Date.now() - constants.INTERVAL_MS
+  const isPast = r => !isActive(r)
 
-  sortedReservations.forEach((res) => {
-    const isActive = res.reservationTime >= Date.now() - constants.INTERVAL_MS
-
-    if (isActive) activeReservations.push(res)
-    else pastReservations.push(res)
-  })
+  const activeReservations = sortedReservations.filter(isActive)
+  const pastReservations = sortedReservations.filter(isPast)
+  const activeInvites = invites.filter(i => isActive(i.reservation))
 
   return (
     <div className={styles.userReservations}>
       <label className={styles.header}>Upcoming Reservations</label>
       <Reservations
+        invites={activeInvites}
         reservations={activeReservations}
         reservationClass={styles.reservation}
+        RangeComponent={ActiveReservationRange}
         showUnlock
       />
 
@@ -73,12 +73,17 @@ const UserReservations = ({ reservations }) => {
 
 const Account = () => {
   const [userReservations, setUserReservations] = useState([])
+  const [userInvites, setUserInvites] = useState([])
   const { user } = authContainer
 
   useEffect(() => {
     getReservations({ userId: user.id })
       .then(({ reservations }) => {
         setUserReservations(reservations)
+      })
+    getInvites({ invitedUser: user.id })
+      .then(({ invites }) => {
+        setUserInvites(invites)
       })
   }, [user.id])
 
@@ -89,7 +94,7 @@ const Account = () => {
       <div data-row className={styles.details}>
         <div data-col={12}>
           <UserActions />
-          <UserReservations reservations={userReservations} />
+          <UserReservations reservations={userReservations} invites={userInvites} />
         </div>
       </div>
     </Layout>

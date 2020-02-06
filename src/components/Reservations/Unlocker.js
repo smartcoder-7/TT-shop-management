@@ -87,9 +87,11 @@ const Unlocker = ({ startTime, endTime, reservations }) => {
 
   return (
     <>
-      {!unlocked && !hitMax && !chargeError && <div className={styles.unlock} data-label>
-        Tap to Unlock Door {warning && `(${warning})`}
-      </div>}
+      {!unlocked && !hitMax && !chargeError && (
+        <div className={styles.unlock} data-label onClick={onClick} >
+          Tap to Unlock Door {warning && `(${warning})`}
+        </div>
+      )}
 
       {unlocked && <div className={styles.unlockSuccess} data-label>
         Unlocked!
@@ -99,12 +101,12 @@ const Unlocker = ({ startTime, endTime, reservations }) => {
         {chargeError || error}
       </div>}
 
-      <div
+      {/* <div
         className={styles.unlockTarget}
         onClick={onClick}
         data-error={!!(chargeError || error)}
         data-success={unlocked}
-      />
+      /> */}
     </>
   )
 }
