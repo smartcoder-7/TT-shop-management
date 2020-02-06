@@ -273,18 +273,7 @@ export const validateReservations = ({
   })
 }
 
-export const unlockDoor = ({
-  reservationId,
-  userId,
-}) => {
-  return apiRequest({
-    url: ENDPOINTS.UNLOCK_DOOR,
-    data: {
-      userId,
-      reservationId
-    }
-  })
-}
+export const unlockDoor = (data) => apiRequest({ url: ENDPOINTS.UNLOCK_DOOR, data })
 
 export const sendEmail = ({
   userId,

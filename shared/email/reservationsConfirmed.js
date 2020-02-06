@@ -1,5 +1,5 @@
 const { formatDate, formatTime } = require('../datetime')
-const getReservationRanges = require('../getReservationRanges')
+const { getReservationRanges } = require('../getReservationRanges')
 const parseReservationRange = require('../parseReservationRange')
 const origin = require('../getOrigin')
 

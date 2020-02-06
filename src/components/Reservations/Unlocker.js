@@ -23,7 +23,7 @@ const Unlocker = ({ startTime, endTime, reservations }) => {
   const userId = authContainer.userId
 
   const currentReservation = reservations.find(r => now >= r.startTime) || reservations[0]
-  const { id: reservationId } = currentReservation
+  const { id: reservationId, inviteId } = currentReservation
 
   const errored = reservations.find(r => r.chargeError)
   const chargeError = errored ? errored.chargeError : null
@@ -70,7 +70,7 @@ const Unlocker = ({ startTime, endTime, reservations }) => {
 
     setError()
 
-    unlockDoor({ userId, reservationId })
+    unlockDoor({ userId, inviteId, reservationId })
       .then(() => {
         setUnlocked(true)
         setError()

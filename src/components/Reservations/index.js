@@ -1,5 +1,5 @@
 import React from "react"
-import getReservationRanges from 'shared/getReservationRanges'
+import { getReservationRanges, getInviteRanges } from 'shared/getReservationRanges'
 
 import { ReservationRange } from './ReservationRange'
 
@@ -11,7 +11,7 @@ const Reservations = ({
   RangeComponent = ReservationRange
 }) => {
   let reservationRanges = getReservationRanges(reservations)
-  let inviteRanges = getReservationRanges(invites.map(i => i.reservation))
+  let inviteRanges = getInviteRanges(invites)
 
   let ranges = [...reservationRanges, ...inviteRanges]
     .sort((a, b) => a.startTime < b.startTime ? -1 : 1)

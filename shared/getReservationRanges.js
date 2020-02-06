@@ -26,4 +26,13 @@ const getReservationRanges = reservations => {
   return ranges
 }
 
-module.exports = getReservationRanges
+const getInviteRanges = invites => {
+  const reservations = invites.map(i => ({
+    ...i.reservation,
+    inviteId: i.id
+  }))
+
+  return getReservationRanges(reservations)
+}
+
+module.exports = { getReservationRanges, getInviteRanges }

@@ -14,6 +14,7 @@ const authenticate = async () => {
 const unlockDoor = async (req, res) => {
   const {
     userId,
+    inviteId,
     reservationId,
   } = req.body
 
@@ -32,7 +33,16 @@ const unlockDoor = async (req, res) => {
   }
 
   if (reservation.userId !== userId) {
-    return res.status(503).send('Access denied.')
+    let hasAccess = false
+
+    if (inviteId) {
+      const match = await db.collection('invites').doc(inviteId).get()
+      if (match.exists && match.data() && match.data().invitedUser === userId) {
+        hasAccess = true
+      }
+    }
+
+    if (!hasAccess) return res.status(503).send('Access denied.')
   }
 
   if (!canUnlock(reservation)) {
