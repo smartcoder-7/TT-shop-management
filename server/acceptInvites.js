@@ -15,6 +15,10 @@ const acceptInvites = async (req, res) => {
         throw { message: 'Invite has already been accepted.' }
       }
 
+      if (invite.userId === userId) {
+        throw { message: 'Cannot invite yourself to a reservation.' }
+      }
+
       const match = await db.collection('invites')
         .where('reservationId', '==', invite.reservationId)
         .where('invitedUser', '==', userId)
