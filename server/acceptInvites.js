@@ -1,6 +1,6 @@
 const { db } = require('./util/firebase')
 
-const acccpetInvites = async (req, res) => {
+const acceptInvites = async (req, res) => {
   const {
     userId,
     invites
@@ -15,6 +15,14 @@ const acccpetInvites = async (req, res) => {
         throw { message: 'Invite has already been accepted.' }
       }
 
+      const match = await db.collection('invites')
+        .where('reservationId', '==', invite.reservationId)
+        .where('invitedUser', '==', userId)
+        .get()
+
+      if (match.docs) {
+        throw { message: 'This user has already been invited to this reservation.' }
+      }
 
       await db.collection('invites').doc(inviteId).update({
         invitedUser: userId,
@@ -33,4 +41,4 @@ const acccpetInvites = async (req, res) => {
   }
 }
 
-module.exports = acccpetInvites
+module.exports = acceptInvites
