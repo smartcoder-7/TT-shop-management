@@ -15,9 +15,11 @@ const getSessionId = ({ reservationTime, locationId }) => (
 const RangeInfo = ({ range }) => {
   return (
     <>
-      {range.isPremium && <span className={styles.premiumLabel}>
+      {range.isPremium && !range.inviteId && <span className={styles.premiumLabel}>
         <RateLabel rate={{ displayName: 'Premium' }} />
       </span>}
+
+      {range.inviteId && <span className={styles.inviteLabel}><RateLabel rate={{ displayName: 'By Invitation' }} /></span>}
 
       <label>
         {range.location.displayName} • {range.date}
