@@ -1,5 +1,4 @@
-
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Form, Field } from 'react-final-form'
 import { createInvites } from 'api'
 import modalContainer from 'containers/modalContainer';
@@ -10,6 +9,8 @@ import authContainer from 'containers/authContainer';
 
 const InviteModal = ({ reservations }) => {
   const [inviteUrl, setInviteUrl] = useState()
+  const [copied, setCopied] = useState(false)
+  const inputRef = useRef()
 
   useEffect(() => {
     createInvites({
@@ -20,13 +21,26 @@ const InviteModal = ({ reservations }) => {
     })
   }, [])
 
+  const copyLink = () => {
+    const input = inputRef.current
+    input.select()
+    document.execCommand('copy', false);
+    setCopied(true)
+
+    setTimeout(() => setCopied(false), 2000)
+  }
+
   return (
     <div data-row className={styles.reservationDetails}>
       <div data-col="1" />
       <div data-col="10" >
-        <p data-p3>Copy this link and send it to a friend. When they accept, they will be given door access during your reservation.</p>
+        <p data-p3>Tap to copy this link and send it to a friend. When they accept, they will be given door access during your reservation.</p>
         <br />
-        <input type="text" defaultValue={inviteUrl} readOnly />
+        <div onClick={copyLink}>
+          <input ref={inputRef} type="text" defaultValue={inviteUrl} readOnly />
+        </div>
+        <br />
+        <p data-label>{copied && 'Copied!'}</p>
       </div>
       <div data-col="1" />
     </div>
