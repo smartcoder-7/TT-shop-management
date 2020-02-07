@@ -1,4 +1,14 @@
+const _isEqual = require('lodash/isEqual')
 const { INTERVAL_MS } = require('../shared/constants')
+
+const hasSameInvites = (a, b) => {
+  if (!a.invites && !b.invites) return true
+  if (!a.invites !== !b.invites) return false
+  if (a.invites.length !== b.invites.length) return false
+  const aIds = a.invites.map(i => i.tokenId).sort()
+  const bIds = b.invites.map(i => i.tokenId).sort()
+  return _isEqual(aIds, bIds)
+}
 
 const getReservationRanges = reservations => {
   const sortedReservations = reservations.sort((a, b) => {
@@ -13,7 +23,8 @@ const getReservationRanges = reservations => {
       prevRes &&
       prevRes.error === res.error &&
       res.reservationTime <= prevRes.reservationTime + INTERVAL_MS &&
-      prevRes.isPremium === res.isPremium
+      prevRes.isPremium === res.isPremium &&
+      hasSameInvites(prevRes, res)
 
     if (isContiguous) {
       ranges[ranges.length - 1].push(res)

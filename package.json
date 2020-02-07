@@ -70,6 +70,7 @@
     "fs": "^0.0.1-security",
     "kisi-client": "^5.0.3",
     "limiter": "^1.1.4",
+    "lodash": "^4.17.15",
     "payment-icons": "^1.2.1",
     "prop-types": "^15.7.2",
     "qs": "^6.8.0",

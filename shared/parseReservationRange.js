@@ -12,7 +12,7 @@ const parseReservationRange = reservations => {
   const first = parseSessionId(firstSessionId)
   const last = parseSessionId(lastSessionId)
 
-  const userId = reservations[0].userId
+  const { userId, invites, inviteId } = reservations[0]
   const { locationId } = first
   const location = locations[locationId] || {}
 
@@ -23,6 +23,8 @@ const parseReservationRange = reservations => {
     endTimeFormatted: last.formattedEndTime,
     userId,
     location,
+    invites,
+    inviteId,
     date: first.formattedDate,
     isPremium: !!reservations[0].isPremium
   }

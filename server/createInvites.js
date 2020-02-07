@@ -9,6 +9,7 @@ const createInvites = async (req, res) => {
   } = req.body
 
   const tokenId = uuid()
+  const timestamp = Date.now()
 
   const createInvite = async (reservationId) => {
     const inviteId = uuid()
@@ -18,7 +19,7 @@ const createInvites = async (req, res) => {
       userId,
       reservationId,
       accepted: false,
-      timestamp: Date.now()
+      timestamp
     }
 
     const inviteRef = db.collection('invites').doc(inviteId)

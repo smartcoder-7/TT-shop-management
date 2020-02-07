@@ -1,4 +1,5 @@
 const { db } = require('./util/firebase')
+const applyInvites = require('./util/applyInvites')
 
 const IS_OFFLINE = !!process.env.IS_OFFLINE
 
@@ -8,6 +9,7 @@ const getReservations = async (req, res) => {
     locationId,
     reservationTime,
     startTime,
+    withInvites = false,
     endTime
   } = req.body
 
@@ -40,19 +42,26 @@ const getReservations = async (req, res) => {
 
   try {
     const result = await query.get()
-    const reservations = []
+    let reservations = []
 
-    if (result.docs) {
-      result.docs.forEach(doc => {
-        reservations.push(doc.data())
+    if (!result.docs) {
+      res.status(200).json({
+        reservations
       })
+      return
+    }
+
+    reservations = result.docs.map(doc => doc.data())
+
+    if (withInvites) {
+      reservations = await Promise.all(reservations.map(applyInvites))
     }
 
     res.status(200).json({
       reservations
     })
   } catch (err) {
-    res.status(500).send('Failed to get reservations.')
+    res.status(500).send(err.message)
     return
   }
 }

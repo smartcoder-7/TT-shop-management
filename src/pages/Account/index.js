@@ -77,7 +77,7 @@ const Account = () => {
   const { user } = authContainer
 
   useEffect(() => {
-    getReservations({ userId: user.id })
+    getReservations({ userId: user.id, withInvites: true })
       .then(({ reservations }) => {
         setUserReservations(reservations)
       })

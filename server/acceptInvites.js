@@ -11,9 +11,9 @@ const acceptInvites = async (req, res) => {
       const doc = await db.collection('invites').doc(inviteId).get()
       const invite = doc.data() || {}
 
-      if (invite.accepted) {
-        throw { message: 'Invite has already been accepted.' }
-      }
+      // if (invite.accepted) {
+      //   throw { message: 'Invite has already been accepted.' }
+      // }
 
       if (invite.userId === userId) {
         throw { message: 'Cannot invite yourself to a reservation.' }

@@ -112,7 +112,7 @@ const SessionPicker = ({ locationId, startTime, endTime }) => {
         })
     }
 
-    const poll = setInterval(updateSessions, POLL_INTERVAL)
+    // const poll = setInterval(updateSessions, POLL_INTERVAL)
     updateSessions()
 
     return () => {

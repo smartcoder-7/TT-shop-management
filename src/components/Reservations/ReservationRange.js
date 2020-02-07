@@ -52,6 +52,11 @@ export const ActiveReservationRange = ({
   const range = parseReservationRange(reservations)
   const isOwner = range.userId === authContainer.userId
 
+  range.invites = range.invites || []
+
+  const pendingInvites = range.invites.filter(i => !i.invitedUser).length
+  const acceptedInvites = range.invites.filter(i => i.invitedUser).length
+
   return (
     <div className={classNames(styles.reservation, reservationClass)}>
       <Unlocker
@@ -69,6 +74,9 @@ export const ActiveReservationRange = ({
             <InviteAFriend reservations={reservations}>
               <a data-link data-p3>+ Invite a Friend</a>
             </InviteAFriend>
+            <br />
+            <p data-label>{pendingInvites} invite(s) pending</p>
+            <p data-label>{acceptedInvites} invite(s) accepted</p>
           </>
         )}
       </div>

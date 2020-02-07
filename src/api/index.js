@@ -185,24 +185,7 @@ export const getUserBilling = ({
   })
 }
 
-export const getReservations = ({
-  userId,
-  locationId,
-  reservationTime,
-  startTime,
-  endTime,
-}) => {
-  return apiRequest({
-    url: ENDPOINTS.GET_RESERVATIONS,
-    data: {
-      userId,
-      locationId,
-      reservationTime,
-      startTime,
-      endTime
-    }
-  })
-}
+export const getReservations = (data) => apiRequest({ url: ENDPOINTS.GET_RESERVATIONS, data })
 
 export const getOrder = ({
   orderId,

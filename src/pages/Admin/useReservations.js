@@ -18,8 +18,8 @@ export class ReservationsProvider extends React.Component {
 
   componentWillMount() {
     this.updateReservations()
-    const poll = () => this.updateReservations(false)
-    this.interval = setInterval(poll, POLL_INTERVAL)
+    // const poll = () => this.updateReservations(false)
+    // this.interval = setInterval(poll, POLL_INTERVAL)
   }
 
   componentWillUnmount() {

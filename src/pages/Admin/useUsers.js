@@ -18,8 +18,8 @@ export class UsersProvider extends React.Component {
 
   componentWillMount() {
     this.updateUsers()
-    const poll = () => this.updateUsers(false)
-    this.interval = setInterval(poll, POLL_INTERVAL)
+    // const poll = () => this.updateUsers(false)
+    // this.interval = setInterval(poll, POLL_INTERVAL)
   }
 
   componentWillUnmount() {
