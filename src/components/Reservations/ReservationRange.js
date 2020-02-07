@@ -76,9 +76,9 @@ export const ActiveReservationRange = ({
             <InviteAFriend reservations={reservations}>
               <a data-link data-p3>+ Invite a Friend</a>
             </InviteAFriend>
-            <br />
-            <p data-label>{pendingInvites} invite(s) pending</p>
-            <p data-label>{acceptedInvites} invite(s) accepted</p>
+            {(!!pendingInvites || !!acceptedInvites) && <br />}
+            {!!pendingInvites && <p data-label>{pendingInvites} invite(s) pending</p>}
+            {!!acceptedInvites && <p data-label>{acceptedInvites} invite(s) accepted</p>}
           </>
         )}
       </div>
