@@ -116,7 +116,7 @@ const SessionPicker = ({ locationId, startTime, endTime }) => {
     updateSessions()
 
     return () => {
-      clearInterval(poll)
+      // clearInterval(poll)
     }
   }, [locationId, startTime, endTime])
 
