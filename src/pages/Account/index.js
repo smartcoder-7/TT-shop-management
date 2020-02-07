@@ -57,7 +57,7 @@ const UserReservations = ({ reservations, invites }) => {
         showUnlock
       />
 
-      {!activeReservations.length && 'No upcoming reservations.'}
+      {!activeReservations.length && !activeInvites.length && 'No upcoming reservations.'}
 
       <br />
 

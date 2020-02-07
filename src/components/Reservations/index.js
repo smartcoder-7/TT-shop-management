@@ -14,7 +14,11 @@ const Reservations = ({
   let inviteRanges = getInviteRanges(invites)
 
   let ranges = [...reservationRanges, ...inviteRanges]
-    .sort((a, b) => a.startTime < b.startTime ? -1 : 1)
+    .sort((a, b) => {
+      const firstA = a[0]
+      const firstB = b[0]
+      return firstA.reservationTime < firstB.reservationTime ? -1 : 1
+    })
 
   if (reverse) ranges = ranges.reverse()
 
