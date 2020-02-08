@@ -4,6 +4,7 @@ const chargeReservations = require('../util/chargeReservations')
 const MIN_10 = 1000 * 60 * 10
 
 const autochargeReservations = async () => {
+  const timeout = setTimeout(() => { throw 'Request timed out.' }, 10000)
   const maxTime = Date.now() + MIN_10
 
   const reservations = []
@@ -32,6 +33,7 @@ const autochargeReservations = async () => {
 
   try {
     const charged = await chargeReservations({ reservations })
+    clearTimeout(timeout)
     return charged
   } catch (err) {
     throw err.message
