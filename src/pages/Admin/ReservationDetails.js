@@ -28,6 +28,10 @@ const ReservationDetails = ({
 
   const details = [
     {
+      label: 'Reservation ID',
+      content: id,
+    },
+    {
       label: 'User Name',
       content: `${user.firstName} ${user.lastName}`,
     },
