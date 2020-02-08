@@ -3,7 +3,7 @@ const AvailabilityCheck = require('./util/AvailiabilityCheck')
 const { db } = require('./util/firebase')
 const sendEmail = require('./util/sendEmail')
 const locations = require('../locations')
-const autochargeReservations = require('./jobs/autochargeReservations')
+const autochargeReservations = require('./util/autochargeReservations')
 const getReservationsConfirmed = require('../shared/email/reservationsConfirmed')
 
 const createReservation = ({

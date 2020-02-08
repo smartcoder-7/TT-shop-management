@@ -26,7 +26,7 @@ const getUserBilling = require('./getUserBilling')
 const updateUserInfo = require('./updateUserInfo')
 const sendEmail = require('./sendEmail')
 const getUnlocks = require('./getUnlocks')
-const autochargeReservations = require('./jobs/autochargeReservations')
+const autochargeReservations = require('./util/autochargeReservations')
 const { unlockDoor } = require('./kisi')
 
 express()
