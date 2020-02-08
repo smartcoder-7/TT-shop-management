@@ -42,20 +42,24 @@ const chargeReservation = async ({
   const rate = getReservationCost(reservation)
   if (!rate) throw 'Cannot find associated pricing.'
 
-  const user = await getUser({ userId: reservation.userId })
+  try {
+    const user = await getUser({ userId: reservation.userId })
+    // toggle MEMBER
+    const amountDollars = user.isMember ? rate.MEMBER : rate.NON_MEMBER
+    if (Number.isNaN(amountDollars) || amountDollars > 100) throw 'Calculated cost is invalid.'
 
-  // toggle MEMBER
-  const amountDollars = user.isMember ? rate.MEMBER : rate.NON_MEMBER
-  if (Number.isNaN(amountDollars) || amountDollars > 100) throw 'Calculated cost is invalid.'
+    const perSession = amountDollars / 2
+    const amount = perSession * 100
 
-  const perSession = amountDollars / 2
-  const amount = perSession * 100
+    return await chargeUser({
+      userId: reservation.userId,
+      amount,
+      description: 'PINGPOD: Table Reservation'
+    })
+  } catch (err) {
+    throw err.message
+  }
 
-  return await chargeUser({
-    userId: reservation.userId,
-    amount,
-    description: 'PINGPOD: Table Reservation'
-  })
 }
 
 const chargeReservations = async ({ reservations }) => {
@@ -84,13 +88,17 @@ const chargeReservations = async ({ reservations }) => {
     })
   ))
 
-  const responses = await Promise.all(promises)
-  const reservationsCharged = reservations.filter((_, i) => !!responses[i])
-  const reservationsErrored = reservations.filter((_, i) => !responses[i])
+  try {
+    const responses = await Promise.all(promises)
+    const reservationsCharged = reservations.filter((_, i) => !!responses[i])
+    const reservationsErrored = reservations.filter((_, i) => !responses[i])
 
-  return {
-    reservationsCharged,
-    reservationsErrored
+    return {
+      reservationsCharged,
+      reservationsErrored
+    }
+  } catch (err) {
+    throw err.message
   }
 }
 

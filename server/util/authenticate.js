@@ -17,7 +17,7 @@ const authenticate = fn => async (req, res, next) => {
     return
   }
 
-  const authHeader = req.header('Authorization')
+  const authHeader = req.header('Authorization') || ''
   const idToken = authHeader.split('Bearer ')[1]
 
   try {

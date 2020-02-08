@@ -28,8 +28,14 @@ const autochargeReservations = async () => {
     throw 'Failed to get reservations.'
   }
 
-  const charged = await chargeReservations({ reservations })
-  return charged
+  console.log('Attempting to charge reservations', reservations)
+
+  try {
+    const charged = await chargeReservations({ reservations })
+    return charged
+  } catch (err) {
+    throw err.message
+  }
 }
 
 module.exports = autochargeReservations

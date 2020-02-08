@@ -26,6 +26,7 @@ const getUserBilling = require('./getUserBilling')
 const updateUserInfo = require('./updateUserInfo')
 const sendEmail = require('./sendEmail')
 const getUnlocks = require('./getUnlocks')
+const autochargeReservations = require('./jobs/autochargeReservations')
 const { unlockDoor } = require('./kisi')
 
 express()
@@ -53,6 +54,8 @@ express()
   .post('/api/accept-invites', authenticate(acceptInvites))
 
   .post('/api/unlock-door', authenticate(unlockDoor))
+
+  // .post('/private/autocharge-reservations', autochargeReservations)
 
   .get('/robots.txt', (req, res) => res.sendFile(path.resolve(ROOT_DIR, 'robots.txt')))
   .get('*', (req, res) => res.sendFile(path.resolve(ROOT_DIR, 'public/index.html')))
