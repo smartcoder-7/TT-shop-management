@@ -23,10 +23,10 @@ const LocationPicker = ({ history }) => {
                 authContainer.user.isMember : true
 
               const pickLocation = (locationId) => {
-                if (!hasPermission) {
-                  history.push(`/login?redirect=/reserve/${locationId}`)
-                  return
-                }
+                // if (!hasPermission) {
+                //   history.push(`/login?redirect=/reserve/${locationId}`)
+                //   return
+                // }
 
                 cartContainer.setLocationId(locationId)
                 history.push(`/reserve/${locationId}`)

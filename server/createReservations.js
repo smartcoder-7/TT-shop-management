@@ -25,7 +25,18 @@ const createReservation = ({
       locationId,
       startTime: reservationTime
     })
-    await check.run()
+
+    try {
+      await check.run()
+    } catch (err) {
+      throw err
+    }
+
+    if (!check.hasAccess()) {
+      return reject({
+        message: 'This user does not have permission to book at this location.'
+      })
+    }
 
     if (check.isAlreadyBookedAt(reservationTime)) {
       return reject({

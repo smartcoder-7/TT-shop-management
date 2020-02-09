@@ -47,6 +47,16 @@ class AvailabilityCheck {
   }
 
   async run() {
+    try {
+      if (this.userId) {
+        const userDoc = await db.collection('users').doc(this.userId).get()
+        if (!userDoc.exists) throw { message: 'User does not exist!' }
+        this.user = userDoc.data()
+      }
+    } catch (err) {
+      throw err
+    }
+
     this.reservationsByTime = {}
 
     // Get location, and check availability.
@@ -61,6 +71,11 @@ class AvailabilityCheck {
       this.reservationsByTime[time] = this.reservationsByTime[time] || []
       this.reservationsByTime[time].push(reservation)
     })
+  }
+
+  hasAccess() {
+    if (!this.location.memberOnly) return true
+    return this.user && this.user.isMember
   }
 
   bookedBy(time) {

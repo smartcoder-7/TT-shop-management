@@ -30,6 +30,7 @@ const getAvailableSessions = async (req, res) => {
     const availableSessions = sessions.map(time => {
       return {
         startTime: time,
+        hasAccess: check.hasAccess(),
         bookedBy: check.bookedBy(time),
         alreadyBooked: check.isAlreadyBookedAt(time),
         tablesLeft: check.anyTablesLeftAt(time),

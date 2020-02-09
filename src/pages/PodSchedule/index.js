@@ -127,6 +127,7 @@ const SessionPicker = ({ locationId, startTime, endTime }) => {
         {!loading && sessions.map(session => {
           const alreadyBooked = session.bookedBy.indexOf(authContainer.userId) > -1
           if (!session.tablesLeft && !alreadyBooked) return null
+          if (!session.hasAccess) return null
           return <Session
             session={session}
             locationId={locationId}
