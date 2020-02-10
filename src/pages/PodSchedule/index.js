@@ -97,7 +97,7 @@ const SessionPicker = ({ locationId, startTime, endTime }) => {
       const requestedStartTime = startTime
 
       setLoading(true)
-      getAvailableSessions({ locationId, startTime, endTime })
+      getAvailableSessions({ userId: authContainer.userId, locationId, startTime, endTime })
         .then(({ sessions }) => {
           setLoading(false)
 

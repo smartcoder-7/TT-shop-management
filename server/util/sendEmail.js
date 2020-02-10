@@ -22,12 +22,20 @@ const sendEmail = async ({
     throw 'User does not have an email.'
   }
 
+  const bcc = process.env.NODE_ENV === 'production'
+    ? 'max@pingpod.com, ernesto@pingpod.com, david@pingpod.com, christine@pingpod.com'
+    : ''
+
   const msg = {
     to: user.email,
+    bcc,
     from: 'info@pingpod.com',
     personalizations: [{
       to: user.email,
-      dynamic_template_data: data
+      dynamic_template_data: {
+        ...data,
+        user
+      }
     }],
     ...rest,
   }
