@@ -23,15 +23,18 @@ const sendEmail = async ({
   }
 
   const bcc = process.env.NODE_ENV === 'production'
-    ? 'max@pingpod.com, ernesto@pingpod.com, david@pingpod.com, christine@pingpod.com'
-    : ''
+    ? ['max@pingpod.com', 'ernesto@pingpod.com', 'david@pingpod.com', 'christine@pingpod.com']
+    : ['christine@pingpod.com']
+
+  const userIndex = bcc.indexOf(user.email)
+  if (userIndex > -1) bcc.splice(userIndex, 1)
 
   const msg = {
     to: user.email,
-    bcc,
     from: 'info@pingpod.com',
     personalizations: [{
       to: user.email,
+      bcc,
       dynamic_template_data: {
         ...data,
         user
