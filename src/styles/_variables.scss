@@ -9,7 +9,9 @@ $medium-gray: #ddd;
 $gray: #888888;
 $green: #75c71e;
 
-$header-height: 14rem;
+$header: 14rem;
+$banner: 12rem;
+$header-height: $header + $banner;
 
 $unit-portrait: 1.1vw;
 $unit-portrait-lg: 6px;

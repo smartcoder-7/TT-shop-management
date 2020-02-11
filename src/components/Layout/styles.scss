@@ -23,7 +23,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: $header-height;
+  height: $header;
 
   h1 {
     font-size: 36px;
@@ -59,6 +59,17 @@ header,
 
 .content {
   height: 100%;
+}
+
+.headerBanner {
+  font-size: 14px;
+  padding: 0 2rem;
+  height: $banner;
+  background: $black;
+  color: $white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .headerContent {
