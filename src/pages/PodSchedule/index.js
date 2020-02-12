@@ -62,7 +62,7 @@ export const Session = ({
   return (
     <div
       data-selected={isSelected}
-      data-booked={alreadyBooked}
+      data-booked={!tablesLeft}
       data-premium={premium}
       className={classNames(styles.session, styles.scheduleSession)}
       onClick={onClick}
@@ -71,6 +71,7 @@ export const Session = ({
         <div className={styles.check}>✔</div>
         <label>{formatTime(startTime, location.timezone)}</label>
         {alreadyBooked && <RateLabel rate={{ displayName: 'Booked by you ✔' }} />}
+        {!tablesLeft && !alreadyBooked && <RateLabel rate={{ displayName: 'Booked' }} />}
         <RateLabel rate={rate} />
         {premium && <span className={styles.premiumLabel}>
           <RateLabel rate={{ displayName: 'Premium' }} />
@@ -125,8 +126,6 @@ const SessionPicker = ({ locationId, startTime, endTime }) => {
       <div className={styles.sessions} data-is-active={canCheckout}>
         {loading && <Loading />}
         {!loading && sessions.map(session => {
-          const alreadyBooked = session.bookedBy.indexOf(authContainer.userId) > -1
-          if (!session.tablesLeft && !alreadyBooked) return null
           if (!session.hasAccess) return null
           return <Session
             session={session}
