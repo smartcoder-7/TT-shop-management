@@ -125,20 +125,7 @@ export const getUnlocks = ({
   })
 }
 
-export const cancelReservations = ({
-  userId,
-  reservations,
-  refund
-}) => {
-  return apiRequest({
-    url: ENDPOINTS.CANCEL_RESERVATIONS,
-    data: {
-      userId,
-      reservations,
-      refund
-    }
-  })
-}
+export const cancelReservations = (data) => apiRequest({ url: ENDPOINTS.CANCEL_RESERVATIONS, data })
 
 export const updateUserBilling = ({
   userId,

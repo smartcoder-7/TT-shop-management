@@ -1,7 +1,14 @@
-const { zonedTimeToUtc, utcToZonedTime, format } = require('date-fns-tz')
+const { zonedTimeToUtc, utcToZonedTime: _utcToZonedTime, format } = require('date-fns-tz')
 const set = require('date-fns/set').default
 
 const with0 = n => n < 10 ? `0${n}` : `${n}`
+
+const utcToZonedTime = (d, opts) => {
+
+  if (d.toString().indexOf('Eastern Standard Time')) return d
+  if (d.toString().indexOf('Eastern Daylight Time')) return d
+  return _utcToZonedTime(d, opts)
+}
 
 const DAYS_OF_THE_WEEK = [
   'Sunday',
@@ -30,12 +37,6 @@ const parseTime = (time, timeZone) => {
   let day = format(date, 'd', { timeZone })
   let dayOfTheWeek = format(date, 'EEEE', { timeZone })
   let dayOfTheWeekAbbr = format(date, 'EEE', { timeZone })
-
-  if (_date.getDate() !== day) {
-    day = _date.getDate()
-    dayOfTheWeek = DAYS_OF_THE_WEEK[_date.getDay()]
-    dayOfTheWeekAbbr = DAYS_OF_THE_WEEK_ABBR[_date.getDay()]
-  }
 
   return {
     date,

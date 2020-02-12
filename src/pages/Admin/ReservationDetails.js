@@ -20,7 +20,7 @@ const ReservationDetails = ({
   } = reservation
 
   const cancel = () => {
-    cancelReservations({ userId, reservations: [id] })
+    cancelReservations({ userId, reservations: [id], refund: true })
       .then(() => {
         updateReservations()
         modalContainer.close()

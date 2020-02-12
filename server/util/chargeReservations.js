@@ -82,6 +82,7 @@ const chargeReservations = async ({ reservations }) => {
       limiter.removeTokens(1, () => {
         chargeReservation({ reservationId })
           .then(charge => {
+            console.log(charge)
             const data = { chargeId: charge.id, chargeError: null, lastCharged }
             console.log('[Successful Charge]', reservationId, data)
             reservationRef.update(data)
