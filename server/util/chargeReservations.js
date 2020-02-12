@@ -44,12 +44,22 @@ const chargeReservation = async ({
 
   try {
     const user = await getUser({ userId: reservation.userId })
+
+    let amountDollars = reservation.customRate
+
     // toggle MEMBER
-    const amountDollars = user.isMember ? rate.MEMBER : rate.NON_MEMBER
+    if (typeof reservation.customRate === 'undefined') {
+      amountDollars = user.isMember ? rate.MEMBER : rate.NON_MEMBER
+    }
+
     if (Number.isNaN(amountDollars) || amountDollars > 100) throw 'Calculated cost is invalid.'
 
     const perSession = amountDollars / 2
     const amount = perSession * 100
+
+    if (amount <= 0) {
+      return { id: 'ADMIN_BOOKING' }
+    }
 
     return await chargeUser({
       userId: reservation.userId,

@@ -3,17 +3,47 @@ const set = require('date-fns/set').default
 
 const with0 = n => n < 10 ? `0${n}` : `${n}`
 
+const DAYS_OF_THE_WEEK = [
+  'Sunday',
+  'Monday',
+  'Tuesday',
+  'Wednesday',
+  'Thursday',
+  'Friday',
+  'Saturday'
+]
+
+const DAYS_OF_THE_WEEK_ABBR = [
+  'Sun',
+  'Mon',
+  'Tue',
+  'Wed',
+  'Thu',
+  'Fri',
+  'Sat'
+]
+
 const parseTime = (time, timeZone) => {
   const _date = new Date(time)
   const date = utcToZonedTime(_date, timeZone)
 
+  let day = format(date, 'd', { timeZone })
+  let dayOfTheWeek = format(date, 'EEEE', { timeZone })
+  let dayOfTheWeekAbbr = format(date, 'EEE', { timeZone })
+
+  if (_date.getDate() !== day) {
+    day = _date.getDate()
+    dayOfTheWeek = DAYS_OF_THE_WEEK[_date.getDay()]
+    dayOfTheWeekAbbr = DAYS_OF_THE_WEEK_ABBR[_date.getDay()]
+  }
+
   return {
     date,
-    dayOfTheWeek: format(date, 'EEEE', { timeZone }),
-    dayOfTheWeekAbbr: format(date, 'EEE', { timeZone }),
+    dayOfTheWeek,
+    dayOfTheWeekAbbr,
     month: format(date, 'MMMM', { timeZone }),
     monthAbbr: format(date, 'MMM', { timeZone }),
-    day: format(date, 'd', { timeZone }),
+    day,
     year: format(date, 'yyyy', { timeZone }),
     hours: format(date, 'hh', { timeZone }),
     minutes: format(date, 'mm', { timeZone }),

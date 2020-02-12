@@ -5,15 +5,20 @@ import getAllSessions from '../../../shared/getAllSessions'
 
 import styles from './styles.scss'
 import ReservationDetails from './ReservationDetails'
+import EmptyReservation from './EmptyReservation'
 import locations from '../../../locations'
 import { getDayStartTime, formatTime } from 'shared/datetime'
 import useReservations, { ReservationsProvider } from './useReservations'
 import useUsers from './useUsers'
 
-const Reservation = ({ reservation }) => {
+const Reservation = ({ reservation, locationId, reservationTime, isPremium }) => {
   const { usersById } = useUsers()
 
-  if (!reservation) return null
+  if (!reservation) return (
+    <EmptyReservation locationId={locationId} reservationTime={reservationTime} isPremium={isPremium}>
+      No Reservation
+    </EmptyReservation>
+  )
 
   const user = usersById[reservation.userId]
   const label = user ? `${user.firstName} ${user.lastName}` : 'RESERVED'
@@ -45,7 +50,7 @@ const Session = ({ time, tables, location, reservations = [] }) => {
 
         return (
           <th className={styles.table} key={t.id} data-reserved={!!res}>
-            <Reservation reservation={res} />
+            <Reservation reservation={res} locationId={location.id} reservationTime={time} isPremium={true} />
           </th>
         )
       })}
@@ -55,7 +60,7 @@ const Session = ({ time, tables, location, reservations = [] }) => {
 
         return (
           <th className={styles.table} key={t.id} data-reserved={!!res}>
-            <Reservation reservation={res} />
+            <Reservation reservation={res} locationId={location.id} reservationTime={time} />
           </th>
         )
       })}

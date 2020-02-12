@@ -15,7 +15,8 @@ const ReservationDetails = ({
     userId,
     chargeId,
     chargeError,
-    id
+    id,
+    customRate,
   } = reservation
 
   const cancel = () => {
@@ -43,6 +44,10 @@ const ReservationDetails = ({
       label: 'User Has Active Card',
       content: (!!user.hasActiveCard).toString(),
     },
+    customRate !== undefined ? {
+      label: 'Custom Rate',
+      content: `$${customRate.toFixed(2)}`,
+    } : {},
     {
       label: 'Stripe Customer ID',
       href: `https://dashboard.stripe.com/test/customers/${user.stripeId}`,

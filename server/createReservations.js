@@ -7,11 +7,23 @@ const autochargeReservations = require('./util/autochargeReservations')
 const getReservationsConfirmed = require('../shared/email/reservationsConfirmed')
 
 const createReservation = ({
+  authId,
+  customRate,
   locationId,
   reservationTime,
   userId,
   isPremium = false,
 }) => {
+  // Create reservation document in database.
+  const reservationId = uuid()
+  const reservation = {
+    id: reservationId,
+    userId,
+    locationId,
+    reservationTime,
+    isPremium,
+  }
+
   return new Promise(async (resolve, reject) => {
     const location = locations[locationId]
 
@@ -29,7 +41,22 @@ const createReservation = ({
     try {
       await check.run()
     } catch (err) {
-      throw err
+      return reject(err)
+    }
+
+    if (typeof customRate !== 'undefined') {
+      try {
+        const authDoc = await db.collection('users').doc(authId).get()
+        const authUser = authDoc.data()
+
+        if (!authUser || !authUser.isAdmin) {
+          throw { message: 'Unauthorized to apply a custom rate.' }
+        }
+
+        reservation.customRate = customRate
+      } catch (err) {
+        return reject(err)
+      }
     }
 
     if (!check.hasAccess()) {
@@ -55,16 +82,6 @@ const createReservation = ({
       })
     }
 
-    // Create reservation document in database.
-    const reservationId = uuid()
-    const reservation = {
-      id: reservationId,
-      userId,
-      locationId,
-      reservationTime,
-      isPremium
-    }
-
     resolve(reservation)
   })
 
@@ -72,6 +89,7 @@ const createReservation = ({
 
 const createReservations = async (req, res) => {
   const {
+    authId,
     userId,
     reservations = []
   } = req.body
@@ -81,7 +99,7 @@ const createReservations = async (req, res) => {
   try {
     const validReservations = await Promise.all(
       reservations.map(r => {
-        return createReservation({ ...r, userId })
+        return createReservation({ ...r, userId, authId })
       })
     ).catch(err => {
       throw err

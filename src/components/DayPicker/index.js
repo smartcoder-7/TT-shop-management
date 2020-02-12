@@ -34,6 +34,7 @@ const DayPicker = ({ onChange, initialDay, timezone, className = '' }) => {
       {upcomingDays.map(n => {
         const time = addDays(today, n)
         const { dayOfTheWeekAbbr, monthAbbr, day } = parseTime(time, timezone)
+        if (n === 1) console.log(time, new Date(time), day, dayOfTheWeekAbbr, timezone)
         return (
           <div
             className={styles.day}
