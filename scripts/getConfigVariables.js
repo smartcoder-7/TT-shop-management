@@ -2,13 +2,16 @@ const secrets = require('../secrets.json')
 
 const ENV_PUBLIC = {
   offline: {
-    IS_OFFLINE: true
+    IS_OFFLINE: true,
+    TZ: 'America/New_York'
   },
   staging: {
-    IS_STAGING: true
+    IS_STAGING: true,
+    TZ: 'America/New_York'
   },
   development: {
-    IS_DEV: true
+    IS_DEV: true,
+    TZ: 'America/New_York'
   }
 }
 

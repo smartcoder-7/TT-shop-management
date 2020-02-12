@@ -3,32 +3,10 @@ const set = require('date-fns/set').default
 
 const with0 = n => n < 10 ? `0${n}` : `${n}`
 
-const utcToZonedTime = (d, opts) => {
-
-  if (d.toString().indexOf('Eastern Standard Time')) return d
-  if (d.toString().indexOf('Eastern Daylight Time')) return d
-  return _utcToZonedTime(d, opts)
+const utcToZonedTime = (d, timeZone) => {
+  if (timeZone === process.env.TZ) return d
+  return _utcToZonedTime(d, timeZone)
 }
-
-const DAYS_OF_THE_WEEK = [
-  'Sunday',
-  'Monday',
-  'Tuesday',
-  'Wednesday',
-  'Thursday',
-  'Friday',
-  'Saturday'
-]
-
-const DAYS_OF_THE_WEEK_ABBR = [
-  'Sun',
-  'Mon',
-  'Tue',
-  'Wed',
-  'Thu',
-  'Fri',
-  'Sat'
-]
 
 const parseTime = (time, timeZone) => {
   const _date = new Date(time)

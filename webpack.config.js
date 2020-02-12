@@ -83,6 +83,7 @@ module.exports = [
       new DotEnvPlugin(),
       new webpack.EnvironmentPlugin({
         STRIPE_PUBLISHABLE_KEY: JSON.stringify(process.env.STRIPE_PUBLISHABLE_KEY) || '',
+        TZ: JSON.stringify(process.env.TZ) || '',
         FIREBASE_API_KEY: JSON.stringify(process.env.FIREBASE_API_KEY) || '',
         FIREBASE_PROJECT_ID: JSON.stringify(process.env.FIREBASE_PROJECT_ID) || '',
         FIREBASE_APP_ID: JSON.stringify(process.env.FIREBASE_APP_ID) || '',
