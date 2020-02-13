@@ -37,11 +37,17 @@ header {
   ul {
     width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
   }
 
   li {
     display: flex;
+    margin-right: 3rem;
+    
+    a {
+      display: flex;
+      align-items: center;
+    }
   }
 }
 
@@ -77,6 +83,7 @@ header,
   height: 100%;
   display: flex;
   align-items: center;
+  justify-content: flex-start;
 }
 
 .menuTrigger {

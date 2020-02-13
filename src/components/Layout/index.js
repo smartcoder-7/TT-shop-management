@@ -34,15 +34,16 @@ const Layout = ({
           </div>
         <header data-row="full">
           <div className={styles.headerContent} data-col="12">
-            <Menu />
-
             <ul>
               <li>
                 <Link to="/">
                   <Logo className={styles.logo} />
                 </Link>
               </li>
+              <li><Link to="/sign-up" data-label>Create an Account</Link></li>
             </ul>
+
+            <Menu />
           </div>
         </header>
       </div>

@@ -119,7 +119,7 @@ const SessionPicker = ({ locationId, startTime, endTime }) => {
     return () => {
       // clearInterval(poll)
     }
-  }, [locationId, startTime, endTime])
+  }, [locationId, startTime, endTime, authContainer.userId])
 
   return (
     <>

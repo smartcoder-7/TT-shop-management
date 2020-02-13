@@ -11,21 +11,21 @@ import styles from './styles.scss'
 import authContainer from '../../containers/authContainer';
 import ResetPassword from './ResetPassword';
 
-const LoginForm = ({ onSubmit }) => (
+const SignupForm = ({ onSubmit }) => (
   <Form
     onSubmit={onSubmit}
-    render={({ handleSubmit, values, ...rest }) => (
+    render={({ handleSubmit }) => (
       <div data-row>
         <form onSubmit={handleSubmit} data-col="12">
           <div data-field-row>
             <EmailField name="email" label="Email" autoComplete="email" />
           </div>
+          {/* <div data-field-row>
+            <EmailField name="email-confirm" label="Confirm Email" autoComplete="off" />
+          </div> */}
           <div data-field-row>
-            <PasswordField name="password" label="Password" autoComplete="current-password" />
+            <PasswordField name="password" label="Password" autoComplete="new-password" />
           </div>
-          <ResetPassword email={values.email}>
-            <span className={styles.reset}>Reset Password</span>
-          </ResetPassword>
           <button type="submit">Submit</button>
         </form>
       </div>
@@ -33,7 +33,7 @@ const LoginForm = ({ onSubmit }) => (
   />
 )
 
-class Login extends React.Component {
+class SignUp extends React.Component {
   state = {
     newUser: false,
     submissionError: ''
@@ -46,10 +46,9 @@ class Login extends React.Component {
     return queryParams.redirect || '/account'
   }
 
-  login = (data = {}) => {
+  signup = (data = {}) => {
     const { email, password } = data
-
-    authContainer.login({ email, password })
+    authContainer.signupWithEmail({ email, password })
       .then(() => {
         this.followRedirect()
       })
@@ -76,19 +75,19 @@ class Login extends React.Component {
         )}
         <div data-row>
           <div>
-            <h1>Login</h1>
+            <h1>Sign Up</h1>
 
-            <LoginForm onSubmit={this.login} />
+            <SignupForm onSubmit={this.signup} />
 
-            <p data-label>First time visitor?</p>
-            <Link to={`/sign-up?redirect=${this.getRedirect()}`} data-link>
-              Sign Up
+            <p data-label>Already have an account?</p>
+            <Link to={`/login?redirect=${this.getRedirect()}`} data-link>
+              Log In
             </Link>
           </div>
-        </div>
-      </Layout>
+        </div >
+      </Layout >
     )
   }
 }
 
-export default withRouter(Login)
+export default withRouter(SignUp)

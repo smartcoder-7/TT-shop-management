@@ -9,6 +9,7 @@ import Home from 'pages/Home'
 import PodSchedule from 'pages/PodSchedule'
 import LocationPicker from 'pages/LocationPicker'
 import Login from 'pages/Login'
+import SignUp from 'pages/SignUp'
 import Cart from 'pages/Cart'
 import Account from 'pages/Account'
 import Success from 'pages/Success'
@@ -74,6 +75,7 @@ const App = () => (
           <Route path="/reserve/:locationId?" component={PodSchedule} />
 
           <Route path="/login" component={Login} />
+          <Route path="/sign-up" component={SignUp} />
 
           <AuthenticatedRoute path="/account" component={Account} />
           <AuthenticatedRoute path="/cart" component={Cart} />
