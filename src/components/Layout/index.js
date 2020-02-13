@@ -6,10 +6,12 @@ import styles from './styles.scss'
 import Menu from './Menu'
 import Logo from '../Logo'
 import Modal from 'components/Modal'
-import modalContainer, { ModalSubscriber } from 'containers/modalContainer';
+import authContainer from 'containers/authContainer'
+import modalContainer, { ModalSubscriber } from 'containers/modalContainer'
 
 const Layout = ({
   className,
+  location,
   children,
 }) => {
   const [scrolled, setScrolled] = useState(!!window.pageYOffset)
@@ -26,6 +28,9 @@ const Layout = ({
     }
   })
 
+  const showSignup = !authContainer.userId || location.pathname === '/'
+  console.log(showSignup)
+
   return (
     <div className={classnames(styles.layout, className)}>
       <div className={styles.headerWrapper} data-bg-color data-scrolled={scrolled}>
@@ -40,7 +45,7 @@ const Layout = ({
                   <Logo className={styles.logo} />
                 </Link>
               </li>
-              <li><Link to="/sign-up" data-label>Create an Account</Link></li>
+              {showSignup && <li><Link to="/sign-up" data-label>Create an Account</Link></li>}
             </ul>
 
             <Menu />
