@@ -59,7 +59,7 @@ class Home extends React.Component {
             <h2>How It Works</h2>
             <br />
             <p>
-              Download the PingPod app to get quick, easy access to a premium table tennis experience. All you have to do is choose a time, add your payment information, and show up at the&nbsp;door.
+              A premium table tennis experience within a few clicks. All you have to do is choose a time, add your payment information, and show up at the&nbsp;door.
             </p>
           </div>
           <div data-col="0" data-col-landscape="6" data-landscape-only>
