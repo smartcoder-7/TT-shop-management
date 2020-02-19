@@ -19,11 +19,10 @@ const getPurchases = require('./getPurchases')
 const acceptInvites = require('./acceptInvites')
 const getUserBilling = require('./getUserBilling')
 const sendEmail = require('./sendEmail')
-const getUnlocks = require('./getUnlocks')
 const getItemsByLocation = require('./getItemsByLocation')
-const { unlockDoor } = require('./kisi')
 const users = require('./users')
 const invites = require('./invites')
+const unlocks = require('./unlocks')
 
 const app = express()
 
@@ -39,13 +38,11 @@ app
   .post('/api/create-purchases', authenticate(createPurchases))
   .post('/api/get-order', authenticate(getOrder))
   .post('/api/get-purchases', authenticate(getPurchases))
-  .post('/api/get-unlocks', getUnlocks)
   .post('/api/get-user-billing', getUserBilling)
   .post('/api/get-available-sessions', getAvailableSessions)
   .post('/api/send-email', authenticate(sendEmail))
   .post('/api/accept-invites', authenticate(acceptInvites))
 
-  .post('/api/unlock-door', authenticate(unlockDoor))
   .post('/api/get-products', getItemsByLocation)
 
   // .post('/private/autocharge-reservations', autochargeReservations)
@@ -55,5 +52,6 @@ app
 
 users.applyRoutes(app)
 invites.applyRoutes(app)
+unlocks.applyRoutes(app)
 
 app.listen(PORT, () => console.log(`Listening on ${PORT}`))

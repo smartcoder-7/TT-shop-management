@@ -14,6 +14,9 @@ const ENDPOINTS = {
   INVITES_SEARCH: '/api/invites/search',
   INVITES_UPDATE: '/api/invites/update',
 
+  UNLOCKS_CREATE: '/api/unlocks/create',
+  UNLOCKS_SEARCH: '/api/unlocks/search',
+
   GET_INVITES: '/api/get-invites',
   ACCEPT_INVITES: '/api/accept-invites',
 
@@ -72,6 +75,8 @@ export const getInvite = (data) => apiRequest({ url: ENDPOINTS.INVITES_GET, data
 export const updateInvite = (data) => apiRequest({ url: ENDPOINTS.INVITES_UPDATE, data })
 export const searchInvites = (data) => apiRequest({ url: ENDPOINTS.INVITES_SEARCH, data })
 
+export const createUnlock = (data) => apiRequest({ url: ENDPOINTS.UNLOCKS_CREATE, data })
+export const searchUnlocks = (data) => apiRequest({ url: ENDPOINTS.UNLOCKS_SEARCH, data })
 
 export const getProducts = (data) => apiRequest({ url: ENDPOINTS.GET_PRODUCTS, data })
 export const getPurchases = (data) => apiRequest({ url: ENDPOINTS.GET_PURCHASES, data })
@@ -80,19 +85,6 @@ export const createPurchases = (data) => apiRequest({ url: ENDPOINTS.CREATE_PURC
 
 
 export const acceptInvites = (data) => apiRequest({ url: ENDPOINTS.ACCEPT_INVITES, data })
-
-export const getUnlocks = ({
-  userId,
-  reservationId
-}) => {
-  return apiRequest({
-    url: ENDPOINTS.GET_UNLOCKS,
-    data: {
-      userId,
-      reservationId
-    }
-  })
-}
 
 export const cancelReservations = (data) => apiRequest({ url: ENDPOINTS.CANCEL_RESERVATIONS, data })
 
@@ -164,8 +156,6 @@ export const validateReservations = ({
     }
   })
 }
-
-export const unlockDoor = (data) => apiRequest({ url: ENDPOINTS.UNLOCK_DOOR, data })
 
 export const sendEmail = ({
   userId,

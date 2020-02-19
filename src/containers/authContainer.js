@@ -118,6 +118,7 @@ class AuthContainer extends Container {
       const res = await auth.signInWithEmailAndPassword(email, password)
       console.log('LOGIN', res.user)
       const userId = res.user.uid
+      await this.setState({ user: { id: userId } })
       await createUser({ id: userId, email })
       await this.onLogin()
     } catch (error) {

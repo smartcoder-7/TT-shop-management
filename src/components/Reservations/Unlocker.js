@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { unlockDoor, getUnlocks } from 'api';
+import { createUnlock, searchUnlocks } from 'api';
 import { formatDuration } from 'shared/datetime'
 import { getUnlockTime, unlockStarted, unlockEnded } from 'shared/canUnlock'
 import styles from './styles.scss'
@@ -29,7 +29,12 @@ const Unlocker = ({ startTime, endTime, reservations }) => {
   const chargeError = errored ? errored.chargeError : null
 
   const checkUnlocks = () => {
-    getUnlocks({ reservationId, userId }).then(u => {
+    searchUnlocks({
+      rules: [
+        ['reservationId', '==', reservationId],
+        ['userId', '==', userId],
+      ]
+    }).then(u => {
       setReady(true)
       setUnlocks(u)
       if (u && u.length >= MAX_UNLOCKS) {
@@ -70,7 +75,7 @@ const Unlocker = ({ startTime, endTime, reservations }) => {
 
     setError()
 
-    unlockDoor({ userId, inviteId, reservationId })
+    createUnlock({ userId, inviteId, reservationId })
       .then(() => {
         setUnlocked(true)
         setError()
