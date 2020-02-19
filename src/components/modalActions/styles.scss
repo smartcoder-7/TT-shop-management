@@ -1,7 +1,19 @@
 @import 'styles/_variables.scss';
 @import 'styles/_mixins.scss';
 
-
+.openStore {
+  .header {
+    display: flex;
+    height: 5rem;
+    font-size: 4rem;
+    margin-bottom: 10rem;
+    align-items: center;
+    color: $pink;
+  }
+  .logo {
+    height: 100%;
+  }
+}
 
 .userBadge {
   display: flex;

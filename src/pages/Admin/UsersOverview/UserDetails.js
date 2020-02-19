@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import styles from '../styles.scss'
 import modalContainer from 'containers/modalContainer'
+import OpenStore from 'components/modalActions/OpenStore'
 import authContainer from 'containers/authContainer'
 import { parseTime } from 'shared/datetime'
 import Details from '../Details'
 import ChargeUser from './ChargeUser'
+import ProductPicker from 'components/ProductPicker'
 import { cancelReservations, updateUserInfo, createPurchase } from 'api'
 import useUsers from '../useUsers';
 
@@ -95,6 +97,18 @@ const UserDetails = ({
         <td className={styles.activeCard} data-label data-active={isAdmin}>
           {isAdmin.toString()}
         </td>
+        <OpenStore userId={user.id}>{({ open }) => {
+          const openCharger = (e) => {
+            e.stopPropagation()
+            open()
+          }
+
+          return (
+            <td className={styles.createPurchase} data-label onClick={openCharger}>
+              + Shop
+            </td>
+          )
+        }}</OpenStore>
       </tr>
     )}</Details>
   )

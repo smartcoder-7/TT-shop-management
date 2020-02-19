@@ -2,10 +2,16 @@
 
 .resetPassword {
   margin-top: -5rem !important;
-  margin-bottom: 8rem !important;
+  margin-bottom: 5rem !important;
   float: right;
 }
 
 .reset {
   font-size: 13px;
+}
+
+.error {
+  display: flex;
+  width: 100%;
+  margin: 3rem 0;
 }

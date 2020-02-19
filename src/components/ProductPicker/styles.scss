@@ -1,0 +1,43 @@
+@import 'styles/_variables.scss';
+@import 'styles/_mixins.scss';
+
+.products {
+}
+
+.product {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  min-height: 7rem;
+  cursor: pointer;
+
+  .count {
+    margin-right: 2rem;
+    background: $white;
+    height: 100%;
+    padding: 1rem;
+  }
+
+  p {
+    flex: 1;
+  }
+
+  button {
+    width: auto !important;
+  }
+
+  .subtract {
+    margin-left: 0;
+    margin-right: 2rem;
+    background: $pink;
+  }
+
+  .add {
+    margin-left: 2rem;
+    margin-right: 0;
+  }
+}
+
+.success {
+  background: $green !important;
+}

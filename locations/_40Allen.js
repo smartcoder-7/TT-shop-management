@@ -23,4 +23,26 @@ module.exports = {
     MEMBER: 10,
     NON_MEMBER: 10
   },
+  items: [
+    "F-OS-001",
+    "F-TP-001",
+    "F-HP-001",
+    "F-MS-001",
+    "F-OP-001",
+    "F-OS-001",
+    "F-TP-001",
+    "F-HP-001",
+    "F-MS-001",
+    "F-OP-001",
+    "F-CC-001",
+    "F-CP-001",
+    "F-CV-001",
+    "F-CL-001",
+    "F-CD-001",
+    "F-WC-001",
+    "D-GY-500",
+    "D-GO-500",
+    "D-GB-500",
+    "D-GG-500",
+  ]
 }

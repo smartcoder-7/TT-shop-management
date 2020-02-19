@@ -160,11 +160,11 @@ button {
     }
   }
 
-  &[data-size="small"] {
+  &[data-mini] {
     display: inline-block;
     width: auto;
     font-size: 2.5rem;
-    padding: 1.5rem 3rem;
+    padding: 1rem 2rem;
   }
 }
 

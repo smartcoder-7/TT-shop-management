@@ -4,12 +4,15 @@ import authContainer from 'containers/authContainer'
 
 const ENDPOINTS = {
   GET_USER: '/api/get-user',
-  CREATE_PURCHASE: '/api/create-purchase',
   CREATE_USER: '/api/create-user',
 
   CREATE_INVITES: '/api/create-invites',
   GET_INVITES: '/api/get-invites',
   ACCEPT_INVITES: '/api/accept-invites',
+
+  GET_PRODUCTS: '/api/get-products',
+  CREATE_PURCHASE: '/api/create-purchases',
+  GET_PURCHASES: '/api/get-purchases',
 
   GET_USERS: '/api/get-users',
   UPDATE_USER_BILLING: '/api/update-user-billing',
@@ -51,6 +54,9 @@ const apiRequest = async ({ url, data }) => {
     })
 }
 
+export const getProducts = (data) => apiRequest({ url: ENDPOINTS.GET_PRODUCTS, data })
+export const getPurchases = (data) => apiRequest({ url: ENDPOINTS.GET_PURCHASES, data })
+
 export const getUser = ({
   userId,
 }) => {
@@ -62,20 +68,7 @@ export const getUser = ({
   })
 }
 
-export const createPurchase = ({
-  userId,
-  locationId,
-  purchase
-}) => {
-  return apiRequest({
-    url: ENDPOINTS.CREATE_PURCHASE,
-    data: {
-      userId,
-      locationId,
-      purchase
-    }
-  })
-}
+export const createPurchases = (data) => apiRequest({ url: ENDPOINTS.CREATE_PURCHASE, data })
 
 export const getUsers = () => {
   return apiRequest({

@@ -29,7 +29,6 @@ const Layout = ({
   })
 
   const showSignup = !authContainer.userId || location.pathname === '/'
-  console.log(showSignup)
 
   return (
     <div className={classnames(styles.layout, className)}>
@@ -58,14 +57,16 @@ const Layout = ({
       </main>
 
       <ModalSubscriber>{() => {
-        const { content, isOpen } = modalContainer
+        const { content, isOpen, fullScreen } = modalContainer
 
         return (
-          <Modal isActive={isOpen}>
+          <Modal isActive={isOpen} fullScreen={fullScreen}>
             {content}
           </Modal>
         )
       }}</ModalSubscriber>
+
+      <div id="portals"></div>
     </div>
   )
 }

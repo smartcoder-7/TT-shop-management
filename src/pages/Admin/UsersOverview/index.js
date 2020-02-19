@@ -31,6 +31,7 @@ const UserOverview = () => {
             <th>Active Card</th>
             <th>Member</th>
             <th>Admin</th>
+            <th></th>
           </tr>
         </thead>
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styles from '../styles.scss'
-import { createPurchase } from 'api'
+import { createPurchases } from 'api'
 import locations from '../../../../locations'
 
 const DEFAULT_LOCATION_ID = '40-allen'
@@ -22,10 +22,15 @@ const ChargeUser = ({
   }
 
   const chargeUser = () => {
-    createPurchase({
-      userId: user.id,
-      locationId: locationId,
-      purchase: { customAmount: chargeAmount * 100, customDescription: 'PINGPOD: Miscellaneous Purchase' }
+    const amount = chargeAmount * 100
+
+    createPurchases({
+      purchases: [{
+        userId: user.id,
+        locationId: locationId,
+        amount,
+        description: 'PINGPOD: Miscellaneous Purchase'
+      }]
     }).then(() => {
       setChargeSuccess(true)
       onCharge()

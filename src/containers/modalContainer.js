@@ -7,18 +7,20 @@ class ModalContainer extends Container {
   state = {
     content: null,
     isOpen: false,
-    onClose: NOOP
+    onClose: NOOP,
+    fullScreen: false
   }
 
   get content() { return this.state.content }
   get isOpen() { return this.state.isOpen }
+  get fullScreen() { return this.state.fullScreen }
 
   constructor() {
     super()
   }
 
-  open = ({ content, onClose = NOOP }) => {
-    this.setState({ isOpen: true, content, onClose })
+  open = ({ content, fullScreen, onClose = NOOP }) => {
+    this.setState({ isOpen: true, fullScreen, content, onClose })
   }
 
   setContent = ({ content }) => {
@@ -28,7 +30,12 @@ class ModalContainer extends Container {
 
   close = () => {
     this.state.onClose()
-    this.setState({ isOpen: false, content: null, onClose: NOOP })
+    this.setState({
+      isOpen: false,
+      content: null,
+      fullScreen: false,
+      onClose: NOOP
+    })
   }
 }
 
