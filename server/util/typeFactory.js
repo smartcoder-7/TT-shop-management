@@ -12,6 +12,9 @@ const typeFactory = (type, { beforeCreate = op, beforeUpdate = op, afterGet = op
 
     const ref = db.collection(type).doc(id)
 
+    // TODO: Remove
+    delete data.authId
+
     const doc = ref.get()
     if (doc.exists) {
       await ref.update(data)

@@ -65,6 +65,20 @@ export const Home = () => {
         </ul>
       </div>
 
+      <br />
+      <br />
+
+      <div className={styles.linkGroup}>
+        <label className={styles.header}>Products</label>
+        <ul>
+          <li>
+            <Link to="/admin/products" data-link>
+              All Products
+            </Link>
+          </li>
+        </ul>
+      </div>
+
     </Admin>
   )
 }

@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { getProducts } from 'api'
+import { searchProducts } from 'api'
 
 const POLL_INTERVAL = 10000
 
@@ -36,8 +36,9 @@ export class ProductsProvider extends React.Component {
 
     this.setState({ updating: true })
 
-    return getProducts()
+    return searchProducts()
       .then(products => {
+        console.log('found', products)
         if (this.unmounted) return
         this.setState({ updating: false, products })
         if (this.state.queued) {
