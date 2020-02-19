@@ -44,5 +44,6 @@ module.exports = {
     "D-GO-500",
     "D-GB-500",
     "D-GG-500",
+    "D-BO-500"
   ]
 }
