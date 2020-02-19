@@ -3,6 +3,7 @@ const webpack = require('webpack')
 const DotEnvPlugin = require('dotenv-webpack')
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const UnusedFilesWebpackPlugin = require("unused-files-webpack-plugin").default;
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const SRC_DIR = path.resolve(__dirname, 'src')
 const ROOT_DIR = path.resolve(__dirname)
@@ -15,8 +16,8 @@ module.exports = [
       ? 'production' : 'development',
     output: {
       path: path.resolve(PUBLIC_DIR, 'scripts'),
-      publicPath: '/scripts/',
-      filename: 'index.js'
+      publicPath: 'scripts/',
+      filename: 'index.[contenthash].js'
     },
     devServer: {
       port: 8000,
@@ -76,6 +77,11 @@ module.exports = [
       usedExports: true,
     },
     plugins: [
+      new HtmlWebpackPlugin({
+        filename: '../index.html',
+        template: 'src/index.html'
+      }),
+
       new CleanWebpackPlugin(),
       new UnusedFilesWebpackPlugin({
         patterns: ['src/**/*.js']

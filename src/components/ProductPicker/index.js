@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import styles from './styles.scss'
-import { getProducts } from 'api'
+import { searchProducts } from 'api'
 import { createPurchases } from '../../api';
 
 const ProductPicker = ({
@@ -16,9 +16,12 @@ const ProductPicker = ({
   const [success, setSuccess] = useState(false)
 
   useEffect(() => {
-    getProducts({ locationId })
-      .then((res) => {
-        setProducts(res.items)
+    searchProducts()
+      .then((products) => {
+        const locationProducts = products.filter(p =>
+          (p.locations || []).find(l => l.value === locationId)
+        )
+        setProducts(locationProducts)
         setLoading(false)
       })
   }, [locationId])
@@ -34,14 +37,14 @@ const ProductPicker = ({
   let sum = 0
   Object.keys(selections).forEach(sku => {
     const num = selections[sku]
-    const price = productsBySku[sku].rate
+    const price = productsBySku[sku].price
     const sub = num * price
     sum += sub
     purchases.push({
       userId,
       locationId,
       amount: sub * 100,
-      description: `${productsBySku[sku].name} x ${num}`
+      description: `${productsBySku[sku].title} x ${num}`
     })
   })
 
@@ -89,7 +92,10 @@ const ProductPicker = ({
           <div className={styles.product} key={p.sku}>
             {count > 0 && <button className={styles.subtract} data-mini onClick={() => subtract(p)}>-</button>}
             <label className={styles.count}>{count}</label>
-            <p data-label>{p.name}</p>
+            <div className={styles.info}>
+              <p data-p3>{p.title}</p>
+              <p data-label>{p.subtitle}</p>
+            </div>
             <button className={styles.add} data-mini onClick={() => add(p)}>+ Add</button>
           </div>
         )
