@@ -23,6 +23,7 @@ const getItemsByLocation = require('./getItemsByLocation')
 const users = require('./users')
 const invites = require('./invites')
 const unlocks = require('./unlocks')
+const products = require('./products')
 
 const app = express()
 
@@ -53,5 +54,6 @@ app
 users.applyRoutes(app)
 invites.applyRoutes(app)
 unlocks.applyRoutes(app)
+products.applyRoutes(app)
 
 app.listen(PORT, () => console.log(`Listening on ${PORT}`))
