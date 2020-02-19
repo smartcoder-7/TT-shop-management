@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react'
+import uuid from 'uuid'
 import { Form, Field } from 'react-final-form'
 import { createInvites } from 'api'
 import modalContainer from 'containers/modalContainer';
 import EmailField from 'components/fields/EmailField'
+import origin from 'shared/getOrigin'
 
 import styles from './styles.scss'
 import authContainer from 'containers/authContainer';
@@ -13,11 +15,16 @@ const InviteModal = ({ reservations }) => {
   const inputRef = useRef()
 
   useEffect(() => {
-    createInvites({
+    const tokenId = uuid()
+    const invites = reservations.map(r => ({
+      tokenId,
       userId: authContainer.userId,
-      reservations: reservations.map(r => r.id)
-    }).then(({ inviteUrl: url }) => {
-      setInviteUrl(url)
+      reservationId: r.id,
+      accepted: false,
+    }))
+
+    createInvites({ invites }).then(() => {
+      setInviteUrl(`${origin}/invite/${tokenId}`)
     })
   }, [])
 

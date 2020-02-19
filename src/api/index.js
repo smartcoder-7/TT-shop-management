@@ -8,7 +8,12 @@ const ENDPOINTS = {
   USERS_SEARCH: '/api/users/search',
   USERS_UPDATE: '/api/users/update',
 
-  CREATE_INVITES: '/api/create-invites',
+  INVITES_CREATE: '/api/invites/create',
+  INVITES_CREATE_MULTIPLE: '/api/invites/create-multiple',
+  INVITES_GET: '/api/invites/get',
+  INVITES_SEARCH: '/api/invites/search',
+  INVITES_UPDATE: '/api/invites/update',
+
   GET_INVITES: '/api/get-invites',
   ACCEPT_INVITES: '/api/accept-invites',
 
@@ -61,25 +66,19 @@ export const getUser = (data) => apiRequest({ url: ENDPOINTS.USERS_GET, data })
 export const updateUser = (data) => apiRequest({ url: ENDPOINTS.USERS_UPDATE, data })
 export const searchUsers = (data) => apiRequest({ url: ENDPOINTS.USERS_SEARCH, data })
 
+export const createInvite = (data) => apiRequest({ url: ENDPOINTS.INVITES_CREATE, data })
+export const createInvites = (data) => apiRequest({ url: ENDPOINTS.INVITES_CREATE_MULTIPLE, data })
+export const getInvite = (data) => apiRequest({ url: ENDPOINTS.INVITES_GET, data })
+export const updateInvite = (data) => apiRequest({ url: ENDPOINTS.INVITES_UPDATE, data })
+export const searchInvites = (data) => apiRequest({ url: ENDPOINTS.INVITES_SEARCH, data })
+
+
 export const getProducts = (data) => apiRequest({ url: ENDPOINTS.GET_PRODUCTS, data })
 export const getPurchases = (data) => apiRequest({ url: ENDPOINTS.GET_PURCHASES, data })
 
 export const createPurchases = (data) => apiRequest({ url: ENDPOINTS.CREATE_PURCHASE, data })
 
-export const createInvites = ({
-  userId,
-  reservations,
-}) => {
-  return apiRequest({
-    url: ENDPOINTS.CREATE_INVITES,
-    data: {
-      userId,
-      reservations
-    }
-  })
-}
 
-export const getInvites = (data) => apiRequest({ url: ENDPOINTS.GET_INVITES, data })
 export const acceptInvites = (data) => apiRequest({ url: ENDPOINTS.ACCEPT_INVITES, data })
 
 export const getUnlocks = ({
@@ -119,19 +118,6 @@ export const getOrder = ({
     data: {
       orderId,
       userId,
-    }
-  })
-}
-
-export const getInvite = ({
-  inviteId,
-  userId
-}) => {
-  return apiRequest({
-    url: ENDPOINTS.GET_INVITE,
-    data: {
-      inviteId,
-      userId
     }
   })
 }

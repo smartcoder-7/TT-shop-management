@@ -5,7 +5,7 @@ import Layout from 'components/Layout'
 
 import styles from './styles.scss'
 import authContainer from '../../containers/authContainer';
-import { getInvites, acceptInvites } from '../../api';
+import { searchInvites, acceptInvites } from '../../api';
 import Reservations from '../../components/Reservations';
 
 const Invite = ({ match: { params } }, history) => {
@@ -15,8 +15,12 @@ const Invite = ({ match: { params } }, history) => {
   const tokenId = params.tokenId
 
   useEffect(() => {
-    getInvites({ tokenId })
-      .then(({ invites }) => setInvites(invites))
+    searchInvites({
+      rules: [
+        ['tokenId', '==', tokenId]
+      ]
+    })
+      .then((invites) => setInvites(invites))
       .catch((err) => {
         console.warn('Could not get invite.', err)
       })

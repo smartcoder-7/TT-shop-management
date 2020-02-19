@@ -3,7 +3,7 @@ import Layout from 'components/Layout'
 
 import styles from './styles.scss'
 import { formatDate } from 'shared/datetime'
-import { getReservations, getInvites, getPurchases } from 'api'
+import { getReservations, searchInvites, getPurchases } from 'api'
 import constants from 'shared/constants'
 import authContainer from 'containers/authContainer'
 import Reservations from 'components/Reservations'
@@ -119,8 +119,12 @@ const Account = () => {
       .then(({ reservations }) => {
         setUserReservations(reservations)
       })
-    getInvites({ invitedUser: user.id })
-      .then(({ invites }) => {
+    searchInvites({
+      rules: [
+        ['invitedUser', '==', user.id]
+      ]
+    })
+      .then((invites) => {
         setUserInvites(invites)
       })
   }, [user.id])

@@ -15,8 +15,6 @@ const getReservations = require('./getReservations')
 const createPurchases = require('./createPurchases')
 const getOrder = require('./getOrder')
 const getAvailableSessions = require('./getAvailableSessions')
-const createInvites = require('./createInvites')
-const getInvites = require('./getInvites')
 const getPurchases = require('./getPurchases')
 const acceptInvites = require('./acceptInvites')
 const getUserBilling = require('./getUserBilling')
@@ -25,6 +23,7 @@ const getUnlocks = require('./getUnlocks')
 const getItemsByLocation = require('./getItemsByLocation')
 const { unlockDoor } = require('./kisi')
 const users = require('./users')
+const invites = require('./invites')
 
 const app = express()
 
@@ -44,8 +43,6 @@ app
   .post('/api/get-user-billing', getUserBilling)
   .post('/api/get-available-sessions', getAvailableSessions)
   .post('/api/send-email', authenticate(sendEmail))
-  .post('/api/create-invites', authenticate(createInvites))
-  .post('/api/get-invites', authenticate(getInvites))
   .post('/api/accept-invites', authenticate(acceptInvites))
 
   .post('/api/unlock-door', authenticate(unlockDoor))
@@ -56,7 +53,7 @@ app
   .get('/robots.txt', (req, res) => res.sendFile(path.resolve(ROOT_DIR, 'robots.txt')))
   .get('*', (req, res) => res.sendFile(path.resolve(ROOT_DIR, 'public/index.html')))
 
-
 users.applyRoutes(app)
+invites.applyRoutes(app)
 
 app.listen(PORT, () => console.log(`Listening on ${PORT}`))

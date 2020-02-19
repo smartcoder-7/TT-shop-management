@@ -4,12 +4,20 @@ const authenticate = require('./authenticate')
 
 const op = d => d
 
-const typeFactory = (type, { beforeCreate = op, beforeUpdate = op }) => {
+const typeFactory = (type, { beforeCreate = op, beforeUpdate = op, afterGet = op }) => {
   const create = async (_data) => {
     const data = await beforeCreate(_data)
     const id = data.id || uuid()
+    data.id = id
+
     const ref = db.collection(type).doc(id)
-    await ref.update(data)
+
+    const doc = ref.get()
+    if (doc.exists) {
+      await ref.update(data)
+    } else {
+      await ref.set(data)
+    }
     return data
   }
 
@@ -24,7 +32,9 @@ const typeFactory = (type, { beforeCreate = op, beforeUpdate = op }) => {
     const doc = await ref.get()
 
     if (!doc.exists) throw `Could not find document [${id}] in ${type}.`
-    return doc.data()
+
+    const modified = afterGet(doc.data())
+    return modified
   }
 
   const getMultiple = async (_data) => {
@@ -41,15 +51,16 @@ const typeFactory = (type, { beforeCreate = op, beforeUpdate = op }) => {
       query = query.where(rule[0], rule[1], rule[2])
     })
 
-    const results = []
+    const promises = []
     const res = await query.get()
     if (!res.docs) { return [] }
 
     res.docs.forEach(doc => {
-      results.push(doc.data())
+      const modified = afterGet(doc.data())
+      promises.push(modified)
     })
 
-    return results
+    return await Promise.all(promises)
   }
 
   const update = async (_data) => {
