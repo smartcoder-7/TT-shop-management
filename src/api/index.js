@@ -3,8 +3,10 @@ import constants from 'shared/constants'
 import authContainer from 'containers/authContainer'
 
 const ENDPOINTS = {
-  GET_USER: '/api/get-user',
-  CREATE_USER: '/api/create-user',
+  USERS_CREATE: '/api/users/create',
+  USERS_GET: '/api/users/get',
+  USERS_SEARCH: '/api/users/search',
+  USERS_UPDATE: '/api/users/update',
 
   CREATE_INVITES: '/api/create-invites',
   GET_INVITES: '/api/get-invites',
@@ -54,40 +56,15 @@ const apiRequest = async ({ url, data }) => {
     })
 }
 
+export const createUser = (data) => apiRequest({ url: ENDPOINTS.USERS_CREATE, data })
+export const getUser = (data) => apiRequest({ url: ENDPOINTS.USERS_GET, data })
+export const updateUser = (data) => apiRequest({ url: ENDPOINTS.USERS_UPDATE, data })
+export const searchUsers = (data) => apiRequest({ url: ENDPOINTS.USERS_SEARCH, data })
+
 export const getProducts = (data) => apiRequest({ url: ENDPOINTS.GET_PRODUCTS, data })
 export const getPurchases = (data) => apiRequest({ url: ENDPOINTS.GET_PURCHASES, data })
 
-export const getUser = ({
-  userId,
-}) => {
-  return apiRequest({
-    url: ENDPOINTS.GET_USER,
-    data: {
-      userId,
-    }
-  })
-}
-
 export const createPurchases = (data) => apiRequest({ url: ENDPOINTS.CREATE_PURCHASE, data })
-
-export const getUsers = () => {
-  return apiRequest({
-    url: ENDPOINTS.GET_USERS,
-  })
-}
-
-export const createUser = ({
-  userId,
-  email
-}) => {
-  return apiRequest({
-    url: ENDPOINTS.CREATE_USER,
-    data: {
-      userId,
-      email
-    }
-  })
-}
 
 export const createInvites = ({
   userId,
@@ -119,40 +96,6 @@ export const getUnlocks = ({
 }
 
 export const cancelReservations = (data) => apiRequest({ url: ENDPOINTS.CANCEL_RESERVATIONS, data })
-
-export const updateUserBilling = ({
-  userId,
-  customerId,
-  token
-}) => {
-  return apiRequest({
-    url: ENDPOINTS.UPDATE_USER_BILLING,
-    data: {
-      userId,
-      customerId,
-      token
-    }
-  })
-}
-
-export const updateUserInfo = ({
-  userId,
-  firstName,
-  lastName,
-  isMember,
-  isAdmin
-}) => {
-  return apiRequest({
-    url: ENDPOINTS.UPDATE_USER_INFO,
-    data: {
-      userId,
-      firstName,
-      lastName,
-      isMember,
-      isAdmin
-    }
-  })
-}
 
 export const getUserBilling = ({
   userId,

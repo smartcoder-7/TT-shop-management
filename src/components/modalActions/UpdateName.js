@@ -3,7 +3,7 @@ import { Form } from 'react-final-form'
 
 import TextField from 'components/fields/TextField'
 import styles from './styles.scss'
-import { updateUserInfo, constants } from 'api'
+import { updateUser, constants } from 'api'
 import authContainer from 'containers/authContainer'
 import modalContainer from 'containers/modalContainer'
 
@@ -11,8 +11,8 @@ const ModalContent = ({ theme }) => {
   const { user } = authContainer
 
   const onSubmit = ({ firstName, lastName }) => {
-    updateUserInfo({
-      userId: authContainer.userId,
+    updateUser({
+      id: authContainer.userId,
       firstName,
       lastName
     })

@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { getUsers } from 'api'
+import { searchUsers } from 'api'
 
 const POLL_INTERVAL = 10000
 
@@ -36,7 +36,7 @@ export class UsersProvider extends React.Component {
 
     this.setState({ updating: true })
 
-    return getUsers()
+    return searchUsers()
       .then(users => {
         if (this.unmounted) return
         this.setState({ updating: false, users })

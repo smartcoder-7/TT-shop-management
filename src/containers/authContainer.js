@@ -44,7 +44,7 @@ class AuthContainer extends Container {
     if (IS_OFFLINE) {
       console.log(this.state)
       setTimeout(() => {
-        createUser({ userId: '12345', email: 'testy@moo.com' })
+        createUser({ id: '12345', email: 'testy@moo.com' })
           .then((user) => {
             this.updateUser(user)
           })
@@ -118,7 +118,7 @@ class AuthContainer extends Container {
       const res = await auth.signInWithEmailAndPassword(email, password)
       console.log('LOGIN', res.user)
       const userId = res.user.uid
-      await createUser({ userId, email })
+      await createUser({ id: userId, email })
       await this.onLogin()
     } catch (error) {
       console.log('LOGIN ERROR', error)

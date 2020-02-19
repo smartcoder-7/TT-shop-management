@@ -4,7 +4,6 @@ import authContainer from 'containers/authContainer'
 
 import styles from '../styles.scss'
 import { parseTime } from 'shared/datetime';
-import { updateUserInfo } from '../../../api';
 import useUsers from '../useUsers'
 import UserDetails from './UserDetails'
 

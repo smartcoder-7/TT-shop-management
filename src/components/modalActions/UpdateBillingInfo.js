@@ -7,7 +7,7 @@ import {
   Elements,
 } from 'react-stripe-elements'
 import styles from './styles.scss'
-import { updateUserBilling, constants } from 'api'
+import { updateUser, constants } from 'api'
 import authContainer from 'containers/authContainer'
 import modalContainer from 'containers/modalContainer'
 
@@ -83,10 +83,10 @@ const BillingModalContent = ({ theme }) => {
   const { user } = authContainer
 
   const handleResult = (token) => {
-    updateUserBilling({
-      userId: user.id,
-      customerId: user.stripeId,
-      token,
+    updateUser({
+      id: user.id,
+      stripeId: user.stripeId,
+      stripeToken: token.id,
     })
       .then(() => {
         authContainer.updateUserBilling()

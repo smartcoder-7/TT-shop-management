@@ -4,7 +4,6 @@ import { Form } from 'react-final-form'
 import TextField from 'components/fields/TextField'
 import Logo from 'components/Logo'
 import styles from './styles.scss'
-import { updateUserInfo, constants } from 'api'
 import authContainer from 'containers/authContainer'
 import modalContainer from 'containers/modalContainer'
 import ProductPicker from '../ProductPicker';

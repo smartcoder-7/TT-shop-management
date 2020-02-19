@@ -1,7 +1,7 @@
 const stripe = require('./stripe')
 const { db } = require('./firebase')
 const chargeUser = require('./chargeUser')
-const getUser = require('./getUser')
+const users = require('../users')
 const RateLimiter = require('limiter').RateLimiter
 const getReservationCost = require('../../shared/getReservationCost')
 
@@ -43,7 +43,7 @@ const chargeReservation = async ({
   if (!rate) throw 'Cannot find associated pricing.'
 
   try {
-    const user = await getUser({ userId: reservation.userId })
+    const user = await users.get(reservation.userId)
 
     let amountDollars = reservation.customRate
 

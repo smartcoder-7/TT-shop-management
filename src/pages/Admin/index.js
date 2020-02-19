@@ -6,6 +6,7 @@ import Layout from 'components/Layout'
 import Logo from 'components/Logo'
 import LocationOverview from './LocationOverview'
 import UsersOverview from './UsersOverview'
+import ProductsOverview from './Products'
 import locations from '../../../locations'
 
 import styles from './styles.scss'
@@ -84,6 +85,14 @@ export const Users = withRouter(() => {
   return (
     <Admin>
       <UsersOverview />
+    </Admin>
+  )
+})
+
+export const Products = withRouter(() => {
+  return (
+    <Admin>
+      <ProductsOverview />
     </Admin>
   )
 })

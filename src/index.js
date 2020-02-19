@@ -85,6 +85,7 @@ const App = () => (
           <AdminRoute path="/admin" exact component={Admin.Home} />
           <AdminRoute path="/admin/location/:locationId?" component={Admin.Location} />
           <AdminRoute path="/admin/users" component={Admin.Users} />
+          <AdminRoute path="/admin/products" component={Admin.Products} />
         </Switch>
       </>
     )}</AuthSubscriber>

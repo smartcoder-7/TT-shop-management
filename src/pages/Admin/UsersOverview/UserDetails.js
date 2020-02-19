@@ -7,7 +7,7 @@ import { parseTime } from 'shared/datetime'
 import Details from '../Details'
 import ChargeUser from './ChargeUser'
 import ProductPicker from 'components/ProductPicker'
-import { cancelReservations, updateUserInfo, createPurchase } from 'api'
+import { cancelReservations, updateUser, createPurchase } from 'api'
 import useUsers from '../useUsers';
 
 const UserDetails = ({
@@ -29,12 +29,12 @@ const UserDetails = ({
   const isSelf = user.id === authContainer.userId
 
   const toggleMember = () =>
-    updateUserInfo({ userId: user.id, isMember: !user.isMember })
+    updateUser({ id: user.id, isMember: !user.isMember })
       .then(updateUsers)
 
   const toggleAdmin = () => {
     if (isSelf) return Promise.resolve()
-    return updateUserInfo({ userId: user.id, isAdmin: !user.isAdmin })
+    return updateUser({ id: user.id, isAdmin: !user.isAdmin })
       .then(updateUsers)
   }
 
