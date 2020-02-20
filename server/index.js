@@ -50,7 +50,7 @@ app
   // .post('/private/autocharge-reservations', autochargeReservations)
 
   .get('/robots.txt', (req, res) => res.sendFile(path.resolve(ROOT_DIR, 'robots.txt')))
-  .get('*', (req, res) => res.sendFile(path.resolve(ROOT_DIR, 'public/index.html')))
+  .get('*', (req, res) => res.sendFile(path.resolve(ROOT_DIR, 'public/dist/index.html')))
 
 users.applyRoutes(app)
 invites.applyRoutes(app)
