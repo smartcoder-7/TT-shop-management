@@ -28,7 +28,7 @@ const products = require('./products')
 const app = express()
 
 app
-  .use(express.static(path.resolve(ROOT_DIR, 'public')))
+  .use(express.static(path.resolve(ROOT_DIR, 'public/dist')))
   .use(express.json())
 
   .post('/api/cancel-reservations', authenticate(cancelReservations))
