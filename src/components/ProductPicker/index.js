@@ -21,6 +21,7 @@ const ProductPicker = ({
         const locationProducts = products
           .filter(p => (p.locations || []).find(l => l.value === locationId))
           .filter(p => p.price && p.title)
+          .sort((a, b) => a.title > b.title ? 1 : -1)
         setProducts(locationProducts)
         setLoading(false)
       })
