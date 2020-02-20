@@ -15,9 +15,9 @@ module.exports = [
     mode: process.env.NODE_ENV === 'production'
       ? 'production' : 'development',
     output: {
-      path: path.resolve(PUBLIC_DIR, 'scripts'),
-      publicPath: 'scripts/',
-      filename: 'index.[contenthash].js'
+      path: path.resolve(PUBLIC_DIR, 'dist'),
+      // publicPath: 'scripts/',
+      filename: 'scripts/index.[contenthash].js'
     },
     devServer: {
       port: 8000,
@@ -78,7 +78,7 @@ module.exports = [
     },
     plugins: [
       new HtmlWebpackPlugin({
-        filename: '../index.html',
+        filename: 'index.html',
         template: 'src/index.html'
       }),
 

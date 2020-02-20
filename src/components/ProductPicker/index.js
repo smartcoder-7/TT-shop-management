@@ -18,9 +18,9 @@ const ProductPicker = ({
   useEffect(() => {
     searchProducts()
       .then((products) => {
-        const locationProducts = products.filter(p =>
-          (p.locations || []).find(l => l.value === locationId)
-        )
+        const locationProducts = products
+          .filter(p => (p.locations || []).find(l => l.value === locationId))
+          .filter(p => p.price && p.title)
         setProducts(locationProducts)
         setLoading(false)
       })

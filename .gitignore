@@ -1,7 +1,6 @@
 **/*.DS_Store
 node_modules
-public/scripts
-public/index.html
+public/dist
 functions/dist
 secrets
 secrets.json
