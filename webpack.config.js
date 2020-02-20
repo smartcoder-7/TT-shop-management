@@ -16,7 +16,7 @@ module.exports = [
       ? 'production' : 'development',
     output: {
       path: path.resolve(PUBLIC_DIR, 'dist'),
-      // publicPath: 'scripts/',
+      publicPath: '/',
       filename: 'scripts/index.[contenthash].js'
     },
     devServer: {
