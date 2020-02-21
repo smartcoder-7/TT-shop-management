@@ -95,7 +95,7 @@ $checkoutHeight: 30rem;
 
 .checkout {
   position: fixed;
-  bottom: 0;
+  bottom: $footer-height;
   left: 0;
   width: 100%;
   height: $checkoutHeight;

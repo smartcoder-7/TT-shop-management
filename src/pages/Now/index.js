@@ -75,7 +75,7 @@ const Now = ({ }) => {
   }, [user.id])
 
   return (
-    <Layout className={styles.shop}>
+    <Layout className={styles.now}>
       <div data-row>
         <div data-col="12" >
           <UserReservations reservations={userReservations} invites={userInvites} />

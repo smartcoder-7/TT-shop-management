@@ -49,9 +49,9 @@ const Success = ({ match: { params } }, history) => {
 
           <br />
 
-          <Link to="/account">
+          <Link to="/now">
             <button>
-              Go To Your Account
+              View Upcoming Reservations
             </button>
           </Link>
         </div>

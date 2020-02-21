@@ -1,16 +1,36 @@
 @import 'styles/_variables.scss';
 @import 'styles/_mixins.scss';
 
-.store {
-  .header {
-    display: flex;
-    height: 5rem;
-    font-size: 4rem;
-    margin-bottom: 10rem;
-    align-items: center;
-    color: $pink;
+.now {
+  background: $light-gray;
+  min-height: 100vh;
+    
+  [data-bg-color] {
+    background: $light-gray;
   }
+  
+  [data-modal-bg-color] {
+    background: $white;
+  }
+  
+  .header {
+    display: block;
+    margin-bottom: 3rem;
+  }
+  
+  .showPast {
+    display: block;
+    margin-bottom: 3rem;
+  }
+  
   .logo {
     height: 100%;
+  }
+  
+  .reservation {
+    border: none;
+    background: $white;
+    margin-bottom: 3rem;
+    overflow: hidden;
   }
 }

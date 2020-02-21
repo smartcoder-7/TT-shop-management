@@ -65,7 +65,7 @@ const Layout = ({
       </main>
 
       {showFooter && (
-        <footer>
+        <footer className={styles.appFooter}>
           <div data-row>
             <ul data-col="12">
               <Link to="/reserve">

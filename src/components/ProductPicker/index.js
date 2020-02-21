@@ -41,6 +41,9 @@ const ProductPicker = ({
     const price = productsBySku[sku].price
     const sub = num * price
     sum += sub
+
+    if (sub <= 0) return
+
     purchases.push({
       userId,
       locationId,
@@ -59,7 +62,7 @@ const ProductPicker = ({
         setProcessing(false)
         setSuccess(true)
         setTimeout(() => {
-          onPurchase()
+          // onPurchase()
           setSuccess(false)
         }, 1000)
       })

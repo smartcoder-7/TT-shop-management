@@ -54,7 +54,7 @@ header {
 main {
   flex: 1;
   margin-top: $header-height;
-  padding-bottom: 15rem;
+  padding-bottom: 15rem + $footer-height;
 }
 
 header,
@@ -195,7 +195,7 @@ header,
   }
 }
 
-footer {
+.appFooter {
   position: fixed;
   bottom :0;
   left: 0;
@@ -203,8 +203,9 @@ footer {
   width: 100%;
   display: flex;
   justify-content: center;
-  padding: 4rem 0;
+  align-items: center;
   background: $white;
+  height: $footer-height;
   border-top: 1px solid $light-gray;
   
   ul {

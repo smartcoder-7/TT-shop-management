@@ -15,6 +15,10 @@ const createPurchase = async ({ userId, locationId, amount, description }) => {
 
   const purchaseRef = db.collection('purchases').doc(purchaseId)
 
+  if (!amount) {
+    return true
+  }
+
   try {
     const charge = await chargeUser({
       userId,
