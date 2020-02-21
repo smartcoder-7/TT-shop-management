@@ -54,8 +54,6 @@ const Layout = ({
               </li>
               {showSignup && <li><Link to="/sign-up" data-label>Create an Account</Link></li>}
             </ul>
-
-            <Menu />
           </div>
         </header>
       </div>

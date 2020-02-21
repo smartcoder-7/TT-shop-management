@@ -37,12 +37,11 @@ header {
   ul {
     width: 100%;
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
   }
 
   li {
     display: flex;
-    margin-right: 3rem;
     
     a {
       display: flex;

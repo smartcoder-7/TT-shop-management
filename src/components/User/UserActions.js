@@ -10,18 +10,22 @@ const UserActions = () => {
   return (
     <div className={styles.userActions}>
       <Link to="/shop" data-link>
-        + Shop
+        Shop
       </Link>
 
       <Link to="/reserve" data-link>
-        + Book Tables
+        Book Tables
       </Link>
 
       <UpdateBillingInfo theme='dark'>{({ onClick }) => (
         <button className={styles.tableRates} data-link onClick={onClick}>
-          + Update Billing Info
+          Update Billing Info
         </button>
       )}</UpdateBillingInfo>
+
+      <button onClick={authContainer.logout} data-link>
+        Log Out
+      </button>
     </div>
   )
 }
