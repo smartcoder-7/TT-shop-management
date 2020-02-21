@@ -1,5 +1,6 @@
 const { db } = require('./firebase')
 const chargeReservations = require('./chargeReservations')
+const reservations = require('../reservations')
 
 const MIN_10 = 1000 * 60 * 10
 
@@ -11,11 +12,14 @@ const autochargeReservations = async () => {
 
   // Get location, and check availability.
   try {
-    const result = await db.collection('reservations')
-      .where('reservationTime', '<=', maxTime)
-      .get()
+    const result = await reservations.search({
+      rules: [
+        ['reservationTime', '<=', maxTime]
+      ]
+    })
 
     const docs = result.docs || []
+    const reservationsByUserId = {}
 
     docs.forEach(doc => {
       const reservation = doc.data()
@@ -23,10 +27,14 @@ const autochargeReservations = async () => {
       if (reservation.canceled) return
       // TODO: Change this to lastNotified
       // if (reservation.lastCharged && reservation.lastCharged >= retryThreshold) return
+
+      reservationsByUserId[reservation.userId] = reservationsByUserId[reservation.userId] || []
+      reservationsByUserId[reservation.userId].push(reservation)
+
       reservations.push(reservation)
     })
   } catch (err) {
-    throw 'Failed to get reservations.'
+    throw err.message
   }
 
   console.log('Attempting to charge reservations', reservations)
