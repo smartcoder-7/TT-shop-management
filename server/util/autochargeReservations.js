@@ -1,6 +1,6 @@
 const { db } = require('./firebase')
 const chargeReservations = require('./chargeReservations')
-const reservations = require('../reservations')
+const _reservations = require('../reservations')
 
 const MIN_10 = 1000 * 60 * 10
 
@@ -12,7 +12,7 @@ const autochargeReservations = async () => {
 
   // Get location, and check availability.
   try {
-    const result = await reservations.search({
+    const result = await _reservations.search({
       rules: [
         ['reservationTime', '<=', maxTime]
       ]
