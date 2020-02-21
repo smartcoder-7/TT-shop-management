@@ -36,9 +36,13 @@
 }
 
 .userActions {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
   padding-top: 8rem;
 
   button, a {
+    display: inline-block;
     margin-bottom: 2rem;
   }
 }

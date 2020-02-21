@@ -9,11 +9,9 @@ import authContainer from 'containers/authContainer';
 const UserActions = () => {
   return (
     <div className={styles.userActions}>
-      <OpenStore userId={authContainer.userId}>{({ open }) => (
-        <button data-link onClick={open}>
-          + Shop
-        </button>
-      )}</OpenStore>
+      <Link to="/shop" data-link>
+        + Shop
+      </Link>
 
       <Link to="/reserve" data-link>
         + Book Tables
