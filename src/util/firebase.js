@@ -16,25 +16,10 @@ const config = {
   appId: APP_ID,
 }
 
-let db, auth
+firebase.initializeApp(config)
 
-try {
-  firebase.initializeApp(config)
-
-  db = firebase.firestore()
-  auth = firebase.auth()
-
-} catch (err) {
-  console.log(err)
-
-  db = {}
-  auth = {
-    onAuthStateChanged: (callback) => {
-      callback()
-    }
-  }
-}
-
+const db = firebase.firestore()
+const auth = firebase.auth()
 
 export {
   db,
