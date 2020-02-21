@@ -11,6 +11,8 @@ import LocationPicker from 'pages/LocationPicker'
 import Login from 'pages/Login'
 import SignUp from 'pages/SignUp'
 import Cart from 'pages/Cart'
+import Shop from 'pages/Shop'
+import Now from 'pages/Now'
 import Account from 'pages/Account'
 import Success from 'pages/Success'
 import Invite from 'pages/Invite'
@@ -79,6 +81,8 @@ const App = () => (
 
           <AuthenticatedRoute path="/account" component={Account} />
           <AuthenticatedRoute path="/cart" component={Cart} />
+          <AuthenticatedRoute path="/shop" component={Shop} />
+          <AuthenticatedRoute path="/now" component={Now} />
           <AuthenticatedRoute path="/success/:orderId?" component={Success} />
           <AuthenticatedRoute path="/invite/:tokenId" component={Invite} />
 

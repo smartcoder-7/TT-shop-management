@@ -9,6 +9,11 @@ import Modal from 'components/Modal'
 import authContainer from 'containers/authContainer'
 import modalContainer, { ModalSubscriber } from 'containers/modalContainer'
 
+import bookSvg from 'public/assets/icons/book.svg'
+import playSvg from 'public/assets/icons/play.svg'
+import shopSvg from 'public/assets/icons/shop.svg'
+import accountSvg from 'public/assets/icons/account.svg'
+
 const Layout = ({
   className,
   location,
@@ -29,6 +34,9 @@ const Layout = ({
   })
 
   const showSignup = !authContainer.userId || location.pathname === '/'
+  const showFooter = location.pathname !== '/'
+
+  const isRoot = path => location.pathname.indexOf(path) === 0
 
   return (
     <div className={classnames(styles.layout, className)}>
@@ -55,6 +63,27 @@ const Layout = ({
       <main>
         {children}
       </main>
+
+      {showFooter && (
+        <footer>
+          <div data-row>
+            <ul data-col="12">
+              <Link to="/reserve">
+                <li data-active={isRoot('/reserve')}><span className={styles.icon} dangerouslySetInnerHTML={{ __html: bookSvg }} /></li>
+              </Link>
+              <Link to="/shop">
+                <li data-active={isRoot('/shop')}><span className={styles.icon} dangerouslySetInnerHTML={{ __html: shopSvg }} /></li>
+              </Link>
+              <Link to="/now">
+                <li data-active={isRoot('/now')}><span className={styles.icon} dangerouslySetInnerHTML={{ __html: playSvg }} /></li>
+              </Link>
+              <Link to="/account">
+                <li data-active={isRoot('/account')}><span className={styles.icon} dangerouslySetInnerHTML={{ __html: accountSvg }} /></li>
+              </Link>
+            </ul>
+          </div>
+        </footer>
+      )}
 
       <ModalSubscriber>{() => {
         const { content, isOpen, fullScreen } = modalContainer
