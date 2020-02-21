@@ -54,31 +54,39 @@ const UserReservations = ({ reservations, invites }) => {
 }
 
 const Now = ({ }) => {
+  const [loading, setLoading] = useState(true)
   const [userReservations, setUserReservations] = useState([])
   const [userInvites, setUserInvites] = useState([])
   const { user } = authContainer
   const userId = authContainer.userId
 
   useEffect(() => {
-    getReservations({ userId: user.id, withInvites: true })
-      .then(({ reservations }) => {
-        setUserReservations(reservations)
+    const requests = [
+      getReservations({ userId: user.id, withInvites: true })
+        .then(({ reservations }) => {
+          setUserReservations(reservations)
+        }),
+      searchInvites({
+        rules: [
+          ['invitedUser', '==', user.id]
+        ]
       })
-    searchInvites({
-      rules: [
-        ['invitedUser', '==', user.id]
-      ]
+        .then((invites) => {
+          setUserInvites(invites)
+        })
+    ]
+
+    Promise.all(requests).then(() => {
+      setLoading(false)
     })
-      .then((invites) => {
-        setUserInvites(invites)
-      })
   }, [user.id])
 
   return (
     <Layout className={styles.now}>
       <div data-row>
         <div data-col="12" >
-          <UserReservations reservations={userReservations} invites={userInvites} />
+          {loading && <label>Loading...</label>}
+          {!loading && <UserReservations reservations={userReservations} invites={userInvites} />}
           <br />
         </div>
       </div>
