@@ -4,8 +4,8 @@ const parseReservationRange = require('../../shared/parseReservationRange')
 const users = require('../users')
 
 const url = process.env.NODE_ENV === 'production'
-  ? 'https://hooks.slack.com/services/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'
-  : 'https://hooks.slack.com/services/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'
+  ? 'https://hooks.slack.com/services/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'
+  : 'https://hooks.slack.com/services/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'
 
 const Slack = () => {
   const post = (data) => {
@@ -26,9 +26,7 @@ const Slack = () => {
     } = parseReservationRange(range)
 
     const user = await users.get(userId)
-
-    return post({
-      text: `
+    const text = `
 --------------------------------
 ✨🏓✨
 *New Reservation*
@@ -39,7 +37,12 @@ Booked by: ${user.firstName} ${user.lastName}
 Email: ${user.email}
 User ID: ${userId}
 --------------------------------
-      `
+    `
+
+    console.log('hello', text, url)
+
+    return post({
+      text
     })
   }
 
