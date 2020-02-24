@@ -89,7 +89,9 @@ const chargeReservations = async ({ reservations }) => {
             resolve(true)
           })
           .catch((chargeError = 'Unknown Error') => {
-            const data = { chargeError: chargeError.message || 'Unable to charge card', lastCharged }
+            const raw = chargeError.raw || {}
+            const message = chargeError.message || raw.message || 'Unable to charge card.'
+            const data = { chargeError: message, lastCharged }
             console.log('[Charge Error]', reservationId, chargeError)
             reservationRef.update(data)
 
