@@ -3,9 +3,7 @@ const { getReservationRanges } = require('../../shared/getReservationRanges')
 const parseReservationRange = require('../../shared/parseReservationRange')
 const users = require('../users')
 
-const url = process.env.NODE_ENV === 'production'
-  ? 'https://hooks.slack.com/services/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'
-  : 'https://hooks.slack.com/services/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'
+const url = process.env.SLACK_WEBHOOK_USER_ACTIVITY
 
 const Slack = () => {
   const post = (data) => {
