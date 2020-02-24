@@ -1,5 +1,6 @@
 const stripe = require('./stripe')
 const { db } = require('./firebase')
+const slack = require('./slack')
 
 const chargeUser = async ({ userId, amount, description }) => {
   try {
@@ -38,6 +39,9 @@ const chargeUser = async ({ userId, amount, description }) => {
       source: stripeCustomer.default_source,
       description,
     });
+
+    slack.newCharge({ amount, user, stripeCustomer })
+
     return charge
   } catch (err) {
     await userRef.update({ hasActiveCard: false })
