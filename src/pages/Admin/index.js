@@ -39,6 +39,17 @@ export const Home = () => {
   return (
     <Admin>
       <div className={styles.linkGroup}>
+        <label className={styles.header}>Actions</label>
+        <ul>
+          <li>
+            <button data-link>
+              Run Reservation Charger
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <div className={styles.linkGroup}>
         <label className={styles.header}>Reservations by Location</label>
         <ul>
           {Object.keys(locations).map(key => (

@@ -3,6 +3,7 @@ const AvailabilityCheck = require('./util/AvailiabilityCheck')
 const { db } = require('./util/firebase')
 const sendEmail = require('./util/sendEmail')
 const locations = require('../locations')
+const slack = require('./util/slack')
 const autochargeReservations = require('./util/autochargeReservations')
 const getReservationsConfirmed = require('../shared/email/reservationsConfirmed')
 
@@ -124,6 +125,7 @@ const createReservations = async (req, res) => {
     autochargeReservations()
 
     sendEmail(getReservationsConfirmed({ reservations: validReservations, userId }))
+    slack.newReservations(validReservations)
 
     res.status(200).json({
       success: true,

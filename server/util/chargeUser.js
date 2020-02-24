@@ -40,6 +40,7 @@ const chargeUser = async ({ userId, amount, description }) => {
     });
     return charge
   } catch (err) {
+    await userRef.update({ hasActiveCard: false })
     console.log('[Stripe Error]', err)
     throw err.message || err.type
   }
