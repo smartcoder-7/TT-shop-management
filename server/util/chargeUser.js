@@ -40,7 +40,11 @@ const chargeUser = async ({ userId, amount, description }) => {
       description,
     });
 
-    slack.newCharge({ amount, user, stripeCustomer })
+    try {
+      await slack.newCharge({ description, amount, user, stripeCustomer })
+    } catch (err) {
+      console.log(err)
+    }
 
     return charge
   } catch (err) {

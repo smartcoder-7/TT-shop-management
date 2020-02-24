@@ -4,8 +4,8 @@ const parseReservationRange = require('../../shared/parseReservationRange')
 const users = require('../users')
 
 const url = process.env.NODE_ENV === 'production'
-  ? 'https://hooks.slack.com/services/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'
-  : 'https://hooks.slack.com/services/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'
+  ? 'https://hooks.slack.com/services/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'
+  : 'https://hooks.slack.com/services/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'
 
 const Slack = () => {
   const post = (data) => {
@@ -13,6 +13,26 @@ const Slack = () => {
       url,
       method: 'POST',
       data
+    })
+  }
+
+  const newCharge = async ({ amount, description, user, stripeCustomer }) => {
+    const customerHref = `https://dashboard.stripe.com/test/customers/${stripeCustomer.id}`
+
+    const text = `
+> ✨💵✨
+> *New Charge*
+> $${(amount / 100).toFixed(2)}
+> ${description}
+> --
+> Booked by: ${user.firstName} ${user.lastName}
+> Email: ${user.email}
+> User ID: ${user.id}
+> Stripe Customer: ${customerHref}
+`
+
+    return post({
+      text
     })
   }
 
@@ -27,16 +47,14 @@ const Slack = () => {
 
     const user = await users.get(userId)
     const text = `
---------------------------------
-✨🏓✨
-*New Reservation*
-${location.displayName}
-${date} • ${startTimeFormatted} - ${endTimeFormatted}
---
-Booked by: ${user.firstName} ${user.lastName}
-Email: ${user.email}
-User ID: ${userId}
---------------------------------
+> ✨🏓✨
+> *New Reservation*
+> ${location.displayName}
+> ${date} • ${startTimeFormatted} - ${endTimeFormatted}
+> --
+> Booked by: ${user.firstName} ${user.lastName}
+> Email: ${user.email}
+> User ID: ${userId}
     `
 
     return post({
@@ -52,7 +70,8 @@ User ID: ${userId}
 
   return {
     post,
-    newReservations
+    newReservations,
+    newCharge,
   }
 }
 
