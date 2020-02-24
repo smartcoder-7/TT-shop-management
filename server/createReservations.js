@@ -124,8 +124,17 @@ const createReservations = async (req, res) => {
     await batch.commit()
     autochargeReservations()
 
-    sendEmail(getReservationsConfirmed({ reservations: validReservations, userId }))
-    slack.newReservations(validReservations)
+    try {
+      await sendEmail(getReservationsConfirmed({ reservations: validReservations, userId }))
+    } catch (err) {
+      console.log(err)
+    }
+
+    try {
+      await slack.newReservations(validReservations)
+    } catch (err) {
+      console.log(err)
+    }
 
     res.status(200).json({
       success: true,

@@ -39,8 +39,6 @@ User ID: ${userId}
 --------------------------------
     `
 
-    console.log('hello', text, url)
-
     return post({
       text
     })
