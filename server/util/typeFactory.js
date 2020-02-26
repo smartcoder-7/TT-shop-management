@@ -74,6 +74,11 @@ const typeFactory = (type, { beforeCreate = op, beforeUpdate = op, afterGet = op
     return data
   }
 
+  const updateMultiple = async (data) => {
+    const results = await Promise.all(data.map(datum => update(datum)))
+    return results
+  }
+
   const generateRoute = fn => authenticate(async (req, res) => {
     try {
       const response = await fn(req.body)
@@ -98,6 +103,7 @@ const typeFactory = (type, { beforeCreate = op, beforeUpdate = op, afterGet = op
     get,
     getMultiple,
     update,
+    updateMultiple,
     search,
     applyRoutes
   }

@@ -23,7 +23,7 @@ const Slack = () => {
 > $${(amount / 100).toFixed(2)}
 > ${description}
 > --
-> Booked by: ${user.firstName} ${user.lastName}
+> Charged to: ${user.firstName} ${user.lastName}
 > Email: ${user.email}
 > User ID: ${user.id}
 > Stripe Customer: ${customerHref}

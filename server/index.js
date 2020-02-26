@@ -8,7 +8,6 @@ const ROOT_DIR = path.resolve(__dirname, '../')
 const authenticate = require('./util/authenticate')
 
 const validateReservations = require('./validateReservations')
-const chargeReservations = require('./chargeReservations')
 const createReservations = require('./createReservations')
 const cancelReservations = require('./cancelReservations')
 const getReservations = require('./getReservations')
@@ -34,7 +33,6 @@ app
   .use(express.json())
 
   .post('/api/cancel-reservations', authenticate(cancelReservations))
-  .post('/api/charge-reservations', chargeReservations)
   .post('/api/create-reservations', authenticate(createReservations))
   .post('/api/validate-reservations', authenticate(validateReservations))
   .post('/api/get-reservations', getReservations)

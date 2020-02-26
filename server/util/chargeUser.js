@@ -3,6 +3,8 @@ const { db } = require('./firebase')
 const slack = require('./slack')
 
 const chargeUser = async ({ userId, amount, description }) => {
+  let stripeCustomer
+
   try {
     userRef = db.collection('users').doc(userId)
     const userDoc = await userRef.get()
@@ -19,7 +21,12 @@ const chargeUser = async ({ userId, amount, description }) => {
     throw 'User does not have an active card.'
   }
 
-  const stripeCustomer = await stripe.customers.retrieve(user.stripeId)
+  try {
+    stripeCustomer = await stripe.customers.retrieve(user.stripeId)
+  } catch (err) {
+    console.log('hello')
+    throw err
+  }
 
   if (!stripeCustomer) {
     userRef.update({ hasActiveCard: false, stripeId: null })
@@ -32,13 +39,16 @@ const chargeUser = async ({ userId, amount, description }) => {
   }
 
   try {
-    const charge = await stripe.charges.create({
+    const chargeData = {
       amount,
       currency: 'usd',
       customer: stripeCustomer.id,
       source: stripeCustomer.default_source,
       description,
-    });
+    }
+
+    console.log('[Processing Stripe Charge]', chargeData)
+    const charge = await stripe.charges.create(chargeData);
 
     try {
       await slack.newCharge({ description, amount, user, stripeCustomer })
