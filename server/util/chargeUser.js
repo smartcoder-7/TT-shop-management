@@ -5,6 +5,10 @@ const slack = require('./slack')
 const chargeUser = async ({ userId, amount, description }) => {
   let stripeCustomer
 
+  if (Number.isNaN(amount) || amount < 50) {
+    throw `${amount} is not a valid Stripe charge amount.`
+  }
+
   try {
     userRef = db.collection('users').doc(userId)
     const userDoc = await userRef.get()

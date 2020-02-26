@@ -47,6 +47,15 @@ const billUser = async ({ userId }) => {
           amount += perSession * 100
         })
 
+        if (amount <= 0) {
+          return reservations.updateMultiple(range.map(r => ({
+            ...r,
+            chargeId: 'FREE_OF_CHARGE',
+            chargeError: null,
+            lastCharged: Date.now()
+          })))
+        }
+
         return chargeUser({
           userId,
           amount,
