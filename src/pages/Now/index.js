@@ -61,24 +61,22 @@ const Now = ({ }) => {
   const userId = authContainer.userId
 
   useEffect(() => {
-    const requests = [
-      getReservations({ userId: user.id, withInvites: true })
-        .then(({ reservations }) => {
-          setUserReservations(reservations)
-        }),
-      searchInvites({
-        rules: [
-          ['invitedUser', '==', user.id]
-        ]
+    getReservations({ userId: user.id, withInvites: true })
+      .then(({ reservations }) => {
+        setUserReservations(reservations)
+        setLoading(false)
       })
-        .then((invites) => {
-          setUserInvites(invites)
-        })
-    ]
 
-    Promise.all(requests).then(() => {
-      setLoading(false)
+    searchInvites({
+      rules: [
+        ['invitedUser', '==', user.id]
+      ]
     })
+      .then((invites) => {
+        setUserInvites(invites)
+        setLoading(false)
+      })
+
   }, [user.id])
 
   return (

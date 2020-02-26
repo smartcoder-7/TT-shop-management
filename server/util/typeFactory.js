@@ -34,7 +34,7 @@ const typeFactory = (type, { beforeCreate = op, beforeUpdate = op, afterGet = op
     const ref = db.collection(type).doc(id)
     const doc = await ref.get()
 
-    if (!doc.exists) throw `Could not find document [${id}] in ${type}.`
+    if (!doc.exists) throw { message: `Could not find document [${id}] in ${type}.` }
 
     const modified = afterGet(doc.data())
     return modified
