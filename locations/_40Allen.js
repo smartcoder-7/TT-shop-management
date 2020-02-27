@@ -21,29 +21,58 @@ module.exports = {
   memberOnly: true,
   defaultRate: {
     MEMBER: 10,
-    NON_MEMBER: 10
+    NON_MEMBER: 20
   },
-  items: [
-    "F-OS-001",
-    "F-TP-001",
-    "F-HP-001",
-    "F-MS-001",
-    "F-OP-001",
-    "F-OS-001",
-    "F-TP-001",
-    "F-HP-001",
-    "F-MS-001",
-    "F-OP-001",
-    "F-CC-001",
-    "F-CP-001",
-    "F-CV-001",
-    "F-CL-001",
-    "F-CD-001",
-    "F-WC-001",
-    "D-GY-500",
-    "D-GO-500",
-    "D-GB-500",
-    "D-GG-500",
-    "D-BO-500"
+  specialRates: [
+    {
+      id: 'PEAK',
+      displayName: "Peak",
+      MEMBER: 20,
+      NON_MEMBER: 40,
+      ranges: [
+        {
+          days: [
+            1,
+            2,
+            3,
+            4,
+            5,
+          ],
+          from: {
+            hour: 12
+          },
+          to: {
+            hour: 14
+          }
+        },
+        {
+          days: [
+            1,
+            2,
+            3,
+            4,
+            5,
+          ],
+          from: {
+            hour: 18
+          },
+          to: {
+            hour: 24
+          }
+        },
+        {
+          days: [
+            6,
+            7,
+          ],
+          from: {
+            hour: 0
+          },
+          to: {
+            hour: 24
+          }
+        },
+      ]
+    },
   ]
 }

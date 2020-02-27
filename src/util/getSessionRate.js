@@ -3,7 +3,8 @@ import getReservationCost from '../../shared/getReservationCost'
 
 const getSessionRate = (sessionId) => {
   const { time, locationId } = parseSessionId(sessionId)
-  return getReservationCost({ reservationTime: time, locationId })
+  const reservation = { reservationTime: time, locationId }
+  return getReservationCost({ reservation })
 }
 
 export default getSessionRate

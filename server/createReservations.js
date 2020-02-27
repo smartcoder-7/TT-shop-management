@@ -4,6 +4,7 @@ const { db } = require('./util/firebase')
 const sendEmail = require('./util/sendEmail')
 const locations = require('../locations')
 const slack = require('./util/slack')
+const getReservationCost = require('../shared/getReservationCost')
 const autochargeReservations = require('./util/autochargeReservations')
 const getReservationsConfirmed = require('../shared/email/reservationsConfirmed')
 
@@ -58,6 +59,8 @@ const createReservation = ({
       } catch (err) {
         return reject(err)
       }
+    } else {
+      reservation.rate = getReservationCost({ reservation }).for(check.user)
     }
 
     if (!check.hasAccess()) {

@@ -1,17 +1,15 @@
 const { utcToZonedTime, format } = require('date-fns-tz')
 const locations = require('../locations')
 
-const getReservationCost = ({ locationId, reservationTime }) => {
+const getReservationRate = ({ reservation }) => {
+  const { locationId, reservationTime } = reservation
   const { timezone: timeZone, defaultRate, specialRates } = locations[locationId]
-  const _date = new Date(reservationTime)
-  const date = utcToZonedTime(_date, timeZone)
+  const date = new Date(reservationTime)
 
-  const day = format(date, 'd', { timeZone })
-  const hours = format(date, 'HH', { timeZone })
+  const day = parseInt(format(date, 'i'))
+  const hours = parseInt(format(date, 'HH'))
 
-  if (!specialRates) return defaultRate
-
-  const matchingRate = specialRates.find(rate => {
+  const matchingRate = (specialRates || []).find(rate => {
     const { ranges } = rate
 
     const match = ranges.find(({ days, from, to }) => {
@@ -25,7 +23,12 @@ const getReservationCost = ({ locationId, reservationTime }) => {
     if (match) return rate
   })
 
-  return matchingRate || defaultRate
+  const rate = matchingRate || defaultRate
+
+  return {
+    ...rate,
+    for: (user) => user.isMember ? rate.MEMBER : rate.NON_MEMBER
+  }
 }
 
-module.exports = getReservationCost
+module.exports = getReservationRate

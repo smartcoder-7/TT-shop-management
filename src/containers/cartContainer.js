@@ -27,7 +27,7 @@ class CartContainer extends Container {
 
     this.items.forEach(sessionId => {
       const rate = getSessionRate(sessionId)
-      const price = authContainer.user.isMember ? rate.MEMBER : rate.NON_MEMBER
+      const price = rate.for(authContainer.user)
       sum += (price / 2)
     })
 

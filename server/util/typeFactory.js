@@ -68,13 +68,18 @@ const typeFactory = (type, { beforeCreate = op, beforeUpdate = op, afterGet = op
 
   const update = async (_data) => {
     const data = await beforeUpdate(_data)
+
+    // TODO: Remove
+    delete data.authId
+
     const { id } = data
     const ref = db.collection(type).doc(id)
     await ref.update(data)
     return data
   }
 
-  const updateMultiple = async (data) => {
+  const updateMultiple = async (_data) => {
+    const data = _data[type]
     const results = await Promise.all(data.map(datum => update(datum)))
     return results
   }

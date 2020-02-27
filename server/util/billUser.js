@@ -32,13 +32,13 @@ const billUser = async ({ userId }) => {
         let amount = 0
 
         range.forEach(res => {
-          const rate = getReservationCost(res)
           let amountDollars = res.customRate
 
           // THIS SHOULD BE REPLACED BY STATIC RATES!!
 
           if (typeof res.customRate === 'undefined') {
-            amountDollars = user.isMember ? rate.MEMBER : rate.NON_MEMBER
+            const rate = getReservationCost({ reservation: res })
+            amountDollars = rate.for(user.id) / 2
           }
 
           if (Number.isNaN(amountDollars) || amountDollars > 100) throw 'Calculated cost is invalid.'
@@ -48,12 +48,14 @@ const billUser = async ({ userId }) => {
         })
 
         if (amount <= 0) {
-          return reservations.updateMultiple(range.map(r => ({
-            ...r,
-            chargeId: 'FREE_OF_CHARGE',
-            chargeError: null,
-            lastCharged: Date.now()
-          })))
+          return reservations.updateMultiple({
+            reservations: range.map(r => ({
+              ...r,
+              chargeId: 'FREE_OF_CHARGE',
+              chargeError: null,
+              lastCharged: Date.now()
+            }))
+          })
         }
 
         return chargeUser({
@@ -62,22 +64,26 @@ const billUser = async ({ userId }) => {
           description: `PINGPOD: ${location.displayName} • ${date}`,
         })
           .then(charge => {
-            return reservations.updateMultiple(range.map(r => ({
-              ...r,
-              chargeId: charge.id,
-              chargeError: null,
-              lastCharged: Date.now()
-            })))
+            return reservations.updateMultiple({
+              reservations: range.map(r => ({
+                ...r,
+                chargeId: charge.id,
+                chargeError: null,
+                lastCharged: Date.now()
+              }))
+            })
           })
           .catch(chargeError => {
             const raw = chargeError.raw || {}
             const message = chargeError.message || raw.message || 'Unable to charge card.'
 
-            return reservations.updateMultiple(range.map(r => ({
-              ...r,
-              chargeError: message,
-              lastCharged: Date.now()
-            })))
+            return reservations.updateMultiple({
+              reservations: range.map(r => ({
+                ...r,
+                chargeError: message,
+                lastCharged: Date.now()
+              }))
+            })
           })
       })
   } catch (err) {
