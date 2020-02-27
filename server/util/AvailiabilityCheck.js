@@ -74,8 +74,8 @@ class AvailabilityCheck {
   }
 
   hasAccess() {
-    if (!this.location.memberOnly) return true
-    return this.user && this.user.isMember
+    if (!this.location.inBeta) return true
+    return this.user && this.user.hasBetaAccess
   }
 
   bookedBy(time) {

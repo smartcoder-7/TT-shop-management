@@ -18,7 +18,7 @@ module.exports = {
     hour: 6,
     minute: 0
   },
-  memberOnly: true,
+  inBeta: true,
   defaultRate: {
     MEMBER: 0,
     NON_MEMBER: 10

@@ -19,15 +19,7 @@ const LocationPicker = ({ history }) => {
             {Object.keys(locations).map(key => {
               const location = locations[key]
 
-              const hasPermission = location.memberOnly ?
-                authContainer.user.isMember : true
-
               const pickLocation = (locationId) => {
-                // if (!hasPermission) {
-                //   history.push(`/login?redirect=/reserve/${locationId}`)
-                //   return
-                // }
-
                 cartContainer.setLocationId(locationId)
                 history.push(`/reserve/${locationId}`)
               }
@@ -39,7 +31,7 @@ const LocationPicker = ({ history }) => {
                   <div className={styles.location} data-active={location.active}>
                     <h2>
                       {location.displayName}
-                      {location.memberOnly && <label>(Members Only)</label>}
+                      {location.inBeta && <label>(In Testing)</label>}
                       {!location.active && <label>(Coming Soon)</label>}
                     </h2>
                   </div>
