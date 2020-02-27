@@ -37,8 +37,9 @@ const billUser = async ({ userId }) => {
           // THIS SHOULD BE REPLACED BY STATIC RATES!!
 
           if (typeof res.customRate === 'undefined') {
-            const rate = getReservationCost({ reservation: res })
-            amountDollars = rate.for(user.id) / 2
+            amountDollars = !Number.isNaN(res.rate)
+              ? res.rate
+              : 10
           }
 
           if (Number.isNaN(amountDollars) || amountDollars > 100) throw 'Calculated cost is invalid.'
@@ -46,17 +47,6 @@ const billUser = async ({ userId }) => {
           const perSession = amountDollars / 2
           amount += perSession * 100
         })
-
-        if (amount <= 0) {
-          return reservations.updateMultiple({
-            reservations: range.map(r => ({
-              ...r,
-              chargeId: 'FREE_OF_CHARGE',
-              chargeError: null,
-              lastCharged: Date.now()
-            }))
-          })
-        }
 
         return chargeUser({
           userId,

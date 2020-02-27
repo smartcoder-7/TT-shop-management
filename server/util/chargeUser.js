@@ -5,6 +5,14 @@ const slack = require('./slack')
 const chargeUser = async ({ userId, amount, description }) => {
   let stripeCustomer
 
+  console.log('[Requesting Charge]', { userId, amount, description })
+
+  if (amount === 0) {
+    return Promise.resolve({
+      id: 'FREE_OF_CHARGE'
+    })
+  }
+
   if (Number.isNaN(amount) || amount < 50) {
     throw `${amount} is not a valid Stripe charge amount.`
   }
