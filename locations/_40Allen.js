@@ -20,15 +20,15 @@ module.exports = {
   },
   memberOnly: true,
   defaultRate: {
-    MEMBER: 10,
-    NON_MEMBER: 20
+    MEMBER: 0,
+    NON_MEMBER: 10
   },
   specialRates: [
     {
       id: 'PEAK',
       displayName: "Peak",
-      MEMBER: 20,
-      NON_MEMBER: 40,
+      MEMBER: 10,
+      NON_MEMBER: 20,
       ranges: [
         {
           days: [
