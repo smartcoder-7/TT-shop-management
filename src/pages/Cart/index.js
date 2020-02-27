@@ -123,7 +123,7 @@ const _Cart = ({ history }) => {
         <div role="button" className={styles.checkout} onClick={checkout}>
           <label>Check Out</label>
           <div className={styles.total}>
-            ${cartContainer.totalPrice} / {cartContainer.totalTime} hr
+            {cartContainer.summary}
           </div>
         </div>
       )}

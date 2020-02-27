@@ -139,7 +139,7 @@ const SessionPicker = ({ locationId, startTime, endTime }) => {
         <div className={styles.checkout} data-is-active={canCheckout}>
           <label>Reserve</label>
           <div className={styles.total}>
-            ${cartContainer.totalPrice} / {cartContainer.totalTime} hr
+            {cartContainer.summary}
           </div>
         </div>
       </Link>

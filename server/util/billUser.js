@@ -7,9 +7,7 @@ const { getReservationRanges } = require('../../shared/getReservationRanges')
 const parseReservationRange = require('../../shared/parseReservationRange')
 const getReservationCost = require('../../shared/getReservationCost')
 const chargeUser = require('./chargeUser')
-
-const MIN_10 = 1000 * 60 * 10
-const maxTime = Date.now() + MIN_10
+const getBillingThreshold = require('./getBillingThreshold')
 
 const billUser = async ({ userId }) => {
   const allReservations = await reservations.search({
@@ -25,7 +23,7 @@ const billUser = async ({ userId }) => {
     .map(range => {
       const { location, date, startTime } = parseReservationRange(range)
 
-      if (startTime > maxTime) return Promise.resolve()
+      if (startTime > getBillingThreshold()) return Promise.resolve()
 
       let amount = 0
 

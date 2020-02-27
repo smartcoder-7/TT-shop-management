@@ -1,22 +1,18 @@
-const _reservations = require('../reservations')
+const reservations = require('../reservations')
 const billUser = require('./billUser')
-
-const MIN_10 = 1000 * 60 * 10
+const getBillingThreshold = require('./getBillingThreshold')
 
 const autochargeReservations = async () => {
-  const maxTime = Date.now() + MIN_10
-
-  // Get location, and check availability.
   try {
-    let reservations = await _reservations.search({
+    let billableReservations = await reservations.search({
       rules: [
-        ['reservationTime', '<=', maxTime]
+        ['reservationTime', '<=', getBillingThreshold()]
       ]
     })
 
     const userIds = {}
 
-    reservations.forEach(reservation => {
+    billableReservations.forEach(reservation => {
       if (reservation.chargeId || reservation.canceled) return false
       userIds[reservation.userId] = true
     })

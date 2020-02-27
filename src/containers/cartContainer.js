@@ -34,6 +34,17 @@ class CartContainer extends Container {
     return sum
   }
 
+  get summary() {
+    let time
+    if (this.totalTime === 0) return 'No sessions selected.'
+    else if (this.totalTime < 1) time = `${parseInt(this.totalTime * 60)} min`
+    else if (this.totalTime === 1) time = '1 hr'
+    else time = `${this.totalTime} hrs`
+
+    const price = this.totalPrice ? `$${this.totalPrice}` : 'Free'
+    return `${time} (${price})`
+  }
+
   get totalTime() {
     return this.items.length / 2
   }
