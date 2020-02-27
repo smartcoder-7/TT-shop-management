@@ -38,7 +38,7 @@ const Admin = ({ children }) => {
 export const Home = () => {
   return (
     <Admin>
-      <div className={styles.linkGroup}>
+      {/* <div className={styles.linkGroup}>
         <label className={styles.header}>Actions</label>
         <ul>
           <li>
@@ -47,7 +47,7 @@ export const Home = () => {
             </button>
           </li>
         </ul>
-      </div>
+      </div> */}
 
       <div className={styles.linkGroup}>
         <label className={styles.header}>Reservations by Location</label>

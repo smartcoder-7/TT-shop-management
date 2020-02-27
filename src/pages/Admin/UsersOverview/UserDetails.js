@@ -17,6 +17,7 @@ const UserDetails = ({
   const hasActiveCard = !!user.hasActiveCard
   const isMember = !!user.isMember
   const isAdmin = !!user.isAdmin
+  const hasBetaAccess = !!user.hasBetaAccess
   let createdAt = ''
 
   try {
@@ -30,6 +31,10 @@ const UserDetails = ({
 
   const toggleMember = () =>
     updateUser({ id: user.id, isMember: !user.isMember })
+      .then(updateUsers)
+
+  const toggleBeta = () =>
+    updateUser({ id: user.id, hasBetaAccess: !hasBetaAccess })
       .then(updateUsers)
 
   const toggleAdmin = () => {
@@ -65,10 +70,15 @@ const UserDetails = ({
       content: (!!user.isAdmin).toString(),
     },
     {
+      label: 'Has Beta Access',
+      content: (hasBetaAccess).toString(),
+    },
+    {
       label: 'Actions',
       content: (
         <>
           <button onClick={toggleMember}>{user.isMember ? 'Remove Membership' : 'Add Membership'}</button>
+          <button onClick={toggleBeta}>{hasBetaAccess ? 'Remove Beta Access' : 'Add Beta Access'}</button>
           {!isSelf && <button onClick={toggleAdmin}>{user.isAdmin ? 'Remove Admin' : 'Make Admin'}</button>}
           {hasActiveCard && user.stripeId && (
             <ChargeUser user={user} onCharge={updateUsers} />
@@ -96,6 +106,9 @@ const UserDetails = ({
         </td>
         <td className={styles.activeCard} data-label data-active={isAdmin}>
           {isAdmin.toString()}
+        </td>
+        <td className={styles.activeCard} data-label data-active={hasBetaAccess}>
+          {hasBetaAccess.toString()}
         </td>
         <OpenStore userId={user.id}>{({ open }) => {
           const openCharger = (e) => {
