@@ -9,11 +9,13 @@ const invites = require('./invites')
 const factory = typeFactory('unlocks', {
   beforeCreate: async (data) => {
     const reservation = await reservations.get(data.reservationId)
+    if (reservation.canceled) { throw { message: 'Access denied.' } }
 
     if (reservation.userId !== data.userId) {
       if (!data.inviteId) { throw { message: 'Access denied.' } }
       const match = await invites.get(data.inviteId)
       const hasInvite = match && match.invitedUser === data.userId
+      if (match.canceled) { throw { message: 'Access denied.' } }
       if (!hasInvite) { throw { message: 'Invalid invite.' } }
     }
 

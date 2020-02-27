@@ -26,7 +26,9 @@ const UserReservations = ({ reservations, invites }) => {
 
   const activeReservations = sortedReservations.filter(isActive)
   const pastReservations = sortedReservations.filter(isPast)
-  const activeInvites = invites.filter(i => isActive(i.reservation))
+  const activeInvites = invites
+    .filter(i => !i.canceled)
+    .filter(i => isActive(i.reservation))
 
   return (
     <div className={styles.userReservations}>

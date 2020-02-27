@@ -1,23 +1,35 @@
 const { db } = require('./util/firebase')
 const stripe = require('./util/stripe')
+const reservations = require('./reservations')
+const invites = require('./invites')
 
 const cancelReservation = async ({ reservationId, refund }) => {
   try {
-    const ref = db.collection('reservations').doc(reservationId)
-    const doc = await ref.get()
+    const reservation = await reservations.get(reservationId)
+    const matchingInvites = await invites.search({ rules: [['reservationId', '==', reservationId]] })
 
-    if (!doc.exists) throw 'No such reservation.'
+    const update = { canceled: true, canceledAt: Date.now() }
 
-    const reservation = doc.data()
-
-    const update = { canceled: true }
-
-    if (refund && reservation.chargeId) {
-      const refund = await stripe.refunds.create({ charge: reservation.chargeId })
+    if (refund && reservation.chargeId && reservation.chargeId !== 'FREE_OF_CHARGE') {
+      const rate = reservation.customRate !== undefined
+        ? reservation.customRate
+        : (reservation.rate !== undefined ? reservation.rate : 10)
+      const amount = rate / 2
+      const refund = await stripe.refunds.create({ charge: reservation.chargeId, amount })
       update.refundId = refund.id
     }
 
-    await ref.update(update)
+    await invites.updateMultiple({
+      invites: matchingInvites.map(i => ({
+        ...i,
+        ...update
+      }))
+    })
+
+    await reservations.update({
+      ...reservation,
+      ...update
+    })
     return reservationId
   } catch (err) {
     throw err
