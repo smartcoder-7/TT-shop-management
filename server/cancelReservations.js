@@ -10,11 +10,17 @@ const cancelReservation = async ({ reservationId, refund }) => {
 
     const update = { canceled: true, canceledAt: Date.now() }
 
-    if (refund && reservation.chargeId && reservation.chargeId !== 'FREE_OF_CHARGE') {
-      const rate = reservation.customRate !== undefined
-        ? reservation.customRate
-        : (reservation.rate !== undefined ? reservation.rate : 10)
-      const amount = rate / 2
+    const rate = reservation.customRate !== undefined
+      ? reservation.customRate
+      : (reservation.rate !== undefined ? reservation.rate : 10)
+    const amount = rate / 2
+
+    if (
+      refund &&
+      reservation.chargeId &&
+      reservation.chargeId !== 'FREE_OF_CHARGE' &&
+      amount > 0
+    ) {
       const refund = await stripe.refunds.create({ charge: reservation.chargeId, amount })
       update.refundId = refund.id
     }
