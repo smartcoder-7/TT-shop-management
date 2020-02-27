@@ -12,7 +12,6 @@ const MIN_10 = 1000 * 60 * 10
 const maxTime = Date.now() + MIN_10
 
 const billUser = async ({ userId }) => {
-  const user = await users.get(userId)
   const allReservations = await reservations.search({
     rules: [
       ['userId', '==', userId]
@@ -22,63 +21,62 @@ const billUser = async ({ userId }) => {
   const unpaidReservations = allReservations.filter(r => !r.chargeId && !r.canceled)
   const unpaidRanges = getReservationRanges(unpaidReservations)
 
-  try {
-    return await unpaidRanges
-      .map(range => {
-        const { location, date, startTime } = parseReservationRange(range)
+  return await unpaidRanges
+    .map(range => {
+      const { location, date, startTime } = parseReservationRange(range)
 
-        if (startTime > maxTime) return Promise.resolve()
+      if (startTime > maxTime) return Promise.resolve()
 
-        let amount = 0
+      let amount = 0
 
-        range.forEach(res => {
-          let amountDollars = res.customRate
+      range.forEach(res => {
+        let amountDollars = res.customRate
 
-          // THIS SHOULD BE REPLACED BY STATIC RATES!!
+        if (typeof res.customRate === 'undefined') {
+          amountDollars = !Number.isNaN(res.rate)
+            ? res.rate
+            : 10
+        }
 
-          if (typeof res.customRate === 'undefined') {
-            amountDollars = !Number.isNaN(res.rate)
-              ? res.rate
-              : 10
-          }
-
-          if (Number.isNaN(amountDollars) || amountDollars > 100) throw 'Calculated cost is invalid.'
-
-          const perSession = amountDollars / 2
-          amount += perSession * 100
-        })
-
-        return chargeUser({
-          userId,
-          amount,
-          description: `PINGPOD: ${location.displayName} • ${date}`,
-        })
-          .then(charge => {
-            return reservations.updateMultiple({
-              reservations: range.map(r => ({
-                ...r,
-                chargeId: charge.id,
-                chargeError: null,
-                lastCharged: Date.now()
-              }))
-            })
-          })
-          .catch(chargeError => {
-            const raw = chargeError.raw || {}
-            const message = chargeError.message || raw.message || 'Unable to charge card.'
-
-            return reservations.updateMultiple({
-              reservations: range.map(r => ({
-                ...r,
-                chargeError: message,
-                lastCharged: Date.now()
-              }))
-            })
-          })
+        const perSession = amountDollars / 2
+        amount += perSession * 100
       })
-  } catch (err) {
-    throw err
-  }
+
+      if (
+        typeof amount !== 'number' ||
+        Number.isNaN(amount)
+      ) {
+        throw { message: 'Calculated cost is invalid.' }
+      }
+
+      return chargeUser({
+        userId,
+        amount,
+        description: `PINGPOD: ${location.displayName} • ${date}`,
+      })
+        .then(charge => {
+          return reservations.updateMultiple({
+            reservations: range.map(r => ({
+              ...r,
+              chargeId: charge.id,
+              chargeError: null,
+              lastCharged: Date.now()
+            }))
+          })
+        })
+        .catch(chargeError => {
+          const raw = chargeError.raw || {}
+          const message = chargeError.message || raw.message || 'Unable to charge card.'
+
+          return reservations.updateMultiple({
+            reservations: range.map(r => ({
+              ...r,
+              chargeError: message,
+              lastCharged: Date.now()
+            }))
+          })
+        })
+    })
 }
 
 module.exports = billUser
