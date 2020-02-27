@@ -16,22 +16,22 @@ const TableRates = ({ location }) => {
           <div data-col="1" />
           <div data-col="10">
             <h3>Table Rates</h3>
-            <p data-p2>(price per 30-minute session)</p>
+            <p data-p2>(price per hour)</p>
             <br />
 
             {rates.map((rate, i) => {
               return (
                 <div className={styles.rateGroup} key={i}>
-                  {rate.displayName && <h3>{rate.displayName}</h3>}
+                  {rate.displayName && <><RateLabel rate={rate} /><br /><br /></>}
 
                   <div className={styles.rate}>
                     <label>Member</label>
-                    <div>${rate.MEMBER / 2}</div>
+                    <div>{rate.MEMBER ? `$${rate.MEMBER}` : 'Free'}</div>
                   </div>
 
                   {rate.NON_MEMBER && <div className={styles.rate}>
                     <label>Non-Member</label>
-                    <div>${rate.NON_MEMBER / 2}</div>
+                    <div>{rate.NON_MEMBER ? `$${rate.NON_MEMBER}` : 'Free'}</div>
                   </div>}
                 </div>
               )
