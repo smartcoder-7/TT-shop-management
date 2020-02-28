@@ -3,10 +3,9 @@ const { parseTime } = require('../shared/datetime')
 
 const getReservationRate = ({ reservation }) => {
   const { locationId, reservationTime } = reservation
-  const { defaultRate, specialRates } = locations[locationId]
-  const date = new Date(reservationTime)
+  const { defaultRate, specialRates, timezone } = locations[locationId]
 
-  const { hours24, dayOfTheWeekNum } = parseTime(reservationTime, location.timezone)
+  const { hours24, dayOfTheWeekNum } = parseTime(reservationTime, timezone)
 
   const day = parseInt(dayOfTheWeekNum)
   const hours = parseInt(hours24)
