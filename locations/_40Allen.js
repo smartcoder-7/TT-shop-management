@@ -62,8 +62,8 @@ module.exports = {
         },
         {
           days: [
+            0,
             6,
-            7,
           ],
           from: {
             hour: 0

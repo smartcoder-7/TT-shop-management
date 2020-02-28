@@ -1,5 +1,5 @@
-const { zonedTimeToUtc, utcToZonedTime, format } = require('date-fns-tz')
 const locations = require('../locations')
+const { parseTime } = require('../shared/datetime')
 
 const INTERVAL_MS = 1000 * 60 * 30
 
@@ -40,11 +40,10 @@ const getAllSessions = ({
     // Always open?
     if (!location.closedFrom || !location.closedUntil) return false
 
-    const _date = new Date(time)
-    const date = utcToZonedTime(_date, location.timezone)
+    const { hours24, minutes } = parseTime(time, location.timezone)
 
-    const hour = date.getHours()
-    const minute = date.getMinutes()
+    const hour = parseInt(hours24)
+    const minute = parseInt(minutes)
 
     return (
       (hour > location.closedFrom.hour || (

@@ -1,13 +1,15 @@
-const { utcToZonedTime, format } = require('date-fns-tz')
 const locations = require('../locations')
+const { parseTime } = require('../shared/datetime')
 
 const getReservationRate = ({ reservation }) => {
   const { locationId, reservationTime } = reservation
-  const { timezone: timeZone, defaultRate, specialRates } = locations[locationId]
+  const { defaultRate, specialRates } = locations[locationId]
   const date = new Date(reservationTime)
 
-  const day = parseInt(format(date, 'i'))
-  const hours = parseInt(format(date, 'HH'))
+  const { hours24, dayOfTheWeekNum } = parseTime(reservationTime, location.timezone)
+
+  const day = parseInt(dayOfTheWeekNum)
+  const hours = parseInt(hours24)
 
   const matchingRate = (specialRates || []).find(rate => {
     const { ranges } = rate

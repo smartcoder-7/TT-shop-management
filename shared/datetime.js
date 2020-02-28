@@ -1,32 +1,29 @@
-const { zonedTimeToUtc, utcToZonedTime: _utcToZonedTime, format } = require('date-fns-tz')
-const set = require('date-fns/set').default
+const moment = require('moment-timezone')
 
+const DEFAULT_TIMEZONE = 'America/New_York'
 const with0 = n => n < 10 ? `0${n}` : `${n}`
 
-const utcToZonedTime = (d, timeZone) => {
-  if (timeZone === process.env.TZ) return d
-  return _utcToZonedTime(d, timeZone)
-}
+const parseTime = (time, timeZone = DEFAULT_TIMEZONE) => {
+  const date = new Date(time)
+  const m = moment(date).tz(timeZone)
 
-const parseTime = (time, timeZone) => {
-  const _date = new Date(time)
-  const date = utcToZonedTime(_date, timeZone)
-
-  let day = format(date, 'd', { timeZone })
-  let dayOfTheWeek = format(date, 'EEEE', { timeZone })
-  let dayOfTheWeekAbbr = format(date, 'EEE', { timeZone })
+  let day = m.format('D')
+  let dayOfTheWeek = m.format('dddd')
+  let dayOfTheWeekAbbr = m.format('ddd')
 
   return {
     date,
+    dayOfTheWeekNum: m.format('d'),
     dayOfTheWeek,
     dayOfTheWeekAbbr,
-    month: format(date, 'MMMM', { timeZone }),
-    monthAbbr: format(date, 'MMM', { timeZone }),
+    month: m.format('MMMM'),
+    monthAbbr: m.format('MMM'),
     day,
-    year: format(date, 'yyyy', { timeZone }),
-    hours: format(date, 'hh', { timeZone }),
-    minutes: format(date, 'mm', { timeZone }),
-    seconds: format(date, 'ss', { timeZone })
+    year: m.format('yyyy'),
+    hours: m.format('hh'),
+    hours24: m.format('HH'),
+    minutes: m.format('mm'),
+    seconds: m.format('ss')
   }
 }
 
@@ -41,26 +38,25 @@ const formatDuration = (time) => {
   return `${with0(hours)}:${with0(m)}:${with0(s)}`
 }
 
-const formatDate = (time, timezone) => {
+const formatDate = (time, timezone = DEFAULT_TIMEZONE) => {
   const { dayOfTheWeek, month, day } = parseTime(time, timezone)
   return `${dayOfTheWeek}, ${month} ${day}`
 }
 
-const formatTime = (time, timeZone) => {
+const formatTime = (time, timeZone = DEFAULT_TIMEZONE) => {
   const date = new Date(time)
-  const newDate = utcToZonedTime(date, timeZone)
-  return format(newDate, 'hh:mm aa', { timeZone })
+  return moment(date).tz(timeZone).format('hh:mm a')
 }
 
-const getDayStartTime = (time, timezone) => {
-  const flattened = set(new Date(time), {
-    hours: 0,
-    minutes: 0,
-    seconds: 0,
-    milliseconds: 0
-  })
-  const newDate = zonedTimeToUtc(flattened, timezone)
-  return newDate.getTime()
+const getDayStartTime = (time, timezone = DEFAULT_TIMEZONE) => {
+  const t = moment(time)
+    .tz(timezone)
+    .hours(0)
+    .minutes(0)
+    .seconds(0)
+    .milliseconds(0)
+    .format('x')
+  return parseInt(t)
 }
 
 const toNearestHour = (time) => {
