@@ -19,7 +19,7 @@ const parseTime = (time, timeZone = DEFAULT_TIMEZONE) => {
     month: m.format('MMMM'),
     monthAbbr: m.format('MMM'),
     day,
-    year: m.format('yyyy'),
+    year: m.format('YYYY'),
     hours: m.format('hh'),
     hours24: m.format('HH'),
     minutes: m.format('mm'),
