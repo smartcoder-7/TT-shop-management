@@ -92,6 +92,12 @@ module.exports = [
         inject: false
       }),
 
+      new HtmlWebpackPlugin({
+        filename: 'terms-of-service.html',
+        template: 'src/html/terms-of-service.html',
+        inject: false
+      }),
+
       new UnusedFilesWebpackPlugin({
         patterns: ['src/**/*.js']
       }),
