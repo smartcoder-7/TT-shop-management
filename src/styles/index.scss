@@ -1,5 +1,5 @@
-@import 'styles/_variables.scss';
-@import 'styles/_mixins.scss';
+@import './_variables.scss';
+@import './_mixins.scss';
 
 @font-face {
   font-family: "Avenir";
@@ -177,6 +177,38 @@ ul {
 li {
   padding: 0;
   margin: 0;
+}
+
+header {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: $header;
+
+  h1 {
+    font-size: 36px;
+    font-weight: normal;
+
+    @media (min-width: 768px) {
+      font-size: 62px;
+    }
+  }
+
+  ul {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  li {
+    display: flex;
+    
+    a {
+      display: flex;
+      align-items: center;
+    }
+  }
 }
 
 [data-link] {

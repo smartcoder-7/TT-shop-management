@@ -48,9 +48,9 @@ const Layout = ({
           <div className={styles.headerContent} data-col="12">
             <ul>
               <li>
-                <Link to="/">
+                <a href="/">
                   <Logo className={styles.logo} />
-                </Link>
+                </a>
               </li>
               {showSignup && <li><Link to="/sign-up" data-label>Create an Account</Link></li>}
             </ul>

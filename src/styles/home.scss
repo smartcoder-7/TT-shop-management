@@ -1,0 +1,122 @@
+@import './_variables.scss';
+
+#home {
+  background: $black;
+  color: $white;
+
+  button {
+    padding-left: 5rem;
+    padding-right: 5rem;
+  }
+
+  p > a {
+    border-bottom: 1px solid currentColor;
+  }
+}
+
+header {
+  .inner {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .logo {
+    width: 20rem;
+  }
+
+  .links {
+    * {
+      margin-left: 4rem;
+    }
+  }
+}
+
+footer {
+  padding: 10rem 0;
+
+  @media (max-width: 767px) {
+    padding-top: 20rem;
+  }
+
+  p {
+    font-size: 13px;
+  }
+}
+
+.block {
+  width: 100%;
+  position: relative;
+  padding-top: 20rem;
+  padding-bottom: 15rem;
+
+  @media (max-width: 767px) {
+    &::after {
+      content: "";
+      position: absolute;
+      width: 200%;
+      height: 10rem;
+      top: calc(100% - 5rem);
+      left: -50%;
+      right: -50%;
+      transform: rotateZ(5deg);
+      background: $black;
+      border-bottom: 2rem solid $white;
+      z-index: 1;
+    }
+  }
+
+  h1 {}
+
+  p {
+    font-size: 16px;
+    line-height: 26px;
+    opacity: 0.7;
+    max-width: 400px;
+  }
+
+  label {
+    display: block;
+    color: $pink;
+  }
+
+  .inner {
+    > * {
+      margin-bottom: 5rem;
+    }
+  }
+
+  &.hero {
+    h1 {
+      font-size: 11rem;
+    }
+
+    .pingpod {
+      display: flex;
+      align-items: center;
+      font-size: 3.5rem;
+      color: $white;
+      line-height: 1em;
+
+      .logo {
+        margin-right: 2rem;
+        width: 12rem;
+      }
+    }
+  }
+
+  &.early-access {
+    background: $blue;
+
+    &::after {
+      background: $blue;
+    }
+
+    label {
+      color: $white;
+    }
+
+    button {
+      background: $pink;
+    }
+  }
+}

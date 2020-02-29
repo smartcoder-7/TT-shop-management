@@ -48,7 +48,9 @@ app
 
 
   .get('/robots.txt', (req, res) => res.sendFile(path.resolve(ROOT_DIR, 'robots.txt')))
-  .get('*', (req, res) => res.sendFile(path.resolve(ROOT_DIR, 'public/dist/index.html')))
+
+  .get('/', (req, res) => res.sendFile(path.resolve(ROOT_DIR, 'public/dist/index.html')))
+  .get('*', (req, res) => res.sendFile(path.resolve(ROOT_DIR, 'public/dist/app.html')))
 
 users.applyRoutes(app)
 invites.applyRoutes(app)

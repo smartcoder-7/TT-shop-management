@@ -1,6 +1,7 @@
 {
   "plugins": [
     "standard",
+    "eslint:recommended",
     "unused-imports",
     "json"
   ],

@@ -43,13 +43,86 @@
   <meta name="msapplication-TileColor" content="#ffffff">
   <meta name="theme-color" content="#ffffff">
 
+  <link rel="stylesheet" type="text/css" href="/styles/index.css">
   <link rel="stylesheet" type="text/css" href="mysqpaymentform.css">
+
+  <link rel="stylesheet" type="text/css" href="/styles/home.css">
 </head>
 
-<body>
-  <div id="app"></div>
+<body id="home">
+  <header data-row="full">
+    <div class="inner" data-col="12">
+      <div class="logo">
+        <img src="/assets/logo-white.svg" />
+      </div>
+
+      <div class="links">
+        <a href="/sign-up">Sign Up</a>
+        <a href="/log-in">Log In</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="block hero">
+    <div class="outer" data-row="full">
+      <div class="inner" data-col="12">
+        <label>
+          <h2 data-label class="pingpod">
+            <div class="logo">
+              <img src="/assets/logo-white.svg" />
+            </div>
+            PingPod
+          </h2>
+        </label>
+        <h1>
+          For fun.<br />
+          For fitness.<br />
+          For everyone.
+        </h1>
+
+        <a href="/reserve">
+          <button>Reserve a table</button>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="block early-access">
+    <div class="outer" data-row="full">
+      <div class="inner" data-col="12">
+        <br />
+        <label>In Alpha</label>
+        <h1>
+          Get Early Access
+        </h1>
+        <p>
+          PingPod is currently in closed alpha testing.
+          To get early access, first sign up below and then send an email
+          to info@pingpod.com to get approved.
+        </p>
+        <a href="/sign-up">
+          <button>Sign Up</button>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <footer data-row="full">
+    <div class="inner" data-col="12">
+      <p>
+        Questions or comments? Get in touch at <a href="mailto:info@pingpod.com" target="_blank" rel="noopener noreferrer">info@pingpod.com</a>.
+      </p>
+
+      <div class="links">
+
+      </div>
+    </div>
+  </footer>
+
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-2CR335BW4D"></script>
+
+
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }

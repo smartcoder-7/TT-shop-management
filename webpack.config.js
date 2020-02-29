@@ -2,7 +2,7 @@ const path = require('path')
 const webpack = require('webpack')
 const DotEnvPlugin = require('dotenv-webpack')
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const UnusedFilesWebpackPlugin = require("unused-files-webpack-plugin").default;
+const UnusedFilesWebpackPlugin = require("unused-files-webpack-plugin").default
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const SRC_DIR = path.resolve(__dirname, 'src')
@@ -21,13 +21,17 @@ module.exports = [
     },
     devServer: {
       port: 8000,
-      contentBase: PUBLIC_DIR,
-      historyApiFallback: true,
+      contentBase: [
+        PUBLIC_DIR,
+        path.resolve(PUBLIC_DIR, 'dist')
+      ],
+      historyApiFallback: {
+        rewrites: [
+          { from: /^\/$/, to: '/index.html' },
+          { from: /^\/.*/, to: '/app.html' }
+        ]
+      },
       proxy: {
-        '/.netlify': {
-          target: 'http://localhost:9000',
-          pathRewrite: { '^/.netlify/functions': '' }
-        },
         '/api/*': {
           target: 'http://localhost:7999/',
           secure: false
@@ -78,11 +82,16 @@ module.exports = [
     },
     plugins: [
       new HtmlWebpackPlugin({
-        filename: 'index.html',
-        template: 'src/index.html'
+        filename: 'app.html',
+        template: 'src/html/app.html'
       }),
 
-      new CleanWebpackPlugin(),
+      new HtmlWebpackPlugin({
+        filename: 'index.html',
+        template: 'src/html/index.html',
+        inject: false
+      }),
+
       new UnusedFilesWebpackPlugin({
         patterns: ['src/**/*.js']
       }),

@@ -18,8 +18,6 @@ import Success from 'pages/Success'
 import Invite from 'pages/Invite'
 import * as Admin from 'pages/Admin'
 
-import 'styles/index.scss'
-
 const RedirectRoute = ({ location }) => (
   <Redirect
     to={{
