@@ -6,11 +6,17 @@ import { createPurchases } from '../../api';
 const ProductGroup = (({ title, products, selections, onProductAdd, onProductSubtract }) => {
   const [expanded, setExpanded] = useState(false)
 
+  let selected = 0
+  products.forEach(p => {
+    const count = selections[p.sku] || 0
+    selected += count
+  })
+
   return (
     <div className={styles.productGroup}>
       <h3 onClick={() => setExpanded(!expanded)}>
         <span>{expanded ? '-' : '+'}</span>
-        {title} ({products.length})
+        {title} {selected ? `(${selected})` : ''}
       </h3>
       {expanded && products
         .filter(p => !!p.price)
