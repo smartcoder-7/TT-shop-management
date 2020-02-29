@@ -3,6 +3,38 @@ import styles from './styles.scss'
 import { searchProducts } from 'api'
 import { createPurchases } from '../../api';
 
+const ProductGroup = (({ title, products, selections, onProductAdd, onProductSubtract }) => {
+  const [expanded, setExpanded] = useState(false)
+
+  return (
+    <div className={styles.productGroup}>
+      <h3 onClick={() => setExpanded(!expanded)}>
+        <span>{expanded ? '-' : '+'}</span>
+        {title} ({products.length})
+      </h3>
+      {expanded && products
+        .filter(p => !!p.price)
+        .sort((a, b) => a.subtitle > b.subtitle ? 1 : -1)
+        .map((p, i) => {
+          const count = selections[p.sku] || 0
+          const price = parseInt(p.price)
+
+          return (
+            <div className={styles.product} key={i}>
+              {count > 0 && <button className={styles.subtract} data-mini onClick={() => onProductSubtract(p)}>-</button>}
+              <label className={styles.count}>{count}</label>
+              <div className={styles.info}>
+                <p data-label>{p.subtitle}</p>
+                <p data-label>${price.toFixed(2)}</p>
+              </div>
+              <button className={styles.add} data-mini onClick={() => onProductAdd(p)}>+ Add</button>
+            </div>
+          )
+        })}
+    </div>
+  )
+})
+
 const ProductPicker = ({
   locationId = '40-allen',
   userId,
@@ -21,7 +53,6 @@ const ProductPicker = ({
         const locationProducts = products
           .filter(p => (p.locations || []).find(l => l.value === locationId))
           .filter(p => p.price && p.title)
-          .sort((a, b) => a.title > b.title ? 1 : -1)
         setProducts(locationProducts)
         setLoading(false)
       })
@@ -32,10 +63,16 @@ const ProductPicker = ({
   }, [selections])
 
   const productsBySku = {}
+  const productsByTitle = {}
   products.forEach(p => productsBySku[p.sku] = p)
+  products.forEach(p => {
+    productsByTitle[p.title] = productsByTitle[p.title] || []
+    productsByTitle[p.title].push(p)
+  })
 
   const purchases = []
   let sum = 0
+
   Object.keys(selections).forEach(sku => {
     const num = selections[sku]
     const price = productsBySku[sku].price
@@ -52,8 +89,7 @@ const ProductPicker = ({
     })
   })
 
-
-  const purchase = (product) => {
+  const purchase = () => {
     setProcessing(true)
     createPurchases({
       purchases
@@ -90,20 +126,18 @@ const ProductPicker = ({
 
   return (
     <div className={styles.products}>
-      {products.map(p => {
-        const count = selections[p.sku] || 0
-        return (
-          <div className={styles.product} key={p.sku}>
-            {count > 0 && <button className={styles.subtract} data-mini onClick={() => subtract(p)}>-</button>}
-            <label className={styles.count}>{count}</label>
-            <div className={styles.info}>
-              <p data-p3>{p.title}</p>
-              <p data-label>{p.subtitle}</p>
-            </div>
-            <button className={styles.add} data-mini onClick={() => add(p)}>+ Add</button>
-          </div>
-        )
-      })}
+      {Object.keys(productsByTitle)
+        .sort()
+        .map(title => (
+          <ProductGroup
+            key={title}
+            selections={selections}
+            title={title}
+            products={productsByTitle[title]}
+            onProductAdd={add}
+            onProductSubtract={subtract}
+          />
+        ))}
 
       <br />
 

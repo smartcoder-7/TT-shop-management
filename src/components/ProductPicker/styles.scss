@@ -4,6 +4,20 @@
 .products {
 }
 
+.productGroup {
+  margin-top: 5rem;
+
+  h3 {
+    color: $pink;
+    margin-bottom: 2rem;
+
+    span {
+      display: inline-block;
+      width: 5rem;
+    }
+  }
+}
+
 .product {
   display: flex;
   flex-shrink: 0;
