@@ -23,7 +23,7 @@ const ProductGroup = (({ title, products, selections, onProductAdd, onProductSub
         .sort((a, b) => a.subtitle > b.subtitle ? 1 : -1)
         .map((p, i) => {
           const count = selections[p.sku] || 0
-          const price = parseInt(p.price)
+          const price = parseFloat(p.price)
 
           return (
             <div className={styles.product} key={i}>
