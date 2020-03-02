@@ -54,7 +54,7 @@ module.exports = {
             5,
           ],
           from: {
-            hour: 18
+            hour: 17
           },
           to: {
             hour: 24
