@@ -4,7 +4,11 @@
 #home {
   background: $black;
   color: $white;
-  overflow: hidden;
+  width: 100%;
+
+  main {
+    overflow-x: hidden;
+  }
 
   button {
     padding-left: 5rem;
