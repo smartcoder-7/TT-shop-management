@@ -20,6 +20,7 @@ const getUserBilling = require('./getUserBilling')
 const sendEmail = require('./sendEmail')
 const getItemsByLocation = require('./getItemsByLocation')
 const autochargeReservations = require('./util/autochargeReservations')
+const assignTables = require('./util/assignTables')
 const users = require('./users')
 const invites = require('./invites')
 const unlocks = require('./unlocks')
@@ -46,7 +47,6 @@ app
 
   .post('/api/get-products', getItemsByLocation)
 
-
   .get('/robots.txt', (req, res) => res.sendFile(path.resolve(ROOT_DIR, 'robots.txt')))
 
   .get('/', (req, res) => res.sendFile(path.resolve(ROOT_DIR, 'public/dist/index.html')))
@@ -59,6 +59,7 @@ products.applyRoutes(app)
 
 if (process.env.NODE_ENV === 'development') {
   app.post('/private/autocharge-reservations', autochargeReservations)
+  app.post('/private/assign-tables', assignTables)
 }
 
 app.listen(PORT, () => console.log(`Listening on ${PORT}`))

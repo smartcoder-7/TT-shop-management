@@ -31,7 +31,7 @@ const billUser = async ({ userId }) => {
         let amountDollars = res.customRate
 
         if (typeof res.customRate === 'undefined') {
-          amountDollars = !Number.isNaN(res.rate)
+          amountDollars = typeof res.rate === 'number'
             ? res.rate
             : 10
         }
