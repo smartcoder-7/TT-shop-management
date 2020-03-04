@@ -3,6 +3,7 @@ const { db } = require('./firebase')
 const slack = require('./slack')
 
 const chargeUser = async ({ userId, amount, description }) => {
+  let user
   let stripeCustomer
 
   console.log('[Requesting Charge]', { userId, amount, description })

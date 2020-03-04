@@ -31,7 +31,7 @@ const billUser = async ({ userId }) => {
         let amountDollars = res.customRate
 
         if (typeof res.customRate === 'undefined') {
-          amountDollars = typeof res.rate === 'number'
+          amountDollars = typeof res.rate !== 'undefined'
             ? res.rate
             : 10
         }
@@ -44,7 +44,19 @@ const billUser = async ({ userId }) => {
         typeof amount !== 'number' ||
         Number.isNaN(amount)
       ) {
-        throw { message: 'Calculated cost is invalid.' }
+        const chargeError = 'Calculated cost is invalid.'
+
+        try {
+          slack.chargeError({ chargeError, userId })
+        } catch (e) { console.log(e) }
+
+        return reservations.updateMultiple({
+          reservations: range.map(r => ({
+            ...r,
+            chargeError,
+            lastCharged: Date.now()
+          }))
+        })
       }
 
       return chargeUser({
@@ -65,6 +77,10 @@ const billUser = async ({ userId }) => {
         .catch(chargeError => {
           const raw = chargeError.raw || {}
           const message = chargeError.message || raw.message || 'Unable to charge card.'
+
+          try {
+            slack.chargeError({ chargeError: message, userId })
+          } catch (e) { console.log(e) }
 
           return reservations.updateMultiple({
             reservations: range.map(r => ({

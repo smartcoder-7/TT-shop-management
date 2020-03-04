@@ -59,7 +59,11 @@ const typeFactory = (type, { beforeCreate = op, beforeUpdate = op, afterGet = op
     if (!res.docs) { return [] }
 
     res.docs.forEach(doc => {
-      const modified = afterGet(doc.data())
+      const data = {
+        ...doc.data(),
+        id: doc.id
+      }
+      const modified = afterGet(data)
       promises.push(modified)
     })
 

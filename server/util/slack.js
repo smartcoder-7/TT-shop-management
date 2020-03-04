@@ -4,6 +4,9 @@ const parseReservationRange = require('../../shared/parseReservationRange')
 const users = require('../users')
 
 const url = process.env.SLACK_WEBHOOK_USER_ACTIVITY
+const stripeBaseUrl = process.env.NODE_ENV === 'production'
+  ? 'https://dashboard.stripe.com'
+  : 'https://dashboard.stripe.com/test'
 
 const Slack = () => {
   const post = (data) => {
@@ -15,7 +18,7 @@ const Slack = () => {
   }
 
   const newCharge = async ({ amount, description, user, stripeCustomer }) => {
-    const customerHref = `https://dashboard.stripe.com/test/customers/${stripeCustomer.id}`
+    const customerHref = `${stripeBaseUrl}/customers/${stripeCustomer.id}`
 
     const text = `
 > ✨💵✨
@@ -27,6 +30,20 @@ const Slack = () => {
 > Email: ${user.email}
 > User ID: ${user.id}
 > Stripe Customer: ${customerHref}
+`
+
+    return post({
+      text
+    })
+  }
+
+  const chargeError = async ({ chargeError, userId }) => {
+    const text = `
+> 🚫💵🚫
+> *Charge Error*
+> ${chargeError}
+> --
+> User ID: ${userId}
 `
 
     return post({
@@ -70,6 +87,7 @@ const Slack = () => {
     post,
     newReservations,
     newCharge,
+    chargeError,
   }
 }
 
