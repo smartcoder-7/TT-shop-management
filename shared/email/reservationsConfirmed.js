@@ -21,7 +21,7 @@ const getReservationsConfirmed = ({ reservations, userId }) => {
     userId,
     data: {
       reservations: ranges,
-      accountUrl: `${origin}/account`
+      accountUrl: `${origin}/now`
     },
     "template_id": "d-de4f551f767e4e69aff5a1c70f19b89e"
   }
