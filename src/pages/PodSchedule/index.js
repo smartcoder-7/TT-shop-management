@@ -137,7 +137,7 @@ const SessionPicker = ({ locationId, startTime, endTime }) => {
 
       <Link to="/cart" data-col="12">
         <div className={styles.checkout} data-is-active={canCheckout}>
-          <label>Reserve</label>
+          <label>Check Out</label>
           <div className={styles.total}>
             {cartContainer.summary}
           </div>

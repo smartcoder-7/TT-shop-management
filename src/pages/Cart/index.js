@@ -121,7 +121,7 @@ const _Cart = ({ history }) => {
 
       {canCheckout && (
         <div role="button" className={styles.checkout} onClick={checkout}>
-          <label>Check Out</label>
+          <label>Reserve</label>
           <div className={styles.total}>
             {cartContainer.summary}
           </div>
