@@ -44,8 +44,6 @@ const Session = ({ time, tables, location, reservations = [] }) => {
           return r.suggestedTableId === t.id
         }) || reservations[i]
 
-        if (!res) return <th></th>
-
         return (
           <th className={styles.table} key={t.id} data-reserved={!!res}>
             {res && res.suggestedTableId}
