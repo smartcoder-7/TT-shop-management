@@ -2,6 +2,7 @@ const reservations = require('../reservations')
 const locations = require('../../locations')
 const { getReservationRanges } = require('../../shared/getReservationRanges')
 const getBillingThreshold = require('./getBillingThreshold')
+const { INTERVAL_MS } = require('../../shared/constants')
 
 const sortByKey = (array, key) => {
   const sorted = {}
@@ -16,42 +17,56 @@ const sortByKey = (array, key) => {
 }
 
 const assignTables = async () => {
-  let upcomingReservations = await reservations.search({
+  let _upcomingReservations = await reservations.search({
     rules: [
       ['reservationTime', '>=', (Date.now() - 1000 * 60 * 60)]
     ]
   })
 
+  const upcomingReservations = _upcomingReservations.filter(r => !r.canceled)
+
   const reservationsByLocation = sortByKey(upcomingReservations, 'locationId')
+  const modifiedReservations = []
 
   Object.keys(reservationsByLocation).forEach(locationId => {
     const location = locations[locationId]
     const localReservations = reservationsByLocation[locationId]
-    const reservationsByUserId = sortByKey(localReservations, 'userId')
-    const reservationsByTable = sortByKey(location.tables, 'id')
+    const reservationsByTime = sortByKey(localReservations, 'reservationTime')
 
-    const sortedReservations = reservationsByLocation[locationId]
-      .sort((a, b) => a.reservationTime < b.reservationTime ? 1 : -1)
+    const reservationsToTables = {}
 
-    let allRanges = []
-    Object.values(reservationsByUserId).forEach(res => {
-      const ranges = getReservationRanges(res)
-      allRanges = allRanges.concat(ranges)
+    Object.keys(reservationsByTime).sort().forEach(time => {
+      const reservationsByTable = {}
+
+      const lastTime = time - INTERVAL_MS
+      const lastReservations = reservationsByTime[lastTime] || []
+      const currentReservations = reservationsByTime[time]
+
+      currentReservations.forEach(res => {
+        const newRes = { ...res }
+        let suggestedTableId
+
+        const _prevRes = lastReservations.find(r => r.userId === res.userId) || {}
+        const recommended = reservationsToTables[_prevRes.id]
+        if (res.tableId) {
+          suggestedTableId = res.tableId
+        } else if (recommended && !reservationsByTable[recommended]) {
+          suggestedTableId = recommended
+        } else {
+          const empty = location.tables.find(t => !reservationsByTable[t.id])
+          suggestedTableId = empty.id
+        }
+
+        newRes.suggestedTableId = suggestedTableId
+        modifiedReservations.push(newRes)
+        reservationsByTable[suggestedTableId] = newRes
+        reservationsToTables[newRes.id] = suggestedTableId
+      })
     })
+  })
 
-    allRanges = allRanges.sort((a, b) => a[0].reservationTime > b[0].reservationTime ? 1 : -1)
-
-    console.log(allRanges)
-
-
-
-    // sortedReservations.forEach(reservation => {
-    //   const { tableId } = reservation
-
-    //   if (tableId && reservationsByTable[tableId]) {
-    //     reservationsByTable[tableId]
-    //   }
-    // })
+  return await reservations.updateMultiple({
+    reservations: modifiedReservations
   })
 }
 

@@ -31,12 +31,6 @@ const Reservation = ({ reservation, locationId, reservationTime, isPremium }) =>
 }
 
 const Session = ({ time, tables, location, reservations = [] }) => {
-  const premiumTables = tables.filter(t => t.isPremium)
-  const regularTables = tables.filter(t => !t.isPremium)
-
-  const premiumReservations = reservations.filter(t => t.isPremium)
-  const regularReservations = reservations.filter(t => !t.isPremium)
-
   return (
     <tr className={styles.session} data-empty={!reservations.length}>
       <th className={styles.timestamp}>
@@ -45,22 +39,17 @@ const Session = ({ time, tables, location, reservations = [] }) => {
         </label>
       </th>
 
-      {premiumTables.map((t, i) => {
-        const res = premiumReservations[i]
+      {tables.map((t, i) => {
+        const res = reservations.find(r => {
+          return r.suggestedTableId === t.id
+        }) || reservations[i]
+
+        if (!res) return <th></th>
 
         return (
           <th className={styles.table} key={t.id} data-reserved={!!res}>
+            {res && res.suggestedTableId}
             <Reservation reservation={res} locationId={location.id} reservationTime={time} isPremium={true} />
-          </th>
-        )
-      })}
-
-      {regularTables.map((t, i) => {
-        const res = regularReservations[i]
-
-        return (
-          <th className={styles.table} key={t.id} data-reserved={!!res}>
-            <Reservation reservation={res} locationId={location.id} reservationTime={time} />
           </th>
         )
       })}
@@ -76,11 +65,13 @@ const SessionsData = ({ day, locationId }) => {
   const sessions = getAllSessions({ startTime, endTime, locationId })
 
   const reservationsBySession = {}
-  reservations.forEach(r => {
-    if (r.canceled) return
-    reservationsBySession[r.reservationTime] = reservationsBySession[r.reservationTime] || []
-    reservationsBySession[r.reservationTime].push(r)
-  })
+  reservations
+    .filter(r => r.locationId === locationId)
+    .forEach(r => {
+      if (r.canceled) return
+      reservationsBySession[r.reservationTime] = reservationsBySession[r.reservationTime] || []
+      reservationsBySession[r.reservationTime].push(r)
+    })
 
   return (
     <div className={styles.sessionsWrapper}>
