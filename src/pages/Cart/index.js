@@ -7,12 +7,10 @@ import Layout from 'components/Layout'
 import Reservations from 'components/Reservations'
 import { CartReservationRange } from 'components/Reservations/ReservationRange';
 import parseSessionId from 'shared/parseSessionId'
-import UpdateBillingInfo from 'components/modalActions/UpdateBillingInfo'
-import UpdateName from 'components/modalActions/UpdateName'
+import UserPreview from 'components/UserPreview'
 import { createReservations } from 'api'
 
 import styles from './styles.scss'
-import UserBadges from '../../components/User/UserBadges';
 import { validateReservations } from '../../api';
 
 
@@ -96,26 +94,7 @@ const _Cart = ({ history }) => {
 
           <br />
 
-          <div className={styles.userPreview}>
-            {missingName && <UpdateName>{({ onClick }) => (
-              <button data-link data-error onClick={onClick} className={styles.name}>
-                + Add Name <label>(required)</label>
-              </button>
-            )}</UpdateName>}
-
-            {!missingName && <h4 className={styles.name}>{user.firstName} {user.lastName}</h4>}
-
-            <UserBadges />
-            <br />
-
-            <UpdateBillingInfo theme='dark'>{({ onClick }) => (
-              <button data-link data-error={!hasBillingInfo} onClick={onClick}>
-                {user.hasActiveCard
-                  ? 'Update Billing Info'
-                  : <span>+ Add Billing Info <label>(required)</label></span>}
-              </button>
-            )}</UpdateBillingInfo>
-          </div>
+          <UserPreview user={user} />
         </div>
       </div>
 

@@ -5,10 +5,21 @@ import Layout from 'components/Layout'
 import ProductPicker from 'components/ProductPicker'
 
 import styles from './styles.scss'
+import UserPreview from '../../components/UserPreview';
 
 
 const Shop = ({ }) => {
   const userId = authContainer.userId
+  const user = authContainer.user
+
+  const hasBillingInfo = (
+    user.stripeId &&
+    user.hasActiveCard
+  )
+
+  const missingName = !user.firstName || !user.lastName
+
+  const canCheckout = !missingName && hasBillingInfo
 
   return (
     <Layout className={styles.shop}>
@@ -18,7 +29,8 @@ const Shop = ({ }) => {
             <span data-label>Shop</span>
           </div>
 
-          <ProductPicker onPurchase={() => modalContainer.close()} userId={userId} />
+          <UserPreview user={user} />
+          {canCheckout && <ProductPicker onPurchase={() => modalContainer.close()} userId={userId} />}
         </div>
       </div>
     </Layout>

@@ -1,0 +1,12 @@
+@import 'styles/_variables.scss';
+
+.userPreview {
+  background: $white;
+  color: $black;
+  padding: 3rem;
+  margin: 5rem 0;
+
+  .name {
+    margin-bottom: 2rem;
+  }
+}
