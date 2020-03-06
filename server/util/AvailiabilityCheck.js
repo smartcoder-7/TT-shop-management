@@ -74,7 +74,6 @@ class AvailabilityCheck {
   }
 
   hasAccess() {
-    return true
     if (!this.location.inBeta) return true
     return this.user && this.user.hasBetaAccess
   }

@@ -126,7 +126,7 @@ const SessionPicker = ({ locationId, startTime, endTime }) => {
       <div className={styles.sessions} data-is-active={canCheckout}>
         {loading && <Loading />}
         {!loading && sessions.map(session => {
-          if (!session.hasAccess) return null
+          // if (!session.hasAccess) return null
           return <Session
             session={session}
             locationId={locationId}

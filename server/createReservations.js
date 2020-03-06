@@ -65,7 +65,7 @@ const createReservation = ({
 
     if (!check.hasAccess()) {
       return reject({
-        message: 'This user does not have permission to book at this location.'
+        message: `User does not have permission to book at location ${location.displayName}.`
       })
     }
 
