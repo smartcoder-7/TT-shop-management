@@ -36,6 +36,10 @@
     > * {
       margin: 0 1rem;
     }
+
+    :global(.btn-numbered-page.active) {
+      color: $pink;
+    }
   }
 
   :global(.table-container) {
