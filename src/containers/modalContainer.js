@@ -20,6 +20,7 @@ class ModalContainer extends Container {
   }
 
   open = ({ content, fullScreen, onClose = NOOP }) => {
+    this.close()
     this.setState({ isOpen: true, fullScreen, content, onClose })
   }
 

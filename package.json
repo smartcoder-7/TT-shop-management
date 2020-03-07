@@ -81,6 +81,7 @@
     "qs": "^6.8.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-filterable-table": "^0.3.434",
     "react-final-form": "^6.3.0",
     "react-payment-icons": "^1.2.6",
     "react-router": "^5.0.0",

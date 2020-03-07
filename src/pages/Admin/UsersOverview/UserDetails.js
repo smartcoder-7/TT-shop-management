@@ -83,6 +83,18 @@ const UserDetails = ({
           {hasActiveCard && user.stripeId && (
             <ChargeUser user={user} onCharge={updateUsers} />
           )}
+          <OpenStore userId={user.id}>{({ open }) => {
+            const openCharger = (e) => {
+              e.stopPropagation()
+              open()
+            }
+
+            return (
+              <button className={styles.createPurchase} onClick={openCharger}>
+                Shop
+              </button>
+            )
+          }}</OpenStore>
         </>
       )
     }
@@ -93,36 +105,9 @@ const UserDetails = ({
       title="User Details"
       details={details}
     >{({ openModal }) => (
-      <tr className={styles.user} onClick={openModal}>
-        <td className={styles.lastName}>{user.lastName}</td>
-        <td className={styles.firstName}>{user.firstName}</td>
-        <td className={styles.email}>{user.email}</td>
-        <td className={styles.createdAt}>{createdAt}</td>
-        <td className={styles.activeCard} data-label data-active={hasActiveCard}>
-          {hasActiveCard.toString()}
-        </td>
-        <td className={styles.activeCard} data-label data-active={isMember}>
-          {isMember.toString()}
-        </td>
-        <td className={styles.activeCard} data-label data-active={isAdmin}>
-          {isAdmin.toString()}
-        </td>
-        <td className={styles.activeCard} data-label data-active={hasBetaAccess}>
-          {hasBetaAccess.toString()}
-        </td>
-        <OpenStore userId={user.id}>{({ open }) => {
-          const openCharger = (e) => {
-            e.stopPropagation()
-            open()
-          }
-
-          return (
-            <td className={styles.createPurchase} data-label onClick={openCharger}>
-              + Shop
-            </td>
-          )
-        }}</OpenStore>
-      </tr>
+      <button data-link onClick={openModal}>
+        View/Edit
+      </button>
     )}</Details>
   )
 }

@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react'
+const moment = require('moment-timezone')
 import uuid from 'uuid'
 import authContainer from 'containers/authContainer'
+import FilterableTable from 'react-filterable-table'
 
-import styles from '../styles.scss'
+import styles from './styles.scss'
 import { parseTime } from 'shared/datetime';
 import useUsers from '../useUsers'
-import UserDetails from './UserDetails'
+import EditUser from './UserDetails'
 
 const UserOverview = () => {
   const { users } = useUsers()
@@ -18,9 +20,55 @@ const UserOverview = () => {
     return aName >= bName ? 1 : -1
   })
 
+  const data = users;
+
+  console.log(data)
+
+  const renderDate = ({ value }) => {
+    const m = moment(new Date(value)).tz('America/New_York')
+    return m.format('MM-DD-YYYY')
+  }
+
+  const renderBoolean = ({ value }) => {
+    return (
+      <span className={styles.boolean} value={!!value}>
+        {(!!value).toString()}
+      </span>
+    )
+  }
+
+  const renderEdit = ({ value }) => {
+    const user = users.find(u => u.id === value)
+    return <EditUser user={user} />
+  }
+
+  const fields = [
+    { name: 'id', displayName: "Edit", render: renderEdit },
+    { name: 'firstName', displayName: "First Name", inputFilterable: true, sortable: true },
+    { name: 'lastName', displayName: "Last Name", inputFilterable: true, sortable: true },
+    { name: 'email', displayName: "Email", inputFilterable: true, sortable: true },
+    { name: 'createdAt', displayName: "Joined", inputFilterable: true, exactFilterable: true, sortable: true, render: renderDate },
+    { name: 'hasActiveCard', displayName: "Active Card", sortable: true, exactFilterable: true, render: renderBoolean },
+    { name: 'isAdmin', displayName: "Admin", sortable: true, exactFilterable: true, render: renderBoolean },
+    { name: 'isMember', displayName: "Member", sortable: true, exactFilterable: true, render: renderBoolean },
+    { name: 'hasBetaAccess', displayName: "Has Beta", sortable: true, exactFilterable: true, render: renderBoolean },
+
+  ];
+
   return (
     <div className={styles.userOverview}>
-      <table className={styles.users}>
+      <FilterableTable
+        namespace="Users"
+        initialSort="lastName"
+        data={data}
+        fields={fields}
+        noRecordsMessage="There are no users to display"
+        noFilteredRecordsMessage="No users match your filters."
+        pageSize={15}
+        pageSizes={null}
+      />
+
+      {/* <table className={styles.users}>
         <thead>
           <tr>
             <th className={styles.lastName}>Last Name</th>
@@ -40,7 +88,7 @@ const UserOverview = () => {
             <UserDetails key={user.id} user={user} />
           ))}
         </tbody>
-      </table>
+      </table> */}
     </div>
   )
 }
