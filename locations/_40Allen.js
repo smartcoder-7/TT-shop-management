@@ -7,6 +7,7 @@ module.exports = {
   tables: [
     {
       id: "40-allen-1",
+      displayName: 'Table 1',
       isPremium: true
     },
   ],

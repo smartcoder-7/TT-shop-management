@@ -23,6 +23,7 @@ const getReservationRanges = reservations => {
       prevRes &&
       prevRes.error === res.error &&
       prevRes.locationId === res.locationId &&
+      prevRes.suggestedTableId === res.suggestedTableId &&
       res.reservationTime <= prevRes.reservationTime + INTERVAL_MS &&
       hasSameInvites(prevRes, res)
 

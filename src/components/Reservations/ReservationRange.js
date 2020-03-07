@@ -13,10 +13,13 @@ const getSessionId = ({ reservationTime, locationId }) => (
 )
 
 const RangeInfo = ({ range }) => {
+  const { location, tableId } = range
+  const table = location.tables.find(t => t.id === tableId)
+
   return (
     <>
-      {range.isPremium && !range.inviteId && <span className={styles.premiumLabel}>
-        <RateLabel rate={{ displayName: 'Premium' }} />
+      {table && <span className={styles.table}>
+        <RateLabel rate={{ displayName: table.displayName }} />
       </span>}
 
       {range.inviteId && <span className={styles.inviteLabel}><RateLabel rate={{ displayName: 'By Invitation' }} /></span>}

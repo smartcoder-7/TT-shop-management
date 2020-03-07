@@ -7,14 +7,17 @@ module.exports = {
   tables: [
     {
       id: "44-allen-1",
+      displayName: 'Table 1',
       isPremium: true
     },
     {
       id: "44-allen-2",
+      displayName: 'Table 2',
       isPremium: true
     },
     {
       id: "44-allen-3",
+      displayName: 'Table 3',
       isPremium: true
     },
   ],
