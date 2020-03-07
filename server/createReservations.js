@@ -129,7 +129,7 @@ const createReservations = async (req, res) => {
 
     try {
       await autochargeReservations()
-      await assignReservations()
+      await assignTables()
     } catch (err) {
       console.log(err)
     }
