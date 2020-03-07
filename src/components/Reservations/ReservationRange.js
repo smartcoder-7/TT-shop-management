@@ -74,15 +74,14 @@ export const ActiveReservationRange = ({
         <RangeInfo range={range} />
 
         {isOwner && (
-          <>
+          <div className={styles.invites}>
             <br />
             <InviteAFriend reservations={reservations}>
-              <a data-link data-p3>+ Invite a Friend</a>
+              <button data-mini>+ Invite a Friend</button>
             </InviteAFriend>
-            {(!!pendingInvites || !!acceptedInvites) && <br />}
             {!!pendingInvites && <p data-label>{pendingInvites} invite(s) pending</p>}
             {!!acceptedInvites && <p data-label>{acceptedInvites} invite(s) accepted</p>}
-          </>
+          </div>
         )}
       </div>
     </div>
