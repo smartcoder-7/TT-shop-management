@@ -12,7 +12,6 @@ const addDays = (time, days) => {
 const DayPicker = ({ onChange, initialDay, timezone, className = '' }) => {
   const getToday = () => getDayStartTime(Date.now(), timezone)
   const _today = initialDay || getToday()
-  console.log(_today, typeof _today)
   const [today, setToday] = useState(_today)
   const [activeDay, setActiveDay] = useState(today)
 

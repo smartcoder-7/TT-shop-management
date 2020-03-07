@@ -38,7 +38,6 @@ export class ProductsProvider extends React.Component {
 
     return searchProducts()
       .then(products => {
-        console.log('found', products)
         if (this.unmounted) return
         this.setState({ updating: false, products })
         if (this.state.queued) {

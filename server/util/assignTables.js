@@ -19,7 +19,7 @@ const sortByKey = (array, key) => {
 const assignTables = async () => {
   let _upcomingReservations = await reservations.search({
     rules: [
-      ['reservationTime', '>=', (Date.now() - 1000 * 60 * 60)]
+      // ['reservationTime', '>=', (Date.now() - 1000 * 60 * 60)]
     ]
   })
 
@@ -54,6 +54,7 @@ const assignTables = async () => {
           suggestedTableId = recommended
         } else {
           const empty = location.tables.find(t => !reservationsByTable[t.id])
+          if (!empty) throw `No empty tables for ${locationId} at ${time}`
           suggestedTableId = empty.id
         }
 

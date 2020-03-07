@@ -16,7 +16,7 @@ const Reservation = ({ reservation, locationId, reservationTime, isPremium }) =>
 
   if (!reservation) return (
     <EmptyReservation locationId={locationId} reservationTime={reservationTime} isPremium={isPremium}>
-      No Reservation
+      <span data-p3>No Reservation</span>
     </EmptyReservation>
   )
 
@@ -42,11 +42,10 @@ const Session = ({ time, tables, location, reservations = [] }) => {
       {tables.map((t, i) => {
         const res = reservations.find(r => {
           return r.suggestedTableId === t.id
-        }) || reservations[i]
+        })
 
         return (
           <th className={styles.table} key={t.id} data-reserved={!!res}>
-            {res && res.suggestedTableId}
             <Reservation reservation={res} locationId={location.id} reservationTime={time} isPremium={true} />
           </th>
         )
@@ -81,7 +80,6 @@ const SessionsData = ({ day, locationId }) => {
             {location.tables.map((t, i) => (
               <th className={styles.table} key={t.id}>
                 <label className={styles.tableName}>Table {t.id}</label>
-                {t.isPremium && <RateLabel rate={{ displayName: 'Premium' }} />}
               </th>
             ))}
           </tr>

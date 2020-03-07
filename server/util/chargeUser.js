@@ -37,7 +37,6 @@ const chargeUser = async ({ userId, amount, description }) => {
   try {
     stripeCustomer = await stripe.customers.retrieve(user.stripeId)
   } catch (err) {
-    console.log('hello')
     throw err
   }
 
