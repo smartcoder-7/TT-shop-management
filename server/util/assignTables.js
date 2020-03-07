@@ -31,37 +31,51 @@ const assignTables = async () => {
   Object.keys(reservationsByLocation).forEach(locationId => {
     const location = locations[locationId]
     const localReservations = reservationsByLocation[locationId]
-    const reservationsByTime = sortByKey(localReservations, 'reservationTime')
 
-    const reservationsToTables = {}
+    const assignmentsByTime = {}
+
+    const assign = ({ reservation, time, tableId }) => {
+      assignmentsByTime[time] = assignmentsByTime[time] || {}
+      assignmentsByTime[time][tableId] = reservation
+      modifiedReservations.push({
+        ...reservation,
+        suggestedTableId: tableId
+      })
+    }
+
+    const preassigned = localReservations.filter(r => r.tableId)
+
+    preassigned.forEach(res => {
+      const { reservationTime: time, tableId } = res
+      assign({ reservation: res, time, tableId })
+    })
+
+    const unassigned = localReservations.filter(r => !r.tableId)
+    const reservationsByTime = sortByKey(unassigned, 'reservationTime')
 
     Object.keys(reservationsByTime).sort().forEach(time => {
-      const reservationsByTable = {}
-
       const lastTime = time - INTERVAL_MS
-      const lastReservations = reservationsByTime[lastTime] || []
-      const currentReservations = reservationsByTime[time]
+      const remainingReservations = reservationsByTime[time]
 
-      currentReservations.forEach(res => {
-        const newRes = { ...res }
-        let suggestedTableId
+      location.tables.forEach(table => {
+        // This table is already assigned at this time.
+        if (assignmentsByTime[time] && assignmentsByTime[time][table.id]) return
 
-        const _prevRes = lastReservations.find(r => r.userId === res.userId) || {}
-        const recommended = reservationsToTables[_prevRes.id]
-        if (res.tableId) {
-          suggestedTableId = res.tableId
-        } else if (recommended && !reservationsByTable[recommended]) {
-          suggestedTableId = recommended
-        } else {
-          const empty = location.tables.find(t => !reservationsByTable[t.id])
-          if (!empty) throw `No empty tables for ${locationId} at ${time}`
-          suggestedTableId = empty.id
+        const lastAssignments = assignmentsByTime[lastTime] || {}
+        const lastAssignmentAtTable = lastAssignments[table.id] || {}
+        const match = remainingReservations.find(r => r.userId === lastAssignmentAtTable.userId)
+
+        if (match) {
+          const index = remainingReservations.indexOf(match)
+          remainingReservations.splice(index, 1)
+          assign({ reservation: match, tableId: table.id, time })
+          return
         }
+      })
 
-        newRes.suggestedTableId = suggestedTableId
-        modifiedReservations.push(newRes)
-        reservationsByTable[suggestedTableId] = newRes
-        reservationsToTables[newRes.id] = suggestedTableId
+      remainingReservations.forEach(res => {
+        const empty = location.tables.find(t => !assignmentsByTime[time] || !assignmentsByTime[time][t.id])
+        assign({ reservation: res, tableId: empty.id, time })
       })
     })
   })
