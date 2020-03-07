@@ -6,6 +6,7 @@ const locations = require('../locations')
 const slack = require('./util/slack')
 const getReservationCost = require('../shared/getReservationCost')
 const autochargeReservations = require('./util/autochargeReservations')
+const assignTables = require('./util/assignTables')
 const getReservationsConfirmed = require('../shared/email/reservationsConfirmed')
 
 const createReservation = ({
@@ -125,7 +126,13 @@ const createReservations = async (req, res) => {
     })
 
     await batch.commit()
-    autochargeReservations()
+
+    try {
+      await autochargeReservations()
+      await assignReservations()
+    } catch (err) {
+      console.log(err)
+    }
 
     try {
       await sendEmail(getReservationsConfirmed({ reservations: validReservations, userId }))
