@@ -6,7 +6,7 @@ module.exports = {
   timezone: "America/New_York",
   tables: [
     {
-      id: "1",
+      id: "40-allen-1",
       isPremium: true
     },
   ],

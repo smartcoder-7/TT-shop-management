@@ -1,11 +1,16 @@
 @import 'styles/_variables.scss';
 
+.locationPicker {
+  color: $black;
+}
+
 .locations {
   margin-top: 5rem;
 }
 
 .location {
   padding: 2rem 0;
+  color: $black;
 
   &[data-active="true"] h2 {
     color: $pink;

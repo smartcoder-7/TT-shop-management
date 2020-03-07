@@ -6,11 +6,15 @@ module.exports = {
   timezone: "America/New_York",
   tables: [
     {
-      id: "1",
+      id: "44-allen-1",
       isPremium: true
     },
     {
-      id: "2",
+      id: "44-allen-2",
+      isPremium: true
+    },
+    {
+      id: "44-allen-3",
       isPremium: true
     },
   ],

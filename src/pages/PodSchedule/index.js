@@ -62,7 +62,7 @@ export const Session = ({
   return (
     <div
       data-selected={isSelected}
-      data-booked={!tablesLeft}
+      data-booked={!tablesLeft || alreadyBooked}
       data-premium={premium}
       className={classNames(styles.session, styles.scheduleSession)}
       onClick={onClick}
@@ -71,18 +71,13 @@ export const Session = ({
         <div className={styles.check}>✔</div>
         <label>{formatTime(startTime, location.timezone)}</label>
         {alreadyBooked && <RateLabel rate={{ displayName: 'Booked by you ✔' }} />}
-        {!tablesLeft && !alreadyBooked && <RateLabel rate={{ displayName: 'Booked' }} />}
         <RateLabel rate={rate} />
-        {premium && <span className={styles.premiumLabel}>
-          <RateLabel rate={{ displayName: 'Premium' }} />
-        </span>}
+        {!alreadyBooked && (
+          <label className={styles.count}>
+            {tablesLeft || 'No'} Open Table{(tablesLeft > 1 || !tablesLeft) ? 's' : ''}
+          </label>
+        )}
       </div>
-      {!alreadyBooked && <div className={styles.premiumWrapper} onClick={togglePremium}>
-        <div className={styles.premium}>
-          {!!regularTablesLeft && <TwoStar className={styles.regularSvg} />}
-          {!!premiumTablesLeft && <ThreeStar className={styles.premiumSvg} />}
-        </div>
-      </div>}
     </div>
   )
 }
