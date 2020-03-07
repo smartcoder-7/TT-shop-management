@@ -16,7 +16,7 @@ const Reservation = ({ reservation, locationId, reservationTime, isPremium }) =>
 
   if (!reservation) return (
     <EmptyReservation locationId={locationId} reservationTime={reservationTime} isPremium={isPremium}>
-      <span data-p3>No Reservation</span>
+      <span data-p3>---</span>
     </EmptyReservation>
   )
 
@@ -79,7 +79,7 @@ const SessionsData = ({ day, locationId }) => {
 
             {location.tables.map((t, i) => (
               <th className={styles.table} key={t.id}>
-                <label className={styles.tableName}>Table {t.id}</label>
+                <label className={styles.tableName}>{t.displayName}</label>
               </th>
             ))}
           </tr>

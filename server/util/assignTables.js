@@ -19,7 +19,7 @@ const sortByKey = (array, key) => {
 const assignTables = async () => {
   let _upcomingReservations = await reservations.search({
     rules: [
-      // ['reservationTime', '>=', (Date.now() - 1000 * 60 * 60)]
+      ['reservationTime', '>=', (Date.now() - 1000 * 60 * 60)]
     ]
   })
 
