@@ -20,7 +20,14 @@ const UserOverview = () => {
     return aName >= bName ? 1 : -1
   })
 
-  const data = users;
+  const data = users
+    .map(u => ({
+      ...u,
+      isMember: !!u.isMember,
+      isAdmin: !!u.isAdmin,
+      hasBetaAccess: !!u.hasBetaAccess,
+      hasActiveCard: !!u.hasActiveCard,
+    }));
 
   console.log(data)
 
