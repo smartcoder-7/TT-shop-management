@@ -34,6 +34,10 @@ class CartContainer extends Container {
     return sum
   }
 
+  get cartKey() {
+    return `${CART_KEY}/${this.locationId}`
+  }
+
   get summary() {
     let time
     if (this.totalTime === 0) return 'No sessions selected.'
@@ -57,7 +61,7 @@ class CartContainer extends Container {
     super()
 
     this.clean(false)
-    this.state.items = storage.getArray(CART_KEY)
+    this.state.items = storage.getArray(this.cartKey)
     this.state.premium = storage.getObject(PREMIUM_KEY)
 
     this.poll()
@@ -68,7 +72,7 @@ class CartContainer extends Container {
   }
 
   clean = (rerender = true) => {
-    const oldItems = storage.getArray(CART_KEY)
+    const oldItems = storage.getArray(this.cartKey)
 
     const newItems = oldItems.filter(sessionId => {
       try {
@@ -83,14 +87,14 @@ class CartContainer extends Container {
 
     if (newItems.length === oldItems.length) return
 
-    storage.setArray(CART_KEY, newItems)
+    storage.setArray(this.cartKey, newItems)
 
     if (rerender) this.setState({ items: newItems })
   }
 
   empty = () => {
     this.setState({ items: [], premium: {} })
-    storage.clear(CART_KEY)
+    storage.clear(this.cartKey)
     storage.clear(PREMIUM_KEY)
   }
 
@@ -99,12 +103,12 @@ class CartContainer extends Container {
   }
 
   addItem = (item) => {
-    const items = storage.addToArray(CART_KEY, item)
+    const items = storage.addToArray(this.cartKey, item)
     if (items) this.setState({ items })
   }
 
   removeItem = (item) => {
-    const items = storage.removeFromArray(CART_KEY, item)
+    const items = storage.removeFromArray(this.cartKey, item)
     if (items) this.setState({ items })
   }
 
@@ -124,6 +128,8 @@ class CartContainer extends Container {
 
   setLocationId = (locationId) => {
     storage.setString(LOCATION_KEY, locationId)
+    const items = storage.getArray(this.cartKey)
+    this.setState({ items })
   }
 }
 

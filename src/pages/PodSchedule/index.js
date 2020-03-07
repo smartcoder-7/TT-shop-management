@@ -42,6 +42,10 @@ export const Session = ({
   const alreadyBooked = bookedBy.indexOf(authContainer.userId) > -1
 
   useEffect(() => {
+    cartContainer.setLocationId(locationId)
+  }, [locationId])
+
+  useEffect(() => {
     if (!regularTablesLeft) cartContainer.togglePremium(sessionId, true)
     else if (!premiumTablesLeft) cartContainer.togglePremium(sessionId, false)
   }, [regularTablesLeft, premiumTablesLeft, premium])
