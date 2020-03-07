@@ -38,6 +38,10 @@
     }
   }
 
+  :global(.table-container) {
+    overflow: scroll;
+  }
+
   :global(table td) {
     white-space: nowrap;
   }
