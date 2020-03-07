@@ -20,7 +20,7 @@
     "start": "NODE_ENV=production node ./server/index.js",
     "deploy:staging": "NODE_ENV=staging yarn run set:heroku-config && ./scripts/deploy-staging.sh",
     "deploy:production": "NODE_ENV=production yarn run set:heroku-config && ./scripts/deploy-production.sh",
-    "deploy:all": "yarn run deploy:staging && yarn run deploy:production"
+    "deploy:all": "yarn run deploy:staging & yarn run deploy:production"
   },
   "author": "",
   "license": "ISC",

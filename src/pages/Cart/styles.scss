@@ -27,19 +27,21 @@ $checkoutHeight: 30rem;
 }
 
 .checkout {
-  position: fixed;
-  bottom: $footer-height;
-  left: 0;
-  width: 100%;
-  height: $checkoutHeight;
+  margin-top: 8rem;
+  height: 20rem;
+  border-radius: 3px;
   background: $pink;
   color: $white;
-  margin-top: 1rem;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  &[disabled] {
+    background: $gray;
+    color: $light-gray;
+  }
 
   label {
     margin-bottom: 2rem;
@@ -47,13 +49,16 @@ $checkoutHeight: 30rem;
   }
 }
 
-.userPreview {
-  background: $white;
-  color: $black;
-  padding: 3rem;
-  margin: 5rem 0;
+.tosCheck {
+  display: flex;
+  align-items: center;
 
-  .name {
-    margin-bottom: 2rem;
+  input {
+    width: auto;
+    margin-right: 2rem;
+  }
+
+  p {
+    margin-top: 0.1rem;
   }
 }

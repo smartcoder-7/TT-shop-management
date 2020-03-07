@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Link, withRouter } from 'react-router-dom'
 
 import cartContainer, { CartSubscriber } from 'containers/cartContainer'
@@ -15,6 +15,8 @@ import { validateReservations } from '../../api';
 
 
 const _Cart = ({ history }) => {
+  const tosCheck = useRef()
+  const [hasAgreed, setHasAgreed] = useState(false)
   const [reservations, setReservations] = useState([])
   const [submissionError, setSubmissionError] = useState()
   const { user } = authContainer
@@ -65,7 +67,7 @@ const _Cart = ({ history }) => {
   const hasErrors = !!reservations.find(r => !!r.error)
   const missingName = !user.firstName || !user.lastName
 
-  const canCheckout = hasItems && !hasErrors && !missingName && hasBillingInfo
+  const canCheckout = hasItems && !hasErrors && !missingName && hasBillingInfo && hasAgreed
 
   return (
     <Layout className={styles.cart}>
@@ -95,17 +97,26 @@ const _Cart = ({ history }) => {
           <br />
 
           <UserPreview user={user} />
+
+          <br />
+          <div className={styles.tosCheck}>
+            <input type="checkbox" onChange={e => setHasAgreed(!!e.target.checked)} />
+            <p data-p3>
+              I have read and agree to the <a data-link href="/terms-of-service.html" target="_blank" rel="noopener noreferrer">Terms of Service</a>.
+            </p>
+          </div>
+
+          <div role="button" disabled={!canCheckout} className={styles.checkout} onClick={checkout}>
+            <label>Reserve</label>
+            <div className={styles.total}>
+              {cartContainer.summary}
+            </div>
+          </div>
+
         </div>
       </div>
 
-      {canCheckout && (
-        <div role="button" className={styles.checkout} onClick={checkout}>
-          <label>Reserve</label>
-          <div className={styles.total}>
-            {cartContainer.summary}
-          </div>
-        </div>
-      )}
+
     </Layout>
   )
 }
