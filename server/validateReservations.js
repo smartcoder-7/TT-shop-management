@@ -34,8 +34,7 @@ const validateReservation = ({
     }
 
     const isAvailable = () => {
-      if (isPremium) return check.premiumTablesLeftAt(reservationTime) > 0
-      return check.regularTablesLeftAt(reservationTime) > 0
+      return check.anyTablesLeftAt(reservationTime) > 0
     }
 
     if (!isAvailable()) {
