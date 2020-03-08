@@ -36,7 +36,7 @@ export class ReservationsProvider extends React.Component {
 
     this.setState({ updating: true })
 
-    return getReservations({ starTime: this.props.startTime, endTime: this.props.endTime })
+    return getReservations({ startTime: this.props.startTime, endTime: this.props.endTime })
       .then(({ reservations }) => {
         if (this.unmounted) return
         this.setState({ updating: false, reservations })
