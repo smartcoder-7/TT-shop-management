@@ -5,6 +5,7 @@ import getAllSessions from '../../../shared/getAllSessions'
 
 import styles from './styles.scss'
 import ReservationDetails from './ReservationDetails'
+import useSessionRange from 'components/useSessionRange'
 import EmptyReservation from './EmptyReservation'
 import locations from '../../../locations'
 import { getDayStartTime, formatTime } from 'shared/datetime'
@@ -54,11 +55,9 @@ const Session = ({ time, tables, location, reservations = [] }) => {
   )
 }
 
-const SessionsData = ({ day, locationId }) => {
+const SessionsData = ({ startTime, endTime, locationId }) => {
   const { reservations } = useReservations()
   const location = locations[locationId]
-  const startTime = day
-  const endTime = startTime + (1000 * 60 * 60 * 24)
   const sessions = getAllSessions({ startTime, endTime, locationId })
 
   const reservationsBySession = {}
@@ -105,18 +104,20 @@ const SessionsData = ({ day, locationId }) => {
 
 const LocationOverview = ({ locationId }) => {
   const location = locations[locationId]
-  const [activeDay, setActiveDay] = useState(getDayStartTime(Date.now(), location.timezone))
+  const { startTime, endTime, requestTime } = useSessionRange({ location })
+
+  if (!startTime) return null
 
   return (
-    <ReservationsProvider startTime={activeDay}>
+    <ReservationsProvider startTime={startTime} endTime={endTime}>
       <div className={styles.locationOverview}>
         <DayPicker
           className={styles.dayPicker}
           timezone={location.timezone}
-          initialDay={activeDay}
-          onChange={time => setActiveDay(time)}
+          initialDay={startTime}
+          onChange={requestTime}
         />
-        <SessionsData day={activeDay} locationId={locationId} />
+        <SessionsData startTime={startTime} endTime={endTime} locationId={locationId} />
       </div>
     </ReservationsProvider>
   )

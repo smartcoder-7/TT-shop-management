@@ -117,22 +117,7 @@ export const getOrder = ({
   })
 }
 
-export const getAvailableSessions = ({
-  userId,
-  locationId,
-  startTime,
-  endTime
-}) => {
-  return apiRequest({
-    url: ENDPOINTS.GET_AVAILABLE_SESSIONS,
-    data: {
-      userId,
-      locationId,
-      startTime,
-      endTime
-    }
-  })
-}
+export const getAvailableSessions = data => apiRequest({ url: ENDPOINTS.GET_AVAILABLE_SESSIONS, data })
 
 export const createReservations = ({
   reservations,

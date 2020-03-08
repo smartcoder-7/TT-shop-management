@@ -87,6 +87,7 @@ $checkoutHeight: 30rem;
   flex-wrap: nowrap !important;
   position: relative;
   padding-top: $navHeight;
+  padding-bottom: $footer-height;
 
   &[data-is-active="true"] {
     padding-bottom: $checkoutHeight;
@@ -218,27 +219,9 @@ button.tableRates {
     margin-right: 1.5rem;
   }
 
-  .premiumWrapper {
-    display: flex;
-    align-items: center;
-    padding: 0 2rem;
-    height: 100%;
-    pointer-events: none;
-  }
-
-  .premium {
-    width: 8rem;
-    height: 8rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    :global(svg) {
-      display: block;
-      width: 100%;
-      fill: currentColor;
-    }
+  .nextDay {
+    color: $pink;
+    margin-left: 1rem;
   }
 }
 

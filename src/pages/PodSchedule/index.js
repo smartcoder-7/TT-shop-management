@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
+import moment from 'moment-timezone'
 import { withRouter, Link } from 'react-router-dom'
 import classNames from 'classnames'
 import locations from '../../../locations'
@@ -9,13 +10,12 @@ import getSessionRate from 'util/getSessionRate'
 import Loading from 'components/Loading'
 import RateLabel from 'components/RateLabel'
 import DayPicker from 'components/DayPicker'
+import useSessionRange from 'components/useSessionRange'
 
 import styles from './styles.scss'
 import cartContainer, { CartSubscriber } from 'containers/cartContainer'
 
 import TableRates from './TableRates'
-import ThreeStar from 'components/svg/ThreeStar.js';
-import TwoStar from 'components/svg/TwoStar';
 import { getDayStartTime, formatTime } from 'shared/datetime'
 import authContainer from 'containers/authContainer'
 
@@ -27,9 +27,8 @@ export const Session = ({
     startTime,
     tablesLeft,
     bookedBy,
-    regularTablesLeft,
-    premiumTablesLeft,
   },
+  isNextDay,
   locationId
 }) => {
   const location = locations[locationId]
@@ -45,22 +44,10 @@ export const Session = ({
     cartContainer.setLocationId(locationId)
   }, [locationId])
 
-  useEffect(() => {
-    if (!regularTablesLeft) cartContainer.togglePremium(sessionId, true)
-    else if (!premiumTablesLeft) cartContainer.togglePremium(sessionId, false)
-  }, [regularTablesLeft, premiumTablesLeft, premium])
-
   const onClick = () => {
     if (alreadyBooked) return
     if (isSelected) cartContainer.removeItem(sessionId)
     else cartContainer.addItem(sessionId)
-  }
-
-  const togglePremium = (e) => {
-    if (!regularTablesLeft || !premiumTablesLeft) return
-
-    e.stopPropagation()
-    cartContainer.togglePremium(sessionId)
   }
 
   return (
@@ -73,7 +60,10 @@ export const Session = ({
     >
       <div className={styles.sessionInfo}>
         <div className={styles.check}>✔</div>
-        <label>{formatTime(startTime, location.timezone)}</label>
+        <label>
+          {formatTime(startTime, location.timezone)}
+          <span className={styles.nextDay}>{isNextDay && '+1'}</span>
+        </label>
         {alreadyBooked && <RateLabel rate={{ displayName: 'Booked by you ✔' }} />}
         <RateLabel rate={rate} />
         {!alreadyBooked && (
@@ -86,9 +76,14 @@ export const Session = ({
   )
 }
 
-const SessionPicker = ({ locationId, startTime, endTime }) => {
+const SessionPicker = ({ location, startTime, endTime }) => {
   const [loading, setLoading] = useState(true)
   const [sessions, setSessions] = useState([])
+  const { id: locationId, timezone } = location
+
+  const dayStart = moment(new Date(startTime)).tz(timezone)
+  dayStart.hours(0)
+  dayStart.minutes(0)
 
   const canCheckout = !!cartContainer.items.length
 
@@ -125,9 +120,12 @@ const SessionPicker = ({ locationId, startTime, endTime }) => {
       <div className={styles.sessions} data-is-active={canCheckout}>
         {loading && <Loading />}
         {!loading && sessions.map(session => {
+          const sessionStart = moment(new Date(session.startTime)).tz(timezone)
+          const isNextDay = sessionStart.date() > dayStart.date()
           // if (!session.hasAccess) return null
           return <Session
             session={session}
+            isNextDay={isNextDay}
             locationId={locationId}
             key={session.startTime}
           />
@@ -150,9 +148,9 @@ const PodSchedule = ({ match: { params } }) => {
   const locationId = params.locationId
   const location = locations[locationId]
 
-  const initialStart = getDayStartTime(Date.now(), location.timezone)
-  const [startTime, setStartTime] = useState(initialStart)
-  const endTime = startTime + FULL_DAY
+  const { startTime, endTime, requestTime } = useSessionRange({ location })
+
+  if (!startTime) return null
 
   return (
     <Layout className={styles.podSchedule}>
@@ -164,12 +162,12 @@ const PodSchedule = ({ match: { params } }) => {
           </h3>
         </div>
 
-        <DayPicker timezone={location.timezone} onChange={time => setStartTime(time)} />
+        <DayPicker timezone={location.timezone} onChange={requestTime} />
       </div>
 
       <CartSubscriber>{() => (
         <SessionPicker
-          locationId={locationId}
+          location={location}
           startTime={startTime}
           endTime={endTime}
         />

@@ -1,4 +1,5 @@
 const locations = require('../locations')
+const moment = require('moment-timezone')
 const { parseTime } = require('../shared/datetime')
 
 const INTERVAL_MS = 1000 * 60 * 30
@@ -38,30 +39,35 @@ const getAllSessions = ({
 
   const checkClosed = (time) => {
     // Always open?
-    if (!location.closedFrom || !location.closedUntil) return false
+    const { openStart, openDuration, timezone } = location
+    if (!openStart || !openDuration) return false
 
-    const { hours24, minutes } = parseTime(time, location.timezone)
+    const m = moment(new Date(time)).tz(timezone)
+    const mHours = m.hours()
+    const mMinutes = m.minutes()
 
-    const hour = parseInt(hours24)
-    const minute = parseInt(minutes)
+    let hoursSinceOpen = mHours - openStart.hours
+    if (hoursSinceOpen < 0) hoursSinceOpen += 24
+    let minsSinceOpen = mMinutes - openStart.minutes
+    if (minsSinceOpen < 0) minsSinceOpen += 24
 
-    return (
-      (hour > location.closedFrom.hour || (
-        hour === location.closedFrom.hour &&
-        minute >= location.closedFrom.minute
-      )) &&
-      (hour < location.closedUntil.hour || (
-        hour === location.closedUntil.hour &&
-        minute < location.closedUntil.minute
-      ))
-    )
+    console.log(time, mHours, mMinutes, hoursSinceOpen, minsSinceOpen, openDuration)
+
+    if (hoursSinceOpen < openDuration.hours) return false
+    if (hoursSinceOpen === openDuration.hours) {
+      return minsSinceOpen >= openDuration.minutes
+    }
+
+    return true
   }
 
   const availableSessions = sessions.filter(time => {
     const isClosed = checkClosed(time)
+    console.log(isClosed)
     return !isClosed
   })
 
+  console.log(availableSessions)
   return availableSessions
 }
 

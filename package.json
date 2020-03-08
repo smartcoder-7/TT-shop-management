@@ -6,6 +6,7 @@
   "scripts": {
     "set:env": "node ./scripts/set-env.js",
     "set:heroku-config": "node ./scripts/set-heroku-config.js",
+    "backup": "./scripts/backup.sh",
     "build": "yarn run build:scripts && yarn run build:styles",
     "build:scripts": "webpack",
     "build:styles": "node-sass ./src/styles -o ./public/dist/styles",

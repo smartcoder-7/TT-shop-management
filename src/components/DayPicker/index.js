@@ -41,7 +41,7 @@ const DayPicker = ({ onChange, initialDay, timezone, className = '' }) => {
             onClick={() => changeDay(time)}
             data-is-active={time === activeDay}
           >
-            <span>{time === today ? 'Today' : dayOfTheWeekAbbr}</span>
+            <span>{dayOfTheWeekAbbr}</span>
             <label>{monthAbbr} {day}</label>
           </div>
         )

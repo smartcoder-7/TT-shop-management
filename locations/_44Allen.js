@@ -21,13 +21,13 @@ module.exports = {
       isPremium: true
     },
   ],
-  closedFrom: {
-    hour: 2,
-    minute: 0
+  openStart: {
+    hours: 6,
+    minutes: 0
   },
-  closedUntil: {
-    hour: 6,
-    minute: 0
+  openDuration: {
+    hours: 20,
+    minutes: 0
   },
   // inBeta: true,
   defaultRate: {
