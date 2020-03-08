@@ -1,7 +1,6 @@
 const ROOT_KEY = 'pingpod'
 export const CART_KEY = `${ROOT_KEY}/cart`
 export const LOCATION_KEY = `${ROOT_KEY}/locationId`
-export const PREMIUM_KEY = `${ROOT_KEY}/premium-sessions`
 
 export const clear = (key) => {
   return localStorage.clear(key)

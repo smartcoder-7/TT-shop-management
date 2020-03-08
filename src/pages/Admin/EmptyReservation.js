@@ -9,7 +9,6 @@ import useReservations from './useReservations';
 const EmptyReservation = ({
   locationId,
   reservationTime,
-  isPremium,
   children
 }) => {
   const { updateReservations } = useReservations()
@@ -19,7 +18,7 @@ const EmptyReservation = ({
     createReservations({
       userId,
       reservations: [
-        { reservationTime, isPremium, locationId, customRate: 0 }
+        { reservationTime, locationId, customRate: 0 }
       ]
     })
       .then(() => {

@@ -6,7 +6,6 @@ const getAllSessions = require('../shared/getAllSessions')
   [{ 
     startTime: Number (Timestamp),
     tablesLeft: Number,
-    premiumTablesLeft: Number
   }]
 */
 
@@ -34,8 +33,6 @@ const getAvailableSessions = async (req, res) => {
         bookedBy: check.bookedBy(time),
         alreadyBooked: check.isAlreadyBookedAt(time),
         tablesLeft: check.anyTablesLeftAt(time),
-        regularTablesLeft: check.regularTablesLeftAt(time),
-        premiumTablesLeft: check.premiumTablesLeftAt(time)
       }
     })
 

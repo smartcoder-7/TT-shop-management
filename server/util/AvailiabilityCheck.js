@@ -3,20 +3,6 @@ const locations = require('../../locations')
 
 const IS_OFFLINE = !!process.env.IS_OFFLINE
 
-const getTables = location => {
-  const total = []
-  const regular = []
-  const premium = []
-
-  location.tables.forEach(t => {
-    if (t.isPremium) premium.push(t)
-    else regular.push(t)
-    total.push(t)
-  })
-
-  return { total, regular, premium }
-}
-
 class AvailabilityCheck {
   constructor({
     userId,
@@ -28,7 +14,6 @@ class AvailabilityCheck {
 
     this.userId = userId
     this.location = locations[locationId]
-    this.tables = getTables(this.location)
 
     this.query = db.collection('reservations')
 
@@ -42,8 +27,8 @@ class AvailabilityCheck {
       .where('reservationTime', '<=', endTime)
   }
 
-  numTables(key = 'total') {
-    return this.tables[key].length
+  get numTables() {
+    return this.location.tables.length
   }
 
   async run() {
@@ -99,15 +84,7 @@ class AvailabilityCheck {
   }
 
   anyTablesLeftAt(time) {
-    return this.numTables() - this.getReservationsAt(time)
-  }
-
-  regularTablesLeftAt(time) {
-    return this.numTables('regular') - this.getReservationsAt(time, r => !r.isPremium)
-  }
-
-  premiumTablesLeftAt(time) {
-    return this.numTables('premium') - this.getReservationsAt(time, r => !!r.isPremium)
+    return this.numTables - this.getReservationsAt(time)
   }
 }
 

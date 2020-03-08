@@ -12,11 +12,11 @@ import { getDayStartTime, formatTime } from 'shared/datetime'
 import useReservations, { ReservationsProvider } from './useReservations'
 import useUsers from './useUsers'
 
-const Reservation = ({ reservation, locationId, reservationTime, isPremium }) => {
+const Reservation = ({ reservation, locationId, reservationTime }) => {
   const { usersById } = useUsers()
 
   if (!reservation) return (
-    <EmptyReservation locationId={locationId} reservationTime={reservationTime} isPremium={isPremium}>
+    <EmptyReservation locationId={locationId} reservationTime={reservationTime} >
       <span data-p3>---</span>
     </EmptyReservation>
   )
@@ -47,7 +47,7 @@ const Session = ({ time, tables, location, reservations = [] }) => {
 
         return (
           <th className={styles.table} key={t.id} data-reserved={!!res}>
-            <Reservation reservation={res} locationId={location.id} reservationTime={time} isPremium={true} />
+            <Reservation reservation={res} locationId={location.id} reservationTime={time} />
           </th>
         )
       })}

@@ -33,7 +33,6 @@ export const Session = ({
 }) => {
   const location = locations[locationId]
   const sessionId = `${locationId}/${startTime}`
-  const premium = cartContainer.isPremium(sessionId)
   const isSelected = cartContainer.isInCart(sessionId)
 
   const rate = getSessionRate(sessionId)
@@ -54,7 +53,6 @@ export const Session = ({
     <div
       data-selected={isSelected}
       data-booked={!tablesLeft || alreadyBooked}
-      data-premium={premium}
       className={classNames(styles.session, styles.scheduleSession)}
       onClick={onClick}
     >

@@ -27,7 +27,6 @@ const parseReservationRange = reservations => {
     invites,
     inviteId,
     date: first.formattedDate,
-    isPremium: !!reservations[0].isPremium
   }
 }
 

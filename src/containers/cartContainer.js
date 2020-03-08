@@ -9,13 +9,11 @@ import authContainer from './authContainer';
 const {
   CART_KEY,
   LOCATION_KEY,
-  PREMIUM_KEY
 } = storage
 
 class CartContainer extends Container {
   state = {
     items: [],
-    premium: {}
   }
 
   get items() {
@@ -62,7 +60,6 @@ class CartContainer extends Container {
 
     this.clean(false)
     this.state.items = storage.getArray(this.cartKey)
-    this.state.premium = storage.getObject(PREMIUM_KEY)
 
     this.poll()
   }
@@ -93,9 +90,8 @@ class CartContainer extends Container {
   }
 
   empty = () => {
-    this.setState({ items: [], premium: {} })
+    this.setState({ items: [] })
     storage.clear(this.cartKey)
-    storage.clear(PREMIUM_KEY)
   }
 
   isInCart = (sessionId) => {
@@ -110,20 +106,6 @@ class CartContainer extends Container {
   removeItem = (item) => {
     const items = storage.removeFromArray(this.cartKey, item)
     if (items) this.setState({ items })
-  }
-
-  togglePremium = (item, val) => {
-    const premium = storage.getObject(PREMIUM_KEY)
-    const isPremium = typeof val !== 'undefined'
-      ? val
-      : !premium[item]
-
-    const newPremium = storage.updateObject(PREMIUM_KEY, { [item]: isPremium })
-    this.setState({ premium: newPremium })
-  }
-
-  isPremium = item => {
-    return !!this.state.premium[item]
   }
 
   setLocationId = (locationId) => {

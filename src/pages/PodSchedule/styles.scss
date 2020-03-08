@@ -178,42 +178,8 @@ button.tableRates {
     .check {
       display: inline-block;
     }
-    
-    .premiumWrapper {
-      pointer-events: all;
-    }
-    
-    .premium {
-      color: $white;
-    }
   }
   
-  &[data-selected="false"] {
-    .premiumLabel {
-      display: none;
-    }
-  }
-
-  &[data-premium="false"] {
-    .regularSvg {
-      opacity: 1;
-    }
-    
-    .premiumSvg {
-      opacity: 0.2;
-    }
-  }
-  
-  &[data-premium="true"] {
-    .regularSvg {
-      opacity: 0.2;
-    }
-    
-    .premiumSvg {
-      opacity: 1;
-    }
-  }
-
   .check {
     display: none;
     color: $white;

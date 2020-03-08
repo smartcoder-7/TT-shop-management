@@ -5,7 +5,6 @@ const validateReservation = ({
   userId,
   locationId,
   reservationTime,
-  isPremium = false,
 }) => {
   return new Promise(async (resolve) => {
     const location = locations[locationId]

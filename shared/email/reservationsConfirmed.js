@@ -6,14 +6,13 @@ const origin = require('../getOrigin')
 const getReservationsConfirmed = ({ reservations, userId }) => {
   const ranges = getReservationRanges(reservations)
     .map(r => {
-      const { startTimeFormatted, endTimeFormatted, location, date, isPremium } = parseReservationRange(r)
+      const { startTimeFormatted, endTimeFormatted, location, date } = parseReservationRange(r)
 
       return {
         startTime: startTimeFormatted,
         endTime: endTimeFormatted,
         location: location.displayName,
         date,
-        isPremium
       }
     })
 

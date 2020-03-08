@@ -33,7 +33,6 @@ const _Cart = ({ history }) => {
       .map(r => ({
         locationId: r.locationId,
         reservationTime: r.time,
-        isPremium: cartContainer.isPremium(r.full)
       }))
 
     validateReservations({ userId, reservations: _reservations })
