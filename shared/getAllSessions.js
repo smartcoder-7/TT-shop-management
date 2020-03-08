@@ -51,8 +51,6 @@ const getAllSessions = ({
     let minsSinceOpen = mMinutes - openStart.minutes
     if (minsSinceOpen < 0) minsSinceOpen += 24
 
-    console.log(time, mHours, mMinutes, hoursSinceOpen, minsSinceOpen, openDuration)
-
     if (hoursSinceOpen < openDuration.hours) return false
     if (hoursSinceOpen === openDuration.hours) {
       return minsSinceOpen >= openDuration.minutes
@@ -63,11 +61,9 @@ const getAllSessions = ({
 
   const availableSessions = sessions.filter(time => {
     const isClosed = checkClosed(time)
-    console.log(isClosed)
     return !isClosed
   })
 
-  console.log(availableSessions)
   return availableSessions
 }
 
