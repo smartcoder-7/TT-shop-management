@@ -25,6 +25,7 @@ const users = require('./users')
 const invites = require('./invites')
 const unlocks = require('./unlocks')
 const products = require('./products')
+const reservations = require('./reservations')
 
 const app = express()
 
@@ -56,6 +57,7 @@ users.applyRoutes(app)
 invites.applyRoutes(app)
 unlocks.applyRoutes(app)
 products.applyRoutes(app)
+reservations.applyRoutes(app)
 
 if (process.env.NODE_ENV === 'development') {
   app.post('/private/autocharge-reservations', autochargeReservations)

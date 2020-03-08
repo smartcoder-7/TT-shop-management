@@ -21,6 +21,8 @@ const ENDPOINTS = {
   PRODUCTS_UPDATE: '/api/products/update',
   PRODUCTS_SEARCH: '/api/products/search',
 
+  RESERVATIONS_SEARCH: '/api/reservations/search',
+
   ACCEPT_INVITES: '/api/accept-invites',
 
   GET_PRODUCTS: '/api/get-products',
@@ -80,6 +82,7 @@ export const createProduct = (data) => apiRequest({ url: ENDPOINTS.PRODUCTS_CREA
 export const updateProduct = (data) => apiRequest({ url: ENDPOINTS.PRODUCTS_UPDATE, data })
 export const searchProducts = (data) => apiRequest({ url: ENDPOINTS.PRODUCTS_SEARCH, data })
 
+export const searchReservations = (data) => apiRequest({ url: ENDPOINTS.RESERVATIONS_SEARCH, data })
 
 export const getProducts = (data) => apiRequest({ url: ENDPOINTS.GET_PRODUCTS, data })
 export const getPurchases = (data) => apiRequest({ url: ENDPOINTS.GET_PURCHASES, data })

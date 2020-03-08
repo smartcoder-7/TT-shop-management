@@ -62,7 +62,6 @@ const SessionsData = ({ startTime, endTime, locationId }) => {
 
   const reservationsBySession = {}
   reservations
-    .filter(r => r.locationId === locationId)
     .forEach(r => {
       if (r.canceled) return
       reservationsBySession[r.reservationTime] = reservationsBySession[r.reservationTime] || []
@@ -109,7 +108,7 @@ const LocationOverview = ({ locationId }) => {
   if (!startTime) return null
 
   return (
-    <ReservationsProvider startTime={startTime} endTime={endTime}>
+    <ReservationsProvider startTime={startTime} endTime={endTime} locationId={locationId}>
       <div className={styles.locationOverview}>
         <DayPicker
           className={styles.dayPicker}
