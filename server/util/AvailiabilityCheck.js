@@ -59,7 +59,7 @@ class AvailabilityCheck {
   }
 
   hasAccess() {
-    return !!this.location.active
+    return !!this.location.active && !this.user.isBlocked
   }
 
   bookedBy(time) {
