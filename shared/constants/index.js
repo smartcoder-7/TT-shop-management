@@ -1,5 +1,7 @@
 const INTERVAL_MS = 1000 * 60 * 30
+const MIN_RESERVATION_TIME = 1000 * 60 * 20
 
 module.exports = {
-  INTERVAL_MS
+  INTERVAL_MS,
+  MIN_RESERVATION_TIME
 }

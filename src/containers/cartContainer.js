@@ -4,7 +4,8 @@ import { Container, Subscribe, Provider } from 'unstated'
 import * as storage from 'util/localStorage'
 import parseSessionId from 'shared/parseSessionId'
 import getSessionRate from 'util/getSessionRate'
-import authContainer from './authContainer';
+import authContainer from './authContainer'
+import { MIN_RESERVATION_TIME } from 'shared/constants'
 
 const {
   CART_KEY,
@@ -74,7 +75,7 @@ class CartContainer extends Container {
     const newItems = oldItems.filter(sessionId => {
       try {
         const { time, locationId } = parseSessionId(sessionId)
-        const isPast = time < Date.now()
+        const isPast = time < Date.now() - MIN_RESERVATION_TIME
         return !isPast
       } catch (err) {
         console.warn('Malformed cart item:', sessionId)

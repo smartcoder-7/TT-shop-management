@@ -16,6 +16,7 @@ import styles from './styles.scss'
 import cartContainer, { CartSubscriber } from 'containers/cartContainer'
 
 import TableRates from './TableRates'
+import { MIN_RESERVATION_TIME } from 'shared/constants'
 import { getDayStartTime, formatTime } from 'shared/datetime'
 import authContainer from 'containers/authContainer'
 
@@ -98,7 +99,7 @@ const SessionPicker = ({ location, startTime, endTime }) => {
           if (requestedStartTime !== startTime) return
 
           const filteredSessions = sessions.filter(({ startTime }) => {
-            return startTime >= Date.now()
+            return startTime >= Date.now() - MIN_RESERVATION_TIME
           })
 
           setSessions(filteredSessions)
