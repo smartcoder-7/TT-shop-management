@@ -42,7 +42,7 @@ const Layout = ({
     <div className={classnames(styles.layout, className)}>
       <div className={styles.headerWrapper} data-bg-color data-scrolled={scrolled}>
         <div className={styles.headerBanner}>
-          PingPod is currently in alpha testing - please contact info@pingpod.com prior to booking.
+          PingPod is currently in beta testing - contact info@pingpod.com with any questions.
           </div>
         <header data-row="full">
           <div className={styles.headerContent} data-col="12">
