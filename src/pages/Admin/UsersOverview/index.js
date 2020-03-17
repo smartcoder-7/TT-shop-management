@@ -25,7 +25,6 @@ const UserOverview = () => {
       ...u,
       isMember: !!u.isMember,
       isAdmin: !!u.isAdmin,
-      hasBetaAccess: !!u.hasBetaAccess,
       hasActiveCard: !!u.hasActiveCard,
     }));
 
@@ -58,8 +57,6 @@ const UserOverview = () => {
     { name: 'hasActiveCard', displayName: "Active Card", sortable: true, exactFilterable: true, render: renderBoolean },
     { name: 'isAdmin', displayName: "Admin", sortable: true, exactFilterable: true, render: renderBoolean },
     { name: 'isMember', displayName: "Member", sortable: true, exactFilterable: true, render: renderBoolean },
-    { name: 'hasBetaAccess', displayName: "Has Beta", sortable: true, exactFilterable: true, render: renderBoolean },
-
   ];
 
   return (

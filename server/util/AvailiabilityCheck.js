@@ -59,8 +59,7 @@ class AvailabilityCheck {
   }
 
   hasAccess() {
-    if (!this.location.inBeta) return true
-    return this.user && this.user.hasBetaAccess
+    return !!this.location.active
   }
 
   bookedBy(time) {

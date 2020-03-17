@@ -17,7 +17,7 @@ const UserDetails = ({
   const hasActiveCard = !!user.hasActiveCard
   const isMember = !!user.isMember
   const isAdmin = !!user.isAdmin
-  const hasBetaAccess = !!user.hasBetaAccess
+  const isBlocked = !!user.isBlocked
   let createdAt = ''
 
   try {
@@ -33,8 +33,8 @@ const UserDetails = ({
     updateUser({ id: user.id, isMember: !user.isMember })
       .then(updateUsers)
 
-  const toggleBeta = () =>
-    updateUser({ id: user.id, hasBetaAccess: !hasBetaAccess })
+  const toggleBlocked = () =>
+    updateUser({ id: user.id, isBlocked: !isBlocked })
       .then(updateUsers)
 
   const toggleAdmin = () => {
@@ -70,15 +70,15 @@ const UserDetails = ({
       content: (!!user.isAdmin).toString(),
     },
     {
-      label: 'Has Beta Access',
-      content: (hasBetaAccess).toString(),
+      label: 'Is Blocked',
+      content: (isBlocked).toString(),
     },
     {
       label: 'Actions',
       content: (
         <>
           <button onClick={toggleMember}>{user.isMember ? 'Remove Membership' : 'Add Membership'}</button>
-          <button onClick={toggleBeta}>{hasBetaAccess ? 'Remove Beta Access' : 'Add Beta Access'}</button>
+          <button onClick={toggleBlocked}>{isBlocked ? 'Unblock user' : 'Block user'}</button>
           {!isSelf && <button onClick={toggleAdmin}>{user.isAdmin ? 'Remove Admin' : 'Make Admin'}</button>}
           {hasActiveCard && user.stripeId && (
             <ChargeUser user={user} onCharge={updateUsers} />
