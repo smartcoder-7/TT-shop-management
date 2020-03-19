@@ -30,8 +30,8 @@ const LocationPicker = ({ history }) => {
                   <div className={styles.location} data-active={location.active}>
                     <h2>
                       {location.displayName}
-                      {location.inBeta && <label>(In Testing)</label>}
-                      {!location.active && <label>(Coming Soon)</label>}
+                      {location.inBeta && <label>(In Beta)</label>}
+                      {!location.active && location.status && <label>{location.status}</label>}
                     </h2>
                   </div>
                 </button>

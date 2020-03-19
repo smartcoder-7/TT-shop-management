@@ -1,7 +1,8 @@
 module.exports = {
   id: '40-allen',
   displayName: "40 Allen",
-  active: true,
+  // active: true,
+  status: 'Temporarily Closed',
   lockId: "12926",
   timezone: "America/New_York",
   tables: [

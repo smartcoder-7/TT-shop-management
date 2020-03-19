@@ -2,6 +2,7 @@ module.exports = {
   id: '44-allen',
   displayName: "44 Allen",
   // active: true,
+  status: 'Coming Soon',
   lockId: "12926",
   timezone: "America/New_York",
   tables: [
