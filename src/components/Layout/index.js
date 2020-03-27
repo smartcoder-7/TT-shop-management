@@ -34,7 +34,7 @@ const Layout = ({
   })
 
   const showSignup = !authContainer.userId || location.pathname === '/'
-  const showFooter = location.pathname !== '/'
+  const showFooter = location.pathname !== '/' && !location.pathname.includes('admin')
 
   const isRoot = path => location.pathname.indexOf(path) === 0
 

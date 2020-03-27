@@ -1,15 +1,16 @@
 import React, { useState } from 'react'
 import styles from './styles.scss'
 import modalContainer from 'containers/modalContainer'
-import Details from './Details'
+import Details from '../Details'
 import { cancelReservations } from 'api'
-import useReservations from './useReservations';
+import useReservations from '../useReservations';
+import useUsers from '../useUsers';
 
 const ReservationDetails = ({
   reservation,
-  user = {},
   children
 }) => {
+  const { usersById } = useUsers()
   const { updateReservations } = useReservations()
   const {
     userId,
@@ -18,6 +19,8 @@ const ReservationDetails = ({
     id,
     customRate,
   } = reservation
+
+  const user = usersById[userId]
 
   const cancel = () => {
     cancelReservations({ userId, reservations: [id], refund: true })

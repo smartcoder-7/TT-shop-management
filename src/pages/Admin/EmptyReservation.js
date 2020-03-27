@@ -28,39 +28,6 @@ const EmptyReservation = ({
   }
 
   const details = [
-    // {
-    //   label: 'Reservation ID',
-    //   content: id,
-    // },
-    // {
-    //   label: 'User Name',
-    //   content: `${user.firstName} ${user.lastName}`,
-    // },
-    // {
-    //   label: 'User Email',
-    //   content: user.email,
-    // },
-    // {
-    //   label: 'User Has Active Card',
-    //   content: (!!user.hasActiveCard).toString(),
-    // },
-    // {
-    //   label: 'Stripe Customer ID',
-    //   href: `https://dashboard.stripe.com/test/customers/${user.stripeId}`,
-    //   content: user.stripeId,
-    // },
-    // {
-    //   label: 'Payment Status',
-    //   content: chargeId ? 'Paid' : 'Unpaid'
-    // },
-    // chargeError ? {
-    //   label: 'Payment Error',
-    //   content: chargeError
-    // } : {},
-    // chargeId ? {
-    //   label: 'Stripe Charge ID',
-    //   content: chargeId
-    // } : {},
     {
       label: 'Actions',
       content: (
@@ -76,7 +43,7 @@ const EmptyReservation = ({
       title="Reservation Details"
       details={details}
     >{({ openModal }) => (
-      <button className={styles.openDetails} data-link onClick={openModal}>
+      <button className={styles.openDetails} data-link onClick={openModal} style={{ minWidth: '120px' }}>
         {children}
       </button>
     )}</Details>

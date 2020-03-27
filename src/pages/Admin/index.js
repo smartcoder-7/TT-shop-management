@@ -4,8 +4,9 @@ import qs from 'qs'
 
 import Layout from 'components/Layout'
 import Logo from 'components/Logo'
-import LocationOverview from './LocationOverview'
+import ReservationsByLocation from './Reservations/ReservationsByLocation'
 import UsersOverview from './UsersOverview'
+import ReservationsOverview from './Reservations'
 import ProductsOverview from './Products'
 import locations from '../../../locations'
 
@@ -38,23 +39,17 @@ const Admin = ({ children }) => {
 export const Home = () => {
   return (
     <Admin>
-      {/* <div className={styles.linkGroup}>
-        <label className={styles.header}>Actions</label>
+      <div className={styles.linkGroup}>
+        <label className={styles.header}>Reservations</label>
         <ul>
           <li>
-            <button data-link>
-              Run Reservation Charger
-            </button>
+            <Link to="/admin/reservations" data-link>
+              All Reservations
+            </Link>
           </li>
-        </ul>
-      </div> */}
-
-      <div className={styles.linkGroup}>
-        <label className={styles.header}>Reservations by Location</label>
-        <ul>
           {Object.keys(locations).map(key => (
             <li key={key}>
-              <Link to={`/admin/location/${key}`} data-link>
+              <Link to={`/admin/reservations/${key}`} data-link>
                 {locations[key].displayName}
               </Link>
             </li>
@@ -99,7 +94,7 @@ export const Location = withRouter(({ match: { params } }) => {
 
   return (
     <Admin>
-      <LocationOverview locationId={locationId} />
+      <ReservationsByLocation locationId={locationId} />
     </Admin>
   )
 })
@@ -121,5 +116,9 @@ export const Products = withRouter(() => {
     </Admin>
   )
 })
+
+export const Reservations = withRouter(() => (
+  <Admin><ReservationsOverview /></Admin>
+))
 
 export default withRouter(Admin)

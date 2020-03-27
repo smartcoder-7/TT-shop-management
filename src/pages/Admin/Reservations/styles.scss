@@ -1,0 +1,142 @@
+@import 'styles/_variables.scss';
+
+:global(.filterable-table-container) {
+
+  @for $n from 1 through 12 {
+    :global(.col-sm-#{$n}) {
+      width: 100% * ($n / 12);
+    }
+
+    @media (min-width: 768px) {
+      :global(.col-sm-#{$n}) {
+        width: 100% * ($n / 12);
+      }
+    }
+  }
+
+  :global(.header-row) {
+    display: flex;
+    margin-top: 6px;
+
+    :global(.exact-filters) {
+      margin-top: 20px;
+    }
+    :global(.record-count) {
+      padding-top: 7px;
+      text-align: right;
+    }
+  }
+
+  :global(.pagination) {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 2.5rem;
+    margin: 2rem -1rem;
+
+    > * {
+      margin: 0 1rem;
+    }
+
+    :global(.btn-numbered-page.active) {
+      color: $pink;
+    }
+  }
+
+  :global(.table-container) {
+    overflow: scroll;
+  }
+
+  :global(table td) {
+    white-space: nowrap;
+  }
+
+  :global(table.filterable-table thead tr th) {
+    user-select: none;
+  }
+
+  :global(table.filterable-table thead tr th span.fa) {
+    padding-left: 8px;
+    color: #aaa;
+  }
+  :global(table.filterable-table tfoot tr td) {
+    font-weight: 700;
+  }
+
+  :global(.exact-filters) {
+    margin-bottom: 5rem;
+
+    :global(.filter-item) {
+      font-size: 2.5rem;
+    }
+
+    :global(.filter-item-remove::after) {
+      content: "X";
+      position: static;
+    }
+  }
+
+  :global(.filter-container) {
+    position: relative;
+  }
+  :global(.filter-container .filter-input),
+  :global(.filter-container .page-size) {
+    width: 185px;
+    display: inline;
+  }
+  :global(.clear-filter) {
+    position: absolute;
+    right: 5px;
+    top: 1px;
+  }
+  :global(span.sortable),
+  :global(span.filterable) {
+    cursor: pointer;
+  }
+  :global(span.filterable) {
+    border-bottom: 1px solid #91c1ff;
+  }
+  :global(ul.pagination li a){
+    user-select: none;
+  }
+  :global(ul.pagination li:not(.disabled) a) {
+    cursor: pointer;
+  }
+  :global(span.empty) {
+    font-style: italic;
+    color: #999;
+  }
+  :global(.filter-item) {
+    border: 1px solid #ccc;
+    border-radius: 1px;
+    display: inline-block;
+    margin-right: 15px;
+  }
+  :global(.filter-item .filter-item-title) {
+    background-color: #2f6e9b;
+    border-radius: 1px;
+    color: #fff;
+  }
+  :global(.filter-item .filter-item-title .filter-item-remove) {
+    color: #fff;
+    font-weight: 700;
+    user-select: none;
+    padding-right: 10px;
+    cursor: pointer;
+  }
+  :global(.filter-item .filter-item-title),
+  :global(.filter-item .filter-item-value) {
+    padding: 5px 10px;
+    display: inline-block;
+  }
+}
+
+.boolean {
+  &[value="true"] {
+    color: $pink;
+    font-weight: bold;
+  }
+
+  &[value="false"] {
+    color: $gray;
+  }
+}

@@ -12,14 +12,14 @@ const ReservationsContext = React.createContext({
 export const ReservationsProvider = ({ startTime, endTime, locationId, children }) => {
   const [reservations, setReservations] = useState([])
 
+  const rules = []
+
+  if (startTime) rules.push(['reservationTime', '>=', startTime])
+  if (endTime) rules.push(['reservationTime', '<', endTime])
+  if (locationId) rules.push(['locationId', '==', locationId])
+
   const updateReservations = () => {
-    searchReservations({
-      rules: [
-        ['reservationTime', '>=', startTime],
-        ['reservationTime', '<', endTime],
-        ['locationId', '==', locationId]
-      ]
-    })
+    searchReservations({ rules })
       .then((reservations) => {
         setReservations(reservations)
       })

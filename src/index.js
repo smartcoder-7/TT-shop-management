@@ -85,7 +85,8 @@ const App = () => (
           <AuthenticatedRoute path="/invite/:tokenId" component={Invite} />
 
           <AdminRoute path="/admin" exact component={Admin.Home} />
-          <AdminRoute path="/admin/location/:locationId?" component={Admin.Location} />
+          <AdminRoute path="/admin/reservations" exact component={Admin.Reservations} />
+          <AdminRoute path="/admin/reservations/:locationId?" component={Admin.Location} />
           <AdminRoute path="/admin/users" component={Admin.Users} />
           <AdminRoute path="/admin/products" component={Admin.Products} />
         </Switch>

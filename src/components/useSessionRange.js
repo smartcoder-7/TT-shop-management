@@ -8,6 +8,10 @@ const useSessionRange = ({ location }) => {
 
   const requestTime = time => {
     const m = moment(new Date(time)).tz(location.timezone)
+    if (m.hours() + 24 <= openStart.hours + openDuration.hours) {
+      m.subtract(1, 'day')
+    }
+
     m.hours(openStart.hours)
     m.minutes(openStart.minutes)
     m.seconds(0)

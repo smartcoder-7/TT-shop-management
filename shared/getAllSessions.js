@@ -27,7 +27,7 @@ const getAll = (startTime, endTime) => {
 const getAllSessions = ({
   locationId,
   startTime,
-  endTime
+  endTime = startTime + (1000 * 60 * 60 * 24 * 30)
 }) => {
   const location = locations[locationId]
 

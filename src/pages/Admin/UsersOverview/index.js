@@ -1,24 +1,13 @@
 import React, { useState, useEffect } from 'react'
 const moment = require('moment-timezone')
-import uuid from 'uuid'
-import authContainer from 'containers/authContainer'
 import FilterableTable from 'react-filterable-table'
 
 import styles from './styles.scss'
-import { parseTime } from 'shared/datetime';
 import useUsers from '../useUsers'
 import EditUser from './UserDetails'
 
 const UserOverview = () => {
   const { users } = useUsers()
-
-  const orderedUsers = users.sort((a, b) => {
-    if (!a.lastName) return 1
-    if (!b.lastName) return -1
-    const aName = (a.lastName || '').toUpperCase()
-    const bName = (b.lastName || '').toUpperCase()
-    return aName >= bName ? 1 : -1
-  })
 
   const data = users
     .map(u => ({
@@ -27,8 +16,6 @@ const UserOverview = () => {
       isAdmin: !!u.isAdmin,
       hasActiveCard: !!u.hasActiveCard,
     }));
-
-  console.log(data)
 
   const renderDate = ({ value }) => {
     const m = moment(new Date(value)).tz('America/New_York')
@@ -71,28 +58,6 @@ const UserOverview = () => {
         pageSize={15}
         pageSizes={null}
       />
-
-      {/* <table className={styles.users}>
-        <thead>
-          <tr>
-            <th className={styles.lastName}>Last Name</th>
-            <th className={styles.firstName}>First Name</th>
-            <th className={styles.email}>Email</th>
-            <th className={styles.createdAt}>Joined</th>
-            <th>Active Card</th>
-            <th>Member</th>
-            <th>Admin</th>
-            <th>Beta Access</th>
-            <th></th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {orderedUsers.map(user => (
-            <UserDetails key={user.id} user={user} />
-          ))}
-        </tbody>
-      </table> */}
     </div>
   )
 }
