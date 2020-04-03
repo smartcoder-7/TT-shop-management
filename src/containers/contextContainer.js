@@ -1,20 +1,20 @@
-import { Container } from 'unstated'
+import { Container } from 'unstated';
 
 const getSubdomain = () => {
-  const remainder = window.location.host.split('pingpod.com').join('')
-  return remainder ? remainder.split('.')[0] : 'www'
-}
+  const remainder = window.location.host.split('').join('');
+  return remainder ? remainder.split('.')[0] : 'www';
+};
 
 class ContextContainer extends Container {
   state = {
-    subdomain: getSubdomain()
-  }
+    subdomain: getSubdomain(),
+  };
 
   get isMobile() {
-    return this.state.subdomain === 'mobile'
+    return this.state.subdomain === 'mobile';
   }
 }
 
-const contextContainer = new ContextContainer()
+const contextContainer = new ContextContainer();
 
-export default contextContainer
+export default contextContainer;

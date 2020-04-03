@@ -1,6 +1,6 @@
-# pingpod-web
+# Table management
 
-Web application for PINGPOD.
+Web application for Table management.
 
 User flow:
 
@@ -38,24 +38,6 @@ yarn run start:dev
 
 Open http://localhost:8000/ in your browser, et voila!
 
-
-### Deploying
-Add Heroku remote targets for staging and production using the CLI.
-```
-heroku login
-git remote add heroku-pingpod-staging https://git.heroku.com/pingpod-staging.git 
-git remote add heroku-pingpod https://git.heroku.com/pingpod.git 
-```
-
-To deploy to production, checkout the root directory and run:
-
-```sh
-yarn run deploy:production
-```
-
-This should set the heroku environment variables and deploy the latest build to production. 
-
-
 ### Other Setup
 To generate a private key file for your Firebase service account:
 ```
@@ -64,10 +46,3 @@ Click Generate New Private Key, then confirm by clicking Generate Key.
 Securely store the JSON file containing the key.
 ```
 Reference: https://firebase.google.com/docs/admin/setup
-
-
-Autocharging reservations is scheduled in Heroku Scheduler via:
-```sh
-node server/jobs/autochargeReservations.js
-```
-This should be run every 10 minutes.

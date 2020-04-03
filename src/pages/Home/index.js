@@ -1,28 +1,28 @@
-import React from 'react'
-import { Link, withRouter } from 'react-router-dom'
-import qs from 'qs'
+import React from 'react';
+import { Link, withRouter } from 'react-router-dom';
+import qs from 'qs';
 
-import Layout from 'components/Layout'
-import Logo from 'components/Logo'
-import EmailSubscribe from 'components/EmailSubscribe'
+import Layout from 'components/Layout';
+import Logo from 'components/Logo';
+import EmailSubscribe from 'components/EmailSubscribe';
 
-import styles from './styles.scss'
-import contextContainer from 'containers/contextContainer'
+import styles from './styles.scss';
+import contextContainer from 'containers/contextContainer';
 
 class Home extends React.Component {
-  scrollRef = React.createRef()
+  scrollRef = React.createRef();
 
-  state = {}
+  state = {};
 
   constructor(props) {
-    super(props)
+    super(props);
 
-    const { location, history } = props
-    const queryParams = qs.parse(location.search, { ignoreQueryPrefix: true })
-    this.state.isMobile = queryParams.mobile !== undefined
+    const { location, history } = props;
+    const queryParams = qs.parse(location.search, { ignoreQueryPrefix: true });
+    this.state.isMobile = queryParams.mobile !== undefined;
 
     if (contextContainer.isMobile) {
-      history.push('/reserve')
+      history.push('/reserve');
     }
   }
 
@@ -33,11 +33,8 @@ class Home extends React.Component {
           <div className={styles.intro} data-col="12">
             <h1>
               <Logo className={styles.logo} theme="pink" />
-              PINGPOD
             </h1>
-            <p>
-              The world’s first fully autonomous table tennis court system.
-            </p>
+            <p>The world’s first fully autonomous table tennis court system.</p>
 
             <Link to="/reserve" data-link>
               Reserve a Table
@@ -59,7 +56,9 @@ class Home extends React.Component {
             <h2>How It Works</h2>
             <br />
             <p>
-              A premium table tennis experience within a few clicks. All you have to do is choose a time, add your payment information, and show up at the&nbsp;door.
+              A premium table tennis experience within a few clicks. All you
+              have to do is choose a time, add your payment information, and
+              show up at the&nbsp;door.
             </p>
           </div>
           <div data-col="0" data-col-landscape="6" data-landscape-only>
@@ -78,9 +77,7 @@ class Home extends React.Component {
           <div data-col="12" data-col-landscape="6">
             <h2>Get Early Access</h2>
             <br />
-            <p>
-              PingPod launches in New York City early 2020. Sign up with your email to be part of our exclusive beta user&nbsp;list.
-              </p>
+            <p></p>
             <br />
 
             <EmailSubscribe />
@@ -92,16 +89,14 @@ class Home extends React.Component {
           <br />
           <br />
           <div className={styles.content} data-row>
-            <div data-col="12">
-              Questions or comments? Get in touch at <a data-link href="mailto:info@pingpod.com">info@pingpod.com</a>.
-            </div>
+            <div data-col="12">Questions or comments? Get in touch at .</div>
           </div>
           <br />
           <br />
         </footer>
       </Layout>
-    )
+    );
   }
 }
 
-export default withRouter(Home)
+export default withRouter(Home);
